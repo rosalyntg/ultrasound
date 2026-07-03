@@ -1,0 +1,335 @@
+
+*** Running vivado
+    with args -log bd_c_counter_binary_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_c_counter_binary_0_0.tcl
+
+
+****** Vivado v2025.2.1 (64-bit)
+  **** SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+  **** IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+  **** SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+  **** Start of session at: Mon Jun 29 23:05:59 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source bd_c_counter_binary_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 1580.969 ; gain = 81.055 ; free physical = 16617 ; free virtual = 50148
+Command: synth_design -top bd_c_counter_binary_0_0 -part xcau15p-ffvb676-2-i -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 126690
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2440.688 ; gain = 451.688 ; free physical = 538 ; free virtual = 33731
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'bd_c_counter_binary_0_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/synth/bd_c_counter_binary_0_0.vhd:66]
+	Parameter C_IMPLEMENTATION bound to: 0 - type: integer 
+	Parameter C_VERBOSITY bound to: 0 - type: integer 
+	Parameter C_XDEVICEFAMILY bound to: artixuplus - type: string 
+	Parameter C_WIDTH bound to: 16 - type: integer 
+	Parameter C_HAS_CE bound to: 0 - type: integer 
+	Parameter C_HAS_SCLR bound to: 0 - type: integer 
+	Parameter C_RESTRICT_COUNT bound to: 0 - type: integer 
+	Parameter C_COUNT_TO bound to: 1 - type: string 
+	Parameter C_COUNT_BY bound to: 1 - type: string 
+	Parameter C_COUNT_MODE bound to: 0 - type: integer 
+	Parameter C_THRESH0_VALUE bound to: 1 - type: string 
+	Parameter C_CE_OVERRIDES_SYNC bound to: 0 - type: integer 
+	Parameter C_HAS_THRESH0 bound to: 0 - type: integer 
+	Parameter C_HAS_LOAD bound to: 0 - type: integer 
+	Parameter C_LOAD_LOW bound to: 0 - type: integer 
+	Parameter C_LATENCY bound to: 1 - type: integer 
+	Parameter C_FB_LATENCY bound to: 0 - type: integer 
+	Parameter C_AINIT_VAL bound to: 0 - type: string 
+	Parameter C_SINIT_VAL bound to: 0 - type: string 
+	Parameter C_SCLR_OVERRIDES_SSET bound to: 1 - type: integer 
+	Parameter C_HAS_SSET bound to: 0 - type: integer 
+	Parameter C_HAS_SINIT bound to: 0 - type: integer 
+INFO: [Synth 8-3491] module 'c_counter_binary_v12_0_22' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/782b/hdl/c_counter_binary_v12_0_vh_rfs.vhd:4289' bound to instance 'U0' of component 'c_counter_binary_v12_0_22' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/synth/bd_c_counter_binary_0_0.vhd:125]
+INFO: [Synth 8-256] done synthesizing module 'bd_c_counter_binary_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/synth/bd_c_counter_binary_0_0.vhd:66]
+INFO: [Synth 8-7129] Port CE in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port AINIT in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port ACLR in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port ASET in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SINIT in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SSET in module c_reg_fd_v12_0_11_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[15] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[14] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[13] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[12] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[11] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[10] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[9] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[8] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[7] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[6] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[5] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[4] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[3] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[2] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[1] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b[0] in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port add in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port c_in in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port ce in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port bypass in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sclr in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sset in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sinit in module c_addsub_v12_0_21_lut6_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port c_in in module c_addsub_v12_0_21_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b_in in module c_addsub_v12_0_21_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port a_signed in module c_addsub_v12_0_21_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port b_signed in module c_addsub_v12_0_21_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port up in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port ce in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port load in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[15] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[14] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[13] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[12] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[11] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[10] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[9] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[8] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[7] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[6] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[5] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[4] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[3] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[2] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[1] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port l[0] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[15] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[14] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[13] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[12] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[11] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[10] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[9] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[8] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[7] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[6] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[5] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[4] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[3] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[2] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[1] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port iv[0] in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sclr in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sset in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+INFO: [Synth 8-7129] Port sinit in module c_counter_binary_v12_0_22_legacy is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2550.656 ; gain = 561.656 ; free physical = 369 ; free virtual = 31414
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2562.531 ; gain = 573.531 ; free physical = 405 ; free virtual = 31377
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2562.531 ; gain = 573.531 ; free physical = 405 ; free virtual = 31377
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2568.469 ; gain = 0.000 ; free physical = 352 ; free virtual = 31323
+INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0_ooc.xdc] for cell 'U0'
+create_clock: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2650.527 ; gain = 3.258 ; free physical = 452 ; free virtual = 29414
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_c_counter_binary_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_c_counter_binary_0_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2650.527 ; gain = 0.000 ; free physical = 452 ; free virtual = 29414
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2650.562 ; gain = 0.000 ; free physical = 451 ; free virtual = 29413
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2650.562 ; gain = 661.562 ; free physical = 379 ; free virtual = 28687
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcau15p-ffvb676-2-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2658.531 ; gain = 669.531 ; free physical = 379 ; free virtual = 28687
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2658.531 ; gain = 669.531 ; free physical = 378 ; free virtual = 28686
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2658.531 ; gain = 669.531 ; free physical = 354 ; free virtual = 28661
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 576 (col length:72)
+BRAMs: 288 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7129] Port CE in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SSET in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port SINIT in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port UP in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port LOAD in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[15] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[14] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[13] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[12] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[11] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[10] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[9] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[8] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[7] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[6] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[5] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[4] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[3] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[2] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[1] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+INFO: [Synth 8-7129] Port L[0] in module c_counter_binary_v12_0_22_viv is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2658.531 ; gain = 669.531 ; free physical = 376 ; free virtual = 28542
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2907.309 ; gain = 918.309 ; free physical = 783 ; free virtual = 28564
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2907.309 ; gain = 918.309 ; free physical = 783 ; free virtual = 28564
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2916.324 ; gain = 927.324 ; free physical = 775 ; free virtual = 28556
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 469 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 470 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 470 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 470 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 470 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 470 ; free virtual = 27335
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |LUT1  |     1|
+|2     |MUXCY |    15|
+|3     |XORCY |    16|
+|4     |FDRE  |    16|
++------+------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 471 ; free virtual = 27335
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 3104.137 ; gain = 1027.105 ; free physical = 765 ; free virtual = 27405
+Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 3104.137 ; gain = 1115.137 ; free physical = 765 ; free virtual = 27405
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3104.137 ; gain = 0.000 ; free physical = 765 ; free virtual = 27405
+INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3104.137 ; gain = 0.000 ; free physical = 416 ; free virtual = 27065
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  (CARRY4) => CARRY8: 2 instances
+
+Synth Design complete | Checksum: c01d35fb
+INFO: [Common 17-83] Releasing license: Synthesis
+115 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:34 . Memory (MB): peak = 3104.137 ; gain = 1498.402 ; free physical = 386 ; free virtual = 26992
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1871.236; main = 1871.236; forked = 186.367
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3666.246; main = 3011.105; forked = 1015.715
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3104.137 ; gain = 0.000 ; free physical = 501 ; free virtual = 26985
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_c_counter_binary_0_0_synth_1/bd_c_counter_binary_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_c_counter_binary_0_0, cache-ID = 3fbf7132b33f5437
+INFO: [Coretcl 2-1174] Renamed 7 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3104.137 ; gain = 0.000 ; free physical = 2151 ; free virtual = 28670
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_c_counter_binary_0_0_synth_1/bd_c_counter_binary_0_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_c_counter_binary_0_0_utilization_synth.rpt -pb bd_c_counter_binary_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 29 23:06:45 2026...

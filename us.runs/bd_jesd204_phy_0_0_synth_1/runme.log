@@ -1,0 +1,562 @@
+
+*** Running vivado
+    with args -log bd_jesd204_phy_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_jesd204_phy_0_0.tcl
+
+
+****** Vivado v2025.2.1 (64-bit)
+  **** SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+  **** IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+  **** SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+  **** Start of session at: Mon Jun 29 23:05:59 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source bd_jesd204_phy_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 1584.586 ; gain = 83.055 ; free physical = 15871 ; free virtual = 49406
+Command: synth_design -top bd_jesd204_phy_0_0 -part xcau15p-ffvb676-2-i -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 127168
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2450.969 ; gain = 450.688 ; free physical = 387 ; free virtual = 32360
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0.v:56]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_support' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_support.v:56]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_block' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:58]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_gt' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt.v:53]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_gt_gtwizard_top' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gtwizard_top.v:173]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_gt_gtwizard_gthe4' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gtwizard_gthe4.v:141]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_gt_gthe4_channel_wrapper' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gthe4_channel_wrapper.v:56]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
+INFO: [Synth 8-6157] synthesizing module 'GTHE4_CHANNEL' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:53844]
+INFO: [Synth 8-6155] done synthesizing module 'GTHE4_CHANNEL' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:53844]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_gt_gthe4_channel_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gthe4_channel_wrapper.v:56]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_reset_synchronizer' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_reset_sync.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_reset_synchronizer' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_reset_sync.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_bit_synchronizer' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_bit_sync.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_bit_synchronizer' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_bit_sync.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v:53]
+INFO: [Synth 8-6157] synthesizing module 'BUFG_GT' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:2855]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG_GT' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:2855]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_freq_counter' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cal_freqcnt.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_freq_counter' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cal_freqcnt.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_rx.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_rx.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gte4_drp_arb' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gte4_drp_arb.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gte4_drp_arb' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gte4_drp_arb.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_delay_powergood' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v:53]
+INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v:136]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_delay_powergood' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_gt_gtwizard_gthe4' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gtwizard_gthe4.v:141]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_gt_gtwizard_top' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt_gtwizard_top.v:173]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_gt' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt.v:53]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_sync_block' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_sync_block.v:62]
+INFO: [Synth 8-6157] synthesizing module 'xpm_cdc_async_rst' [/home/russell/Xilinx/2025.2.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv:1175]
+INFO: [Synth 8-6155] done synthesizing module 'xpm_cdc_async_rst' (0#1) [/home/russell/Xilinx/2025.2.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv:1175]
+INFO: [Synth 8-6157] synthesizing module 'FD' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:49155]
+INFO: [Synth 8-6155] done synthesizing module 'FD' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:49155]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_sync_block' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_sync_block.v:62]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gtwiz_reset.v:53]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gtwiz_reset.v:162]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_reset_inv_synchronizer' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_reset_inv_sync.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_reset_inv_synchronizer' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_reset_inv_sync.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gtwiz_reset.v:53]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_reset_control' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_reset_control.v:58]
+INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_reset_control.v:96]
+INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_reset_control.v:134]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_reset_control' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_reset_control.v:58]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0_sync_block__parameterized0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_sync_block.v:62]
+INFO: [Synth 8-6157] synthesizing module 'xpm_cdc_single' [/home/russell/Xilinx/2025.2.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv:152]
+INFO: [Synth 8-6155] done synthesizing module 'xpm_cdc_single' (0#1) [/home/russell/Xilinx/2025.2.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv:152]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_sync_block__parameterized0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_sync_block.v:62]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_block' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:58]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0_support' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_support.v:56]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0.v:56]
+WARNING: [Synth 8-7137] Register freq_cnt_o_reg in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_freq_counter has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cal_freqcnt.v:188]
+WARNING: [Synth 8-6014] Unused sequential element mask_reg was removed.  [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v:1077]
+INFO: [Synth 8-6014] Unused sequential element rx_pll_lock_reg was removed.  [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:738]
+INFO: [Synth 8-3848] Net gt0_rxheader in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:213]
+INFO: [Synth 8-3848] Net gt0_rxmisalign in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:214]
+INFO: [Synth 8-3848] Net gt0_rxblock_sync in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:215]
+INFO: [Synth 8-3848] Net gt1_rxheader in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:222]
+INFO: [Synth 8-3848] Net gt1_rxmisalign in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:223]
+INFO: [Synth 8-3848] Net gt1_rxblock_sync in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:224]
+INFO: [Synth 8-3848] Net gt2_rxheader in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:231]
+INFO: [Synth 8-3848] Net gt2_rxmisalign in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:232]
+INFO: [Synth 8-3848] Net gt2_rxblock_sync in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:233]
+INFO: [Synth 8-3848] Net gt3_rxheader in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:240]
+INFO: [Synth 8-3848] Net gt3_rxmisalign in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:241]
+INFO: [Synth 8-3848] Net gt3_rxblock_sync in module/entity bd_jesd204_phy_0_0_block does not have driver. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_block.v:242]
+INFO: [Synth 8-7129] Port src_clk in module xpm_cdc_single is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[17] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[16] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[15] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[14] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[13] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[12] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[11] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[10] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[9] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[8] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[7] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[6] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[5] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[4] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[3] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[2] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RXOUTCLK_PERIOD_IN[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[17] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[16] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[15] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[14] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[13] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[12] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[11] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[10] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[9] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[8] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[7] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[6] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[5] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[4] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[3] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[2] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port CNT_TOL_IN[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[15] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[14] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[13] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[12] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[11] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[10] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[9] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[8] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[7] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[6] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[5] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[4] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[3] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[2] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port FREQ_COUNT_WINDOW_IN[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port RESET_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_RXOUTCLK_BUFG_CE_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_RXOUTCLK_BUFG_CLR_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port REPEAT_RESET_LIMIT[3] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port REPEAT_RESET_LIMIT[2] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port REPEAT_RESET_LIMIT[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port REPEAT_RESET_LIMIT[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_RXOUTCLK_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CPLLLOCK_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPRDY_IN in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[15] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[14] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[13] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[12] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[11] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[10] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[9] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[8] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[7] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[6] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[5] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[4] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[3] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[2] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port GTHE4_CHANNEL_DRPDO_IN[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_rx is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_TXPLLCLKSEL[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_TXPLLCLKSEL[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_RXPLLCLKSEL[1] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal is either unconnected or has no load
+INFO: [Synth 8-7129] Port USER_RXPLLCLKSEL[0] in module gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_buffbypass_tx_reset_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_buffbypass_tx_start_user_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_buffbypass_rx_reset_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_buffbypass_rx_start_user_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_clk_freerun_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_all_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_tx_pll_and_datapath_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_tx_datapath_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_rx_pll_and_datapath_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_reset_rx_datapath_in[0] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[127] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[126] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[125] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[124] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[123] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[122] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port gtwiz_userdata_tx_in[121] in module bd_jesd204_phy_0_0_gt_gtwizard_gthe4 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2587.906 ; gain = 587.625 ; free physical = 467 ; free virtual = 30605
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2587.906 ; gain = 587.625 ; free physical = 423 ; free virtual = 30561
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2587.906 ; gain = 587.625 ; free physical = 423 ; free virtual = 30561
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.15 . Memory (MB): peak = 2587.906 ; gain = 0.000 ; free physical = 407 ; free virtual = 30241
+INFO: [Netlist 29-17] Analyzing 10 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_ooc.xdc] for cell 'inst'
+create_clock: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2684.371 ; gain = 0.000 ; free physical = 371 ; free virtual = 28648
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_ooc.xdc] for cell 'inst'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt.xdc] for cell 'inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt.xdc] for cell 'inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/ip_0/synth/bd_jesd204_phy_0_0_gt.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_jesd204_phy_0_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_jesd204_phy_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0.xdc] for cell 'inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_jesd204_phy_0_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_jesd204_phy_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+INFO: [Timing 38-2] Deriving generated clocks
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_jesd204_phy_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_jesd204_phy_0_0_synth_1/dont_touch.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.runs/bd_jesd204_phy_0_0_synth_1/dont_touch.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_jesd204_phy_0_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_jesd204_phy_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_clock_group.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_clock_group.xdc] for cell 'inst'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_clocks.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/synth/bd_jesd204_phy_0_0_clocks.xdc] for cell 'inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/Xilinx/2025.2.1/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_single.tcl]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_jesd204_phy_0_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_jesd204_phy_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+INFO: [Project 1-1714] 10 XPM XDC files have been applied to the design.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2684.371 ; gain = 0.000 ; free physical = 349 ; free virtual = 28538
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 10 instances were transformed.
+  FD => FDRE: 10 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2684.406 ; gain = 0.000 ; free physical = 380 ; free virtual = 28543
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2684.406 ; gain = 684.125 ; free physical = 399 ; free virtual = 27364
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcau15p-ffvb676-2-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 2692.375 ; gain = 692.094 ; free physical = 397 ; free virtual = 27362
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:27 . Memory (MB): peak = 2692.375 ; gain = 692.094 ; free physical = 364 ; free virtual = 27330
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3936] Found unconnected internal register 'progclk_sel_store_reg' and it is trimmed from '16' to '15' bits. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v:705]
+WARNING: [Synth 8-3936] Found unconnected internal register 'x0e1_store_reg' and it is trimmed from '16' to '15' bits. [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_cpll_cal_tx.v:778]
+INFO: [Synth 8-802] inferred FSM for state register 'arb_state_reg' in module 'gtwizard_ultrascale_v1_7_22_gte4_drp_arb'
+INFO: [Synth 8-802] inferred FSM for state register 'sm_reset_all_reg' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+INFO: [Synth 8-802] inferred FSM for state register 'sm_reset_tx_reg' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+INFO: [Synth 8-802] inferred FSM for state register 'sm_reset_rx_reg' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+               ARB_START |                             0001 |                             0001
+                ARB_WAIT |                             0010 |                             0010
+              ARB_REPORT |                             0100 |                             0100
+                 ARB_INC |                             1000 |                             1000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'arb_state_reg' using encoding 'one-hot' in module 'gtwizard_ultrascale_v1_7_22_gte4_drp_arb'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+      ST_RESET_TX_BRANCH |                              000 |                              000
+         ST_RESET_TX_PLL |                              001 |                              001
+    ST_RESET_TX_DATAPATH |                              010 |                              010
+   ST_RESET_TX_WAIT_LOCK |                              011 |                              011
+ST_RESET_TX_WAIT_USERRDY |                              100 |                              100
+ST_RESET_TX_WAIT_RESETDONE |                              101 |                              101
+        ST_RESET_TX_IDLE |                              110 |                              110
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'sm_reset_tx_reg' using encoding 'sequential' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+      ST_RESET_RX_BRANCH |                              000 |                              000
+         ST_RESET_RX_PLL |                              001 |                              001
+    ST_RESET_RX_DATAPATH |                              010 |                              010
+   ST_RESET_RX_WAIT_LOCK |                              011 |                              011
+    ST_RESET_RX_WAIT_CDR |                              100 |                              100
+ST_RESET_RX_WAIT_USERRDY |                              101 |                              101
+ST_RESET_RX_WAIT_RESETDONE |                              110 |                              110
+        ST_RESET_RX_IDLE |                              111 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'sm_reset_rx_reg' using encoding 'sequential' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+       ST_RESET_ALL_INIT |                              000 |                              000
+     ST_RESET_ALL_BRANCH |                              001 |                              001
+     ST_RESET_ALL_TX_PLL |                              010 |                              010
+ST_RESET_ALL_TX_PLL_WAIT |                              011 |                              011
+      ST_RESET_ALL_RX_DP |                              100 |                              100
+     ST_RESET_ALL_RX_PLL |                              101 |                              101
+    ST_RESET_ALL_RX_WAIT |                              110 |                              110
+                  iSTATE |                              111 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'sm_reset_all_reg' using encoding 'sequential' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:28 ; elapsed = 00:00:28 . Memory (MB): peak = 2692.375 ; gain = 692.094 ; free physical = 883 ; free virtual = 27525
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   25 Bit       Adders := 4     
+	   2 Input   18 Bit       Adders := 4     
+	   3 Input   18 Bit       Adders := 4     
+	   2 Input   16 Bit       Adders := 4     
+	   2 Input   10 Bit       Adders := 2     
+	   2 Input    8 Bit       Adders := 4     
+	   2 Input    6 Bit       Adders := 4     
+	   2 Input    4 Bit       Adders := 4     
+	   2 Input    3 Bit       Adders := 3     
+	   2 Input    2 Bit       Adders := 4     
++---Registers : 
+	               48 Bit    Registers := 8     
+	               32 Bit    Registers := 4     
+	               30 Bit    Registers := 4     
+	               25 Bit    Registers := 4     
+	               18 Bit    Registers := 4     
+	               16 Bit    Registers := 28    
+	               15 Bit    Registers := 8     
+	               10 Bit    Registers := 10    
+	                9 Bit    Registers := 4     
+	                8 Bit    Registers := 8     
+	                7 Bit    Registers := 8     
+	                6 Bit    Registers := 4     
+	                5 Bit    Registers := 14    
+	                4 Bit    Registers := 12    
+	                3 Bit    Registers := 23    
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 449   
++---Muxes : 
+	   4 Input   48 Bit        Muxes := 4     
+	   2 Input   48 Bit        Muxes := 8     
+	  33 Input   32 Bit        Muxes := 4     
+	   3 Input   32 Bit        Muxes := 4     
+	   2 Input   30 Bit        Muxes := 12    
+	   2 Input   28 Bit        Muxes := 4     
+	   2 Input   27 Bit        Muxes := 4     
+	   2 Input   26 Bit        Muxes := 4     
+	  33 Input   25 Bit        Muxes := 4     
+	   2 Input   25 Bit        Muxes := 4     
+	   2 Input   24 Bit        Muxes := 4     
+	   2 Input   23 Bit        Muxes := 4     
+	   4 Input   22 Bit        Muxes := 4     
+	   2 Input   21 Bit        Muxes := 4     
+	   2 Input   20 Bit        Muxes := 4     
+	   2 Input   19 Bit        Muxes := 4     
+	   2 Input   18 Bit        Muxes := 4     
+	   2 Input   17 Bit        Muxes := 4     
+	   2 Input   16 Bit        Muxes := 16    
+	  33 Input   16 Bit        Muxes := 8     
+	   4 Input   16 Bit        Muxes := 4     
+	   2 Input   15 Bit        Muxes := 4     
+	   2 Input   13 Bit        Muxes := 4     
+	   2 Input   12 Bit        Muxes := 4     
+	   2 Input   11 Bit        Muxes := 4     
+	   2 Input   10 Bit        Muxes := 20    
+	   4 Input   10 Bit        Muxes := 4     
+	   2 Input    9 Bit        Muxes := 8     
+	   5 Input    8 Bit        Muxes := 4     
+	   8 Input    7 Bit        Muxes := 4     
+	   2 Input    7 Bit        Muxes := 16    
+	   3 Input    7 Bit        Muxes := 4     
+	   2 Input    6 Bit        Muxes := 8     
+	   6 Input    5 Bit        Muxes := 4     
+	   3 Input    5 Bit        Muxes := 8     
+	   2 Input    5 Bit        Muxes := 4     
+	   2 Input    4 Bit        Muxes := 12    
+	  33 Input    4 Bit        Muxes := 4     
+	   4 Input    4 Bit        Muxes := 4     
+	   2 Input    3 Bit        Muxes := 39    
+	   4 Input    3 Bit        Muxes := 4     
+	   7 Input    3 Bit        Muxes := 2     
+	   8 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 20    
+	  33 Input    1 Bit        Muxes := 72    
+	   2 Input    1 Bit        Muxes := 40    
+	   5 Input    1 Bit        Muxes := 4     
+	   8 Input    1 Bit        Muxes := 38    
+	   4 Input    1 Bit        Muxes := 16    
+	   7 Input    1 Bit        Muxes := 13    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 576 (col length:72)
+BRAMs: 288 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 2692.375 ; gain = 692.094 ; free physical = 12550 ; free virtual = 39309
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_gtwiz_userclk_rx_active/xpm_cdc_async_rst_inst/src_arst' to pin 'inst/jesd204_phy_block_ii_39/jesd204_phy_block_i/gtwiz_userclk_rx_reset_int/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_gtwiz_userclk_tx_active/xpm_cdc_async_rst_inst/src_arst' to pin 'inst/jesd204_phy_block_ii_38/jesd204_phy_block_i/gtwiz_userclk_tx_reset_int/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_rx_reset_all/xpm_cdc_async_rst_inst/src_arst' to pin 'rx_sys_reset'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_rx_reset_data/xpm_cdc_async_rst_inst/src_arst' to pin 'rx_reset_gt'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_tx_reset_all/xpm_cdc_async_rst_inst/src_arst' to pin 'tx_sys_reset'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'inst/jesd204_phy_block_i/sync_tx_reset_data/xpm_cdc_async_rst_inst/src_arst' to pin 'tx_reset_gt'
+INFO: [Synth 8-5819] Moved 6 constraints on hierarchical pins to their respective driving/loading pins
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 2969.121 ; gain = 968.840 ; free physical = 18462 ; free virtual = 45244
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 3007.145 ; gain = 1006.863 ; free physical = 18623 ; free virtual = 45405
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:40 ; elapsed = 00:00:41 . Memory (MB): peak = 3015.152 ; gain = 1014.871 ; free physical = 18633 ; free virtual = 45416
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20394 ; free virtual = 47177
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20394 ; free virtual = 47177
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20363 ; free virtual = 47147
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20363 ; free virtual = 47147
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20355 ; free virtual = 47139
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20355 ; free virtual = 47139
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------------+------+
+|      |Cell          |Count |
++------+--------------+------+
+|1     |BUFG_GT       |     4|
+|2     |CARRY8        |    48|
+|3     |GTHE4_CHANNEL |     4|
+|4     |LUT1          |    63|
+|5     |LUT2          |   292|
+|6     |LUT3          |   113|
+|7     |LUT4          |   239|
+|8     |LUT5          |   341|
+|9     |LUT6          |   324|
+|10    |FD            |    10|
+|11    |FDCE          |   222|
+|12    |FDPE          |   129|
+|13    |FDRE          |  1817|
+|14    |FDSE          |    23|
++------+--------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20355 ; free virtual = 47139
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 2 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 3172.965 ; gain = 1076.184 ; free physical = 20356 ; free virtual = 47140
+Synthesis Optimization Complete : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 3172.965 ; gain = 1172.684 ; free physical = 20356 ; free virtual = 47140
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.03 . Memory (MB): peak = 3172.965 ; gain = 0.000 ; free physical = 20568 ; free virtual = 47352
+INFO: [Netlist 29-17] Analyzing 58 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC for BUFG_GT inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[0].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx_i/bufg_gt_txoutclkmon_inst
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC_1 for BUFG_GT inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[1].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx_i/bufg_gt_txoutclkmon_inst
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC_2 for BUFG_GT inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[2].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx_i/bufg_gt_txoutclkmon_inst
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC_3 for BUFG_GT inst/jesd204_phy_block_i/bd_jesd204_phy_0_0_gt_i/inst/gen_gtwizard_gthe4_top.bd_jesd204_phy_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_cpll_cal_gthe4.gen_cpll_cal_inst[3].gen_inst_cpll_cal.gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_inst/gtwizard_ultrascale_v1_7_22_gthe4_cpll_cal_tx_i/bufg_gt_txoutclkmon_inst
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3172.965 ; gain = 0.000 ; free physical = 20513 ; free virtual = 47297
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 10 instances were transformed.
+  FD => FDRE: 10 instances
+
+Synth Design complete | Checksum: 51b66582
+INFO: [Common 17-83] Releasing license: Synthesis
+213 Infos, 4 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:00:47 . Memory (MB): peak = 3172.965 ; gain = 1565.035 ; free physical = 20476 ; free virtual = 47260
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2053.837; main = 1986.343; forked = 201.217
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4030.871; main = 3135.961; forked = 1015.715
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3172.965 ; gain = 0.000 ; free physical = 20472 ; free virtual = 47256
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_jesd204_phy_0_0_synth_1/bd_jesd204_phy_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_jesd204_phy_0_0, cache-ID = c8a3554455a91afa
+INFO: [Coretcl 2-1174] Renamed 92 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00 . Memory (MB): peak = 3172.965 ; gain = 0.000 ; free physical = 20402 ; free virtual = 47192
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_jesd204_phy_0_0_synth_1/bd_jesd204_phy_0_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_jesd204_phy_0_0_utilization_synth.rpt -pb bd_jesd204_phy_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 29 23:07:00 2026...

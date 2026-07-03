@@ -1,0 +1,16 @@
+// Mem file initialization records.
+//
+// SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+// Vivado v2025.2.1 (64-bit)
+// Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+// Created on Friday July 03, 2026 - 05:41:12 pm, from:
+//
+//     Map file     - /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/bd.bmm
+//     Data file(s) - /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_0/data/riscv_bootloop.elf
+//
+// Address space 'bd_microblaze_riscv_0.bd_microblaze_riscv_0_local_memory_lmb_bram_64K_10_ADDR_SPACE', bit lane [31:0].
+//
+// Bus width = 32 bits, number of bus blocks = 1.
+
+@0000000000000000
+    0000006F

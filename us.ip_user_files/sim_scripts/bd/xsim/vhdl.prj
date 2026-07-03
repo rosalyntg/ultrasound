@@ -1,0 +1,19 @@
+vhdl xil_defaultlib  \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_0_0/util_ds_buf.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_0_0/sim/bd_util_ds_buf_0_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_1_1/sim/bd_util_ds_buf_1_1.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_0/sim/bd_microblaze_riscv_0_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_dlmb_v10_0/sim/bd_dlmb_v10_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_ilmb_v10_0/sim/bd_ilmb_v10_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_dlmb_bram_if_cntlr_0/sim/bd_dlmb_bram_if_cntlr_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_ilmb_bram_if_cntlr_0/sim/bd_ilmb_bram_if_cntlr_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/ip/ip_1/sim/bd_f06c_psr_aclk_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_intc_0/sim/bd_microblaze_riscv_0_axi_intc_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/sim/bd_mdm_1_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_rst_sysclk_wiz_25M_0/sim/bd_rst_sysclk_wiz_25M_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/sim/bd_c_counter_binary_0_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_1_0/sim/bd_c_counter_binary_1_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/sim/bd_axi_iic_0_0.vhd" \
+
+# Do not sort compile order
+nosort

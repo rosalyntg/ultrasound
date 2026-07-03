@@ -1,0 +1,53 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Fri Jul  3 17:47:30 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : report_drc -file us_top_drc_opted.rpt -pb us_top_drc_opted.pb -rpx us_top_drc_opted.rpx
+| Design       : us_top
+| Device       : xcau15p-ffvb676-2-i
+| Speed File   : -2
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 3
++-----------+----------+----------------------------------------+--------+
+| Rule      | Severity | Description                            | Checks |
++-----------+----------+----------------------------------------+--------+
+| REQP-1853 | Warning  | BUFGCE_DIV_cascade_from_clock_buf      | 1      |
+| REQP-1857 | Warning  | RAMB18E2_writefirst_collision_advisory | 1      |
+| REQP-1858 | Warning  | RAMB36E2_writefirst_collision_advisory | 1      |
++-----------+----------+----------------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+REQP-1853#1 Warning
+BUFGCE_DIV_cascade_from_clock_buf  
+Cascaded clock buffers exist in the design with constant CE pin. This may result in large clock skew and timing violations. Cell BUFGCE_DIV bd/bd_i/sysclk_wiz/inst/BUFGCE_DIV_CLK1_inst I pin is driven by another clock buffer bd/bd_i/sysclk_wiz/inst/clkin1_bufg1.
+Related violations: <none>
+
+REQP-1857#1 Warning
+RAMB18E2_writefirst_collision_advisory  
+Synchronous clocking is detected for BRAM (bd/bd_i/net_wrapper_0/inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg_1) in SDP mode with WRITE_FIRST write-mode. It is strongly suggested to change this mode to NO_CHANGE for best power characteristics. However, both WRITE_FIRST and NO_CHANGE may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-1858#1 Warning
+RAMB36E2_writefirst_collision_advisory  
+Synchronous clocking is detected for BRAM (bd/bd_i/net_wrapper_0/inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg_0) in SDP mode with WRITE_FIRST write-mode. It is strongly suggested to change this mode to NO_CHANGE for best power characteristics. However, both WRITE_FIRST and NO_CHANGE may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+

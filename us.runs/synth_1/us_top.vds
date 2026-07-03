@@ -1,0 +1,669 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Fri Jul  3 17:46:20 2026
+# Process ID         : 1322880
+# Current directory  : /home/russell/ultrasound/fpga/us/us.runs/synth_1
+# Command line       : vivado -log us_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source us_top.tcl
+# Log file           : /home/russell/ultrasound/fpga/us/us.runs/synth_1/us_top.vds
+# Journal file       : /home/russell/ultrasound/fpga/us/us.runs/synth_1/vivado.jou
+# Running On         : russell-shotover-arch
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD RYZEN AI MAX PRO 390 w/ Radeon 8050S
+# CPU Frequency      : 4776.257 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 50262 MB
+# Swap memory        : 25130 MB
+# Total Virtual      : 75393 MB
+# Available Virtual  : 36546 MB
+#-----------------------------------------------------------
+source us_top.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/russell/Xilinx/2025.2.1/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/russell/ultrasound/fpga/us/us.srcs/utils_1/imports/synth_1/us_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/russell/ultrasound/fpga/us/us.srcs/utils_1/imports/synth_1/us_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top us_top -part xcau15p-ffvb676-2-i
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 1323308
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2560.684 ; gain = 458.688 ; free physical = 6562 ; free virtual = 33308
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'us_top' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'OBUFDS' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:113400]
+INFO: [Synth 8-6155] done synthesizing module 'OBUFDS' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:113400]
+INFO: [Synth 8-6157] synthesizing module 'bd_wrapper' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/hdl/bd_wrapper.v:13]
+INFO: [Synth 8-6157] synthesizing module 'bd' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:13]
+INFO: [Synth 8-6157] synthesizing module 'bd_c_counter_binary_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_c_counter_binary_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_c_counter_binary_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_c_counter_binary_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_c_counter_binary_1_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_c_counter_binary_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_c_counter_binary_1_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_c_counter_binary_1_0_stub.v:6]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:284]
+INFO: [Synth 8-6157] synthesizing module 'bd_ila_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ila_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_ila_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ila_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_in_system_ibert_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_in_system_ibert_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_in_system_ibert_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_in_system_ibert_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'drpclk_o' of module 'bd_in_system_ibert_0_0' is unconnected for instance 'in_system_ibert_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:294]
+WARNING: [Synth 8-7023] instance 'in_system_ibert_0' of module 'bd_in_system_ibert_0_0' has 15 connections declared, but only 14 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:294]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+INFO: [Synth 8-6157] synthesizing module 'bd_jesd204_phy_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_jesd204_phy_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_jesd204_phy_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_jesd204_phy_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'gt_cplllock' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_txresetdone' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_rxresetdone' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_rxprbserr' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_eyescandataerror' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_txbufstatus' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_rxpmaresetdone' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_rxcommadet' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_rxbufstatus' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_dmonitorout' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_drpdo' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_drprdy' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_drpdo' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_drprdy' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_drpdo' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_drprdy' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_drpdo' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_drprdy' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'tx_reset_done' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'rx_reset_done' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt_powergood' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'txoutclk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'rxoutclk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxcharisk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxdisperr' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxnotintable' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxheader' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxmisalign' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxblock_sync' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt0_rxdata' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxcharisk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxdisperr' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxnotintable' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxheader' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxmisalign' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxblock_sync' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt1_rxdata' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxcharisk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxdisperr' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxnotintable' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxheader' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxmisalign' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxblock_sync' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt2_rxdata' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxcharisk' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxdisperr' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxnotintable' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxheader' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxmisalign' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxblock_sync' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'gt3_rxdata' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'txn_out' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7071] port 'txp_out' of module 'bd_jesd204_phy_0_0' is unconnected for instance 'jesd204_phy_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+WARNING: [Synth 8-7023] instance 'jesd204_phy_0' of module 'bd_jesd204_phy_0_0' has 117 connections declared, but only 64 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:309]
+INFO: [Synth 8-6157] synthesizing module 'bd_util_ds_buf_1_1' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_util_ds_buf_1_1_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_util_ds_buf_1_1' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_util_ds_buf_1_1_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_mdm_1_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_mdm_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_mdm_1_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_mdm_1_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'Interrupt' of module 'bd_mdm_1_0' is unconnected for instance 'mdm_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:378]
+WARNING: [Synth 8-7023] instance 'mdm_1' of module 'bd_mdm_1_0' has 30 connections declared, but only 29 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:378]
+INFO: [Synth 8-6157] synthesizing module 'bd_microblaze_riscv_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_microblaze_riscv_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'Dbg_Trig_In' of module 'bd_microblaze_riscv_0_0' is unconnected for instance 'microblaze_riscv_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:410]
+WARNING: [Synth 8-7071] port 'Dbg_Trig_Ack_Out' of module 'bd_microblaze_riscv_0_0' is unconnected for instance 'microblaze_riscv_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:410]
+WARNING: [Synth 8-7023] instance 'microblaze_riscv_0' of module 'bd_microblaze_riscv_0_0' has 56 connections declared, but only 54 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:410]
+INFO: [Synth 8-6157] synthesizing module 'bd_microblaze_riscv_0_axi_intc_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_axi_intc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_microblaze_riscv_0_axi_intc_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_axi_intc_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_microblaze_riscv_0_axi_periph_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_axi_periph_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_microblaze_riscv_0_axi_periph_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_microblaze_riscv_0_axi_periph_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'M00_AXI_awprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7071] port 'M00_AXI_arprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7071] port 'M01_AXI_awprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7071] port 'M01_AXI_arprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7071] port 'M02_AXI_awprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7071] port 'M02_AXI_arprot' of module 'bd_microblaze_riscv_0_axi_periph_0' is unconnected for instance 'microblaze_riscv_0_axi_periph' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+WARNING: [Synth 8-7023] instance 'microblaze_riscv_0_axi_periph' of module 'bd_microblaze_riscv_0_axi_periph_0' has 78 connections declared, but only 72 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:491]
+INFO: [Synth 8-6157] synthesizing module 'microblaze_riscv_0_local_memory_imp_1MZ5VT7' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:861]
+INFO: [Synth 8-6157] synthesizing module 'bd_dlmb_bram_if_cntlr_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_dlmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_dlmb_bram_if_cntlr_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_dlmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_dlmb_v10_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_dlmb_v10_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_dlmb_v10_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_dlmb_v10_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'LMB_Rst' of module 'bd_dlmb_v10_0' is unconnected for instance 'dlmb_v10' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:986]
+WARNING: [Synth 8-7023] instance 'dlmb_v10' of module 'bd_dlmb_v10_0' has 25 connections declared, but only 24 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:986]
+INFO: [Synth 8-6157] synthesizing module 'bd_ilmb_bram_if_cntlr_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ilmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_ilmb_bram_if_cntlr_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ilmb_bram_if_cntlr_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_ilmb_v10_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ilmb_v10_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_ilmb_v10_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_ilmb_v10_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'LMB_Rst' of module 'bd_ilmb_v10_0' is unconnected for instance 'ilmb_v10' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:1032]
+WARNING: [Synth 8-7023] instance 'ilmb_v10' of module 'bd_ilmb_v10_0' has 25 connections declared, but only 24 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:1032]
+INFO: [Synth 8-6157] synthesizing module 'bd_lmb_bram_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_lmb_bram_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_lmb_bram_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_lmb_bram_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'rsta_busy' of module 'bd_lmb_bram_0' is unconnected for instance 'lmb_bram' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:1057]
+WARNING: [Synth 8-7071] port 'rstb_busy' of module 'bd_lmb_bram_0' is unconnected for instance 'lmb_bram' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:1057]
+WARNING: [Synth 8-7023] instance 'lmb_bram' of module 'bd_lmb_bram_0' has 16 connections declared, but only 14 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:1057]
+INFO: [Synth 8-6155] done synthesizing module 'microblaze_riscv_0_local_memory_imp_1MZ5VT7' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:861]
+INFO: [Synth 8-6157] synthesizing module 'bd_net_wrapper_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_net_wrapper_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_net_wrapper_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_net_wrapper_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 's_udp_hdr_ready' of module 'bd_net_wrapper_0_0' is unconnected for instance 'net_wrapper_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+WARNING: [Synth 8-7071] port 's_udp_payload_axis_tready' of module 'bd_net_wrapper_0_0' is unconnected for instance 'net_wrapper_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+WARNING: [Synth 8-7071] port 'm_udp_hdr_valid' of module 'bd_net_wrapper_0_0' is unconnected for instance 'net_wrapper_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+WARNING: [Synth 8-7071] port 'm_udp_payload_axis_tuser' of module 'bd_net_wrapper_0_0' is unconnected for instance 'net_wrapper_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+WARNING: [Synth 8-7023] instance 'net_wrapper_0' of module 'bd_net_wrapper_0_0' has 66 connections declared, but only 62 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+INFO: [Synth 8-6157] synthesizing module 'bd_rst_sysclk_wiz_25M_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_rst_sysclk_wiz_25M_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_rst_sysclk_wiz_25M_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_rst_sysclk_wiz_25M_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'peripheral_reset' of module 'bd_rst_sysclk_wiz_25M_0' is unconnected for instance 'rst_sysclk_wiz_25M' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:650]
+WARNING: [Synth 8-7071] port 'interconnect_aresetn' of module 'bd_rst_sysclk_wiz_25M_0' is unconnected for instance 'rst_sysclk_wiz_25M' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:650]
+WARNING: [Synth 8-7023] instance 'rst_sysclk_wiz_25M' of module 'bd_rst_sysclk_wiz_25M_0' has 10 connections declared, but only 8 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:650]
+INFO: [Synth 8-6157] synthesizing module 'bd_axi_iic_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_axi_iic_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_axi_iic_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_axi_iic_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'gpo' of module 'bd_axi_iic_0_0' is unconnected for instance 'sfp_i2c' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:659]
+WARNING: [Synth 8-7023] instance 'sfp_i2c' of module 'bd_axi_iic_0_0' has 27 connections declared, but only 26 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:659]
+INFO: [Synth 8-6157] synthesizing module 'bd_clk_wiz_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_clk_wiz_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_clk_wiz_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_clk_wiz_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_util_ds_buf_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_util_ds_buf_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_util_ds_buf_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_util_ds_buf_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'IBUF_DS_ODIV2' of module 'bd_util_ds_buf_0_0' is unconnected for instance 'util_ds_buf_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:690]
+WARNING: [Synth 8-7023] instance 'util_ds_buf_0' of module 'bd_util_ds_buf_0_0' has 4 connections declared, but only 3 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:690]
+INFO: [Synth 8-6157] synthesizing module 'bd_vio_0_2' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_2_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_vio_0_2' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_2_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_vio_0_3' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_3_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_vio_0_3' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_3_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_vio_0_1' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_1_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_vio_0_1' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_1_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_vio_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_vio_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_vio_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'probe_out1' of module 'bd_vio_0_0' is unconnected for instance 'vio_tx' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:762]
+WARNING: [Synth 8-7071] port 'probe_out2' of module 'bd_vio_0_0' is unconnected for instance 'vio_tx' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:762]
+WARNING: [Synth 8-7071] port 'probe_out3' of module 'bd_vio_0_0' is unconnected for instance 'vio_tx' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:762]
+WARNING: [Synth 8-7023] instance 'vio_tx' of module 'bd_vio_0_0' has 9 connections declared, but only 6 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:762]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0' [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_xxv_ethernet_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.runs/synth_1/.Xil/Vivado-1322880-russell-shotover-arch/realtime/bd_xxv_ethernet_0_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'rxrecclkout_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_dmonitorout_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_eyescandataerror_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_rxbufstatus_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_rxprbserr_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_rxprbslocked_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_rxstartofseq_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_txbufstatus_0' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7071] port 'gt_refclk_out' of module 'bd_xxv_ethernet_0_0' is unconnected for instance 'xxv_ethernet_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+WARNING: [Synth 8-7023] instance 'xxv_ethernet_0' of module 'bd_xxv_ethernet_0_0' has 98 connections declared, but only 89 given [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+INFO: [Synth 8-6155] done synthesizing module 'bd' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:13]
+INFO: [Synth 8-6157] synthesizing module 'IOBUF' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:87494]
+INFO: [Synth 8-6155] done synthesizing module 'IOBUF' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:87494]
+INFO: [Synth 8-6155] done synthesizing module 'bd_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/hdl/bd_wrapper.v:13]
+INFO: [Synth 8-6155] done synthesizing module 'us_top' (0#1) [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:23]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_eth'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:694]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'xxv_ethernet_0'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:769]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_led'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:724]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_rx'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:727]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'net_wrapper_0'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:587]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'vio_tx'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:762]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ila_0'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:284]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'c_counter_binary_0'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:278]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'c_counter_binary_1'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/synth/bd.v:281]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'bd_i'. This will prevent further optimization [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/hdl/bd_wrapper.v:76]
+WARNING: [Synth 8-3848] Net pulser0_neg in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:29]
+WARNING: [Synth 8-3848] Net pulser0_pos in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:30]
+WARNING: [Synth 8-3848] Net pulser1_neg in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:32]
+WARNING: [Synth 8-3848] Net pulser1_pos in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:33]
+WARNING: [Synth 8-3848] Net pulser_clk in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:35]
+WARNING: [Synth 8-3848] Net pulser_oen in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:36]
+WARNING: [Synth 8-3848] Net ramp_scl in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:42]
+WARNING: [Synth 8-3848] Net ramp_sda in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:43]
+WARNING: [Synth 8-3848] Net ramp_rst in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:44]
+WARNING: [Synth 8-3848] Net uart_tx in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:65]
+WARNING: [Synth 8-3848] Net adc0_rstn in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:71]
+WARNING: [Synth 8-3848] Net adc0_sclk in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:72]
+WARNING: [Synth 8-3848] Net adc0_mosi in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:73]
+WARNING: [Synth 8-3848] Net adc0_miso in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:74]
+WARNING: [Synth 8-3848] Net adc0_cs in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:75]
+WARNING: [Synth 8-3848] Net adc_rstn in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:77]
+WARNING: [Synth 8-3848] Net adc1_sclk in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:78]
+WARNING: [Synth 8-3848] Net adc1_mosi in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:79]
+WARNING: [Synth 8-3848] Net adc1_miso in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:80]
+WARNING: [Synth 8-3848] Net adc1_cs in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:81]
+WARNING: [Synth 8-3848] Net mux_le in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:108]
+WARNING: [Synth 8-3848] Net mux_clk in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:109]
+WARNING: [Synth 8-3848] Net mux_clr in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:110]
+WARNING: [Synth 8-3848] Net mux_din in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:111]
+WARNING: [Synth 8-3848] Net mux_aux0 in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:112]
+WARNING: [Synth 8-3848] Net mux_aux1 in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:113]
+WARNING: [Synth 8-3848] Net mux_aux2 in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:114]
+WARNING: [Synth 8-3848] Net adc_sync in module/entity us_top does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv:121]
+WARNING: [Synth 8-7129] Port pulser0_neg[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser_clk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser_oen in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_rst in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uart_tx in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_rstn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_sclk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_mosi in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_miso in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_cs in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc_rstn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_sclk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_mosi in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_miso in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_cs in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_le in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_clk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_clr in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_din in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux0 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux1 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux2 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvplus_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvplus_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvminus_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvminus_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[6] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[5] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[4] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port test[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_optn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_optn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uart_rx in module us_top is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2660.652 ; gain = 558.656 ; free physical = 6376 ; free virtual = 33188
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2663.621 ; gain = 561.625 ; free physical = 6336 ; free virtual = 33188
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2663.621 ; gain = 561.625 ; free physical = 6336 ; free virtual = 33188
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2666.590 ; gain = 0.000 ; free physical = 6347 ; free virtual = 33185
+INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0_in_context.xdc] for cell 'bd/bd_i/xxv_ethernet_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0_in_context.xdc] for cell 'bd/bd_i/xxv_ethernet_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/bd_jesd204_phy_0_0/bd_jesd204_phy_0_0_in_context.xdc] for cell 'bd/bd_i/jesd204_phy_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_jesd204_phy_0_0/bd_jesd204_phy_0_0/bd_jesd204_phy_0_0_in_context.xdc] for cell 'bd/bd_i/jesd204_phy_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_0_0/bd_util_ds_buf_0_0/bd_util_ds_buf_0_0_in_context.xdc] for cell 'bd/bd_i/util_ds_buf_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_0_0/bd_util_ds_buf_0_0/bd_util_ds_buf_0_0_in_context.xdc] for cell 'bd/bd_i/util_ds_buf_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_1_1/bd_util_ds_buf_1_1/bd_util_ds_buf_1_1_in_context.xdc] for cell 'bd/bd_i/jesd_coreclk_buf'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_1_1/bd_util_ds_buf_1_1/bd_util_ds_buf_1_1_in_context.xdc] for cell 'bd/bd_i/jesd_coreclk_buf'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_clk_wiz_0_0/bd_clk_wiz_0_0/bd_clk_wiz_0_0_in_context.xdc] for cell 'bd/bd_i/sysclk_wiz'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_clk_wiz_0_0/bd_clk_wiz_0_0/bd_clk_wiz_0_0_in_context.xdc] for cell 'bd/bd_i/sysclk_wiz'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_0/bd_microblaze_riscv_0_0/bd_microblaze_riscv_0_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_0/bd_microblaze_riscv_0_0/bd_microblaze_riscv_0_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_dlmb_v10_0/bd_dlmb_v10_0/bd_dlmb_v10_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/dlmb_v10'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_dlmb_v10_0/bd_dlmb_v10_0/bd_dlmb_v10_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/dlmb_v10'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ilmb_v10_0/bd_ilmb_v10_0/bd_dlmb_v10_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/ilmb_v10'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ilmb_v10_0/bd_ilmb_v10_0/bd_dlmb_v10_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/ilmb_v10'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_dlmb_bram_if_cntlr_0/bd_dlmb_bram_if_cntlr_0/bd_dlmb_bram_if_cntlr_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/dlmb_bram_if_cntlr'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_dlmb_bram_if_cntlr_0/bd_dlmb_bram_if_cntlr_0/bd_dlmb_bram_if_cntlr_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/dlmb_bram_if_cntlr'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ilmb_bram_if_cntlr_0/bd_ilmb_bram_if_cntlr_0/bd_ilmb_bram_if_cntlr_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/ilmb_bram_if_cntlr'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ilmb_bram_if_cntlr_0/bd_ilmb_bram_if_cntlr_0/bd_ilmb_bram_if_cntlr_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/ilmb_bram_if_cntlr'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_lmb_bram_0/bd_lmb_bram_0/bd_lmb_bram_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/lmb_bram'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_lmb_bram_0/bd_lmb_bram_0/bd_lmb_bram_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_local_memory/lmb_bram'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_microblaze_riscv_0_axi_periph_0/bd_microblaze_riscv_0_axi_periph_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_axi_periph'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_microblaze_riscv_0_axi_periph_0/bd_microblaze_riscv_0_axi_periph_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_axi_periph'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_intc_0/bd_microblaze_riscv_0_axi_intc_0/bd_microblaze_riscv_0_axi_intc_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_axi_intc'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_intc_0/bd_microblaze_riscv_0_axi_intc_0/bd_microblaze_riscv_0_axi_intc_0_in_context.xdc] for cell 'bd/bd_i/microblaze_riscv_0_axi_intc'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0/bd_mdm_1_0_in_context.xdc] for cell 'bd/bd_i/mdm_1'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0/bd_mdm_1_0_in_context.xdc] for cell 'bd/bd_i/mdm_1'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_rst_sysclk_wiz_25M_0/bd_rst_sysclk_wiz_25M_0/bd_rst_sysclk_wiz_25M_0_in_context.xdc] for cell 'bd/bd_i/rst_sysclk_wiz_25M'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_rst_sysclk_wiz_25M_0/bd_rst_sysclk_wiz_25M_0/bd_rst_sysclk_wiz_25M_0_in_context.xdc] for cell 'bd/bd_i/rst_sysclk_wiz_25M'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_0/bd_vio_0_0/bd_vio_0_0_in_context.xdc] for cell 'bd/bd_i/vio_tx'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_0/bd_vio_0_0/bd_vio_0_0_in_context.xdc] for cell 'bd/bd_i/vio_tx'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_1/bd_vio_0_1/bd_vio_0_1_in_context.xdc] for cell 'bd/bd_i/vio_rx'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_1/bd_vio_0_1/bd_vio_0_1_in_context.xdc] for cell 'bd/bd_i/vio_rx'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_2/bd_vio_0_2/bd_vio_0_2_in_context.xdc] for cell 'bd/bd_i/vio_eth'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_2/bd_vio_0_2/bd_vio_0_2_in_context.xdc] for cell 'bd/bd_i/vio_eth'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/bd_in_system_ibert_0_0/bd_in_system_ibert_0_0_in_context.xdc] for cell 'bd/bd_i/in_system_ibert_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/bd_in_system_ibert_0_0/bd_in_system_ibert_0_0_in_context.xdc] for cell 'bd/bd_i/in_system_ibert_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0_in_context.xdc] for cell 'bd/bd_i/c_counter_binary_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0_in_context.xdc] for cell 'bd/bd_i/c_counter_binary_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_1_0/bd_c_counter_binary_1_0/bd_c_counter_binary_0_0_in_context.xdc] for cell 'bd/bd_i/c_counter_binary_1'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_1_0/bd_c_counter_binary_1_0/bd_c_counter_binary_0_0_in_context.xdc] for cell 'bd/bd_i/c_counter_binary_1'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/bd_ila_0_0/bd_ila_0_0_in_context.xdc] for cell 'bd/bd_i/ila_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/bd_ila_0_0/bd_ila_0_0_in_context.xdc] for cell 'bd/bd_i/ila_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/bd_axi_iic_0_0/bd_axi_iic_0_0_in_context.xdc] for cell 'bd/bd_i/sfp_i2c'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/bd_axi_iic_0_0/bd_axi_iic_0_0_in_context.xdc] for cell 'bd/bd_i/sfp_i2c'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_3/bd_vio_0_3/bd_vio_0_3_in_context.xdc] for cell 'bd/bd_i/vio_led'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_3/bd_vio_0_3/bd_vio_0_3_in_context.xdc] for cell 'bd/bd_i/vio_led'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/bd_net_wrapper_0_0/bd_net_wrapper_0_0_in_context.xdc] for cell 'bd/bd_i/net_wrapper_0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/bd_net_wrapper_0_0/bd_net_wrapper_0_0_in_context.xdc] for cell 'bd/bd_i/net_wrapper_0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_neg[6]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:2]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_neg[5]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:3]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_neg[4]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:4]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_neg[7]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:8]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_pos[7]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:10]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_pos[6]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:11]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_pos[5]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:12]
+WARNING: [Vivado 12-584] No ports matched 'pulser0_pos[4]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:13]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_neg[7]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:18]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_neg[6]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:19]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_neg[5]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:20]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_neg[4]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:21]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_pos[7]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:26]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_pos[6]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:27]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_pos[5]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:28]
+WARNING: [Vivado 12-584] No ports matched 'pulser1_pos[4]'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:29]
+WARNING: [Vivado 12-584] No ports matched 'dac_cs'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:38]
+WARNING: [Vivado 12-584] No ports matched 'dac_sclk'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:39]
+WARNING: [Vivado 12-584] No ports matched 'dac_sclk'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:40]
+WARNING: [Vivado 12-584] No ports matched 'dac_mosi'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:44]
+WARNING: [Vivado 12-584] No ports matched 'dac_cs'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:47]
+WARNING: [Vivado 12-584] No ports matched 'dac_sclk'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:48]
+WARNING: [Vivado 12-584] No ports matched 'dac_mosi'. [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc:55]
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/us_top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.srcs/constrs_1/new/pins.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/us_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/us_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2717.211 ; gain = 0.000 ; free physical = 6305 ; free virtual = 33167
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 4 instances were transformed.
+  IOBUF => IOBUF (IBUFCTRL, INBUF, OBUFT): 2 instances
+  OBUFDS => OBUFDS: 2 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2717.246 ; gain = 0.000 ; free physical = 6277 ; free virtual = 33167
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/c_counter_binary_0' at clock pin 'CLK' is different from the actual clock period '6.206', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/c_counter_binary_1' at clock pin 'CLK' is different from the actual clock period '6.206', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/ila_0' at clock pin 'clk' is different from the actual clock period '6.206', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '40.000' specified during out-of-context synthesis of instance 'bd/bd_i/jesd204_phy_0' at clock pin 'rx_core_clk' is different from the actual clock period '10.000', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/vio_rx' at clock pin 'clk' is different from the actual clock period '6.206', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/vio_tx' at clock pin 'clk' is different from the actual clock period '6.206', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '6.400' specified during out-of-context synthesis of instance 'bd/bd_i/xxv_ethernet_0' at clock pin 'rx_core_clk_0' is different from the actual clock period '6.206', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2717.246 ; gain = 615.250 ; free physical = 6284 ; free virtual = 33188
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcau15p-ffvb676-2-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2725.215 ; gain = 623.219 ; free physical = 6281 ; free virtual = 33188
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2725.215 ; gain = 623.219 ; free physical = 6337 ; free virtual = 33190
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2725.215 ; gain = 623.219 ; free physical = 6273 ; free virtual = 33182
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 576 (col length:72)
+BRAMs: 288 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7129] Port pulser0_neg[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_neg[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser0_pos[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_neg[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[3] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[2] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[1] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser1_pos[0] in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser_clk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pulser_oen in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ramp_rst in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port uart_tx in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_rstn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_sclk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_mosi in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_miso in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc0_cs in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc_rstn in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_sclk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_mosi in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_miso in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port adc1_cs in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_le in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_clk in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_clr in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_din in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux0 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux1 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mux_aux2 in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvplus_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvplus_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvminus_scl in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port hvminus_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk_sda in module us_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk_scl in module us_top is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2725.215 ; gain = 623.219 ; free physical = 6171 ; free virtual = 33158
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3015.773 ; gain = 913.777 ; free physical = 6069 ; free virtual = 32939
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3016.773 ; gain = 914.777 ; free physical = 6060 ; free virtual = 32938
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 3026.781 ; gain = 924.785 ; free physical = 6016 ; free virtual = 32928
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5881 ; free virtual = 32721
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5879 ; free virtual = 32721
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5871 ; free virtual = 32720
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5867 ; free virtual = 32720
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5863 ; free virtual = 32720
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5860 ; free virtual = 32720
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------------------+----------+
+|      |BlackBox name                      |Instances |
++------+-----------------------------------+----------+
+|1     |bd_c_counter_binary_0_0            |         1|
+|2     |bd_c_counter_binary_1_0            |         1|
+|3     |bd_ila_0_0                         |         1|
+|4     |bd_in_system_ibert_0_0             |         1|
+|5     |bd_jesd204_phy_0_0                 |         1|
+|6     |bd_util_ds_buf_1_1                 |         1|
+|7     |bd_mdm_1_0                         |         1|
+|8     |bd_microblaze_riscv_0_0            |         1|
+|9     |bd_microblaze_riscv_0_axi_intc_0   |         1|
+|10    |bd_microblaze_riscv_0_axi_periph_0 |         1|
+|11    |bd_net_wrapper_0_0                 |         1|
+|12    |bd_rst_sysclk_wiz_25M_0            |         1|
+|13    |bd_axi_iic_0_0                     |         1|
+|14    |bd_clk_wiz_0_0                     |         1|
+|15    |bd_util_ds_buf_0_0                 |         1|
+|16    |bd_vio_0_2                         |         1|
+|17    |bd_vio_0_3                         |         1|
+|18    |bd_vio_0_1                         |         1|
+|19    |bd_vio_0_0                         |         1|
+|20    |bd_xxv_ethernet_0_0                |         1|
+|21    |bd_dlmb_bram_if_cntlr_0            |         1|
+|22    |bd_dlmb_v10_0                      |         1|
+|23    |bd_ilmb_bram_if_cntlr_0            |         1|
+|24    |bd_ilmb_v10_0                      |         1|
+|25    |bd_lmb_bram_0                      |         1|
++------+-----------------------------------+----------+
+
+Report Cell Usage: 
++------+---------------------------------+------+
+|      |Cell                             |Count |
++------+---------------------------------+------+
+|1     |bd_axi_iic_0                     |     1|
+|2     |bd_c_counter_binary_0            |     1|
+|3     |bd_c_counter_binary_1            |     1|
+|4     |bd_clk_wiz_0                     |     1|
+|5     |bd_dlmb_bram_if_cntlr            |     1|
+|6     |bd_dlmb_v10                      |     1|
+|7     |bd_ila_0                         |     1|
+|8     |bd_ilmb_bram_if_cntlr            |     1|
+|9     |bd_ilmb_v10                      |     1|
+|10    |bd_in_system_ibert_0             |     1|
+|11    |bd_jesd204_phy_0                 |     1|
+|12    |bd_lmb_bram                      |     1|
+|13    |bd_mdm_1                         |     1|
+|14    |bd_microblaze_riscv_0            |     1|
+|15    |bd_microblaze_riscv_0_axi_intc   |     1|
+|16    |bd_microblaze_riscv_0_axi_periph |     1|
+|17    |bd_net_wrapper_0                 |     1|
+|18    |bd_rst_sysclk_wiz_25M            |     1|
+|19    |bd_util_ds_buf_0                 |     1|
+|20    |bd_util_ds_buf_1                 |     1|
+|21    |bd_vio_0                         |     4|
+|25    |bd_xxv_ethernet_0                |     1|
+|26    |IBUF                             |     1|
+|27    |IOBUF                            |     2|
+|28    |OBUF                             |     2|
+|29    |OBUFDS                           |     2|
+|30    |OBUFT                            |    39|
++------+---------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5858 ; free virtual = 32720
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 55 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3213.562 ; gain = 1057.941 ; free physical = 5770 ; free virtual = 32720
+Synthesis Optimization Complete : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3213.562 ; gain = 1111.566 ; free physical = 5768 ; free virtual = 32721
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3213.562 ; gain = 0.000 ; free physical = 6032 ; free virtual = 32899
+INFO: [Netlist 29-17] Analyzing 5 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3213.562 ; gain = 0.000 ; free physical = 6040 ; free virtual = 32913
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 5 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 1 instance 
+  IOBUF => IOBUF (IBUFCTRL, INBUF, OBUFT): 2 instances
+  OBUFDS => OBUFDS_DUAL_BUF (INV, OBUF(x2)): 2 instances
+
+Synth Design complete | Checksum: f853f861
+INFO: [Common 17-83] Releasing license: Synthesis
+100 Infos, 262 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:20 . Memory (MB): peak = 3213.562 ; gain = 1544.504 ; free physical = 6007 ; free virtual = 32909
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2253.823; main = 2253.823; forked = 296.743
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3732.934; main = 3120.531; forked = 1015.719
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3213.562 ; gain = 0.000 ; free physical = 5964 ; free virtual = 32909
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/synth_1/us_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file us_top_utilization_synth.rpt -pb us_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Jul  3 17:46:46 2026...

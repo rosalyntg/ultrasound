@@ -1,0 +1,659 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Mon Jun 29 23:05:58 2026
+# Process ID         : 125111
+# Current directory  : /home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1
+# Command line       : vivado -log bd_mdm_1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_mdm_1_0.tcl
+# Log file           : /home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/bd_mdm_1_0.vds
+# Journal file       : /home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/vivado.jou
+# Running On         : russell-shotover-arch
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD RYZEN AI MAX PRO 390 w/ Radeon 8050S
+# CPU Frequency      : 3125.421 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 50262 MB
+# Swap memory        : 25130 MB
+# Total Virtual      : 75393 MB
+# Available Virtual  : 60348 MB
+#-----------------------------------------------------------
+source bd_mdm_1_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1584.176 ; gain = 77.055 ; free physical = 16189 ; free virtual = 49725
+Command: synth_design -top bd_mdm_1_0 -part xcau15p-ffvb676-2-i -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 127220
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2447.652 ; gain = 450.688 ; free physical = 398 ; free virtual = 32370
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'bd_mdm_1_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/synth/bd_mdm_1_0.vhd:94]
+	Parameter C_FAMILY bound to: kintexuplus - type: string 
+	Parameter C_DEVICE bound to: xcau15p - type: string 
+	Parameter C_JTAG_CHAIN bound to: 2 - type: integer 
+	Parameter C_USE_BSCAN bound to: 0 - type: integer 
+	Parameter C_BSCANID bound to: 0 - type: integer 
+	Parameter C_USE_BSCAN_SWITCH bound to: 0 - type: integer 
+	Parameter C_USE_JTAG_BSCAN bound to: 1 - type: integer 
+	Parameter C_DTM_IDCODE bound to: 147 - type: integer 
+	Parameter C_DEBUG_INTERFACE bound to: 0 - type: integer 
+	Parameter C_USE_CONFIG_RESET bound to: 0 - type: integer 
+	Parameter C_AVOID_PRIMITIVES bound to: 0 - type: integer 
+	Parameter C_INTERCONNECT bound to: 2 - type: integer 
+	Parameter C_MB_DBG_PORTS bound to: 1 - type: integer 
+	Parameter C_USE_UART bound to: 1 - type: integer 
+	Parameter C_DBG_REG_ACCESS bound to: 0 - type: integer 
+	Parameter C_DBG_MEM_ACCESS bound to: 0 - type: integer 
+	Parameter C_USE_CROSS_TRIGGER bound to: 0 - type: integer 
+	Parameter C_EXT_TRIG_RESET_VALUE bound to: 20'b11110001001000110100 
+	Parameter C_TRACE_OUTPUT bound to: 0 - type: integer 
+	Parameter C_TRACE_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_TRACE_CLK_FREQ_HZ bound to: 200000000 - type: integer 
+	Parameter C_TRACE_CLK_OUT_PHASE bound to: 90 - type: integer 
+	Parameter C_TRACE_ASYNC_RESET bound to: 0 - type: integer 
+	Parameter C_TRACE_PROTOCOL bound to: 1 - type: integer 
+	Parameter C_TRACE_ID bound to: 110 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 4 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ACLK_FREQ_HZ bound to: 25000000 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_THREAD_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_ADDR_SIZE bound to: 32 - type: integer 
+	Parameter C_DATA_SIZE bound to: 32 - type: integer 
+	Parameter C_LMB_PROTOCOL bound to: 0 - type: integer 
+	Parameter C_M_AXIS_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXIS_ID_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'MDM_RISCV' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:12435' bound to instance 'U0' of component 'mdm_riscv' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/synth/bd_mdm_1_0.vhd:1712]
+INFO: [Synth 8-638] synthesizing module 'MDM_RISCV' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:14120]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter DISABLE_JTAG bound to: FALSE - type: string 
+	Parameter JTAG_CHAIN bound to: 2 - type: integer 
+INFO: [Synth 8-3491] module 'MB_BSCANE2' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:510' bound to instance 'BSCAN_I' of component 'MB_BSCANE2' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:15917]
+INFO: [Synth 8-638] synthesizing module 'MB_BSCANE2' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:534]
+	Parameter DISABLE_JTAG bound to: FALSE - type: string 
+	Parameter JTAG_CHAIN bound to: 2 - type: integer 
+INFO: [Synth 8-113] binding component instance 'BSCANE2_I' to cell 'BSCANE2' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:544]
+INFO: [Synth 8-256] done synthesizing module 'MB_BSCANE2' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:534]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter INIT bound to: 2'b10 
+INFO: [Synth 8-3491] module 'MB_LUT1' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1735' bound to instance 'LUT1_I' of component 'MB_LUT1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:15935]
+INFO: [Synth 8-638] synthesizing module 'MB_LUT1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1749]
+	Parameter INIT bound to: 2'b10 
+INFO: [Synth 8-113] binding component instance 'Native' to cell 'LUT1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1771]
+INFO: [Synth 8-256] done synthesizing module 'MB_LUT1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1749]
+INFO: [Synth 8-3491] module 'xil_scan_reset_control' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:319' bound to instance 'config_with_scan_reset_i' of component 'xil_scan_reset_control' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:15979]
+INFO: [Synth 8-638] synthesizing module 'xil_scan_reset_control' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:328]
+INFO: [Synth 8-256] done synthesizing module 'xil_scan_reset_control' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:328]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_BUFGCE_1' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:621' bound to instance 'BUFG_JTAG_TCK' of component 'MB_BUFGCE_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:16375]
+INFO: [Synth 8-638] synthesizing module 'MB_BUFGCE_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:635]
+INFO: [Synth 8-113] binding component instance 'Native' to cell 'BUFGCE_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:645]
+INFO: [Synth 8-256] done synthesizing module 'MB_BUFGCE_1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:635]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_JTAG_CHAIN bound to: 2 - type: integer 
+	Parameter C_USE_BSCAN bound to: 0 - type: integer 
+	Parameter C_DTM_IDCODE bound to: 147 - type: integer 
+	Parameter C_USE_CONFIG_RESET bound to: 0 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter C_DEBUG_INTERFACE bound to: 0 - type: integer 
+	Parameter C_MB_DBG_PORTS bound to: 1 - type: integer 
+	Parameter C_EN_WIDTH bound to: 1 - type: integer 
+	Parameter C_DBG_REG_ACCESS bound to: 0 - type: integer 
+	Parameter C_REG_NUM_CE bound to: 4 - type: integer 
+	Parameter C_REG_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_DBG_MEM_ACCESS bound to: 0 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 4 - type: integer 
+	Parameter C_S_AXI_ACLK_FREQ_HZ bound to: 25000000 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_USE_CROSS_TRIGGER bound to: 0 - type: integer 
+	Parameter C_EXT_TRIG_RESET_VALUE bound to: 20'b11110001001000110100 
+	Parameter C_TRACE_OUTPUT bound to: 0 - type: integer 
+	Parameter C_TRACE_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_TRACE_ASYNC_RESET bound to: 0 - type: integer 
+	Parameter C_TRACE_CLK_FREQ_HZ bound to: 200000000 - type: integer 
+	Parameter C_TRACE_CLK_OUT_PHASE bound to: 90 - type: integer 
+	Parameter C_USE_UART bound to: 1 - type: integer 
+	Parameter C_UART_WIDTH bound to: 8 - type: integer 
+	Parameter C_M_AXIS_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXIS_ID_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'MDM_Core' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:5570' bound to instance 'MDM_Core_I1' of component 'MDM_Core' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:16535]
+INFO: [Synth 8-638] synthesizing module 'MDM_Core' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:6818]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_FDRE' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:767' bound to instance 'TX_Buffer_Empty_FDRE' of component 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:7562]
+INFO: [Synth 8-638] synthesizing module 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:784]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'Native' to cell 'FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:813]
+INFO: [Synth 8-256] done synthesizing module 'MB_FDRE' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:784]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_BSCAN bound to: 0 - type: integer 
+	Parameter C_DTM_IDCODE bound to: 147 - type: integer 
+	Parameter C_MB_DBG_PORTS bound to: 1 - type: integer 
+	Parameter C_USE_CONFIG_RESET bound to: 0 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter C_DEBUG_INTERFACE bound to: 0 - type: integer 
+	Parameter C_DBG_REG_ACCESS bound to: 0 - type: integer 
+	Parameter C_DBG_MEM_ACCESS bound to: 0 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_USE_CROSS_TRIGGER bound to: 0 - type: integer 
+	Parameter C_EXT_TRIG_RESET_VALUE bound to: 20'b11110001001000110100 
+	Parameter C_NUM_GROUPS bound to: 2 - type: integer 
+	Parameter C_GROUP_BITS bound to: 1 - type: integer 
+	Parameter C_TRACE_OUTPUT bound to: 0 - type: integer 
+	Parameter C_USE_UART bound to: 1 - type: integer 
+	Parameter C_UART_WIDTH bound to: 8 - type: integer 
+	Parameter C_EN_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-3491] module 'JTAG_CONTROL' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3265' bound to instance 'JTAG_CONTROL_I' of component 'JTAG_CONTROL' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:9499]
+INFO: [Synth 8-638] synthesizing module 'JTAG_CONTROL' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3512]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3661]
+WARNING: [Synth 8-3919] null assignment ignored [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3661]
+INFO: [Synth 8-3491] module 'xil_scan_reset_control' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:319' bound to instance 'config_with_scan_reset_i' of component 'xil_scan_reset_control' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3712]
+INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3790]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_BUFGCE_1' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:621' bound to instance 'BUFG_DRCK' of component 'MB_BUFGCE_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3950]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_BUFG' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:572' bound to instance 'BUFG_UPDATE' of component 'MB_BUFG' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3962]
+INFO: [Synth 8-638] synthesizing module 'MB_BUFG' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:585]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-113] binding component instance 'Native' to cell 'BUFG' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:595]
+INFO: [Synth 8-256] done synthesizing module 'MB_BUFG' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:585]
+WARNING: [Synth 8-3919] null assignment ignored [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:4328]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_DATA_BITS bound to: 8 - type: integer 
+	Parameter C_DEPTH bound to: 16 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+INFO: [Synth 8-3491] module 'SRL_FIFO' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2151' bound to instance 'RX_FIFO_I' of component 'SRL_FIFO' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:4623]
+INFO: [Synth 8-638] synthesizing module 'SRL_FIFO' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2171]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_MUXCY_XORCY' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1266' bound to instance 'MUXCY_L_I' of component 'MB_MUXCY_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2301]
+INFO: [Synth 8-638] synthesizing module 'MB_MUXCY_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1282]
+INFO: [Synth 8-113] binding component instance 'Native_I1' to cell 'MUXCY_L' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1293]
+INFO: [Synth 8-113] binding component instance 'Native_I2' to cell 'XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1300]
+INFO: [Synth 8-256] done synthesizing module 'MB_MUXCY_XORCY' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1282]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_FDRE' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:767' bound to instance 'FDRE_I' of component 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2325]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_MUXCY_XORCY' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1266' bound to instance 'MUXCY_L_I' of component 'MB_MUXCY_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2301]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_FDRE' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:767' bound to instance 'FDRE_I' of component 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2325]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_MUXCY_XORCY' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1266' bound to instance 'MUXCY_L_I' of component 'MB_MUXCY_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2301]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_FDRE' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:767' bound to instance 'FDRE_I' of component 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2325]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_XORCY' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1362' bound to instance 'XORCY_I' of component 'MB_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2315]
+INFO: [Synth 8-638] synthesizing module 'MB_XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1376]
+INFO: [Synth 8-113] binding component instance 'Native' to cell 'XORCY' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1386]
+INFO: [Synth 8-256] done synthesizing module 'MB_XORCY' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1376]
+	Parameter C_TARGET bound to: 8 - type: integer 
+INFO: [Synth 8-3491] module 'MB_FDRE' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:767' bound to instance 'FDRE_I' of component 'MB_FDRE' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2325]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+INFO: [Synth 8-638] synthesizing module 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1094]
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-113] binding component instance 'MB_SRL16E_I1' to cell 'SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1098]
+INFO: [Synth 8-256] done synthesizing module 'MB_SRL16E' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1094]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-3491] module 'MB_SRL16E' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:1070' bound to instance 'SRL16E_I' of component 'MB_SRL16E' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2342]
+INFO: [Synth 8-256] done synthesizing module 'SRL_FIFO' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2171]
+	Parameter C_TARGET bound to: 8 - type: integer 
+	Parameter C_DATA_BITS bound to: 8 - type: integer 
+	Parameter C_DEPTH bound to: 16 - type: integer 
+	Parameter C_USE_SRL16 bound to: yes - type: string 
+INFO: [Synth 8-3491] module 'SRL_FIFO' declared at '/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:2151' bound to instance 'TX_FIFO_I' of component 'SRL_FIFO' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:4645]
+INFO: [Synth 8-256] done synthesizing module 'JTAG_CONTROL' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:3512]
+INFO: [Synth 8-256] done synthesizing module 'MDM_Core' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:6818]
+INFO: [Synth 8-638] synthesizing module 'axi_lite_ipif' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2948]
+INFO: [Synth 8-638] synthesizing module 'slave_attachment' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2341]
+INFO: [Synth 8-638] synthesizing module 'address_decoder' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1775]
+INFO: [Synth 8-638] synthesizing module 'pselect_f' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-256] done synthesizing module 'pselect_f' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-638] synthesizing module 'pselect_f__parameterized0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-256] done synthesizing module 'pselect_f__parameterized0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-638] synthesizing module 'pselect_f__parameterized1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-256] done synthesizing module 'pselect_f__parameterized1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-638] synthesizing module 'pselect_f__parameterized2' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-256] done synthesizing module 'pselect_f__parameterized2' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1534]
+INFO: [Synth 8-256] done synthesizing module 'address_decoder' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:1775]
+INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2550]
+INFO: [Synth 8-256] done synthesizing module 'slave_attachment' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2341]
+INFO: [Synth 8-256] done synthesizing module 'axi_lite_ipif' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2948]
+INFO: [Synth 8-256] done synthesizing module 'MDM_RISCV' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/d25b/hdl/mdm_riscv_v1_0_vh_rfs.vhd:14120]
+INFO: [Synth 8-256] done synthesizing module 'bd_mdm_1_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/synth/bd_mdm_1_0.vhd:94]
+INFO: [Synth 8-6014] Unused sequential element is_read_reg was removed.  [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2447]
+INFO: [Synth 8-6014] Unused sequential element is_write_reg was removed.  [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/66ea/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd:2448]
+INFO: [Synth 8-7129] Port Address_In_Erly[2] in module address_decoder is either unconnected or has no load
+INFO: [Synth 8-7129] Port Address_In_Erly[3] in module address_decoder is either unconnected or has no load
+INFO: [Synth 8-7129] Port Bus_RNW in module address_decoder is either unconnected or has no load
+INFO: [Synth 8-7129] Port S_AXI_WSTRB[3] in module slave_attachment is either unconnected or has no load
+INFO: [Synth 8-7129] Port S_AXI_WSTRB[2] in module slave_attachment is either unconnected or has no load
+INFO: [Synth 8-7129] Port S_AXI_WSTRB[1] in module slave_attachment is either unconnected or has no load
+INFO: [Synth 8-7129] Port S_AXI_WSTRB[0] in module slave_attachment is either unconnected or has no load
+INFO: [Synth 8-7129] Port Config_Reset in module MB_SRL16E is either unconnected or has no load
+INFO: [Synth 8-7129] Port Rst in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port M_AXI_ACLK in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port M_AXI_ARESETn in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_rd_idle in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_rd_resp[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_rd_resp[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_wr_idle in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_wr_resp[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_wr_resp[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[31] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[30] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[29] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[28] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[27] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[26] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[25] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[24] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[23] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[22] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[21] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[20] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[19] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[18] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[17] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[16] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[15] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[14] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[13] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[12] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[11] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[10] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[9] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[8] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[7] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[6] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[5] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[4] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[3] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[2] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_out[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_exists in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_data_empty in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_dwr_done in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_dwr_resp[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Master_dwr_resp[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_All_TDO in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[2] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[3] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[4] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[5] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[6] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[7] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[8] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[9] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[10] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[11] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[12] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[13] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[14] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[15] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[16] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[17] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[18] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[19] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[20] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[21] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[22] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[23] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[24] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[25] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[26] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[27] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[28] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[29] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[30] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_TDO_I[31] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_hart[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_hart[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[7] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[6] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[5] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[4] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[3] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[2] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port DMCS2_group_ext[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_Trig_In_0[0] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_Trig_In_0[1] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_Trig_In_0[2] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Synth 8-7129] Port Dbg_Trig_In_0[3] in module JTAG_CONTROL is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2571.621 ; gain = 574.656 ; free physical = 473 ; free virtual = 30476
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2574.590 ; gain = 577.625 ; free physical = 396 ; free virtual = 30399
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2574.590 ; gain = 577.625 ; free physical = 396 ; free virtual = 30399
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2577.559 ; gain = 0.000 ; free physical = 447 ; free virtual = 30281
+INFO: [Netlist 29-17] Analyzing 17 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0_ooc.xdc] for cell 'U0'
+create_clock: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2679.023 ; gain = 0.000 ; free physical = 371 ; free virtual = 28617
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/dont_touch.xdc]
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0_ooc_trace.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0_ooc_trace.xdc] for cell 'U0'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0.xdc] for cell 'U0'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_mdm_1_0/bd_mdm_1_0.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_mdm_1_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_mdm_1_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2679.023 ; gain = 0.000 ; free physical = 361 ; free virtual = 28607
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 9 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+  BUFGCE_1 => BUFGCTRL: 2 instances
+  MUXCY_L => MUXCY: 6 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2679.059 ; gain = 0.000 ; free physical = 383 ; free virtual = 28600
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2679.059 ; gain = 682.094 ; free physical = 386 ; free virtual = 27764
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcau15p-ffvb676-2-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2687.027 ; gain = 690.062 ; free physical = 386 ; free virtual = 27764
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 2687.027 ; gain = 690.062 ; free physical = 385 ; free virtual = 27764
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'Test_Access_Port.state_reg' in module 'JTAG_CONTROL'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'slave_attachment'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                tl_reset |                 0000000000000001 |                             0000
+                    idle |                 0000000000000010 |                             0001
+               select_dr |                 0000000000000100 |                             0010
+               select_ir |                 0000000000001000 |                             1001
+              capture_ir |                 0000000000010000 |                             1010
+                shift_ir |                 0000000000100000 |                             1011
+                exit1_ir |                 0000000001000000 |                             1100
+                pause_ir |                 0000000010000000 |                             1101
+                exit2_ir |                 0000000100000000 |                             1110
+               update_ir |                 0000001000000000 |                             1111
+              capture_dr |                 0000010000000000 |                             0011
+                shift_dr |                 0000100000000000 |                             0100
+                exit1_dr |                 0001000000000000 |                             0101
+                pause_dr |                 0010000000000000 |                             0110
+                exit2_dr |                 0100000000000000 |                             0111
+               update_dr |                 1000000000000000 |                             1000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'Test_Access_Port.state_reg' using encoding 'one-hot' in module 'JTAG_CONTROL'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 sm_idle |                             0010 |                               00
+                 sm_read |                             1000 |                               01
+                sm_write |                             0100 |                               10
+                 sm_resp |                             0001 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'slave_attachment'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2687.027 ; gain = 690.062 ; free physical = 473 ; free virtual = 27424
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    8 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 8     
++---Registers : 
+	               42 Bit    Registers := 1     
+	               32 Bit    Registers := 5     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 5     
+	                1 Bit    Registers := 58    
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 3     
+	   3 Input   32 Bit        Muxes := 1     
+	  16 Input   16 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 16    
+	   2 Input   10 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 3     
+	  16 Input    5 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 6     
+	   2 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 5     
+	   2 Input    1 Bit        Muxes := 35    
+	   4 Input    1 Bit        Muxes := 3     
+	  16 Input    1 Bit        Muxes := 10    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 576 (col length:72)
+BRAMs: 288 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 2687.027 ; gain = 690.062 ; free physical = 629 ; free virtual = 27276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 2931.930 ; gain = 934.965 ; free physical = 1933 ; free virtual = 28527
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 2936.930 ; gain = 939.965 ; free physical = 2163 ; free virtual = 28758
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 2954.961 ; gain = 957.996 ; free physical = 2944 ; free virtual = 29547
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11917 ; free virtual = 38663
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11917 ; free virtual = 38663
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11916 ; free virtual = 38663
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11916 ; free virtual = 38663
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11920 ; free virtual = 38666
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11920 ; free virtual = 38666
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++------------+----------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name | RTL Name                               | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++------------+----------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|MDM_RISCV   | MDM_Core_I1/JTAG_CONTROL_I/dmi_reg[31] | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|MDM_RISCV   | MDM_Core_I1/JTAG_CONTROL_I/dmi_reg[9]  | 22     | 1     | NO           | NO                 | YES               | 0      | 1       | 
+|MDM_RISCV   | Use_JTAG_BSCAN.bscanid_reg[27]         | 5      | 1     | YES          | NO                 | YES               | 1      | 0       | 
+|MDM_RISCV   | Use_JTAG_BSCAN.bscanid_reg[11]         | 9      | 1     | YES          | NO                 | YES               | 1      | 0       | 
+|MDM_RISCV   | Use_JTAG_BSCAN.bscanid_reg[1]          | 8      | 1     | YES          | NO                 | YES               | 1      | 0       | 
++------------+----------------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |BSCANE2 |     1|
+|2     |BUFG    |     1|
+|3     |BUFGCE  |     2|
+|4     |CARRY8  |     1|
+|5     |LUT1    |     4|
+|6     |LUT2    |   123|
+|7     |LUT3    |    36|
+|8     |LUT4    |    60|
+|9     |LUT5    |    31|
+|10    |LUT6    |    31|
+|11    |MUXCY_L |     6|
+|12    |SRL16E  |    20|
+|13    |SRLC32E |     1|
+|14    |XORCY   |     8|
+|15    |FDCE    |     2|
+|16    |FDRE    |   265|
+|17    |FDSE    |     9|
++------+--------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 11920 ; free virtual = 38666
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 3129.773 ; gain = 1028.340 ; free physical = 12076 ; free virtual = 38819
+Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 3129.773 ; gain = 1132.809 ; free physical = 12076 ; free virtual = 38819
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 3129.773 ; gain = 0.000 ; free physical = 12130 ; free virtual = 38876
+INFO: [Netlist 29-17] Analyzing 18 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3129.773 ; gain = 0.000 ; free physical = 12542 ; free virtual = 39302
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 5 instances were transformed.
+  (CARRY4) => CARRY8: 2 instances
+  BUFG => BUFGCE: 1 instance 
+  BUFGCE_1 => BUFGCTRL: 2 instances
+
+Synth Design complete | Checksum: c8c950b
+INFO: [Common 17-83] Releasing license: Synthesis
+208 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 3129.773 ; gain = 1520.043 ; free physical = 12559 ; free virtual = 39345
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1921.578; main = 1921.578; forked = 188.015
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3862.535; main = 3092.770; forked = 1015.719
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3129.773 ; gain = 0.000 ; free physical = 12542 ; free virtual = 39338
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/bd_mdm_1_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_mdm_1_0, cache-ID = 460f0e7c12622766
+INFO: [Coretcl 2-1174] Renamed 48 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3129.773 ; gain = 0.000 ; free physical = 14911 ; free virtual = 41684
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_mdm_1_0_synth_1/bd_mdm_1_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_mdm_1_0_utilization_synth.rpt -pb bd_mdm_1_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 29 23:06:52 2026...

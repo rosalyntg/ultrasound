@@ -1,0 +1,1204 @@
+#-----------------------------------------------------------
+# Vivado v2025.2.1 (64-bit)
+# SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
+# IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
+# SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
+# Start of session at: Fri Jul  3 17:41:10 2026
+# Process ID         : 1308557
+# Current directory  : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1
+# Command line       : vivado -log bd_net_wrapper_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_net_wrapper_0_0.tcl
+# Log file           : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/bd_net_wrapper_0_0.vds
+# Journal file       : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/vivado.jou
+# Running On         : russell-shotover-arch
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD RYZEN AI MAX PRO 390 w/ Radeon 8050S
+# CPU Frequency      : 4685.187 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 24
+# Host memory        : 50262 MB
+# Swap memory        : 25130 MB
+# Total Virtual      : 75393 MB
+# Available Virtual  : 39311 MB
+#-----------------------------------------------------------
+source bd_net_wrapper_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/russell/Xilinx/2025.2.1/data/ip'.
+Command: synth_design -top bd_net_wrapper_0_0 -part xcau15p-ffvb676-2-i -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p'
+INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 1308952
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2440.844 ; gain = 450.688 ; free physical = 408 ; free virtual = 36042
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:89]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:91]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:93]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:95]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:97]
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'arp_eth_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:85]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'arp_eth_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:87]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'arp_eth_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:89]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'arp_eth_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:91]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'arp_eth_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:93]
+WARNING: [Synth 8-11065] parameter 'ADDR_WIDTH' becomes localparam in 'axis_async_fifo' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:145]
+WARNING: [Synth 8-11065] parameter 'OUTPUT_FIFO_ADDR_WIDTH' becomes localparam in 'axis_async_fifo' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:147]
+WARNING: [Synth 8-11065] parameter 'ADDR_WIDTH' becomes localparam in 'axis_fifo' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:137]
+WARNING: [Synth 8-11065] parameter 'OUTPUT_FIFO_ADDR_WIDTH' becomes localparam in 'axis_fifo' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:139]
+WARNING: [Synth 8-11065] parameter 'EMPTY_WIDTH' becomes localparam in 'axis_xgmii_tx_32' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_32.v:90]
+WARNING: [Synth 8-11065] parameter 'MIN_LEN_WIDTH' becomes localparam in 'axis_xgmii_tx_32' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_32.v:91]
+WARNING: [Synth 8-11065] parameter 'EMPTY_WIDTH' becomes localparam in 'axis_xgmii_tx_64' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:91]
+WARNING: [Synth 8-11065] parameter 'MIN_LEN_WIDTH' becomes localparam in 'axis_xgmii_tx_64' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:92]
+WARNING: [Synth 8-11065] parameter 'CL_S_COUNT' becomes localparam in 'eth_arb_mux' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:90]
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'eth_axis_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:80]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'eth_axis_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:82]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'eth_axis_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:84]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'eth_axis_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:86]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'eth_axis_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:88]
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'eth_axis_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:79]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'eth_axis_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:81]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'eth_axis_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:83]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'eth_axis_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:85]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'eth_axis_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:87]
+WARNING: [Synth 8-11065] parameter 'MAC_CTRL_ENABLE' becomes localparam in 'eth_mac_10g' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g.v:186]
+WARNING: [Synth 8-11065] parameter 'TX_USER_WIDTH_INT' becomes localparam in 'eth_mac_10g' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g.v:187]
+WARNING: [Synth 8-11065] parameter 'KEEP_WIDTH' becomes localparam in 'eth_mac_10g_fifo' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:138]
+WARNING: [Synth 8-11065] parameter 'CL_S_COUNT' becomes localparam in 'ip_arb_mux' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:116]
+WARNING: [Synth 8-11065] parameter 'STYLE_INT' becomes localparam in 'lfsr' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:355]
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'mac_ctrl_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_rx.v:112]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'mac_ctrl_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_rx.v:114]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'mac_ctrl_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_rx.v:116]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'mac_ctrl_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_rx.v:118]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'mac_ctrl_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_rx.v:120]
+WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'mac_ctrl_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_tx.v:101]
+WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'mac_ctrl_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_tx.v:103]
+WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'mac_ctrl_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_tx.v:105]
+WARNING: [Synth 8-11065] parameter 'PTR_WIDTH' becomes localparam in 'mac_ctrl_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_tx.v:107]
+WARNING: [Synth 8-11065] parameter 'OFFSET' becomes localparam in 'mac_ctrl_tx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/mac_ctrl_tx.v:109]
+WARNING: [Synth 8-11065] parameter 'LEVELS' becomes localparam in 'priority_encoder' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/priority_encoder.v:47]
+WARNING: [Synth 8-11065] parameter 'W' becomes localparam in 'priority_encoder' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/priority_encoder.v:48]
+WARNING: [Synth 8-11065] parameter 'HEADER_FIFO_ADDR_WIDTH' becomes localparam in 'udp_checksum_gen_64' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:145]
+INFO: [Synth 8-6157] synthesizing module 'bd_net_wrapper_0_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/synth/bd_net_wrapper_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'net_wrapper' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net_wrapper.v:39]
+INFO: [Synth 8-6157] synthesizing module 'eth_mac_10g_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:34]
+INFO: [Synth 8-6157] synthesizing module 'eth_mac_10g' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter CTRL_WIDTH bound to: 8 - type: integer 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter ENABLE_DIC bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+	Parameter PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TS_FMT_TOD bound to: 1 - type: integer 
+	Parameter PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter TX_PTP_TS_CTRL_IN_TUSER bound to: 0 - type: integer 
+	Parameter TX_PTP_TAG_ENABLE bound to: 0 - type: integer 
+	Parameter TX_PTP_TAG_WIDTH bound to: 16 - type: integer 
+	Parameter TX_USER_WIDTH bound to: 1 - type: integer 
+	Parameter RX_USER_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_xgmii_rx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter CTRL_WIDTH bound to: 8 - type: integer 
+	Parameter PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TS_FMT_TOD bound to: 1 - type: integer 
+	Parameter PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'lfsr' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:218]
+INFO: [Synth 8-6155] done synthesizing module 'axis_xgmii_rx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'axis_xgmii_tx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter CTRL_WIDTH bound to: 8 - type: integer 
+	Parameter ENABLE_PADDING bound to: 1 - type: integer 
+	Parameter ENABLE_DIC bound to: 1 - type: integer 
+	Parameter MIN_FRAME_LENGTH bound to: 64 - type: integer 
+	Parameter PTP_TS_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TS_FMT_TOD bound to: 1 - type: integer 
+	Parameter PTP_TS_WIDTH bound to: 96 - type: integer 
+	Parameter PTP_TS_CTRL_IN_TUSER bound to: 0 - type: integer 
+	Parameter PTP_TAG_ENABLE bound to: 0 - type: integer 
+	Parameter PTP_TAG_WIDTH bound to: 16 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized0' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized0' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized1' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 16 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized1' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized2' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 24 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized2' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized3' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized3' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized4' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 40 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized4' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized5' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 48 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized5' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-6157] synthesizing module 'lfsr__parameterized6' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+	Parameter LFSR_WIDTH bound to: 32 - type: integer 
+	Parameter LFSR_POLY bound to: 79764919 - type: integer 
+	Parameter LFSR_CONFIG bound to: GALOIS - type: string 
+	Parameter LFSR_FEED_FORWARD bound to: 0 - type: integer 
+	Parameter REVERSE bound to: 1 - type: integer 
+	Parameter DATA_WIDTH bound to: 56 - type: integer 
+	Parameter STYLE bound to: AUTO - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr__parameterized6' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/lfsr.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:329]
+INFO: [Synth 8-6155] done synthesizing module 'axis_xgmii_tx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'eth_mac_10g' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g.v:34]
+WARNING: [Synth 8-7071] port 'tx_lfc_req' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_lfc_resend' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_lfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_lfc_req' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_lfc_ack' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_pfc_req' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_pfc_resend' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_pfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_pfc_req' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_pfc_ack' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_lfc_pause_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_pause_req' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_pause_ack' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'tx_start_packet' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'rx_start_packet' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_mcf' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_mcf' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_lfc_pkt' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_lfc_xon' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_lfc_xoff' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_lfc_paused' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_pfc_pkt' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_pfc_xon' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_pfc_xoff' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_tx_pfc_paused' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_lfc_pkt' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_lfc_xon' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_lfc_xoff' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_lfc_paused' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_pfc_pkt' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_pfc_xon' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_pfc_xoff' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'stat_rx_pfc_paused' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_eth_dst_mcast' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_check_eth_dst_mcast' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_eth_dst_ucast' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_check_eth_dst_ucast' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_eth_src' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_check_eth_src' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_eth_type' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_opcode_lfc' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_check_opcode_lfc' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_opcode_pfc' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_check_opcode_pfc' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_forward' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_mcf_rx_enable' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_eth_dst' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_eth_src' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_eth_type' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_opcode' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_quanta' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_lfc_refresh' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_eth_dst' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_eth_src' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_eth_type' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_opcode' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_quanta' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_tx_pfc_refresh' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_rx_lfc_opcode' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_rx_lfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_rx_pfc_opcode' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7071] port 'cfg_rx_pfc_en' of module 'eth_mac_10g' is unconnected for instance 'eth_mac_10g_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+WARNING: [Synth 8-7023] instance 'eth_mac_10g_inst' of module 'eth_mac_10g' has 94 connections declared, but only 30 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:343]
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo_adapter' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo_adapter.v:34]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter S_DATA_WIDTH bound to: 64 - type: integer 
+	Parameter S_KEEP_ENABLE bound to: 1'b1 
+	Parameter S_KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter M_DATA_WIDTH bound to: 64 - type: integer 
+	Parameter M_KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter M_KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter RAM_PIPELINE bound to: 1 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_OVERSIZE_FRAME bound to: 1 - type: integer 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:34]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter RAM_PIPELINE bound to: 1 - type: integer 
+	Parameter OUTPUT_FIFO_ENABLE bound to: 0 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_OVERSIZE_FRAME bound to: 1 - type: integer 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 0 - type: integer 
+	Parameter MARK_WHEN_FULL bound to: 0 - type: integer 
+	Parameter PAUSE_ENABLE bound to: 0 - type: integer 
+	Parameter FRAME_PAUSE bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo_adapter' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo_adapter.v:34]
+WARNING: [Synth 8-7071] port 's_pause_req' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 's_pause_ack' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 'm_pause_req' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 'm_pause_ack' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 's_status_depth' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 's_status_depth_commit' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 'm_status_depth' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7071] port 'm_status_depth_commit' of module 'axis_async_fifo_adapter' is unconnected for instance 'tx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+WARNING: [Synth 8-7023] instance 'tx_fifo' of module 'axis_async_fifo_adapter' has 34 connections declared, but only 26 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:402]
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo_adapter__parameterized0' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo_adapter.v:34]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter S_DATA_WIDTH bound to: 64 - type: integer 
+	Parameter S_KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter S_KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter M_DATA_WIDTH bound to: 64 - type: integer 
+	Parameter M_KEEP_ENABLE bound to: 1'b1 
+	Parameter M_KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter RAM_PIPELINE bound to: 1 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_OVERSIZE_FRAME bound to: 1 - type: integer 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_async_fifo__parameterized0' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:34]
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 8 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_WIDTH bound to: 8 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter RAM_PIPELINE bound to: 1 - type: integer 
+	Parameter OUTPUT_FIFO_ENABLE bound to: 0 - type: integer 
+	Parameter FRAME_FIFO bound to: 1 - type: integer 
+	Parameter USER_BAD_FRAME_VALUE bound to: 1'b1 
+	Parameter USER_BAD_FRAME_MASK bound to: 1'b1 
+	Parameter DROP_OVERSIZE_FRAME bound to: 1 - type: integer 
+	Parameter DROP_BAD_FRAME bound to: 1 - type: integer 
+	Parameter DROP_WHEN_FULL bound to: 1 - type: integer 
+	Parameter MARK_WHEN_FULL bound to: 0 - type: integer 
+	Parameter PAUSE_ENABLE bound to: 0 - type: integer 
+	Parameter FRAME_PAUSE bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo__parameterized0' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'axis_async_fifo_adapter__parameterized0' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo_adapter.v:34]
+WARNING: [Synth 8-7071] port 's_pause_req' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 's_pause_ack' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 'm_pause_req' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 'm_pause_ack' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 's_status_depth' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 's_status_depth_commit' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 'm_status_depth' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7071] port 'm_status_depth_commit' of module 'axis_async_fifo_adapter' is unconnected for instance 'rx_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+WARNING: [Synth 8-7023] instance 'rx_fifo' of module 'axis_async_fifo_adapter' has 34 connections declared, but only 26 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:454]
+INFO: [Synth 8-6155] done synthesizing module 'eth_mac_10g_fifo' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:34]
+INFO: [Synth 8-6157] synthesizing module 'eth_axis_rx' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_axis_rx' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_rx.v:34]
+INFO: [Synth 8-6157] synthesizing module 'eth_axis_tx' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_axis_tx' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_axis_tx.v:34]
+INFO: [Synth 8-6157] synthesizing module 'udp_complete_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_complete_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'ip_arb_mux' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:34]
+	Parameter S_COUNT bound to: 2 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ARB_TYPE_ROUND_ROBIN bound to: 0 - type: integer 
+	Parameter ARB_LSB_HIGH_PRIORITY bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'arbiter' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/arbiter.v:34]
+	Parameter PORTS bound to: 2 - type: integer 
+	Parameter ARB_TYPE_ROUND_ROBIN bound to: 0 - type: integer 
+	Parameter ARB_BLOCK bound to: 1 - type: integer 
+	Parameter ARB_BLOCK_ACK bound to: 1 - type: integer 
+	Parameter ARB_LSB_HIGH_PRIORITY bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'priority_encoder' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/priority_encoder.v:34]
+	Parameter WIDTH bound to: 2 - type: integer 
+	Parameter LSB_HIGH_PRIORITY bound to: 1 - type: integer 
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/priority_encoder.v:51]
+INFO: [Synth 8-6155] done synthesizing module 'priority_encoder' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/priority_encoder.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'arbiter' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/arbiter.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'ip_arb_mux' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:34]
+INFO: [Synth 8-6157] synthesizing module 'ip_complete_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_complete_64.v:34]
+	Parameter ARP_CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+	Parameter ARP_REQUEST_RETRY_COUNT bound to: 4 - type: integer 
+	Parameter ARP_REQUEST_RETRY_INTERVAL bound to: 250000000 - type: integer 
+	Parameter ARP_REQUEST_TIMEOUT bound to: -544967296 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'eth_arb_mux' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:34]
+	Parameter S_COUNT bound to: 2 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter ARB_TYPE_ROUND_ROBIN bound to: 0 - type: integer 
+	Parameter ARB_LSB_HIGH_PRIORITY bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'eth_arb_mux' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:34]
+INFO: [Synth 8-6157] synthesizing module 'ip_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'ip_eth_rx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_rx_64.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_rx_64.v:345]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_rx_64.v:247]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_rx_64.v:317]
+INFO: [Synth 8-6155] done synthesizing module 'ip_eth_rx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_rx_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'ip_eth_tx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_tx_64.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_tx_64.v:324]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_tx_64.v:215]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_tx_64.v:278]
+INFO: [Synth 8-6155] done synthesizing module 'ip_eth_tx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_eth_tx_64.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_64.v:282]
+INFO: [Synth 8-6155] done synthesizing module 'ip_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'arp' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+	Parameter REQUEST_RETRY_COUNT bound to: 4 - type: integer 
+	Parameter REQUEST_RETRY_INTERVAL bound to: 250000000 - type: integer 
+	Parameter REQUEST_TIMEOUT bound to: -544967296 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'arp_eth_rx' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'arp_eth_rx' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:34]
+INFO: [Synth 8-6157] synthesizing module 'arp_eth_tx' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:34]
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'arp_eth_tx' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:34]
+INFO: [Synth 8-6157] synthesizing module 'arp_cache' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_cache.v:34]
+	Parameter CACHE_ADDR_WIDTH bound to: 9 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'arp_cache' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_cache.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'arp' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'ip_complete_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_complete_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'udp_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_64.v:34]
+	Parameter CHECKSUM_GEN_ENABLE bound to: 1 - type: integer 
+	Parameter CHECKSUM_PAYLOAD_FIFO_DEPTH bound to: 2048 - type: integer 
+	Parameter CHECKSUM_HEADER_FIFO_DEPTH bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'udp_checksum_gen_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:34]
+	Parameter PAYLOAD_FIFO_DEPTH bound to: 2048 - type: integer 
+	Parameter HEADER_FIFO_DEPTH bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'axis_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:34]
+	Parameter DEPTH bound to: 2048 - type: integer 
+	Parameter DATA_WIDTH bound to: 64 - type: integer 
+	Parameter KEEP_ENABLE bound to: 1 - type: integer 
+	Parameter KEEP_WIDTH bound to: 8 - type: integer 
+	Parameter LAST_ENABLE bound to: 1 - type: integer 
+	Parameter ID_ENABLE bound to: 0 - type: integer 
+	Parameter DEST_ENABLE bound to: 0 - type: integer 
+	Parameter USER_ENABLE bound to: 1 - type: integer 
+	Parameter USER_WIDTH bound to: 1 - type: integer 
+	Parameter FRAME_FIFO bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axis_fifo' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:34]
+WARNING: [Synth 8-7071] port 'pause_req' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'pause_ack' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'status_depth' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'status_depth_commit' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7023] instance 'payload_fifo' of module 'axis_fifo' has 25 connections declared, but only 21 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:462]
+INFO: [Synth 8-6155] done synthesizing module 'udp_checksum_gen_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:34]
+WARNING: [Synth 8-7071] port 'm_ip_protocol' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_64_inst' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_64.v:271]
+WARNING: [Synth 8-7023] instance 'udp_checksum_gen_64_inst' of module 'udp_checksum_gen_64' has 55 connections declared, but only 54 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_64.v:271]
+INFO: [Synth 8-6157] synthesizing module 'udp_ip_rx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_rx_64.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_rx_64.v:247]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_rx_64.v:284]
+INFO: [Synth 8-6155] done synthesizing module 'udp_ip_rx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_rx_64.v:34]
+INFO: [Synth 8-6157] synthesizing module 'udp_ip_tx_64' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_tx_64.v:34]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_tx_64.v:238]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_tx_64.v:273]
+INFO: [Synth 8-6155] done synthesizing module 'udp_ip_tx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_tx_64.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'udp_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_64.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'udp_complete_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_complete_64.v:34]
+INFO: [Synth 8-6155] done synthesizing module 'net_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net_wrapper.v:39]
+INFO: [Synth 8-6155] done synthesizing module 'bd_net_wrapper_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/synth/bd_net_wrapper_0_0.v:53]
+WARNING: [Synth 8-6014] Unused sequential element xgmii_rxc_d0_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:342]
+WARNING: [Synth 8-6014] Unused sequential element ptp_ts_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:397]
+WARNING: [Synth 8-6014] Unused sequential element last_ts_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:425]
+WARNING: [Synth 8-6014] Unused sequential element ts_inc_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:397]
+WARNING: [Synth 8-6014] Unused sequential element m_axis_ptp_ts_valid_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:550]
+WARNING: [Synth 8-6014] Unused sequential element m_axis_ptp_ts_valid_int_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:551]
+WARNING: [Synth 8-6014] Unused sequential element crc_state_reg_reg[3] was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:600]
+WARNING: [Synth 8-6014] Unused sequential element crc_state_reg_reg[2] was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:600]
+WARNING: [Synth 8-6014] Unused sequential element crc_state_reg_reg[1] was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:600]
+WARNING: [Synth 8-6014] Unused sequential element crc_state_reg_reg[0] was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:600]
+WARNING: [Synth 8-6014] Unused sequential element last_ts_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:627]
+WARNING: [Synth 8-6014] Unused sequential element ts_inc_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_tx_64.v:628]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_temp_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:423]
+WARNING: [Synth 8-6014] Unused sequential element send_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:436]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_temp_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:670]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_temp_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:423]
+WARNING: [Synth 8-6014] Unused sequential element send_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:436]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_temp_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_async_fifo.v:670]
+WARNING: [Synth 8-6014] Unused sequential element m_ip_payload_axis_tid_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:376]
+WARNING: [Synth 8-6014] Unused sequential element m_ip_payload_axis_tdest_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:377]
+WARNING: [Synth 8-6014] Unused sequential element temp_m_ip_payload_axis_tid_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:383]
+WARNING: [Synth 8-6014] Unused sequential element temp_m_ip_payload_axis_tdest_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/ip_arb_mux.v:384]
+WARNING: [Synth 8-6014] Unused sequential element m_eth_payload_axis_tid_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:285]
+WARNING: [Synth 8-6014] Unused sequential element m_eth_payload_axis_tdest_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:286]
+WARNING: [Synth 8-6014] Unused sequential element temp_m_eth_payload_axis_tid_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:292]
+WARNING: [Synth 8-6014] Unused sequential element temp_m_eth_payload_axis_tdest_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_arb_mux.v:293]
+WARNING: [Synth 8-6014] Unused sequential element busy_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:176]
+WARNING: [Synth 8-6014] Unused sequential element busy_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_tx.v:165]
+WARNING: [Synth 8-6014] Unused sequential element s_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:267]
+WARNING: [Synth 8-6014] Unused sequential element drop_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:311]
+WARNING: [Synth 8-6014] Unused sequential element send_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:358]
+WARNING: [Synth 8-6014] Unused sequential element bad_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:256]
+WARNING: [Synth 8-6014] Unused sequential element good_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:257]
+WARNING: [Synth 8-6014] Unused sequential element s_udp_payload_axis_tready_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:555]
+INFO: [Synth 8-7129] Port s_axis_tid[7] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[6] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[5] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[4] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[3] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[2] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[1] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tid[0] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[7] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[6] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[5] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[4] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[3] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[2] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[1] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_axis_tdest[0] in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port pause_req in module axis_fifo is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[15] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[14] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[13] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[12] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[11] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[10] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[9] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[8] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[7] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[6] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[5] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[4] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[3] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[2] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[1] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_length[0] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[15] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[14] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[13] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[12] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[11] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[10] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[9] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[8] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[7] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[6] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[5] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[4] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[3] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[2] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[1] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_udp_checksum[0] in module udp_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[31] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[30] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[29] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[28] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[27] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[26] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[25] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[24] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[23] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[22] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[21] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[20] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[19] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[18] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[17] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[16] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[15] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[14] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[13] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[12] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[11] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[10] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[9] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[8] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[7] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[6] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[5] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[4] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[3] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[2] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[1] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port local_ip[0] in module ip_64 is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[15] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[14] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[13] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[12] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[11] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[10] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[9] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[8] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[7] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[6] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[5] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[4] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[3] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[2] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[1] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[0] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[15] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[14] in module eth_arb_mux is either unconnected or has no load
+INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[13] in module eth_arb_mux is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:01:05 ; elapsed = 00:01:05 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 432 ; free virtual = 34299
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:05 ; elapsed = 00:01:06 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 473 ; free virtual = 34337
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:01:05 ; elapsed = 00:01:06 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 469 ; free virtual = 34333
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.1 . Memory (MB): peak = 4074.742 ; gain = 0.000 ; free physical = 444 ; free virtual = 34334
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 4114.762 ; gain = 0.000 ; free physical = 456 ; free virtual = 34335
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.3 ; elapsed = 00:00:00.09 . Memory (MB): peak = 4126.684 ; gain = 0.008 ; free physical = 448 ; free virtual = 34319
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4126.684 ; gain = 2136.527 ; free physical = 373 ; free virtual = 32861
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcau15p-ffvb676-2-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 367 ; free virtual = 32860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 393 ; free virtual = 32859
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_xgmii_rx_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_xgmii_tx_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip_eth_rx_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip_eth_tx_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'ip_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'udp_ip_rx_64'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'udp_ip_tx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                               00 |                               00
+           STATE_PAYLOAD |                               01 |                               01
+              STATE_LAST |                               10 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'axis_xgmii_rx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              000 |                              000
+           STATE_PAYLOAD |                              001 |                              001
+               STATE_PAD |                              010 |                              010
+               STATE_ERR |                              011 |                              101
+             STATE_FCS_1 |                              100 |                              011
+             STATE_FCS_2 |                              101 |                              100
+               STATE_IFG |                              110 |                              110
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'axis_xgmii_tx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              000 |                              000
+       STATE_READ_HEADER |                              001 |                              001
+      STATE_READ_PAYLOAD |                              010 |                              010
+         STATE_WAIT_LAST |                              011 |                              100
+ STATE_READ_PAYLOAD_LAST |                              100 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ip_eth_rx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                              000 |                              000
+      STATE_WRITE_HEADER |                              001 |                              001
+ STATE_WRITE_HEADER_LAST |                              010 |                              010
+         STATE_WAIT_LAST |                              011 |                              101
+     STATE_WRITE_PAYLOAD |                              100 |                              011
+STATE_WRITE_PAYLOAD_LAST |                              101 |                              100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ip_eth_tx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                               00 |                               00
+         STATE_ARP_QUERY |                               01 |                               01
+       STATE_WAIT_PACKET |                               10 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'ip_64'
+WARNING: [Synth 8-6430] The Block RAM "arp_cache:/ip_addr_mem_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+INFO: [Synth 8-6904] The RAM "arp_cache:/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64:/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                             0001 |                              000
+       STATE_READ_HEADER |                             0010 |                              001
+      STATE_READ_PAYLOAD |                             0100 |                              010
+ STATE_READ_PAYLOAD_LAST |                             1000 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'one-hot' in module 'udp_ip_rx_64'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              STATE_IDLE |                               00 |                              000
+      STATE_WRITE_HEADER |                               01 |                              001
+     STATE_WRITE_PAYLOAD |                               10 |                              010
+STATE_WRITE_PAYLOAD_LAST |                               11 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'udp_ip_tx_64'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:17 ; elapsed = 00:01:17 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 5008 ; free virtual = 36352
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   36 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
+	   3 Input   20 Bit       Adders := 1     
+	   9 Input   20 Bit       Adders := 1     
+	   3 Input   18 Bit       Adders := 1     
+	   2 Input   18 Bit       Adders := 1     
+	   2 Input   17 Bit       Adders := 7     
+	   4 Input   17 Bit       Adders := 2     
+	   2 Input   16 Bit       Adders := 12    
+	   2 Input   10 Bit       Adders := 6     
+	   3 Input   10 Bit       Adders := 8     
+	   2 Input    9 Bit       Adders := 4     
+	   3 Input    9 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 1     
+	   5 Input    8 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 4     
+	   2 Input    4 Bit       Adders := 3     
+	   2 Input    3 Bit       Adders := 2     
+	   2 Input    2 Bit       Adders := 2     
+	   2 Input    1 Bit       Adders := 2     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input     10 Bit         XORs := 10    
+	   2 Input      9 Bit         XORs := 1     
+	   2 Input      2 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 697   
+	   4 Input      1 Bit         XORs := 54    
+	   5 Input      1 Bit         XORs := 38    
+	   6 Input      1 Bit         XORs := 61    
+	   3 Input      1 Bit         XORs := 145   
+	  10 Input      1 Bit         XORs := 26    
+	   9 Input      1 Bit         XORs := 33    
+	   7 Input      1 Bit         XORs := 46    
+	   8 Input      1 Bit         XORs := 44    
+	  11 Input      1 Bit         XORs := 25    
+	  12 Input      1 Bit         XORs := 23    
+	  17 Input      1 Bit         XORs := 39    
+	  18 Input      1 Bit         XORs := 33    
+	  16 Input      1 Bit         XORs := 34    
+	  20 Input      1 Bit         XORs := 29    
+	  19 Input      1 Bit         XORs := 25    
+	  21 Input      1 Bit         XORs := 21    
+	  15 Input      1 Bit         XORs := 31    
+	  24 Input      1 Bit         XORs := 24    
+	  26 Input      1 Bit         XORs := 16    
+	  25 Input      1 Bit         XORs := 12    
+	  22 Input      1 Bit         XORs := 26    
+	  27 Input      1 Bit         XORs := 12    
+	  28 Input      1 Bit         XORs := 14    
+	  29 Input      1 Bit         XORs := 4     
+	  35 Input      1 Bit         XORs := 4     
+	  30 Input      1 Bit         XORs := 3     
+	  34 Input      1 Bit         XORs := 2     
+	  33 Input      1 Bit         XORs := 2     
+	  23 Input      1 Bit         XORs := 11    
+	  32 Input      1 Bit         XORs := 7     
+	  31 Input      1 Bit         XORs := 4     
+	  43 Input      1 Bit         XORs := 2     
+	  37 Input      1 Bit         XORs := 2     
+	  13 Input      1 Bit         XORs := 11    
+	  14 Input      1 Bit         XORs := 13    
++---XORs : 
+	               10 Bit    Wide XORs := 36    
++---Registers : 
+	               74 Bit    Registers := 6     
+	               64 Bit    Registers := 31    
+	               48 Bit    Registers := 32    
+	               36 Bit    Registers := 1     
+	               32 Bit    Registers := 27    
+	               20 Bit    Registers := 2     
+	               17 Bit    Registers := 4     
+	               16 Bit    Registers := 50    
+	               13 Bit    Registers := 6     
+	               10 Bit    Registers := 32    
+	                9 Bit    Registers := 5     
+	                8 Bit    Registers := 43    
+	                6 Bit    Registers := 10    
+	                4 Bit    Registers := 15    
+	                3 Bit    Registers := 10    
+	                2 Bit    Registers := 23    
+	                1 Bit    Registers := 252   
++---RAMs : 
+	              37K Bit	(512 X 74 bit)          RAMs := 2     
+	              24K Bit	(512 X 48 bit)          RAMs := 1     
+	              18K Bit	(256 X 74 bit)          RAMs := 1     
+	              16K Bit	(512 X 32 bit)          RAMs := 1     
+	              512 Bit	(512 X 1 bit)          RAMs := 1     
+	              384 Bit	(8 X 48 bit)          RAMs := 2     
+	              256 Bit	(8 X 32 bit)          RAMs := 2     
+	              128 Bit	(8 X 16 bit)          RAMs := 7     
+	              104 Bit	(8 X 13 bit)          RAMs := 1     
+	               64 Bit	(8 X 8 bit)          RAMs := 1     
+	               48 Bit	(8 X 6 bit)          RAMs := 1     
+	               32 Bit	(8 X 4 bit)          RAMs := 2     
+	               24 Bit	(8 X 3 bit)          RAMs := 1     
+	               16 Bit	(8 X 2 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 25    
+	   7 Input   64 Bit        Muxes := 2     
+	   5 Input   64 Bit        Muxes := 1     
+	   3 Input   64 Bit        Muxes := 1     
+	   6 Input   64 Bit        Muxes := 1     
+	   4 Input   64 Bit        Muxes := 2     
+	   2 Input   48 Bit        Muxes := 21    
+	   6 Input   36 Bit        Muxes := 1     
+	   3 Input   36 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 14    
+	   6 Input   32 Bit        Muxes := 1     
+	   5 Input   28 Bit        Muxes := 1     
+	   5 Input   20 Bit        Muxes := 1     
+	   6 Input   17 Bit        Muxes := 2     
+	   2 Input   16 Bit        Muxes := 15    
+	   5 Input   16 Bit        Muxes := 1     
+	   6 Input   16 Bit        Muxes := 2     
+	   4 Input   16 Bit        Muxes := 2     
+	   2 Input   13 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 24    
+	   2 Input    9 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 67    
+	   3 Input    8 Bit        Muxes := 7     
+	   8 Input    8 Bit        Muxes := 2     
+	   7 Input    8 Bit        Muxes := 2     
+	   5 Input    8 Bit        Muxes := 5     
+	   6 Input    8 Bit        Muxes := 1     
+	   4 Input    8 Bit        Muxes := 6     
+	   7 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 1     
+	   5 Input    6 Bit        Muxes := 1     
+	   6 Input    6 Bit        Muxes := 2     
+	   8 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 13    
+	   3 Input    4 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 29    
+	   7 Input    3 Bit        Muxes := 1     
+	  19 Input    3 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 3     
+	   3 Input    3 Bit        Muxes := 9     
+	   5 Input    3 Bit        Muxes := 1     
+	  28 Input    3 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 4     
+	   3 Input    2 Bit        Muxes := 8     
+	   2 Input    2 Bit        Muxes := 54    
+	   4 Input    2 Bit        Muxes := 2     
+	   7 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 356   
+	   3 Input    1 Bit        Muxes := 15    
+	   7 Input    1 Bit        Muxes := 12    
+	   4 Input    1 Bit        Muxes := 29    
+	   5 Input    1 Bit        Muxes := 22    
+	   6 Input    1 Bit        Muxes := 20    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 576 (col length:72)
+BRAMs: 288 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+WARNING: [Synth 8-6430] The Block RAM "\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst/ip_addr_mem_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_8) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_dest_mac_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_9) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_src_mac_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_10) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_type_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_11) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_version_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_12) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_ihl_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_16) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_identification_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_17) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_flags_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_18) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_fragment_offset_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_20) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_header_checksum_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:35 ; elapsed = 00:01:42 . Memory (MB): peak = 4138.773 ; gain = 2148.617 ; free physical = 1328 ; free virtual = 32183
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                                                            | RTL Object                                           | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/tx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                                      | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                                     | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg        | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                            | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dscp_mem_reg         | Implied   | 8 x 6                | RAM32M16 x 1   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ecn_mem_reg          | Implied   | 8 x 2                | RAM16X1D x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M16 x 1   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:55 ; elapsed = 00:01:46 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 752 ; free virtual = 31608
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                                                            | RTL Object                                           | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/tx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                                      | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                                     | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg        | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
++-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+
+Distributed RAM: Final Mapping Report
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                            | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dscp_mem_reg         | Implied   | 8 x 6                | RAM32M16 x 1   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ecn_mem_reg          | Implied   | 8 x 2                | RAM16X1D x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M16 x 1   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
++-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/ip_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/mac_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:58 ; elapsed = 00:01:48 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 634 ; free virtual = 30879
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:02:00 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 714 ; free virtual = 30952
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:00 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 713 ; free virtual = 30951
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 669 ; free virtual = 30907
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 661 ; free virtual = 30899
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 621 ; free virtual = 30860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 606 ; free virtual = 30844
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |CARRY8    |    64|
+|2     |LUT1      |    54|
+|3     |LUT2      |   496|
+|4     |LUT3      |   817|
+|5     |LUT4      |   704|
+|6     |LUT5      |   925|
+|7     |LUT6      |  1955|
+|8     |MUXF7     |    43|
+|9     |MUXF8     |     3|
+|10    |RAM16X1D  |     2|
+|11    |RAM256X1D |     2|
+|12    |RAM32M16  |    10|
+|13    |RAM32X1D  |     2|
+|14    |RAMB18E2  |     4|
+|15    |RAMB36E2  |     4|
+|16    |FDCE      |     8|
+|17    |FDPE      |     3|
+|18    |FDRE      |  5316|
+|19    |FDSE      |   195|
++------+----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 604 ; free virtual = 30842
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 20 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:59 ; elapsed = 00:01:53 . Memory (MB): peak = 4142.691 ; gain = 2100.594 ; free physical = 5584 ; free virtual = 35826
+Synthesis Optimization Complete : Time (s): cpu = 00:02:01 ; elapsed = 00:01:55 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 5586 ; free virtual = 35827
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 4142.691 ; gain = 0.000 ; free physical = 5522 ; free virtual = 35764
+INFO: [Netlist 29-17] Analyzing 126 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4186.797 ; gain = 0.000 ; free physical = 5500 ; free virtual = 35742
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 16 instances were transformed.
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
+  RAM256X1D => RAM256X1D (MUXF7(x4), MUXF8(x2), RAMD64E(x8)): 2 instances
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 10 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 2 instances
+
+Synth Design complete | Checksum: bb3e0f91
+INFO: [Common 17-83] Releasing license: Synthesis
+274 Infos, 192 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:04 ; elapsed = 00:01:59 . Memory (MB): peak = 4186.832 ; gain = 2541.387 ; free physical = 5556 ; free virtual = 35798
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 9003.100; main = 3281.703; forked = 5938.590
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 18228.777; main = 4186.801; forked = 14090.000
+INFO: [Coretcl 2-1174] Renamed 38 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 4210.809 ; gain = 0.000 ; free physical = 5556 ; free virtual = 35798
+INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/bd_net_wrapper_0_0.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_net_wrapper_0_0_utilization_synth.rpt -pb bd_net_wrapper_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Jul  3 17:43:12 2026...
