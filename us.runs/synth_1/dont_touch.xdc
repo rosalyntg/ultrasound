@@ -69,16 +69,13 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_c_counte
 # IP: bd/bd/ip/bd_c_counter_binary_1_0/bd_c_counter_binary_1_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_c_counter_binary_1_0 || ORIG_REF_NAME==bd_c_counter_binary_1_0} -quiet] -quiet
 
-# IP: bd/bd/ip/bd_ila_0_0/bd_ila_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_ila_0_0 || ORIG_REF_NAME==bd_ila_0_0} -quiet] -quiet
-
 # IP: bd/bd/ip/bd_axi_iic_0_0/bd_axi_iic_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_axi_iic_0_0 || ORIG_REF_NAME==bd_axi_iic_0_0} -quiet] -quiet
 
-# IP: bd/bd/ip/bd_vio_0_3/bd_vio_0_3.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_vio_0_3 || ORIG_REF_NAME==bd_vio_0_3} -quiet] -quiet
-
 # IP: bd/bd/ip/bd_net_wrapper_0_0/bd_net_wrapper_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_net_wrapper_0_0 || ORIG_REF_NAME==bd_net_wrapper_0_0} -quiet] -quiet
+
+# IP: bd/bd/ip/bd_axi_gpio_0_0/bd_axi_gpio_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_axi_gpio_0_0 || ORIG_REF_NAME==bd_axi_gpio_0_0} -quiet] -quiet
 
 # XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/bd_ooc.xdc

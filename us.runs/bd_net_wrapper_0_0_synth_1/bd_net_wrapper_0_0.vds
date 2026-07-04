@@ -3,8 +3,8 @@
 # SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
 # IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
 # SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-# Start of session at: Fri Jul  3 17:41:10 2026
-# Process ID         : 1308557
+# Start of session at: Fri Jul  3 19:07:05 2026
+# Process ID         : 1643523
 # Current directory  : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1
 # Command line       : vivado -log bd_net_wrapper_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_net_wrapper_0_0.tcl
 # Log file           : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/bd_net_wrapper_0_0.vds
@@ -13,13 +13,13 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 22.04.5 LTS
 # Processor Detail   : AMD RYZEN AI MAX PRO 390 w/ Radeon 8050S
-# CPU Frequency      : 4685.187 MHz
+# CPU Frequency      : 4611.546 MHz
 # CPU Physical cores : 12
 # CPU Logical cores  : 24
 # Host memory        : 50262 MB
 # Swap memory        : 25130 MB
 # Total Virtual      : 75393 MB
-# Available Virtual  : 39311 MB
+# Available Virtual  : 34894 MB
 #-----------------------------------------------------------
 source bd_net_wrapper_0_0.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
@@ -32,10 +32,33 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p
 INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 1308952
+INFO: [Synth 8-7075] Helper process launched with PID 1643696
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2440.844 ; gain = 450.688 ; free physical = 408 ; free virtual = 36042
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2449.074 ; gain = 458.688 ; free physical = 438 ; free virtual = 32027
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_hdr_valid', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:393]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_hdr_ready', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:394]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_eth_dest_mac', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:395]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_eth_src_mac', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:396]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_eth_type', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:397]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_version', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:398]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_ihl', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:399]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_dscp', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:400]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_ecn', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:401]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_length', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:402]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_identification', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:403]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_flags', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:404]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_fragment_offset', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:405]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_ttl', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:406]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_protocol', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:407]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_header_checksum', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:408]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_source_ip', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:409]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_ip_dest_ip', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:410]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_source_port', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:411]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_dest_port', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:412]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_length', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:413]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_checksum', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:414]
+INFO: [Synth 8-11241] undeclared symbol 'm_udp_payload_axis_tvalid', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:417]
 WARNING: [Synth 8-11065] parameter 'BYTE_LANES' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:89]
 WARNING: [Synth 8-11065] parameter 'HDR_SIZE' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:91]
 WARNING: [Synth 8-11065] parameter 'CYCLE_COUNT' becomes localparam in 'arp_eth_rx' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp_eth_rx.v:93]
@@ -85,6 +108,36 @@ WARNING: [Synth 8-11065] parameter 'W' becomes localparam in 'priority_encoder' 
 WARNING: [Synth 8-11065] parameter 'HEADER_FIFO_ADDR_WIDTH' becomes localparam in 'udp_checksum_gen_64' with formal parameter declaration list [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:145]
 INFO: [Synth 8-6157] synthesizing module 'bd_net_wrapper_0_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/synth/bd_net_wrapper_0_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'net_wrapper' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net_wrapper.v:39]
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'net' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:52]
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'taxi_axis_if' [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter LAST_EN bound to: 1'b1 
+	Parameter USER_EN bound to: 1'b1 
+	Parameter USER_W bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'taxi_axis_if' (0#1) [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+INFO: [Synth 8-6157] synthesizing module 'taxi_axis_if' [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter LAST_EN bound to: 1'b1 
+	Parameter USER_EN bound to: 1'b1 
+	Parameter USER_W bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'taxi_axis_if' (0#1) [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+INFO: [Synth 8-6157] synthesizing module 'taxi_axis_if' [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+	Parameter DATA_W bound to: 8 - type: integer 
+	Parameter LAST_EN bound to: 1'b1 
+	Parameter USER_EN bound to: 1'b1 
+	Parameter USER_W bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'taxi_axis_if' (0#1) [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:11]
+INFO: [Synth 8-6157] synthesizing module 'udpaux_if' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:38]
+INFO: [Synth 8-6155] done synthesizing module 'udpaux_if' (0#1) [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:38]
+INFO: [Synth 8-6157] synthesizing module 'taxi_axil_if' [/home/russell/ultrasound/fpga/taxi/src/axi/rtl/taxi_axil_if.sv:11]
+	Parameter DATA_W bound to: 32 - type: integer 
+	Parameter ADDR_W bound to: 32 - type: integer 
+	Parameter STRB_W bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'taxi_axil_if' (0#1) [/home/russell/ultrasound/fpga/taxi/src/axi/rtl/taxi_axil_if.sv:11]
 INFO: [Synth 8-6157] synthesizing module 'eth_mac_10g_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g_fifo.v:34]
 INFO: [Synth 8-6157] synthesizing module 'eth_mac_10g' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/eth_mac_10g.v:34]
 	Parameter DATA_WIDTH bound to: 64 - type: integer 
@@ -492,6 +545,61 @@ INFO: [Synth 8-155] case statement is not full and has no default [/home/russell
 INFO: [Synth 8-6155] done synthesizing module 'udp_ip_tx_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_ip_tx_64.v:34]
 INFO: [Synth 8-6155] done synthesizing module 'udp_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_64.v:34]
 INFO: [Synth 8-6155] done synthesizing module 'udp_complete_64' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_complete_64.v:34]
+WARNING: [Synth 8-689] width (8) of port connection 's_udp_payload_axis_tdata' does not match port width (64) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:386]
+WARNING: [Synth 8-689] width (1) of port connection 's_udp_payload_axis_tkeep' does not match port width (8) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:387]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_eth_dest_mac' does not match port width (48) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:395]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_eth_src_mac' does not match port width (48) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:396]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_eth_type' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:397]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_version' does not match port width (4) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:398]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_ihl' does not match port width (4) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:399]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_dscp' does not match port width (6) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:400]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_ecn' does not match port width (2) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:401]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_length' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:402]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_identification' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:403]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_flags' does not match port width (3) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:404]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_fragment_offset' does not match port width (13) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:405]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_ttl' does not match port width (8) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:406]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_protocol' does not match port width (8) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:407]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_header_checksum' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:408]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_source_ip' does not match port width (32) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:409]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_ip_dest_ip' does not match port width (32) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:410]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_source_port' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:411]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_dest_port' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:412]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_length' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:413]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_checksum' does not match port width (16) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:414]
+WARNING: [Synth 8-689] width (8) of port connection 'm_udp_payload_axis_tdata' does not match port width (64) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:415]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_payload_axis_tkeep' does not match port width (8) of module 'udp_complete_64' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:416]
+INFO: [Synth 8-6157] synthesizing module 'udp_checksum_gen_64__parameterized0' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:34]
+WARNING: [Synth 8-7071] port 'pause_req' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'pause_ack' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'status_depth' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7071] port 'status_depth_commit' of module 'axis_fifo' is unconnected for instance 'payload_fifo' [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+WARNING: [Synth 8-7023] instance 'payload_fifo' of module 'axis_fifo' has 25 connections declared, but only 21 given [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:220]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:462]
+INFO: [Synth 8-6155] done synthesizing module 'udp_checksum_gen_64__parameterized0' (0#1) [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:34]
+WARNING: [Synth 8-689] width (8) of port connection 's_udp_payload_axis_tdata' does not match port width (64) of module 'udp_checksum_gen_64__parameterized0' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:447]
+WARNING: [Synth 8-689] width (1) of port connection 's_udp_payload_axis_tkeep' does not match port width (8) of module 'udp_checksum_gen_64__parameterized0' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:448]
+WARNING: [Synth 8-315] illegal expression in output port connection [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:450]
+WARNING: [Synth 8-315] illegal expression in output port connection [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:456]
+WARNING: [Synth 8-689] width (8) of port connection 'm_udp_payload_axis_tdata' does not match port width (64) of module 'udp_checksum_gen_64__parameterized0' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:463]
+WARNING: [Synth 8-689] width (1) of port connection 'm_udp_payload_axis_tkeep' does not match port width (8) of module 'udp_checksum_gen_64__parameterized0' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:464]
+WARNING: [Synth 8-7071] port 's_eth_dest_mac' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_eth_src_mac' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_eth_type' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_version' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_ihl' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_dscp' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_ecn' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_identification' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_flags' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_fragment_offset' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+WARNING: [Synth 8-7071] port 's_ip_ttl' of module 'udp_checksum_gen_64' is unconnected for instance 'udp_checksum_gen_inst' [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+INFO: [Common 17-14] Message 'Synth 8-7071' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-7023] instance 'udp_checksum_gen_inst' of module 'udp_checksum_gen_64' has 55 connections declared, but only 31 given [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:443]
+INFO: [Synth 8-6157] synthesizing module 'taxi_xfcp_mod_axil' [/home/russell/ultrasound/fpga/taxi/src/xfcp/rtl/taxi_xfcp_mod_axil.sv:18]
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/russell/ultrasound/fpga/taxi/src/xfcp/rtl/taxi_xfcp_mod_axil.sv:60]
+INFO: [Synth 8-6155] done synthesizing module 'taxi_xfcp_mod_axil' (0#1) [/home/russell/ultrasound/fpga/taxi/src/xfcp/rtl/taxi_xfcp_mod_axil.sv:18]
+INFO: [Synth 8-6155] done synthesizing module 'net' (0#1) [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:52]
 INFO: [Synth 8-6155] done synthesizing module 'net_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net_wrapper.v:39]
 INFO: [Synth 8-6155] done synthesizing module 'bd_net_wrapper_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/synth/bd_net_wrapper_0_0.v:53]
 WARNING: [Synth 8-6014] Unused sequential element xgmii_rxc_d0_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/axis_xgmii_rx_64.v:342]
@@ -528,134 +636,142 @@ WARNING: [Synth 8-6014] Unused sequential element send_frame_reg_reg was removed
 WARNING: [Synth 8-6014] Unused sequential element bad_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:256]
 WARNING: [Synth 8-6014] Unused sequential element good_frame_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/axis_fifo.v:257]
 WARNING: [Synth 8-6014] Unused sequential element s_udp_payload_axis_tready_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:555]
-INFO: [Synth 8-7129] Port s_axis_tid[7] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[6] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[5] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[4] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[3] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[2] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[1] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tid[0] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[7] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[6] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[5] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[4] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[3] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[2] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[1] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_axis_tdest[0] in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port pause_req in module axis_fifo is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[15] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[14] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[13] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[12] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[11] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[10] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[9] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[8] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[7] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[6] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[5] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[4] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[3] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[2] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[1] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_length[0] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[15] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[14] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[13] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[12] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[11] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[10] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[9] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[8] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[7] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[6] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[5] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[4] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[3] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[2] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[1] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_udp_checksum[0] in module udp_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[31] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[30] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[29] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[28] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[27] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[26] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[25] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[24] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[23] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[22] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[21] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[20] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[19] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[18] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[17] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[16] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[15] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[14] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[13] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[12] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[11] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[10] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[9] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[8] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[7] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[6] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[5] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[4] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[3] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[2] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[1] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port local_ip[0] in module ip_64 is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[15] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[14] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[13] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[12] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[11] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[10] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[9] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[8] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[7] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[6] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[5] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[4] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[3] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[2] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[1] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tid[0] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[15] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[14] in module eth_arb_mux is either unconnected or has no load
-INFO: [Synth 8-7129] Port s_eth_payload_axis_tdest[13] in module eth_arb_mux is either unconnected or has no load
+WARNING: [Synth 8-6014] Unused sequential element s_udp_payload_axis_tready_reg_reg was removed.  [/home/russell/ultrasound/fpga/verilog-ethernet/rtl/udp_checksum_gen_64.v:555]
+WARNING: [Synth 8-3848] Net xfcp_rx\.tstrb in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:38]
+WARNING: [Synth 8-3848] Net xfcp_rx\.tid in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:39]
+WARNING: [Synth 8-3848] Net xfcp_rx\.tdest in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:40]
+WARNING: [Synth 8-3848] Net xfcp_tx\.tready in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv:44]
+WARNING: [Synth 8-3848] Net m_axil\.buser in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axi/rtl/taxi_axil_if.sv:54]
+WARNING: [Synth 8-3848] Net m_axil\.ruser in module/entity net does not have driver. [/home/russell/ultrasound/fpga/taxi/src/axi/rtl/taxi_axil_if.sv:66]
+WARNING: [Synth 8-3848] Net m_udp_hdr_ready in module/entity net does not have driver. [/home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv:394]
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tkeep[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tstrb[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[7] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[6] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[5] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[4] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[3] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[2] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tid[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[7] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[6] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[5] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[4] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[3] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[2] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tdest[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port xfcp_usp_ds\.tuser[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.bresp[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.bresp[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.buser[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[31] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[30] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[29] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[28] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[27] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[26] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[25] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[24] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[23] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[22] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[21] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[20] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[19] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[18] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[17] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[16] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[15] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[14] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[13] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[12] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[11] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[10] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[9] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[8] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[7] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[6] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[5] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[4] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[3] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[2] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.araddr[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.arprot[2] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.arprot[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.arprot[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.aruser[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.arvalid in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.arready in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[31] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[30] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[29] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[28] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[27] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[26] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[25] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[24] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[23] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[22] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[21] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[20] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[19] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[18] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[17] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[16] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[15] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[14] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[13] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[12] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[11] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[10] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[9] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[8] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[7] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[6] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[5] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[4] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[3] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[2] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rdata[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rresp[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rresp[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.ruser[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rvalid in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_wr\.rready in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_rd\.rresp[1] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_rd\.rresp[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
+INFO: [Synth 8-7129] Port m_axil_rd\.ruser[0] in module taxi_xfcp_mod_axil is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:01:05 ; elapsed = 00:01:05 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 432 ; free virtual = 34299
+Finished RTL Elaboration : Time (s): cpu = 00:01:06 ; elapsed = 00:01:06 . Memory (MB): peak = 4075.004 ; gain = 2084.617 ; free physical = 884 ; free virtual = 30678
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:05 ; elapsed = 00:01:06 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 473 ; free virtual = 34337
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:06 ; elapsed = 00:01:07 . Memory (MB): peak = 4075.004 ; gain = 2084.617 ; free physical = 886 ; free virtual = 30714
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:01:05 ; elapsed = 00:01:06 . Memory (MB): peak = 4074.742 ; gain = 2084.586 ; free physical = 469 ; free virtual = 34333
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:01:06 ; elapsed = 00:01:07 . Memory (MB): peak = 4075.004 ; gain = 2084.617 ; free physical = 886 ; free virtual = 30714
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.1 . Memory (MB): peak = 4074.742 ; gain = 0.000 ; free physical = 444 ; free virtual = 34334
+Netlist sorting complete. Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.11 . Memory (MB): peak = 4075.004 ; gain = 0.000 ; free physical = 835 ; free virtual = 30712
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 4114.762 ; gain = 0.000 ; free physical = 456 ; free virtual = 34335
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 4115.023 ; gain = 0.000 ; free physical = 902 ; free virtual = 30699
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.3 ; elapsed = 00:00:00.09 . Memory (MB): peak = 4126.684 ; gain = 0.008 ; free physical = 448 ; free virtual = 34319
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.2 ; elapsed = 00:00:00.07 . Memory (MB): peak = 4126.945 ; gain = 0.008 ; free physical = 927 ; free virtual = 30702
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4126.684 ; gain = 2136.527 ; free physical = 373 ; free virtual = 32861
+Finished Constraint Validation : Time (s): cpu = 00:01:12 ; elapsed = 00:01:13 . Memory (MB): peak = 4126.945 ; gain = 2136.559 ; free physical = 540 ; free virtual = 29403
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -663,13 +779,13 @@ Start Loading Part and Timing Information
 Loading part: xcau15p-ffvb676-2-i
 INFO: [Synth 8-6742] Reading net delay rules and data
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 367 ; free virtual = 32860
+Finished Loading Part and Timing Information : Time (s): cpu = 00:01:12 ; elapsed = 00:01:13 . Memory (MB): peak = 4134.949 ; gain = 2144.562 ; free physical = 536 ; free virtual = 29403
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:01:12 ; elapsed = 00:01:12 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 393 ; free virtual = 32859
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:01:12 ; elapsed = 00:01:13 . Memory (MB): peak = 4134.949 ; gain = 2144.562 ; free physical = 515 ; free virtual = 29403
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_xgmii_rx_64'
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg_reg' in module 'axis_xgmii_tx_64'
@@ -765,8 +881,26 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encod
 STATE_WRITE_PAYLOAD_LAST |                               11 |                              011
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg_reg' using encoding 'sequential' in module 'udp_ip_tx_64'
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "udp_checksum_gen_64__parameterized0:/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:17 ; elapsed = 00:01:17 . Memory (MB): peak = 4134.688 ; gain = 2144.531 ; free physical = 5008 ; free virtual = 36352
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:18 ; elapsed = 00:01:18 . Memory (MB): peak = 4134.949 ; gain = 2144.562 ; free physical = 445 ; free virtual = 27750
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -775,30 +909,31 @@ Start RTL Component Statistics
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input   36 Bit       Adders := 1     
-	   2 Input   32 Bit       Adders := 2     
-	   3 Input   32 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 6     
+	   3 Input   32 Bit       Adders := 2     
 	   3 Input   20 Bit       Adders := 1     
 	   9 Input   20 Bit       Adders := 1     
 	   3 Input   18 Bit       Adders := 1     
 	   2 Input   18 Bit       Adders := 1     
-	   2 Input   17 Bit       Adders := 7     
-	   4 Input   17 Bit       Adders := 2     
-	   2 Input   16 Bit       Adders := 12    
+	   2 Input   17 Bit       Adders := 11    
+	   4 Input   17 Bit       Adders := 4     
+	   2 Input   16 Bit       Adders := 15    
 	   2 Input   10 Bit       Adders := 6     
 	   3 Input   10 Bit       Adders := 8     
-	   2 Input    9 Bit       Adders := 4     
-	   3 Input    9 Bit       Adders := 1     
-	   2 Input    8 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 7     
+	   3 Input    9 Bit       Adders := 2     
+	   2 Input    8 Bit       Adders := 3     
 	   5 Input    8 Bit       Adders := 1     
 	   2 Input    6 Bit       Adders := 4     
-	   2 Input    4 Bit       Adders := 3     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 5     
 	   2 Input    3 Bit       Adders := 2     
 	   2 Input    2 Bit       Adders := 2     
 	   2 Input    1 Bit       Adders := 2     
 +---XORs : 
 	   2 Input     32 Bit         XORs := 1     
 	   2 Input     10 Bit         XORs := 10    
-	   2 Input      9 Bit         XORs := 1     
+	   2 Input      9 Bit         XORs := 2     
 	   2 Input      2 Bit         XORs := 1     
 	   2 Input      1 Bit         XORs := 697   
 	   4 Input      1 Bit         XORs := 54    
@@ -839,38 +974,39 @@ Detailed RTL Component Info :
 +---XORs : 
 	               10 Bit    Wide XORs := 36    
 +---Registers : 
-	               74 Bit    Registers := 6     
+	               74 Bit    Registers := 8     
 	               64 Bit    Registers := 31    
-	               48 Bit    Registers := 32    
+	               48 Bit    Registers := 34    
 	               36 Bit    Registers := 1     
-	               32 Bit    Registers := 27    
+	               32 Bit    Registers := 31    
 	               20 Bit    Registers := 2     
-	               17 Bit    Registers := 4     
-	               16 Bit    Registers := 50    
-	               13 Bit    Registers := 6     
+	               17 Bit    Registers := 6     
+	               16 Bit    Registers := 58    
+	               13 Bit    Registers := 7     
 	               10 Bit    Registers := 32    
-	                9 Bit    Registers := 5     
-	                8 Bit    Registers := 43    
-	                6 Bit    Registers := 10    
-	                4 Bit    Registers := 15    
-	                3 Bit    Registers := 10    
-	                2 Bit    Registers := 23    
-	                1 Bit    Registers := 252   
+	                9 Bit    Registers := 8     
+	                8 Bit    Registers := 48    
+	                6 Bit    Registers := 11    
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 21    
+	                3 Bit    Registers := 12    
+	                2 Bit    Registers := 25    
+	                1 Bit    Registers := 273   
 +---RAMs : 
 	              37K Bit	(512 X 74 bit)          RAMs := 2     
 	              24K Bit	(512 X 48 bit)          RAMs := 1     
-	              18K Bit	(256 X 74 bit)          RAMs := 1     
+	              18K Bit	(256 X 74 bit)          RAMs := 2     
 	              16K Bit	(512 X 32 bit)          RAMs := 1     
 	              512 Bit	(512 X 1 bit)          RAMs := 1     
-	              384 Bit	(8 X 48 bit)          RAMs := 2     
-	              256 Bit	(8 X 32 bit)          RAMs := 2     
-	              128 Bit	(8 X 16 bit)          RAMs := 7     
-	              104 Bit	(8 X 13 bit)          RAMs := 1     
-	               64 Bit	(8 X 8 bit)          RAMs := 1     
-	               48 Bit	(8 X 6 bit)          RAMs := 1     
-	               32 Bit	(8 X 4 bit)          RAMs := 2     
-	               24 Bit	(8 X 3 bit)          RAMs := 1     
-	               16 Bit	(8 X 2 bit)          RAMs := 1     
+	              384 Bit	(8 X 48 bit)          RAMs := 4     
+	              256 Bit	(8 X 32 bit)          RAMs := 4     
+	              128 Bit	(8 X 16 bit)          RAMs := 14    
+	              104 Bit	(8 X 13 bit)          RAMs := 2     
+	               64 Bit	(8 X 8 bit)          RAMs := 2     
+	               48 Bit	(8 X 6 bit)          RAMs := 2     
+	               32 Bit	(8 X 4 bit)          RAMs := 4     
+	               24 Bit	(8 X 3 bit)          RAMs := 2     
+	               16 Bit	(8 X 2 bit)          RAMs := 2     
 +---Muxes : 
 	   2 Input   64 Bit        Muxes := 25    
 	   7 Input   64 Bit        Muxes := 2     
@@ -881,51 +1017,57 @@ Detailed RTL Component Info :
 	   2 Input   48 Bit        Muxes := 21    
 	   6 Input   36 Bit        Muxes := 1     
 	   3 Input   36 Bit        Muxes := 1     
-	   2 Input   32 Bit        Muxes := 14    
-	   6 Input   32 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 17    
+	   6 Input   32 Bit        Muxes := 2     
+	  11 Input   32 Bit        Muxes := 2     
 	   5 Input   28 Bit        Muxes := 1     
 	   5 Input   20 Bit        Muxes := 1     
-	   6 Input   17 Bit        Muxes := 2     
-	   2 Input   16 Bit        Muxes := 15    
+	   6 Input   17 Bit        Muxes := 4     
+	   2 Input   16 Bit        Muxes := 21    
 	   5 Input   16 Bit        Muxes := 1     
-	   6 Input   16 Bit        Muxes := 2     
+	   6 Input   16 Bit        Muxes := 3     
 	   4 Input   16 Bit        Muxes := 2     
 	   2 Input   13 Bit        Muxes := 1     
 	   2 Input   10 Bit        Muxes := 24    
 	   2 Input    9 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 67    
+	   2 Input    8 Bit        Muxes := 76    
 	   3 Input    8 Bit        Muxes := 7     
 	   8 Input    8 Bit        Muxes := 2     
 	   7 Input    8 Bit        Muxes := 2     
 	   5 Input    8 Bit        Muxes := 5     
 	   6 Input    8 Bit        Muxes := 1     
 	   4 Input    8 Bit        Muxes := 6     
+	  33 Input    8 Bit        Muxes := 1     
+	  11 Input    8 Bit        Muxes := 1     
 	   7 Input    6 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 1     
 	   5 Input    6 Bit        Muxes := 1     
 	   6 Input    6 Bit        Muxes := 2     
+	  11 Input    5 Bit        Muxes := 1     
 	   8 Input    4 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 13    
+	   2 Input    4 Bit        Muxes := 26    
 	   3 Input    4 Bit        Muxes := 1     
 	   4 Input    4 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 29    
+	  11 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 35    
 	   7 Input    3 Bit        Muxes := 1     
 	  19 Input    3 Bit        Muxes := 1     
 	   4 Input    3 Bit        Muxes := 3     
 	   3 Input    3 Bit        Muxes := 9     
 	   5 Input    3 Bit        Muxes := 1     
 	  28 Input    3 Bit        Muxes := 1     
-	   6 Input    3 Bit        Muxes := 4     
-	   3 Input    2 Bit        Muxes := 8     
-	   2 Input    2 Bit        Muxes := 54    
+	   6 Input    3 Bit        Muxes := 6     
+	   3 Input    2 Bit        Muxes := 9     
+	   2 Input    2 Bit        Muxes := 59    
 	   4 Input    2 Bit        Muxes := 2     
 	   7 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 356   
+	   2 Input    1 Bit        Muxes := 397   
 	   3 Input    1 Bit        Muxes := 15    
 	   7 Input    1 Bit        Muxes := 12    
 	   4 Input    1 Bit        Muxes := 29    
 	   5 Input    1 Bit        Muxes := 22    
-	   6 Input    1 Bit        Muxes := 20    
+	   6 Input    1 Bit        Muxes := 26    
+	  11 Input    1 Bit        Muxes := 7     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -942,97 +1084,145 @@ No constraint files found.
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "inst/udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/eth_dest_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/eth_src_mac_mem_reg" of size (depth=8 x width=48) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/eth_type_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_version_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_ihl_mem_reg" of size (depth=8 x width=4) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_identification_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_flags_mem_reg" of size (depth=8 x width=3) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_fragment_offset_mem_reg" of size (depth=8 x width=13) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_header_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
 RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
-WARNING: [Synth 8-6430] The Block RAM "\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst/ip_addr_mem_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+WARNING: [Synth 8-6430] The Block RAM "\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst/ip_addr_mem_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_8) is optimized away because it doesn't have any load.
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst/valid_mem_reg" of size (depth=512 x width=1) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-5784] Optimized 63 bits of RAM "udp_checksum_gen_64_inst/payload_fifo/mem_reg" due to constant propagation. Old ram width 74 bits, new ram width 11 bits.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_8) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_dest_mac_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_9) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_9) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_src_mac_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_10) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_10) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/eth_type_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_11) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_11) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_version_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_12) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_12) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_ihl_mem_reg was removed. 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_16) is optimized away because it doesn't have any load.
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_16) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_identification_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_17) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_17) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_flags_mem_reg was removed. 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_18) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_18) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_fragment_offset_mem_reg was removed. 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-WARNING: [Synth 8-13161] RAM (\inst/udp_complete_inst /udp_64_inst/i_20) is optimized away because it doesn't have any load.
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_complete_inst/udp_64_inst/i_20) is optimized away because it doesn't have any load.
 WARNING: [Synth 8-6014] Unused sequential element udp_checksum_gen_64_inst/ip_header_checksum_mem_reg was removed. 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
-INFO: [Synth 8-6904] The RAM "\inst/udp_complete_inst /udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_complete_inst/udp_64_inst/udp_checksum_gen_64_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_17) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element eth_dest_mac_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_19) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element eth_src_mac_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_21) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element eth_type_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_23) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_version_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_25) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_ihl_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_dscp_mem_reg" of size (depth=8 x width=6) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_ecn_mem_reg" of size (depth=8 x width=2) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_length_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_33) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_identification_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_35) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_flags_mem_reg was removed. 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_37) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_fragment_offset_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_ttl_mem_reg" of size (depth=8 x width=8) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+WARNING: [Synth 8-13161] RAM (\inst/net_inst /udp_checksum_gen_inst/i_41) is optimized away because it doesn't have any load.
+WARNING: [Synth 8-6014] Unused sequential element ip_header_checksum_mem_reg was removed. 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_source_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/ip_dest_ip_mem_reg" of size (depth=8 x width=32) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_source_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_dest_port_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-6904] The RAM "\inst/net_inst /udp_checksum_gen_inst/udp_checksum_mem_reg" of size (depth=8 x width=16) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
 RAM Pipeline Warning: Read Address Register Found For RAM ip_addr_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 RAM Pipeline Warning: Read Address Register Found For RAM valid_mem_reg. We will not be able to pipeline it. This may degrade performance. 
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:35 ; elapsed = 00:01:42 . Memory (MB): peak = 4138.773 ; gain = 2148.617 ; free physical = 1328 ; free virtual = 32183
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:34 ; elapsed = 00:01:41 . Memory (MB): peak = 4139.035 ; gain = 2148.648 ; free physical = 391 ; free virtual = 25430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Block RAM: Preliminary Mapping Report (see note below)
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
-|Module Name                                                            | RTL Object                                           | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
-|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/tx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                                      | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                                     | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg        | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                                                                     | RTL Object                                    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|\inst/net_inst /eth_mac_10g_fifo_inst                                           | tx_fifo/fifo_inst/mem_reg                     | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/net_inst /eth_mac_10g_fifo_inst                                           | rx_fifo/fifo_inst/mem_reg                     | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                               | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                              | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg | 256 x 74(WRITE_FIRST)  |   | R | 256 x 74(READ_FIRST)   | W |   | Port A and B     | 1      | 0      | 1               | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | payload_fifo/mem_reg                          | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
 
 Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
 
 Distributed RAM: Preliminary Mapping Report (see note below)
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
-|Module Name                                                            | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dscp_mem_reg         | Implied   | 8 x 6                | RAM32M16 x 1   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ecn_mem_reg          | Implied   | 8 x 2                | RAM16X1D x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M16 x 1   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                                     | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | ip_source_ip_mem_reg                             | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | ip_dest_ip_mem_reg                               | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | udp_source_port_mem_reg                          | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | udp_dest_port_mem_reg                            | Implied   | 8 x 16               | RAM32M16 x 2   | 
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
 
 Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
@@ -1043,39 +1233,41 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:55 ; elapsed = 00:01:46 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 752 ; free virtual = 31608
+Finished Timing Optimization : Time (s): cpu = 00:01:47 ; elapsed = 00:01:46 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 402 ; free virtual = 24969
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Block RAM: Final Mapping Report
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
-|Module Name                                                            | RTL Object                                           | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
-|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/tx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-|bd_net_wrapper_0_0                                                     | inst/eth_mac_10g_fifo_inst/rx_fifo/fifo_inst/mem_reg | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                                      | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                                     | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg        | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
-+-----------------------------------------------------------------------+------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name                                                                     | RTL Object                                    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|\inst/net_inst /eth_mac_10g_fifo_inst                                           | tx_fifo/fifo_inst/mem_reg                     | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/net_inst /eth_mac_10g_fifo_inst                                           | rx_fifo/fifo_inst/mem_reg                     | 512 x 74(NO_CHANGE)    | W |   | 512 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | ip_addr_mem_reg                               | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | mac_addr_mem_reg                              | 512 x 48(READ_FIRST)   | W |   | 512 x 48(WRITE_FIRST)  |   | R | Port A and B     | 0      | 1      |                 | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/payload_fifo/mem_reg | 256 x 74(WRITE_FIRST)  |   | R | 256 x 74(READ_FIRST)   | W |   | Port A and B     | 1      | 0      | 1               | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | payload_fifo/mem_reg                          | 256 x 74(READ_FIRST)   | W |   | 256 x 74(WRITE_FIRST)  |   | R | Port A and B     | 1      | 1      |                 | 
++--------------------------------------------------------------------------------+-----------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
 
 
 Distributed RAM: Final Mapping Report
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
-|Module Name                                                            | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
-|\inst/udp_complete_inst /\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dscp_mem_reg         | Implied   | 8 x 6                | RAM32M16 x 1   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ecn_mem_reg          | Implied   | 8 x 2                | RAM16X1D x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_ttl_mem_reg          | Implied   | 8 x 8                | RAM32M16 x 1   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
-|\inst/udp_complete_inst /udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
-+-----------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|Module Name                                                                     | RTL Object                                       | Inference | Size (Depth x Width) | Primitives     | 
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
+|\inst/net_inst /udp_complete_inst/\ip_complete_64_inst/arp_inst /arp_cache_inst | valid_mem_reg                                    | Implied   | 512 x 1              | RAM256X1D x 2  | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_length_mem_reg      | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/ip_source_ip_mem_reg    | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/ip_dest_ip_mem_reg      | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_source_port_mem_reg | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_dest_port_mem_reg   | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_complete_inst/udp_64_inst                                   | udp_checksum_gen_64_inst/udp_checksum_mem_reg    | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | ip_source_ip_mem_reg                             | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | ip_dest_ip_mem_reg                               | Implied   | 8 x 32               | RAM32M16 x 3   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | udp_source_port_mem_reg                          | Implied   | 8 x 16               | RAM32M16 x 2   | 
+|\inst/net_inst /udp_checksum_gen_inst                                           | udp_dest_port_mem_reg                            | Implied   | 8 x 16               | RAM32M16 x 2   | 
++--------------------------------------------------------------------------------+--------------------------------------------------+-----------+----------------------+----------------+
 
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -1083,10 +1275,10 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-7052] The timing for the instance inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/ip_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/mac_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/net_inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/ip_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance inst/net_inst/udp_complete_inst/ip_complete_64_inst/arp_inst/arp_cache_inst/mac_addr_mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:58 ; elapsed = 00:01:48 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 634 ; free virtual = 30879
+Finished Technology Mapping : Time (s): cpu = 00:01:49 ; elapsed = 00:01:47 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 452 ; free virtual = 24976
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -1104,37 +1296,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:02:00 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 714 ; free virtual = 30952
+Finished IO Insertion : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 471 ; free virtual = 24986
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:02:00 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 713 ; free virtual = 30951
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 454 ; free virtual = 24984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 669 ; free virtual = 30907
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 453 ; free virtual = 24966
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 661 ; free virtual = 30899
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 430 ; free virtual = 24966
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 621 ; free virtual = 30860
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 452 ; free virtual = 24963
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 606 ; free virtual = 30844
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 448 ; free virtual = 24983
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1150,55 +1342,53 @@ Report Cell Usage:
 +------+----------+------+
 |      |Cell      |Count |
 +------+----------+------+
-|1     |CARRY8    |    64|
-|2     |LUT1      |    54|
-|3     |LUT2      |   496|
-|4     |LUT3      |   817|
-|5     |LUT4      |   704|
-|6     |LUT5      |   925|
-|7     |LUT6      |  1955|
-|8     |MUXF7     |    43|
+|1     |CARRY8    |    56|
+|2     |LUT1      |    61|
+|3     |LUT2      |   432|
+|4     |LUT3      |   559|
+|5     |LUT4      |   684|
+|6     |LUT5      |   919|
+|7     |LUT6      |  1901|
+|8     |MUXF7     |    36|
 |9     |MUXF8     |     3|
-|10    |RAM16X1D  |     2|
-|11    |RAM256X1D |     2|
-|12    |RAM32M16  |    10|
-|13    |RAM32X1D  |     2|
-|14    |RAMB18E2  |     4|
-|15    |RAMB36E2  |     4|
-|16    |FDCE      |     8|
-|17    |FDPE      |     3|
-|18    |FDRE      |  5316|
-|19    |FDSE      |   195|
+|10    |RAM256X1D |     2|
+|11    |RAM32M16  |     6|
+|12    |RAM32X1D  |     2|
+|13    |RAMB18E2  |     5|
+|14    |RAMB36E2  |     4|
+|15    |FDCE      |     8|
+|16    |FDPE      |     3|
+|17    |FDRE      |  3882|
+|18    |FDSE      |   201|
 +------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:02:01 ; elapsed = 00:01:51 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 604 ; free virtual = 30842
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:51 ; elapsed = 00:01:50 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 466 ; free virtual = 24980
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 20 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:59 ; elapsed = 00:01:53 . Memory (MB): peak = 4142.691 ; gain = 2100.594 ; free physical = 5584 ; free virtual = 35826
-Synthesis Optimization Complete : Time (s): cpu = 00:02:01 ; elapsed = 00:01:55 . Memory (MB): peak = 4142.691 ; gain = 2152.535 ; free physical = 5586 ; free virtual = 35827
+Synthesis finished with 0 errors, 0 critical warnings and 38 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:49 ; elapsed = 00:01:54 . Memory (MB): peak = 4142.953 ; gain = 2100.625 ; free physical = 1778 ; free virtual = 30851
+Synthesis Optimization Complete : Time (s): cpu = 00:01:51 ; elapsed = 00:01:55 . Memory (MB): peak = 4142.953 ; gain = 2152.566 ; free physical = 1828 ; free virtual = 30858
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 4142.691 ; gain = 0.000 ; free physical = 5522 ; free virtual = 35764
-INFO: [Netlist 29-17] Analyzing 126 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 4142.953 ; gain = 0.000 ; free physical = 1785 ; free virtual = 30851
+INFO: [Netlist 29-17] Analyzing 105 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4186.797 ; gain = 0.000 ; free physical = 5500 ; free virtual = 35742
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4187.059 ; gain = 0.000 ; free physical = 1727 ; free virtual = 30833
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 16 instances were transformed.
-  RAM16X1D => RAM32X1D (RAMD32(x2)): 2 instances
+  A total of 10 instances were transformed.
   RAM256X1D => RAM256X1D (MUXF7(x4), MUXF8(x2), RAMD64E(x8)): 2 instances
-  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 10 instances
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 6 instances
   RAM32X1D => RAM32X1D (RAMD32(x2)): 2 instances
 
-Synth Design complete | Checksum: bb3e0f91
+Synth Design complete | Checksum: 758a0ba0
 INFO: [Common 17-83] Releasing license: Synthesis
-274 Infos, 192 Warnings, 0 Critical Warnings and 0 Errors encountered.
+361 Infos, 266 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:02:04 ; elapsed = 00:01:59 . Memory (MB): peak = 4186.832 ; gain = 2541.387 ; free physical = 5556 ; free virtual = 35798
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 9003.100; main = 3281.703; forked = 5938.590
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 18228.777; main = 4186.801; forked = 14090.000
-INFO: [Coretcl 2-1174] Renamed 38 cell refs.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 4210.809 ; gain = 0.000 ; free physical = 5556 ; free virtual = 35798
+synth_design: Time (s): cpu = 00:01:55 ; elapsed = 00:01:59 . Memory (MB): peak = 4187.094 ; gain = 2579.855 ; free physical = 1657 ; free virtual = 30834
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 8908.330; main = 3293.062; forked = 5846.100
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 18230.012; main = 4187.062; forked = 14090.973
+INFO: [Coretcl 2-1174] Renamed 42 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00 . Memory (MB): peak = 4211.070 ; gain = 0.000 ; free physical = 1568 ; free virtual = 30836
 INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/bd_net_wrapper_0_0.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_net_wrapper_0_0_utilization_synth.rpt -pb bd_net_wrapper_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Jul  3 17:43:12 2026...
+INFO: [Common 17-206] Exiting Vivado at Fri Jul  3 19:09:08 2026...

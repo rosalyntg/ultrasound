@@ -82,6 +82,12 @@ set_property ip_output_repo /home/russell/ultrasound/fpga/us/us.cache/ip [curren
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+read_verilog -library xil_defaultlib -sv {
+  /home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/net.sv
+  /home/russell/ultrasound/fpga/taxi/src/axi/rtl/taxi_axil_if.sv
+  /home/russell/ultrasound/fpga/taxi/src/axis/rtl/taxi_axis_if.sv
+  /home/russell/ultrasound/fpga/taxi/src/xfcp/rtl/taxi_xfcp_mod_axil.sv
+}
 read_verilog -library xil_defaultlib {
   /home/russell/ultrasound/fpga/verilog-ethernet/lib/axis/rtl/arbiter.v
   /home/russell/ultrasound/fpga/verilog-ethernet/rtl/arp.v

@@ -2,7 +2,7 @@
 //Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
-//Date        : Fri Jul  3 17:45:32 2026
+//Date        : Fri Jul  3 18:44:00 2026
 //Host        : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 //Command     : generate_target bd.bd
 //Design      : bd
@@ -10,7 +10,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=29,numReposBlks=28,numNonXlnxBlks=0,numHierBlks=1,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_microblaze_riscv_cnt=1,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "bd.hwdef" *) 
+(* CORE_GENERATION_INFO = "bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=27,numNonXlnxBlks=0,numHierBlks=1,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_microblaze_riscv_cnt=1,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "bd.hwdef" *) 
 module bd
    (eth_refclk_clk_n,
     eth_refclk_clk_p,
@@ -59,9 +59,11 @@ module bd
 
   wire [15:0]c_counter_binary_0_Q;
   wire [15:0]c_counter_binary_1_Q;
+  wire [0:0]clear_arp_cache;
   wire [0:0]drprst;
   wire eth_refclk_clk_n;
   wire eth_refclk_clk_p;
+  wire [31:0]gateway_ip;
   wire [0:0]ilconstant_1_dout;
   wire [9:0]in_system_ibert_0_GT0_DRP_DADDR;
   wire in_system_ibert_0_GT0_DRP_DEN;
@@ -81,6 +83,10 @@ module bd
   wire [0:0]jesd_refclk_clk_p;
   wire [3:0]jesd_rxn;
   wire [3:0]jesd_rxp;
+  wire [1:0]led;
+  wire [31:0]local_ip;
+  wire [47:0]local_mac;
+  wire [0:0]logic_rst;
   wire mdm_1_debug_sys_rst;
   wire microblaze_riscv_0_Clk;
   wire [31:0]microblaze_riscv_0_axi_dp_ARADDR;
@@ -187,30 +193,23 @@ module bd
   wire microblaze_riscv_0_mdm_axi_WVALID;
   wire net_wrapper_0_ip_rx_busy;
   wire net_wrapper_0_ip_tx_busy;
-  wire [15:0]net_wrapper_0_m_udp_checksum;
-  wire [15:0]net_wrapper_0_m_udp_dest_port;
-  wire [47:0]net_wrapper_0_m_udp_eth_dest_mac;
-  wire [47:0]net_wrapper_0_m_udp_eth_src_mac;
-  wire [15:0]net_wrapper_0_m_udp_eth_type;
-  wire [31:0]net_wrapper_0_m_udp_ip_dest_ip;
-  wire [5:0]net_wrapper_0_m_udp_ip_dscp;
-  wire [1:0]net_wrapper_0_m_udp_ip_ecn;
-  wire [2:0]net_wrapper_0_m_udp_ip_flags;
-  wire [12:0]net_wrapper_0_m_udp_ip_fragment_offset;
-  wire [15:0]net_wrapper_0_m_udp_ip_header_checksum;
-  wire [15:0]net_wrapper_0_m_udp_ip_identification;
-  wire [3:0]net_wrapper_0_m_udp_ip_ihl;
-  wire [15:0]net_wrapper_0_m_udp_ip_length;
-  wire [7:0]net_wrapper_0_m_udp_ip_protocol;
-  wire [31:0]net_wrapper_0_m_udp_ip_source_ip;
-  wire [7:0]net_wrapper_0_m_udp_ip_ttl;
-  wire [3:0]net_wrapper_0_m_udp_ip_version;
-  wire [15:0]net_wrapper_0_m_udp_length;
-  wire [63:0]net_wrapper_0_m_udp_payload_axis_tdata;
-  wire [7:0]net_wrapper_0_m_udp_payload_axis_tkeep;
-  wire net_wrapper_0_m_udp_payload_axis_tlast;
-  wire net_wrapper_0_m_udp_payload_axis_tvalid;
-  wire [15:0]net_wrapper_0_m_udp_source_port;
+  wire [31:0]net_wrapper_0_m_axi_ARADDR;
+  wire net_wrapper_0_m_axi_ARREADY;
+  wire net_wrapper_0_m_axi_ARVALID;
+  wire [31:0]net_wrapper_0_m_axi_AWADDR;
+  wire net_wrapper_0_m_axi_AWREADY;
+  wire net_wrapper_0_m_axi_AWVALID;
+  wire net_wrapper_0_m_axi_BREADY;
+  wire [1:0]net_wrapper_0_m_axi_BRESP;
+  wire net_wrapper_0_m_axi_BVALID;
+  wire [31:0]net_wrapper_0_m_axi_RDATA;
+  wire net_wrapper_0_m_axi_RREADY;
+  wire [1:0]net_wrapper_0_m_axi_RRESP;
+  wire net_wrapper_0_m_axi_RVALID;
+  wire [31:0]net_wrapper_0_m_axi_WDATA;
+  wire net_wrapper_0_m_axi_WREADY;
+  wire [3:0]net_wrapper_0_m_axi_WSTRB;
+  wire net_wrapper_0_m_axi_WVALID;
   wire net_wrapper_0_rx_error_bad_fcs;
   wire net_wrapper_0_rx_error_bad_frame;
   wire net_wrapper_0_udp_rx_busy;
@@ -226,6 +225,7 @@ module bd
   wire rst_sysclk_wiz_25M_mb_reset;
   wire [0:0]rst_sysclk_wiz_25M_peripheral_aresetn;
   wire [0:0]rx_reset;
+  wire [0:0]rx_rst;
   wire sfp_i2c_iic2intc_irpt;
   wire sfp_i2c_scl_i;
   wire sfp_i2c_scl_o;
@@ -238,20 +238,14 @@ module bd
   wire sfp_rx_gt_port_0_p;
   wire sfp_tx_gt_port_0_n;
   wire sfp_tx_gt_port_0_p;
+  wire [31:0]subnet_mask;
   wire [0:0]sys_reset;
   wire [0:0]tx_reset;
+  wire [0:0]tx_rst;
+  wire [0:0]tx_test;
   wire [0:0]txpolarity;
-  wire [1:0]usrled;
   wire [0:0]util_ds_buf_0_IBUF_OUT;
   wire [0:0]util_ds_buf_1_BUFGCE_O;
-  wire [0:0]vio_rx_probe_out0;
-  wire [0:0]vio_rx_probe_out1;
-  wire [47:0]vio_rx_probe_out2;
-  wire [0:0]vio_rx_probe_out3;
-  wire [47:0]vio_rx_probe_out4;
-  wire [0:0]vio_rx_probe_out5;
-  wire [47:0]vio_rx_probe_out6;
-  wire [0:0]vio_tx_probe_out0;
   wire xxv_ethernet_0_gt_txresetdone_0;
   wire xxv_ethernet_0_gtpowergood_out_0;
   wire xxv_ethernet_0_rx_clk_out_0;
@@ -274,21 +268,33 @@ module bd
   wire xxv_ethernet_0_user_rx_reset_0;
   wire xxv_ethernet_0_user_tx_reset_0;
 
-  assign led[1:0] = usrled;
+  bd_axi_gpio_0_0 axi_gpio_0
+       (.gpio_io_o(led),
+        .s_axi_aclk(xxv_ethernet_0_rx_clk_out_0),
+        .s_axi_araddr(net_wrapper_0_m_axi_ARADDR[8:0]),
+        .s_axi_aresetn(logic_rst),
+        .s_axi_arready(net_wrapper_0_m_axi_ARREADY),
+        .s_axi_arvalid(net_wrapper_0_m_axi_ARVALID),
+        .s_axi_awaddr(net_wrapper_0_m_axi_AWADDR[8:0]),
+        .s_axi_awready(net_wrapper_0_m_axi_AWREADY),
+        .s_axi_awvalid(net_wrapper_0_m_axi_AWVALID),
+        .s_axi_bready(net_wrapper_0_m_axi_BREADY),
+        .s_axi_bresp(net_wrapper_0_m_axi_BRESP),
+        .s_axi_bvalid(net_wrapper_0_m_axi_BVALID),
+        .s_axi_rdata(net_wrapper_0_m_axi_RDATA),
+        .s_axi_rready(net_wrapper_0_m_axi_RREADY),
+        .s_axi_rresp(net_wrapper_0_m_axi_RRESP),
+        .s_axi_rvalid(net_wrapper_0_m_axi_RVALID),
+        .s_axi_wdata(net_wrapper_0_m_axi_WDATA),
+        .s_axi_wready(net_wrapper_0_m_axi_WREADY),
+        .s_axi_wstrb(net_wrapper_0_m_axi_WSTRB),
+        .s_axi_wvalid(net_wrapper_0_m_axi_WVALID));
   bd_c_counter_binary_0_0 c_counter_binary_0
        (.CLK(xxv_ethernet_0_rx_clk_out_0),
         .Q(c_counter_binary_0_Q));
   bd_c_counter_binary_1_0 c_counter_binary_1
        (.CLK(xxv_ethernet_0_tx_mii_clk_0),
         .Q(c_counter_binary_1_Q));
-  bd_ila_0_0 ila_0
-       (.clk(xxv_ethernet_0_rx_clk_out_0),
-        .probe0(net_wrapper_0_m_udp_payload_axis_tdata),
-        .probe1(net_wrapper_0_m_udp_payload_axis_tkeep),
-        .probe2(net_wrapper_0_m_udp_payload_axis_tlast),
-        .probe3(xxv_ethernet_0_rx_mii_d_0),
-        .probe4(net_wrapper_0_m_udp_payload_axis_tvalid),
-        .probe5(xxv_ethernet_0_rx_mii_c_0));
   
   assign ilconstant_1_dout = 1'h1;
   bd_in_system_ibert_0_0 in_system_ibert_0
@@ -585,66 +591,43 @@ module bd
         .SYS_Rst(rst_sysclk_wiz_25M_bus_struct_reset));
   assign microblaze_riscv_0_intr = {1'b0, sfp_i2c_iic2intc_irpt};
   bd_net_wrapper_0_0 net_wrapper_0
-       (.clear_arp_cache(vio_rx_probe_out6[0]),
-        .gateway_ip(vio_rx_probe_out4[31:0]),
+       (.clear_arp_cache(clear_arp_cache),
+        .gateway_ip(gateway_ip),
         .ip_rx_busy(net_wrapper_0_ip_rx_busy),
         .ip_tx_busy(net_wrapper_0_ip_tx_busy),
-        .local_ip({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,vio_rx_probe_out3}),
-        .local_mac(vio_rx_probe_out2),
+        .local_ip(local_ip),
+        .local_mac(local_mac),
         .logic_clk(xxv_ethernet_0_rx_clk_out_0),
-        .logic_rst(vio_rx_probe_out1),
-        .m_udp_checksum(net_wrapper_0_m_udp_checksum),
-        .m_udp_dest_port(net_wrapper_0_m_udp_dest_port),
-        .m_udp_eth_dest_mac(net_wrapper_0_m_udp_eth_dest_mac),
-        .m_udp_eth_src_mac(net_wrapper_0_m_udp_eth_src_mac),
-        .m_udp_eth_type(net_wrapper_0_m_udp_eth_type),
-        .m_udp_hdr_ready(1'b0),
-        .m_udp_ip_dest_ip(net_wrapper_0_m_udp_ip_dest_ip),
-        .m_udp_ip_dscp(net_wrapper_0_m_udp_ip_dscp),
-        .m_udp_ip_ecn(net_wrapper_0_m_udp_ip_ecn),
-        .m_udp_ip_flags(net_wrapper_0_m_udp_ip_flags),
-        .m_udp_ip_fragment_offset(net_wrapper_0_m_udp_ip_fragment_offset),
-        .m_udp_ip_header_checksum(net_wrapper_0_m_udp_ip_header_checksum),
-        .m_udp_ip_identification(net_wrapper_0_m_udp_ip_identification),
-        .m_udp_ip_ihl(net_wrapper_0_m_udp_ip_ihl),
-        .m_udp_ip_length(net_wrapper_0_m_udp_ip_length),
-        .m_udp_ip_protocol(net_wrapper_0_m_udp_ip_protocol),
-        .m_udp_ip_source_ip(net_wrapper_0_m_udp_ip_source_ip),
-        .m_udp_ip_ttl(net_wrapper_0_m_udp_ip_ttl),
-        .m_udp_ip_version(net_wrapper_0_m_udp_ip_version),
-        .m_udp_length(net_wrapper_0_m_udp_length),
-        .m_udp_payload_axis_tdata(net_wrapper_0_m_udp_payload_axis_tdata),
-        .m_udp_payload_axis_tkeep(net_wrapper_0_m_udp_payload_axis_tkeep),
-        .m_udp_payload_axis_tlast(net_wrapper_0_m_udp_payload_axis_tlast),
-        .m_udp_payload_axis_tready(1'b1),
-        .m_udp_payload_axis_tvalid(net_wrapper_0_m_udp_payload_axis_tvalid),
-        .m_udp_source_port(net_wrapper_0_m_udp_source_port),
+        .logic_rst(logic_rst),
+        .m_axi_araddr(net_wrapper_0_m_axi_ARADDR),
+        .m_axi_arready(net_wrapper_0_m_axi_ARREADY),
+        .m_axi_arvalid(net_wrapper_0_m_axi_ARVALID),
+        .m_axi_awaddr(net_wrapper_0_m_axi_AWADDR),
+        .m_axi_awready(net_wrapper_0_m_axi_AWREADY),
+        .m_axi_awvalid(net_wrapper_0_m_axi_AWVALID),
+        .m_axi_bready(net_wrapper_0_m_axi_BREADY),
+        .m_axi_bresp(net_wrapper_0_m_axi_BRESP),
+        .m_axi_bvalid(net_wrapper_0_m_axi_BVALID),
+        .m_axi_rdata(net_wrapper_0_m_axi_RDATA),
+        .m_axi_rready(net_wrapper_0_m_axi_RREADY),
+        .m_axi_rresp(net_wrapper_0_m_axi_RRESP),
+        .m_axi_rvalid(net_wrapper_0_m_axi_RVALID),
+        .m_axi_wdata(net_wrapper_0_m_axi_WDATA),
+        .m_axi_wready(net_wrapper_0_m_axi_WREADY),
+        .m_axi_wstrb(net_wrapper_0_m_axi_WSTRB),
+        .m_axi_wvalid(net_wrapper_0_m_axi_WVALID),
         .rx_error_bad_fcs(net_wrapper_0_rx_error_bad_fcs),
         .rx_error_bad_frame(net_wrapper_0_rx_error_bad_frame),
-        .s_udp_checksum({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_dest_port({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_hdr_valid(1'b0),
-        .s_udp_ip_dest_ip({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_ip_dscp({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_ip_ecn({1'b0,1'b0}),
-        .s_udp_ip_source_ip({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_ip_ttl({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_length({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_payload_axis_tdata({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .s_udp_payload_axis_tkeep({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
-        .s_udp_payload_axis_tlast(1'b0),
-        .s_udp_payload_axis_tuser(1'b0),
-        .s_udp_payload_axis_tvalid(1'b0),
-        .s_udp_source_port({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .subnet_mask({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,vio_rx_probe_out5}),
+        .subnet_mask(subnet_mask),
+        .tx_test(tx_test),
         .udp_rx_busy(net_wrapper_0_udp_rx_busy),
         .udp_tx_busy(net_wrapper_0_udp_tx_busy),
         .xgmii_rx_clk(xxv_ethernet_0_rx_clk_out_0),
-        .xgmii_rx_rst(vio_rx_probe_out0),
+        .xgmii_rx_rst(rx_rst),
         .xgmii_rxc(xxv_ethernet_0_rx_mii_c_0),
         .xgmii_rxd(xxv_ethernet_0_rx_mii_d_0),
         .xgmii_tx_clk(xxv_ethernet_0_tx_mii_clk_0),
-        .xgmii_tx_rst(vio_tx_probe_out0),
+        .xgmii_tx_rst(tx_rst),
         .xgmii_txc(net_wrapper_0_xgmii_txc),
         .xgmii_txd(net_wrapper_0_xgmii_txd));
   bd_rst_sysclk_wiz_25M_0 rst_sysclk_wiz_25M
@@ -721,51 +704,49 @@ module bd
         .probe_out5(rx_reset),
         .probe_out6(tx_reset),
         .probe_out7(qpllreset));
-  bd_vio_0_3 vio_led
-       (.clk(microblaze_riscv_0_Clk),
-        .probe_out0(usrled));
   bd_vio_0_1 vio_rx
        (.clk(xxv_ethernet_0_rx_clk_out_0),
-        .probe_in0(net_wrapper_0_m_udp_eth_dest_mac),
-        .probe_in1(net_wrapper_0_m_udp_eth_src_mac),
-        .probe_in10(net_wrapper_0_m_udp_ip_fragment_offset),
-        .probe_in11(net_wrapper_0_m_udp_ip_ttl),
-        .probe_in12(net_wrapper_0_m_udp_ip_protocol),
-        .probe_in13(net_wrapper_0_m_udp_ip_header_checksum),
-        .probe_in14(net_wrapper_0_m_udp_ip_source_ip),
-        .probe_in15(net_wrapper_0_m_udp_ip_dest_ip),
-        .probe_in16(net_wrapper_0_m_udp_source_port),
-        .probe_in17(net_wrapper_0_m_udp_dest_port),
-        .probe_in18(net_wrapper_0_m_udp_length),
-        .probe_in19(net_wrapper_0_m_udp_checksum),
-        .probe_in2(net_wrapper_0_m_udp_eth_type),
+        .probe_in0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in10({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in11({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in12({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in13({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in14({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in15({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in16({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in17({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in18({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in19({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in2({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .probe_in20(net_wrapper_0_rx_error_bad_frame),
         .probe_in21(net_wrapper_0_rx_error_bad_fcs),
         .probe_in22(net_wrapper_0_ip_rx_busy),
         .probe_in23(net_wrapper_0_ip_tx_busy),
         .probe_in24(net_wrapper_0_udp_rx_busy),
         .probe_in25(net_wrapper_0_udp_tx_busy),
-        .probe_in3(net_wrapper_0_m_udp_ip_version),
-        .probe_in4(net_wrapper_0_m_udp_ip_ihl),
-        .probe_in5(net_wrapper_0_m_udp_ip_dscp),
-        .probe_in6(net_wrapper_0_m_udp_ip_ecn),
-        .probe_in7(net_wrapper_0_m_udp_ip_length),
-        .probe_in8(net_wrapper_0_m_udp_ip_identification),
-        .probe_in9(net_wrapper_0_m_udp_ip_flags),
-        .probe_out0(vio_rx_probe_out0),
-        .probe_out1(vio_rx_probe_out1),
-        .probe_out2(vio_rx_probe_out2),
-        .probe_out3(vio_rx_probe_out3),
-        .probe_out4(vio_rx_probe_out4),
-        .probe_out5(vio_rx_probe_out5),
-        .probe_out6(vio_rx_probe_out6));
+        .probe_in3({1'b0,1'b0,1'b0,1'b0}),
+        .probe_in4({1'b0,1'b0,1'b0,1'b0}),
+        .probe_in5({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in6({1'b0,1'b0}),
+        .probe_in7({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in8({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .probe_in9({1'b0,1'b0,1'b0}),
+        .probe_out0(rx_rst),
+        .probe_out1(logic_rst),
+        .probe_out2(local_mac),
+        .probe_out3(local_ip),
+        .probe_out4(gateway_ip),
+        .probe_out5(subnet_mask),
+        .probe_out6(clear_arp_cache),
+        .probe_out7(tx_test));
   bd_vio_0_0 vio_tx
        (.clk(xxv_ethernet_0_tx_mii_clk_0),
         .probe_in0(1'b0),
         .probe_in1({1'b0,1'b0}),
         .probe_in2(1'b0),
         .probe_in3(1'b0),
-        .probe_out0(vio_tx_probe_out0));
+        .probe_out0(tx_rst));
   bd_xxv_ethernet_0_0 xxv_ethernet_0
        (.ctl_rx_data_pattern_select_0(1'b0),
         .ctl_rx_prbs31_test_pattern_enable_0(1'b0),

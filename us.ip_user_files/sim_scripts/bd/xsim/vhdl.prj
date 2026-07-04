@@ -14,6 +14,7 @@ vhdl xil_defaultlib  \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/sim/bd_c_counter_binary_0_0.vhd" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_1_0/sim/bd_c_counter_binary_1_0.vhd" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/sim/bd_axi_iic_0_0.vhd" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_axi_gpio_0_0/sim/bd_axi_gpio_0_0.vhd" \
 
 # Do not sort compile order
 nosort

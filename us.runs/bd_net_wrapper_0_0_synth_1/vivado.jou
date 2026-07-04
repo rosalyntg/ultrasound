@@ -3,8 +3,8 @@
 # SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
 # IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
 # SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-# Start of session at: Fri Jul  3 17:41:10 2026
-# Process ID         : 1308557
+# Start of session at: Fri Jul  3 19:07:05 2026
+# Process ID         : 1643523
 # Current directory  : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1
 # Command line       : vivado -log bd_net_wrapper_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_net_wrapper_0_0.tcl
 # Log file           : /home/russell/ultrasound/fpga/us/us.runs/bd_net_wrapper_0_0_synth_1/bd_net_wrapper_0_0.vds
@@ -13,12 +13,12 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 22.04.5 LTS
 # Processor Detail   : AMD RYZEN AI MAX PRO 390 w/ Radeon 8050S
-# CPU Frequency      : 4685.187 MHz
+# CPU Frequency      : 4611.546 MHz
 # CPU Physical cores : 12
 # CPU Logical cores  : 24
 # Host memory        : 50262 MB
 # Swap memory        : 25130 MB
 # Total Virtual      : 75393 MB
-# Available Virtual  : 39311 MB
+# Available Virtual  : 34894 MB
 #-----------------------------------------------------------
 source bd_net_wrapper_0_0.tcl -notrace

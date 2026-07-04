@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xcau15p-ffvb676-2-i" LaunchTime="1783122337">
+<GenRun Id="impl_1" LaunchPart="xcau15p-ffvb676-2-i" LaunchTime="1783127366">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="us_top_postroute_physopted.rqs"/>
@@ -1248,6 +1248,34 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/net.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../taxi/src/axi/rtl/taxi_axil_if.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../taxi/src/axis/rtl/taxi_axis_if.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../taxi/src/xfcp/rtl/taxi_xfcp_mod_axil.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/net_wrapper.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -1321,7 +1349,7 @@
     <Step Id="write_bitstream"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="bd_net_wrapper_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="bd_vio_0_3"/>
+  <BlockFileSet Type="BlockSrcs" Name="bd_axi_gpio_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_axi_iic_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_c_counter_binary_1_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_c_counter_binary_0_0"/>
@@ -1341,7 +1369,6 @@
   <BlockFileSet Type="BlockSrcs" Name="bd_util_ds_buf_1_1"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_dlmb_bram_if_cntlr_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_xxv_ethernet_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="bd_ila_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_jesd204_phy_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="bd_util_ds_buf_0_0"/>
 </GenRun>

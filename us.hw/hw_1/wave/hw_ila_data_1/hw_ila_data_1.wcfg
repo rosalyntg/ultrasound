@@ -9,15 +9,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0"></ZoomStartTime>
-      <ZoomEndTime time="1,025"></ZoomEndTime>
-      <Cursor1Time time="310"></Cursor1Time>
+      <ZoomStartTime time="360"></ZoomStartTime>
+      <ZoomEndTime time="798"></ZoomEndTime>
+      <Cursor1Time time="479"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="443"></NameColumnWidth>
-      <ValueColumnWidth column_width="175"></ValueColumnWidth>
+      <ValueColumnWidth column_width="171"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="7" />
+   <WVObjectSize size="6" />
    <wave_markers>
    </wave_markers>
    <wvobject type="array" fp_name="bd/bd_i/xxv_ethernet_0_rx_mii_c_0">
@@ -36,41 +36,33 @@
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/mac_wrapper_0_rx_axis_tdata">
+   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tdata">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/mac_wrapper_0_rx_axis_tdata[63:0]</obj_property>
-      <obj_property name="ObjectShortName">mac_wrapper_0_rx_axis_tdata[63:0]</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tdata[63:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/mac_wrapper_0_rx_axis_tkeep">
+   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tkeep">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/mac_wrapper_0_rx_axis_tkeep[7:0]</obj_property>
-      <obj_property name="ObjectShortName">mac_wrapper_0_rx_axis_tkeep[7:0]</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tkeep[7:0]</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tkeep[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="bd/bd_i/mac_wrapper_0_rx_axis_tlast">
+   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tlast">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/mac_wrapper_0_rx_axis_tlast</obj_property>
-      <obj_property name="ObjectShortName">mac_wrapper_0_rx_axis_tlast</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tlast</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/mac_wrapper_0_rx_axis_tuser">
+   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tvalid">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/mac_wrapper_0_rx_axis_tuser[0:0]</obj_property>
-      <obj_property name="ObjectShortName">mac_wrapper_0_rx_axis_tuser[0:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="bd/bd_i/mac_wrapper_0_rx_axis_tvalid">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/mac_wrapper_0_rx_axis_tvalid</obj_property>
-      <obj_property name="ObjectShortName">mac_wrapper_0_rx_axis_tvalid</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tvalid</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

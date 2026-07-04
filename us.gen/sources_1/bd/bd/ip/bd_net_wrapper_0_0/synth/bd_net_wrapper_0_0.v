@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "net_wrapper,Vivado 2025.2.1" *)
 (* CHECK_LICENSE_TYPE = "bd_net_wrapper_0_0,net_wrapper,{}" *)
-(* CORE_GENERATION_INFO = "bd_net_wrapper_0_0,net_wrapper,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=net_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED}" *)
+(* CORE_GENERATION_INFO = "bd_net_wrapper_0_0,net_wrapper,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=net_wrapper,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_M_AXI_ADDR_WIDTH=32,C_M_AXI_DATA_WIDTH=32}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module bd_net_wrapper_0_0 (
@@ -66,51 +66,25 @@ module bd_net_wrapper_0_0 (
   xgmii_rxc,
   xgmii_txd,
   xgmii_txc,
-  s_udp_hdr_valid,
-  s_udp_hdr_ready,
-  s_udp_ip_dscp,
-  s_udp_ip_ecn,
-  s_udp_ip_ttl,
-  s_udp_ip_source_ip,
-  s_udp_ip_dest_ip,
-  s_udp_source_port,
-  s_udp_dest_port,
-  s_udp_length,
-  s_udp_checksum,
-  s_udp_payload_axis_tdata,
-  s_udp_payload_axis_tkeep,
-  s_udp_payload_axis_tvalid,
-  s_udp_payload_axis_tready,
-  s_udp_payload_axis_tlast,
-  s_udp_payload_axis_tuser,
-  m_udp_hdr_valid,
-  m_udp_hdr_ready,
-  m_udp_eth_dest_mac,
-  m_udp_eth_src_mac,
-  m_udp_eth_type,
-  m_udp_ip_version,
-  m_udp_ip_ihl,
-  m_udp_ip_dscp,
-  m_udp_ip_ecn,
-  m_udp_ip_length,
-  m_udp_ip_identification,
-  m_udp_ip_flags,
-  m_udp_ip_fragment_offset,
-  m_udp_ip_ttl,
-  m_udp_ip_protocol,
-  m_udp_ip_header_checksum,
-  m_udp_ip_source_ip,
-  m_udp_ip_dest_ip,
-  m_udp_source_port,
-  m_udp_dest_port,
-  m_udp_length,
-  m_udp_checksum,
-  m_udp_payload_axis_tdata,
-  m_udp_payload_axis_tkeep,
-  m_udp_payload_axis_tvalid,
-  m_udp_payload_axis_tready,
-  m_udp_payload_axis_tlast,
-  m_udp_payload_axis_tuser,
+  m_axi_awaddr,
+  m_axi_awprot,
+  m_axi_awvalid,
+  m_axi_awready,
+  m_axi_wdata,
+  m_axi_wstrb,
+  m_axi_wvalid,
+  m_axi_wready,
+  m_axi_bresp,
+  m_axi_bvalid,
+  m_axi_bready,
+  m_axi_araddr,
+  m_axi_arprot,
+  m_axi_arvalid,
+  m_axi_arready,
+  m_axi_rdata,
+  m_axi_rresp,
+  m_axi_rvalid,
+  m_axi_rready,
   rx_error_bad_frame,
   rx_error_bad_fcs,
   ip_rx_busy,
@@ -121,16 +95,17 @@ module bd_net_wrapper_0_0 (
   local_ip,
   gateway_ip,
   subnet_mask,
-  clear_arp_cache
+  clear_arp_cache,
+  tx_test
 );
 
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 logic_clk CLK" *)
 (* X_INTERFACE_MODE = "slave" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME logic_clk, ASSOCIATED_RESET logic_rst, FREQ_HZ 156250000, FREQ_TOLERANCE_HZ 0, PHASE 0, CLK_DOMAIN bd_xxv_ethernet_0_0_rx_clk_out_0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME logic_clk, ASSOCIATED_RESET logic_rst, ASSOCIATED_BUSIF M_AXI, FREQ_HZ 156250000, FREQ_TOLERANCE_HZ 0, PHASE 0, CLK_DOMAIN bd_xxv_ethernet_0_0_rx_clk_out_0, INSERT_VIP 0" *)
 input wire logic_clk;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 logic_rst RST" *)
 (* X_INTERFACE_MODE = "slave" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME logic_rst, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME logic_rst, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *)
 input wire logic_rst;
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 xgmii_rx_clk CLK" *)
 (* X_INTERFACE_MODE = "slave" *)
@@ -152,67 +127,47 @@ input wire [63 : 0] xgmii_rxd;
 input wire [7 : 0] xgmii_rxc;
 output wire [63 : 0] xgmii_txd;
 output wire [7 : 0] xgmii_txc;
-input wire s_udp_hdr_valid;
-output wire s_udp_hdr_ready;
-input wire [5 : 0] s_udp_ip_dscp;
-input wire [1 : 0] s_udp_ip_ecn;
-input wire [7 : 0] s_udp_ip_ttl;
-input wire [31 : 0] s_udp_ip_source_ip;
-input wire [31 : 0] s_udp_ip_dest_ip;
-input wire [15 : 0] s_udp_source_port;
-input wire [15 : 0] s_udp_dest_port;
-input wire [15 : 0] s_udp_length;
-input wire [15 : 0] s_udp_checksum;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TDATA" *)
-(* X_INTERFACE_MODE = "slave" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_udp_payload_axis, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
-input wire [63 : 0] s_udp_payload_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TKEEP" *)
-input wire [7 : 0] s_udp_payload_axis_tkeep;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TVALID" *)
-input wire s_udp_payload_axis_tvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TREADY" *)
-output wire s_udp_payload_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TLAST" *)
-input wire s_udp_payload_axis_tlast;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_udp_payload_axis TUSER" *)
-input wire s_udp_payload_axis_tuser;
-output wire m_udp_hdr_valid;
-input wire m_udp_hdr_ready;
-output wire [47 : 0] m_udp_eth_dest_mac;
-output wire [47 : 0] m_udp_eth_src_mac;
-output wire [15 : 0] m_udp_eth_type;
-output wire [3 : 0] m_udp_ip_version;
-output wire [3 : 0] m_udp_ip_ihl;
-output wire [5 : 0] m_udp_ip_dscp;
-output wire [1 : 0] m_udp_ip_ecn;
-output wire [15 : 0] m_udp_ip_length;
-output wire [15 : 0] m_udp_ip_identification;
-output wire [2 : 0] m_udp_ip_flags;
-output wire [12 : 0] m_udp_ip_fragment_offset;
-output wire [7 : 0] m_udp_ip_ttl;
-output wire [7 : 0] m_udp_ip_protocol;
-output wire [15 : 0] m_udp_ip_header_checksum;
-output wire [31 : 0] m_udp_ip_source_ip;
-output wire [31 : 0] m_udp_ip_dest_ip;
-output wire [15 : 0] m_udp_source_port;
-output wire [15 : 0] m_udp_dest_port;
-output wire [15 : 0] m_udp_length;
-output wire [15 : 0] m_udp_checksum;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TDATA" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi AWADDR" *)
 (* X_INTERFACE_MODE = "master" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_udp_payload_axis, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
-output wire [63 : 0] m_udp_payload_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TKEEP" *)
-output wire [7 : 0] m_udp_payload_axis_tkeep;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TVALID" *)
-output wire m_udp_payload_axis_tvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TREADY" *)
-input wire m_udp_payload_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TLAST" *)
-output wire m_udp_payload_axis_tlast;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_udp_payload_axis TUSER" *)
-output wire m_udp_payload_axis_tuser;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axi, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 156250000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0, CLK_DOMAIN bd_xxv_ethernet_0_0_rx_clk_out_0, NUM_READ_THREADS 1, NUM_WRIT\
+E_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
+output wire [31 : 0] m_axi_awaddr;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi AWPROT" *)
+output wire [2 : 0] m_axi_awprot;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi AWVALID" *)
+output wire m_axi_awvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi AWREADY" *)
+input wire m_axi_awready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi WDATA" *)
+output wire [31 : 0] m_axi_wdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi WSTRB" *)
+output wire [3 : 0] m_axi_wstrb;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi WVALID" *)
+output wire m_axi_wvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi WREADY" *)
+input wire m_axi_wready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi BRESP" *)
+input wire [1 : 0] m_axi_bresp;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi BVALID" *)
+input wire m_axi_bvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi BREADY" *)
+output wire m_axi_bready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi ARADDR" *)
+output wire [31 : 0] m_axi_araddr;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi ARPROT" *)
+output wire [2 : 0] m_axi_arprot;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi ARVALID" *)
+output wire m_axi_arvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi ARREADY" *)
+input wire m_axi_arready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi RDATA" *)
+input wire [31 : 0] m_axi_rdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi RRESP" *)
+input wire [1 : 0] m_axi_rresp;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi RVALID" *)
+input wire m_axi_rvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 m_axi RREADY" *)
+output wire m_axi_rready;
 output wire rx_error_bad_frame;
 output wire rx_error_bad_fcs;
 output wire ip_rx_busy;
@@ -224,8 +179,12 @@ input wire [31 : 0] local_ip;
 input wire [31 : 0] gateway_ip;
 input wire [31 : 0] subnet_mask;
 input wire clear_arp_cache;
+input wire tx_test;
 
-  net_wrapper inst (
+  net_wrapper #(
+    .C_M_AXI_ADDR_WIDTH(32),
+    .C_M_AXI_DATA_WIDTH(32)
+  ) inst (
     .logic_clk(logic_clk),
     .logic_rst(logic_rst),
     .xgmii_rx_clk(xgmii_rx_clk),
@@ -236,51 +195,25 @@ input wire clear_arp_cache;
     .xgmii_rxc(xgmii_rxc),
     .xgmii_txd(xgmii_txd),
     .xgmii_txc(xgmii_txc),
-    .s_udp_hdr_valid(s_udp_hdr_valid),
-    .s_udp_hdr_ready(s_udp_hdr_ready),
-    .s_udp_ip_dscp(s_udp_ip_dscp),
-    .s_udp_ip_ecn(s_udp_ip_ecn),
-    .s_udp_ip_ttl(s_udp_ip_ttl),
-    .s_udp_ip_source_ip(s_udp_ip_source_ip),
-    .s_udp_ip_dest_ip(s_udp_ip_dest_ip),
-    .s_udp_source_port(s_udp_source_port),
-    .s_udp_dest_port(s_udp_dest_port),
-    .s_udp_length(s_udp_length),
-    .s_udp_checksum(s_udp_checksum),
-    .s_udp_payload_axis_tdata(s_udp_payload_axis_tdata),
-    .s_udp_payload_axis_tkeep(s_udp_payload_axis_tkeep),
-    .s_udp_payload_axis_tvalid(s_udp_payload_axis_tvalid),
-    .s_udp_payload_axis_tready(s_udp_payload_axis_tready),
-    .s_udp_payload_axis_tlast(s_udp_payload_axis_tlast),
-    .s_udp_payload_axis_tuser(s_udp_payload_axis_tuser),
-    .m_udp_hdr_valid(m_udp_hdr_valid),
-    .m_udp_hdr_ready(m_udp_hdr_ready),
-    .m_udp_eth_dest_mac(m_udp_eth_dest_mac),
-    .m_udp_eth_src_mac(m_udp_eth_src_mac),
-    .m_udp_eth_type(m_udp_eth_type),
-    .m_udp_ip_version(m_udp_ip_version),
-    .m_udp_ip_ihl(m_udp_ip_ihl),
-    .m_udp_ip_dscp(m_udp_ip_dscp),
-    .m_udp_ip_ecn(m_udp_ip_ecn),
-    .m_udp_ip_length(m_udp_ip_length),
-    .m_udp_ip_identification(m_udp_ip_identification),
-    .m_udp_ip_flags(m_udp_ip_flags),
-    .m_udp_ip_fragment_offset(m_udp_ip_fragment_offset),
-    .m_udp_ip_ttl(m_udp_ip_ttl),
-    .m_udp_ip_protocol(m_udp_ip_protocol),
-    .m_udp_ip_header_checksum(m_udp_ip_header_checksum),
-    .m_udp_ip_source_ip(m_udp_ip_source_ip),
-    .m_udp_ip_dest_ip(m_udp_ip_dest_ip),
-    .m_udp_source_port(m_udp_source_port),
-    .m_udp_dest_port(m_udp_dest_port),
-    .m_udp_length(m_udp_length),
-    .m_udp_checksum(m_udp_checksum),
-    .m_udp_payload_axis_tdata(m_udp_payload_axis_tdata),
-    .m_udp_payload_axis_tkeep(m_udp_payload_axis_tkeep),
-    .m_udp_payload_axis_tvalid(m_udp_payload_axis_tvalid),
-    .m_udp_payload_axis_tready(m_udp_payload_axis_tready),
-    .m_udp_payload_axis_tlast(m_udp_payload_axis_tlast),
-    .m_udp_payload_axis_tuser(m_udp_payload_axis_tuser),
+    .m_axi_awaddr(m_axi_awaddr),
+    .m_axi_awprot(m_axi_awprot),
+    .m_axi_awvalid(m_axi_awvalid),
+    .m_axi_awready(m_axi_awready),
+    .m_axi_wdata(m_axi_wdata),
+    .m_axi_wstrb(m_axi_wstrb),
+    .m_axi_wvalid(m_axi_wvalid),
+    .m_axi_wready(m_axi_wready),
+    .m_axi_bresp(m_axi_bresp),
+    .m_axi_bvalid(m_axi_bvalid),
+    .m_axi_bready(m_axi_bready),
+    .m_axi_araddr(m_axi_araddr),
+    .m_axi_arprot(m_axi_arprot),
+    .m_axi_arvalid(m_axi_arvalid),
+    .m_axi_arready(m_axi_arready),
+    .m_axi_rdata(m_axi_rdata),
+    .m_axi_rresp(m_axi_rresp),
+    .m_axi_rvalid(m_axi_rvalid),
+    .m_axi_rready(m_axi_rready),
     .rx_error_bad_frame(rx_error_bad_frame),
     .rx_error_bad_fcs(rx_error_bad_fcs),
     .ip_rx_busy(ip_rx_busy),
@@ -291,6 +224,7 @@ input wire clear_arp_cache;
     .local_ip(local_ip),
     .gateway_ip(gateway_ip),
     .subnet_mask(subnet_mask),
-    .clear_arp_cache(clear_arp_cache)
+    .clear_arp_cache(clear_arp_cache),
+    .tx_test(tx_test)
   );
 endmodule
