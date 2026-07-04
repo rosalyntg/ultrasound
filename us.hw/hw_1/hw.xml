@@ -5,7 +5,7 @@
 <!-- Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.        -->
 
 <hwsession version="1" minor="2">
-  <device name="xcau15p_0" gui_info="dashboard1=hw_vios[xcau15p_0/hw_vio_1=VIO_PROBES_1;xcau15p_0/hw_vio_2=VIO_PROBES_2;xcau15p_0/hw_vio_3=VIO_PROBES_3;xcau15p_0/hw_vio_4=VIO_PROBES_4;]"/>
+  <device name="xcau15p_0" gui_info="dashboard1=dashboard_2[xcau15p_0/hw_ila_1/Capture Setup=ILA_CAPTURE_1;xcau15p_0/hw_ila_1/Settings=ILA_SETTINGS_1;xcau15p_0/hw_ila_1/Status=ILA_STATUS_1;xcau15p_0/hw_ila_1/Trigger Setup=ILA_TRIGGER_1;xcau15p_0/hw_ila_1/Waveform=ILA_WAVE_1;],dashboard2=dashboard_1[xcau15p_0/hw_vio_2=VIO_PROBES_1;]"/>
   <ObjectList object_type="hw_device" gui_info="">
     <Object name="xcau15p_0" gui_info="">
       <Properties Property="FULL_PROBES.FILE" value="$_project_name_.runs/impl_1/$_project_name__top.ltx"/>
@@ -25,17 +25,18 @@
     </Object>
   </ObjectList>
   <ObjectList object_type="hw_probe" gui_info="">
-    <Object name="bd/bd_i/c_counter_binary_0_Q[15:0]" gui_info="hw_vios/hw_vio_1=16"/>
-    <Object name="bd/bd_i/c_counter_binary_1_Q[15:0]" gui_info="hw_vios/hw_vio_1=17"/>
+    <Object name="bd/bd_i/c_counter_binary_0_Q[15:0]" gui_info="hw_vios/hw_vio_1=14,dashboard_1/hw_vio_1=22"/>
+    <Object name="bd/bd_i/c_counter_binary_1_Q[15:0]" gui_info="hw_vios/hw_vio_1=0,dashboard_1/hw_vio_1=2"/>
     <Object name="bd/bd_i/cfg_mcf_eth_dst_mcast[47:0]" gui_info="hw_vios/hw_vio_3=8"/>
     <Object name="bd/bd_i/cfg_rx_enable[0:0]" gui_info="hw_vios/hw_vio_3=9"/>
     <Object name="bd/bd_i/check_opcode_pfc[0:0]" gui_info="hw_vios/hw_vio_3=10"/>
-    <Object name="bd/bd_i/clear_arp_cache[0:0]" gui_info="hw_vios/hw_vio_2=2"/>
+    <Object name="bd/bd_i/clear_arp_cache[0:0]" gui_info="hw_vios/hw_vio_2=2,dashboard_1/hw_vio_3=0,dashboard_1/hw_vio_2=6"/>
+    <Object name="bd/bd_i/drprst[0:0]" gui_info="hw_vios/hw_vio_1=12,dashboard_1/hw_vio_1=13"/>
     <Object name="bd/bd_i/eth_type[15:0]" gui_info="hw_vios/hw_vio_3=11"/>
-    <Object name="bd/bd_i/gateway_ip[31:0]" gui_info="hw_vios/hw_vio_2=3"/>
-    <Object name="bd/bd_i/local_ip[31:0]" gui_info="hw_vios/hw_vio_2=4"/>
-    <Object name="bd/bd_i/local_mac[47:0]" gui_info="hw_vios/hw_vio_2=5"/>
-    <Object name="bd/bd_i/logic_rst[0:0]" gui_info="hw_vios/hw_vio_2=6"/>
+    <Object name="bd/bd_i/gateway_ip[31:0]" gui_info="hw_vios/hw_vio_2=3,dashboard_1/hw_vio_3=1,dashboard_1/hw_vio_2=7"/>
+    <Object name="bd/bd_i/local_ip[31:0]" gui_info="dashboard_1/hw_vio_3=2,dashboard_1/hw_vio_2=8"/>
+    <Object name="bd/bd_i/local_mac[47:0]" gui_info="hw_vios/hw_vio_2=4,dashboard_1/hw_vio_3=3,dashboard_1/hw_vio_2=9"/>
+    <Object name="bd/bd_i/logic_rst[0:0]" gui_info="hw_vios/hw_vio_2=5,dashboard_1/hw_vio_3=4,dashboard_1/hw_vio_2=10"/>
     <Object name="bd/bd_i/mac_reset[0:0]" gui_info="hw_vios/hw_vio_4=5"/>
     <Object name="bd/bd_i/mac_wrapper_0_rx_error_bad_fcs" gui_info="hw_vios/hw_vio_3=16"/>
     <Object name="bd/bd_i/mac_wrapper_0_rx_error_bad_frame" gui_info="hw_vios/hw_vio_3=0"/>
@@ -48,8 +49,8 @@
     <Object name="bd/bd_i/mcf_rx_enable[0:0]" gui_info="hw_vios/hw_vio_3=7"/>
     <Object name="bd/bd_i/mcf_rx_eth_dst_ucast[47:0]" gui_info="hw_vios/hw_vio_3=3"/>
     <Object name="bd/bd_i/mcf_rx_fwd[0:0]" gui_info="hw_vios/hw_vio_3=12"/>
-    <Object name="bd/bd_i/net_wrapper_0_ip_rx_busy" gui_info="hw_vios/hw_vio_3=1,hw_vios/hw_vio_2=0"/>
-    <Object name="bd/bd_i/net_wrapper_0_ip_tx_busy" gui_info="hw_vios/hw_vio_3=2,hw_vios/hw_vio_2=1"/>
+    <Object name="bd/bd_i/net_wrapper_0_ip_rx_busy" gui_info="hw_vios/hw_vio_3=1,hw_vios/hw_vio_2=0,dashboard_1/hw_vio_3=12,dashboard_1/hw_vio_2=0"/>
+    <Object name="bd/bd_i/net_wrapper_0_ip_tx_busy" gui_info="hw_vios/hw_vio_3=2,hw_vios/hw_vio_2=1,dashboard_1/hw_vio_3=13,dashboard_1/hw_vio_2=1"/>
     <Object name="bd/bd_i/net_wrapper_0_m_udp_checksum[15:0]" gui_info="hw_vios/hw_vio_3=20"/>
     <Object name="bd/bd_i/net_wrapper_0_m_udp_dest_port[15:0]" gui_info="hw_vios/hw_vio_3=8"/>
     <Object name="bd/bd_i/net_wrapper_0_m_udp_eth_dest_mac[47:0]" gui_info="hw_vios/hw_vio_3=18"/>
@@ -70,10 +71,15 @@
     <Object name="bd/bd_i/net_wrapper_0_m_udp_ip_version[3:0]" gui_info="hw_vios/hw_vio_3=13"/>
     <Object name="bd/bd_i/net_wrapper_0_m_udp_length[15:0]" gui_info="hw_vios/hw_vio_3=29"/>
     <Object name="bd/bd_i/net_wrapper_0_m_udp_source_port[15:0]" gui_info="hw_vios/hw_vio_3=30"/>
-    <Object name="bd/bd_i/net_wrapper_0_rx_error_bad_fcs" gui_info="hw_vios/hw_vio_3=5,hw_vios/hw_vio_2=10"/>
-    <Object name="bd/bd_i/net_wrapper_0_rx_error_bad_frame" gui_info="hw_vios/hw_vio_3=3,hw_vios/hw_vio_2=11"/>
-    <Object name="bd/bd_i/net_wrapper_0_udp_rx_busy" gui_info="hw_vios/hw_vio_3=4,hw_vios/hw_vio_2=12"/>
-    <Object name="bd/bd_i/net_wrapper_0_udp_tx_busy" gui_info="hw_vios/hw_vio_3=6,hw_vios/hw_vio_2=13"/>
+    <Object name="bd/bd_i/net_wrapper_0_rx_error_bad_fcs" gui_info="hw_vios/hw_vio_3=5,hw_vios/hw_vio_2=9,dashboard_1/hw_vio_3=8,dashboard_1/hw_vio_2=2"/>
+    <Object name="bd/bd_i/net_wrapper_0_rx_error_bad_frame" gui_info="hw_vios/hw_vio_3=3,hw_vios/hw_vio_2=10,dashboard_1/hw_vio_3=5,dashboard_1/hw_vio_2=3"/>
+    <Object name="bd/bd_i/net_wrapper_0_tx_eth_hdr_ready" gui_info="dashboard_1/hw_vio_1=0,dashboard_1/hw_vio_3=0"/>
+    <Object name="bd/bd_i/net_wrapper_0_tx_eth_hdr_ready_1" gui_info=""/>
+    <Object name="bd/bd_i/net_wrapper_0_tx_eth_hdr_valid" gui_info="dashboard_1/hw_vio_1=2,dashboard_1/hw_vio_3=1"/>
+    <Object name="bd/bd_i/net_wrapper_0_tx_eth_hdr_valid_1" gui_info="Trigger Setup=0"/>
+    <Object name="bd/bd_i/net_wrapper_0_udp_rx_busy" gui_info="hw_vios/hw_vio_3=4,hw_vios/hw_vio_2=11,dashboard_1/hw_vio_3=6,dashboard_1/hw_vio_2=4"/>
+    <Object name="bd/bd_i/net_wrapper_0_udp_tx_busy" gui_info="hw_vios/hw_vio_3=6,hw_vios/hw_vio_2=12,dashboard_1/hw_vio_3=7,dashboard_1/hw_vio_2=5"/>
+    <Object name="bd/bd_i/net_wrapper_0_xgmii_txc[7:0]" gui_info=""/>
     <Object name="bd/bd_i/nfmac10g_0_rx_axis_tdata[63:0]" gui_info=""/>
     <Object name="bd/bd_i/nfmac10g_0_rx_axis_tvalid" gui_info=""/>
     <Object name="bd/bd_i/nfmac10g_0_rx_fsm[7:0]" gui_info="hw_vios/hw_vio_3=6"/>
@@ -86,25 +92,37 @@
     <Object name="bd/bd_i/opcode_lfc[15:0]" gui_info="hw_vios/hw_vio_3=13"/>
     <Object name="bd/bd_i/opcode_pfc[15:0]" gui_info="hw_vios/hw_vio_3=14"/>
     <Object name="bd/bd_i/probe_in19_0_1[0:0]" gui_info="hw_vios/hw_vio_1=12"/>
+    <Object name="bd/bd_i/qpllreset[0:0]" gui_info="hw_vios/hw_vio_1=26,dashboard_1/hw_vio_1=14"/>
+    <Object name="bd/bd_i/reset_rx_datapath[0:0]" gui_info="hw_vios/hw_vio_1=13,dashboard_1/hw_vio_1=33"/>
+    <Object name="bd/bd_i/reset_tx_datapath[0:0]" gui_info="hw_vios/hw_vio_1=27,dashboard_1/hw_vio_1=15"/>
     <Object name="bd/bd_i/resetn[0:0]" gui_info="hw_vios/hw_vio_4=0"/>
     <Object name="bd/bd_i/rx_axis_aresetn[0:0]" gui_info="hw_vios/hw_vio_3=0"/>
     <Object name="bd/bd_i/rx_cfg[79:0]" gui_info="hw_vios/hw_vio_3=1"/>
     <Object name="bd/bd_i/rx_check_opcode_lfc[0:0]" gui_info="hw_vios/hw_vio_3=17"/>
     <Object name="bd/bd_i/rx_dcm_locked[0:0]" gui_info="hw_vios/hw_vio_4=0"/>
-    <Object name="bd/bd_i/rx_rst[0:0]" gui_info="hw_vios/hw_vio_3=0,hw_vios/hw_vio_2=7"/>
-    <Object name="bd/bd_i/sfp_mod_abs[0:0]" gui_info="hw_vios/hw_vio_1=25"/>
-    <Object name="bd/bd_i/subnet_mask[31:0]" gui_info="hw_vios/hw_vio_2=8"/>
+    <Object name="bd/bd_i/rx_reset[0:0]" gui_info="hw_vios/hw_vio_1=17,dashboard_1/hw_vio_1=16"/>
+    <Object name="bd/bd_i/rx_rst[0:0]" gui_info="hw_vios/hw_vio_3=0,hw_vios/hw_vio_2=6,dashboard_1/hw_vio_3=11,dashboard_1/hw_vio_2=11"/>
+    <Object name="bd/bd_i/sfp_mod_abs[0:0]" gui_info="hw_vios/hw_vio_1=15,dashboard_1/hw_vio_1=23"/>
+    <Object name="bd/bd_i/subnet_mask[31:0]" gui_info="hw_vios/hw_vio_2=7,dashboard_1/hw_vio_3=9,dashboard_1/hw_vio_2=12"/>
+    <Object name="bd/bd_i/sys_reset[0:0]" gui_info="hw_vios/hw_vio_1=3,dashboard_1/hw_vio_1=34"/>
     <Object name="bd/bd_i/tx_axis_aresetn[0:0]" gui_info="hw_vios/hw_vio_4=1"/>
     <Object name="bd/bd_i/tx_axis_tdata[63:0]" gui_info="hw_vios/hw_vio_4=2"/>
     <Object name="bd/bd_i/tx_axis_tlast[0:0]" gui_info="hw_vios/hw_vio_3=2"/>
     <Object name="bd/bd_i/tx_axis_tuser[0:0]" gui_info="hw_vios/hw_vio_3=3"/>
     <Object name="bd/bd_i/tx_cfg[79:0]" gui_info="hw_vios/hw_vio_4=3"/>
     <Object name="bd/bd_i/tx_dcm_locked[0:0]" gui_info="hw_vios/hw_vio_4=4"/>
-    <Object name="bd/bd_i/tx_rst[0:0]" gui_info="hw_vios/hw_vio_3=7"/>
+    <Object name="bd/bd_i/tx_reset[0:0]" gui_info="hw_vios/hw_vio_1=18,dashboard_1/hw_vio_1=17"/>
+    <Object name="bd/bd_i/tx_rst[0:0]" gui_info="hw_vios/hw_vio_3=7,dashboard_1/hw_vio_1=1,dashboard_1/hw_vio_3=2"/>
     <Object name="bd/bd_i/tx_taxis_tvalid[0:0]" gui_info="hw_vios/hw_vio_3=4"/>
-    <Object name="bd/bd_i/tx_test[0:0]" gui_info="hw_vios/hw_vio_2=9"/>
+    <Object name="bd/bd_i/tx_test[0:0]" gui_info="hw_vios/hw_vio_2=8,dashboard_1/hw_vio_3=10,dashboard_1/hw_vio_2=13"/>
+    <Object name="bd/bd_i/txpolarity[0:0]" gui_info="hw_vios/hw_vio_1=4,dashboard_1/hw_vio_1=32"/>
     <Object name="bd/bd_i/usrled[1:0]" gui_info="hw_vios/hw_vio_2=0_exp"/>
     <Object name="bd/bd_i/vio_eth_probe_out0[0:0]" gui_info="hw_vios/hw_vio_1=5"/>
+    <Object name="bd/bd_i/vio_eth_probe_out10[2:0]" gui_info="dashboard_1/hw_vio_1=19"/>
+    <Object name="bd/bd_i/vio_eth_probe_out11[6:0]" gui_info="dashboard_1/hw_vio_1=0"/>
+    <Object name="bd/bd_i/vio_eth_probe_out12[4:0]" gui_info="dashboard_1/hw_vio_1=20"/>
+    <Object name="bd/bd_i/vio_eth_probe_out13[4:0]" gui_info="dashboard_1/hw_vio_1=1"/>
+    <Object name="bd/bd_i/vio_eth_probe_out14[4:0]" gui_info="dashboard_1/hw_vio_1=21"/>
     <Object name="bd/bd_i/vio_eth_probe_out1[0:0]" gui_info="hw_vios/hw_vio_1=26"/>
     <Object name="bd/bd_i/vio_eth_probe_out2[0:0]" gui_info="hw_vios/hw_vio_1=27"/>
     <Object name="bd/bd_i/vio_eth_probe_out3[0:0]" gui_info="hw_vios/hw_vio_1=18"/>
@@ -112,6 +130,8 @@
     <Object name="bd/bd_i/vio_eth_probe_out5[0:0]" gui_info="hw_vios/hw_vio_1=14"/>
     <Object name="bd/bd_i/vio_eth_probe_out6[0:0]" gui_info="hw_vios/hw_vio_1=6"/>
     <Object name="bd/bd_i/vio_eth_probe_out7[0:0]" gui_info="hw_vios/hw_vio_1=15"/>
+    <Object name="bd/bd_i/vio_eth_probe_out8[0:0]" gui_info="dashboard_1/hw_vio_1=18"/>
+    <Object name="bd/bd_i/vio_eth_probe_out9[0:0]" gui_info="dashboard_1/hw_vio_1=35"/>
     <Object name="bd/bd_i/vio_led_probe_out0[1:0]" gui_info="hw_vios/hw_vio_2=0_exp"/>
     <Object name="bd/bd_i/vio_rx_probe_out0[0:0]" gui_info="hw_vios/hw_vio_3=25"/>
     <Object name="bd/bd_i/vio_rx_probe_out0[79:0]" gui_info="hw_vios/hw_vio_3=0"/>
@@ -130,24 +150,25 @@
     <Object name="bd/bd_i/vio_tx_probe_out1[0:0]" gui_info="hw_vios/hw_vio_4=2"/>
     <Object name="bd/bd_i/vio_tx_probe_out2[63:0]" gui_info="hw_vios/hw_vio_4=3"/>
     <Object name="bd/bd_i/vio_tx_probe_out3[0:0]" gui_info="hw_vios/hw_vio_4=0"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_gt_txresetdone_0" gui_info="hw_vios/hw_vio_1=0"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_gtpowergood_out_0" gui_info="hw_vios/hw_vio_1=1"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_gt_txbufstatus_0[1:0]" gui_info="dashboard_1/hw_vio_1=3"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_gt_txresetdone_0" gui_info="hw_vios/hw_vio_1=1,dashboard_1/hw_vio_1=24"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_gtpowergood_out_0" gui_info="hw_vios/hw_vio_1=16,dashboard_1/hw_vio_1=25"/>
     <Object name="bd/bd_i/xxv_ethernet_0_rx_mii_d_0[63:0]" gui_info="Trigger Setup=0"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_bad_code_0" gui_info="hw_vios/hw_vio_1=12"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_bad_code_valid_0" gui_info="hw_vios/hw_vio_1=2"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_block_lock_0" gui_info="hw_vios/hw_vio_1=3"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_error_0[7:0]" gui_info="hw_vios/hw_vio_1=13"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_error_valid_0" gui_info="hw_vios/hw_vio_1=4"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_fifo_error_0" gui_info="hw_vios/hw_vio_1=7"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_framing_err_0" gui_info="hw_vios/hw_vio_1=8"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_framing_err_valid_0" gui_info="hw_vios/hw_vio_1=9"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_hi_ber_0" gui_info="hw_vios/hw_vio_1=10"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_local_fault_0" gui_info="hw_vios/hw_vio_1=20"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_status_0" gui_info="hw_vios/hw_vio_1=21"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_valid_ctrl_code_0" gui_info="hw_vios/hw_vio_1=11"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_stat_tx_local_fault_0" gui_info="hw_vios/hw_vio_1=22"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_user_rx_reset_0" gui_info="hw_vios/hw_vio_1=23"/>
-    <Object name="bd/bd_i/xxv_ethernet_0_user_tx_reset_0" gui_info="hw_vios/hw_vio_1=24"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_bad_code_0" gui_info="hw_vios/hw_vio_1=2,dashboard_1/hw_vio_1=6"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_bad_code_valid_0" gui_info="hw_vios/hw_vio_1=20,dashboard_1/hw_vio_1=26"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_block_lock_0" gui_info="hw_vios/hw_vio_1=6,dashboard_1/hw_vio_1=7"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_error_0[7:0]" gui_info="hw_vios/hw_vio_1=21,dashboard_1/hw_vio_1=27"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_error_valid_0" gui_info="hw_vios/hw_vio_1=7,dashboard_1/hw_vio_1=8"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_fifo_error_0" gui_info="hw_vios/hw_vio_1=22,dashboard_1/hw_vio_1=4"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_framing_err_0" gui_info="hw_vios/hw_vio_1=8,dashboard_1/hw_vio_1=5"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_framing_err_valid_0" gui_info="hw_vios/hw_vio_1=19,dashboard_1/hw_vio_1=28"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_hi_ber_0" gui_info="hw_vios/hw_vio_1=5,dashboard_1/hw_vio_1=9"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_local_fault_0" gui_info="hw_vios/hw_vio_1=23,dashboard_1/hw_vio_1=29"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_status_0" gui_info="hw_vios/hw_vio_1=9,dashboard_1/hw_vio_1=10"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_rx_valid_ctrl_code_0" gui_info="hw_vios/hw_vio_1=24,dashboard_1/hw_vio_1=30"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_stat_tx_local_fault_0" gui_info="hw_vios/hw_vio_1=10,dashboard_1/hw_vio_1=11"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_user_rx_reset_0" gui_info="hw_vios/hw_vio_1=25,dashboard_1/hw_vio_1=31"/>
+    <Object name="bd/bd_i/xxv_ethernet_0_user_tx_reset_0" gui_info="hw_vios/hw_vio_1=11,dashboard_1/hw_vio_1=12"/>
   </ObjectList>
   <ObjectList object_type="hw_sio_link" gui_info="">
     <Object name="0_1_0_1/IBERT/Quad_224/MGT_X0Y0/TX->0_1_0_1/IBERT/Quad_224/MGT_X0Y0/RX" gui_info="">
@@ -157,6 +178,8 @@
     </Object>
   </ObjectList>
   <ObjectList object_type="hw_vio" gui_info="">
+    <Object name="hw_vio_1" gui_info="dashboard_1/hw_vio_1/TablePreference=5	647	Name	0	2147483647	15	366	366	Value	1	2147483647	15	84	84	Activity	2	2147483647	15	57	57	Direction	3	2147483647	15	70	70	VIO	4	2147483647	15	70	70			1	6	1	Name	Value	Activity	Direction	VIO"/>
+    <Object name="hw_vio_2" gui_info="dashboard_1/hw_vio_2/TablePreference=5	816	Name	0	2147483647	15	443	443	Value	1	2147483647	15	176	176	Activity	2	2147483647	15	57	57	Direction	3	2147483647	15	70	70	VIO	4	2147483647	15	70	70			1	6	1	Name	Value	Activity	Direction	VIO"/>
     <Object name="hw_vio_3" gui_info="hw_vios/hw_vio_3/TablePreference=5	1126	Name	0	2147483647	15	530	530	Value	1	2147483647	15	402	402	Activity	2	2147483647	15	57	57	Direction	3	2147483647	15	70	70	VIO	4	2147483647	15	70	70			1	6	1	Name	Value	Activity	Direction	VIO"/>
   </ObjectList>
   <probeset name="hw project" active="false">
@@ -491,6 +514,160 @@
     </probe>
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe3[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_tx_eth_hdr_ready_1"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;b1"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe2[0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;b1"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_tx_eth_hdr_valid_1"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq8&apos;hXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe1[7:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq8&apos;hXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[7]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[6]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[5]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[4]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[3]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[2]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[1]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txc[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="bus" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="CAPTURE_COMPARE_VALUE" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
+        <Option Id="DISPLAY_AS_ENUM" value="1"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_RADIX" value="HEX"/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_ILA" value="hw_ila_1"/>
+        <Option Id="LINK_TO_WAVEFORM" value="1"/>
+        <Option Id="MAP" value="probe0[63:0]"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
+        <Option Id="WAVEFORM_STYLE" value="Digital"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[63]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[62]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[61]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[60]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[59]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[58]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[57]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[56]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[55]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[54]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[53]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[52]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[51]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[50]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[49]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[48]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[47]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[46]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[45]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[44]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[43]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[42]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[41]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[40]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[39]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[38]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[37]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[36]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[35]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[34]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[33]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[32]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[31]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[30]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[29]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[28]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[27]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[26]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[25]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[24]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[23]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[22]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[21]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[20]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[19]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[18]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[17]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[16]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[15]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[14]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[13]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[12]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[11]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[10]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[9]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[8]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[7]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[6]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[5]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[4]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[3]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[2]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[1]"/>
+        <net name="bd/bd_i/net_wrapper_0_xgmii_txd[0]"/>
+      </nets>
+    </probe>
+    <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
+      <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
         <Option Id="COMPARE_VALUE.0" value="eq64&apos;hXXXX_XXXX_XXXX_XXXX"/>
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
@@ -816,7 +993,7 @@
         <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
-        <Option Id="HW_VIO" value="hw_vio_3"/>
+        <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
@@ -831,7 +1008,7 @@
         <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
-        <Option Id="HW_VIO" value="hw_vio_2"/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
         <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
@@ -6789,6 +6966,36 @@
         <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_3"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_tx_eth_hdr_ready"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_3"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/net_wrapper_0_tx_eth_hdr_valid"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
         <Option Id="NAME.CUSTOM" value=""/>
@@ -7041,7 +7248,7 @@
         <net name="bd/bd_i/probe_in19_0_1[0]"/>
       </nets>
     </probe>
-    <probe type="vio_input" busType="bus" source="netlist" spec="VIO_INPUT_V2_RT">
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
         <Option Id="DISPLAY_HINT" value=""/>
@@ -7054,6 +7261,38 @@
       </probeOptions>
       <nets>
         <net name="bd/bd_i/sfp_mod_abs[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="bus" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="INPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/xxv_ethernet_0_gt_txbufstatus_0[1]"/>
+        <net name="bd/bd_i/xxv_ethernet_0_gt_txbufstatus_0[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_input" busType="bus" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="INPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/xxv_ethernet_0_gt_txbufstatus_1[1]"/>
+        <net name="bd/bd_i/xxv_ethernet_0_gt_txbufstatus_1[0]"/>
       </nets>
     </probe>
     <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
@@ -7318,6 +7557,21 @@
         <net name="bd/bd_i/xxv_ethernet_0_user_tx_reset_0"/>
       </nets>
     </probe>
+    <probe type="vio_input" busType="net" source="netlist" spec="VIO_INPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="ACTIVITY_PERSISTENCE" value="SHORT"/>
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="INPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/xxv_ethernet_0_user_tx_reset_1"/>
+      </nets>
+    </probe>
     <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
@@ -7437,6 +7691,36 @@
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
       <nets>
+        <net name="bd/bd_i/drprst0[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/drprst1[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
         <net name="bd/bd_i/drprst[0]"/>
       </nets>
     </probe>
@@ -7470,14 +7754,14 @@
         <net name="bd/bd_i/eth_type[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
-        <Option Id="OUTPUT_VALUE" value="00000000"/>
+        <Option Id="OUTPUT_VALUE" value="FFFFFF00"/>
         <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
@@ -7516,14 +7800,14 @@
         <net name="bd/bd_i/gateway_ip[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
-        <Option Id="OUTPUT_VALUE" value="00000000"/>
+        <Option Id="OUTPUT_VALUE" value="0A500401"/>
         <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
@@ -7562,14 +7846,14 @@
         <net name="bd/bd_i/local_ip[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
         <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
-        <Option Id="OUTPUT_VALUE" value="000000000000"/>
+        <Option Id="OUTPUT_VALUE" value="020000000001"/>
         <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
@@ -7624,7 +7908,7 @@
         <net name="bd/bd_i/local_mac[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
@@ -7940,10 +8224,70 @@
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
       <nets>
+        <net name="bd/bd_i/reset_rx_datapath0[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="1"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/reset_rx_datapath1[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
         <net name="bd/bd_i/reset_rx_datapath[0]"/>
       </nets>
     </probe>
     <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="1"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/reset_tx_datapath0[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/reset_tx_datapath1[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
@@ -8149,7 +8493,7 @@
         <Option Id="HW_VIO" value="hw_vio_2"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
-        <Option Id="OUTPUT_VALUE" value="00000000"/>
+        <Option Id="OUTPUT_VALUE" value="FFFFFF00"/>
         <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
@@ -8188,7 +8532,7 @@
         <net name="bd/bd_i/subnet_mask[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
@@ -8435,7 +8779,7 @@
         <net name="bd/bd_i/tx_dcm_locked[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
@@ -8457,7 +8801,7 @@
         <Option Id="HW_VIO" value="hw_vio_3"/>
         <Option Id="NAME.CUSTOM" value=""/>
         <Option Id="NAME.SELECT" value="Long"/>
-        <Option Id="OUTPUT_VALUE" value="1"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
         <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
         <Option Id="SOURCE" value="netlist"/>
       </probeOptions>
@@ -8495,7 +8839,26 @@
         <net name="bd/bd_i/tx_test[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="10"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/txdiffctrl[4]"/>
+        <net name="bd/bd_i/txdiffctrl[3]"/>
+        <net name="bd/bd_i/txdiffctrl[2]"/>
+        <net name="bd/bd_i/txdiffctrl[1]"/>
+        <net name="bd/bd_i/txdiffctrl[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>
@@ -8508,6 +8871,59 @@
       </probeOptions>
       <nets>
         <net name="bd/bd_i/txpolarity[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="00"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/txpostcursor[4]"/>
+        <net name="bd/bd_i/txpostcursor[3]"/>
+        <net name="bd/bd_i/txpostcursor[2]"/>
+        <net name="bd/bd_i/txpostcursor[1]"/>
+        <net name="bd/bd_i/txpostcursor[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="00"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/txprecursor[4]"/>
+        <net name="bd/bd_i/txprecursor[3]"/>
+        <net name="bd/bd_i/txprecursor[2]"/>
+        <net name="bd/bd_i/txprecursor[1]"/>
+        <net name="bd/bd_i/txprecursor[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="1"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/txreset0[0]"/>
       </nets>
     </probe>
     <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
@@ -8539,6 +8955,116 @@
       </probeOptions>
       <nets>
         <net name="bd/bd_i/vio_eth_probe_out0[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out10[2]"/>
+        <net name="bd/bd_i/vio_eth_probe_out10[1]"/>
+        <net name="bd/bd_i/vio_eth_probe_out10[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out11[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="3c"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out11[6]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[5]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[4]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[3]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[2]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[1]"/>
+        <net name="bd/bd_i/vio_eth_probe_out11[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="00"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out12[4]"/>
+        <net name="bd/bd_i/vio_eth_probe_out12[3]"/>
+        <net name="bd/bd_i/vio_eth_probe_out12[2]"/>
+        <net name="bd/bd_i/vio_eth_probe_out12[1]"/>
+        <net name="bd/bd_i/vio_eth_probe_out12[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="10"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out13[4]"/>
+        <net name="bd/bd_i/vio_eth_probe_out13[3]"/>
+        <net name="bd/bd_i/vio_eth_probe_out13[2]"/>
+        <net name="bd/bd_i/vio_eth_probe_out13[1]"/>
+        <net name="bd/bd_i/vio_eth_probe_out13[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="1F"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="HEX"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out14[4]"/>
+        <net name="bd/bd_i/vio_eth_probe_out14[3]"/>
+        <net name="bd/bd_i/vio_eth_probe_out14[2]"/>
+        <net name="bd/bd_i/vio_eth_probe_out14[1]"/>
+        <net name="bd/bd_i/vio_eth_probe_out14[0]"/>
       </nets>
     </probe>
     <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
@@ -8644,6 +9170,36 @@
       </probeOptions>
       <nets>
         <net name="bd/bd_i/vio_eth_probe_out7[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out8[0]"/>
+      </nets>
+    </probe>
+    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
+      <probeOptions Id="DebugProbeParams">
+        <Option Id="DISPLAY_HINT" value=""/>
+        <Option Id="DISPLAY_VISIBILITY" value=""/>
+        <Option Id="HW_VIO" value="hw_vio_1"/>
+        <Option Id="NAME.CUSTOM" value=""/>
+        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="OUTPUT_VALUE" value="0"/>
+        <Option Id="OUTPUT_VALUE_RADIX" value="BINARY"/>
+        <Option Id="SOURCE" value="netlist"/>
+      </probeOptions>
+      <nets>
+        <net name="bd/bd_i/vio_eth_probe_out9[0]"/>
       </nets>
     </probe>
     <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
@@ -9069,7 +9625,7 @@
         <net name="bd/bd_i/vio_tx/probe_out2[0]"/>
       </nets>
     </probe>
-    <probe type="vio_output" busType="bus" source="netlist" spec="VIO_OUTPUT_V2_RT">
+    <probe type="vio_output" busType="net" source="netlist" spec="VIO_OUTPUT_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_VISIBILITY" value=""/>

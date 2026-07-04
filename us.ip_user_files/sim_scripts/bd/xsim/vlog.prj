@@ -1,9 +1,13 @@
-verilog xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" \
+verilog xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0568/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/3556/hdl/verilog" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/sim/gtwizard_ultrascale_v1_7_gthe4_channel.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/sim/bd_xxv_ethernet_0_0_gt_gthe4_channel_wrapper.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/sim/bd_xxv_ethernet_0_0_gt_gtwizard_gthe4.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/sim/bd_xxv_ethernet_0_0_gt_gtwizard_top.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/sim/bd_xxv_ethernet_0_0_gt.v" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/sim/bd_xxv_ethernet_0_0_gt_1_gthe4_channel_wrapper.v" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/sim/bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4.v" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/sim/bd_xxv_ethernet_0_0_gt_1_gtwizard_top.v" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/sim/bd_xxv_ethernet_0_0_gt_1.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_top.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0/gtwizard_ultrascale_v1_7_gthe4_common.v" \
@@ -26,7 +30,7 @@ verilog xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef"
 "../../../../us.gen/sources_1/bd/bd/ip/bd_lmb_bram_0/sim/bd_lmb_bram_0.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/sim/bd_f06c.v" \
 
-sv xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" \
+sv xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0568/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/3556/hdl/verilog" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/ip/ip_2/sim/bd_f06c_arinsw_0.sv" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/ip/ip_3/sim/bd_f06c_rinsw_0.sv" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/ip/ip_4/sim/bd_f06c_awinsw_0.sv" \
@@ -74,12 +78,12 @@ sv xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --in
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/bd_0/ip/ip_46/sim/bd_f06c_m02e_0.sv" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_axi_periph_0/sim/bd_microblaze_riscv_0_axi_periph_0.sv" \
 
-verilog xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" \
+verilog xil_defaultlib -i "../../../../../../../Xilinx/2025.2.1/data/rsb/busdef" --include "/home/russell/Xilinx/2025.2.1/data/xilinx_vip/include" --include "../../../../us.gen/sources_1/bd/bd/ipshared/623a" --include "../../../../us.gen/sources_1/bd/bd/ipshared/f0b6/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/00fe/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/ec67/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/5431/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/4e08/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0de9/hdl" --include "../../../../us.gen/sources_1/bd/bd/ipshared/0568/hdl/verilog" --include "../../../../us.gen/sources_1/bd/bd/ipshared/3556/hdl/verilog" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_vio_0_0/sim/bd_vio_0_0.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_vio_0_1/sim/bd_vio_0_1.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_vio_0_2/sim/bd_vio_0_2.v" \
-"../../../../us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/sim/bd_in_system_ibert_0_0.v" \
 "../../../../us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/sim/bd_net_wrapper_0_0.v" \
+"../../../../us.gen/sources_1/bd/bd/ip/bd_ila_0_0/sim/bd_ila_0_0.v" \
 "../../../../us.gen/sources_1/bd/bd/sim/bd.v" \
 
 verilog xil_defaultlib "glbl.v"

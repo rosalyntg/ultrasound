@@ -9,60 +9,44 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="360"></ZoomStartTime>
-      <ZoomEndTime time="798"></ZoomEndTime>
-      <Cursor1Time time="479"></Cursor1Time>
+      <ZoomStartTime time="0"></ZoomStartTime>
+      <ZoomEndTime time="1,025"></ZoomEndTime>
+      <Cursor1Time time="0"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="443"></NameColumnWidth>
-      <ValueColumnWidth column_width="171"></ValueColumnWidth>
+      <ValueColumnWidth column_width="163"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="6" />
+   <WVObjectSize size="4" />
    <wave_markers>
    </wave_markers>
-   <wvobject type="array" fp_name="bd/bd_i/xxv_ethernet_0_rx_mii_c_0">
+   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_tx_eth_hdr_ready_1">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/xxv_ethernet_0_rx_mii_c_0[7:0]</obj_property>
-      <obj_property name="ObjectShortName">xxv_ethernet_0_rx_mii_c_0[7:0]</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_tx_eth_hdr_ready_1</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_tx_eth_hdr_ready_1</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_tx_eth_hdr_valid_1">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_tx_eth_hdr_valid_1</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_tx_eth_hdr_valid_1</obj_property>
+      <obj_property name="LABELRADIX">true</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_xgmii_txc">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_xgmii_txc[7:0]</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_xgmii_txc[7:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/xxv_ethernet_0_rx_mii_d_0">
+   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_xgmii_txd">
       <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/xxv_ethernet_0_rx_mii_d_0[63:0]</obj_property>
-      <obj_property name="ObjectShortName">xxv_ethernet_0_rx_mii_d_0[63:0]</obj_property>
+      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_xgmii_txd[63:0]</obj_property>
+      <obj_property name="ObjectShortName">net_wrapper_0_xgmii_txd[63:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tdata">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tdata[63:0]</obj_property>
-      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tdata[63:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tkeep">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tkeep[7:0]</obj_property>
-      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tkeep[7:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tlast">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tlast</obj_property>
-      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tlast</obj_property>
-      <obj_property name="LABELRADIX">true</obj_property>
-      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="bd/bd_i/net_wrapper_0_m_udp_payload_axis_tvalid">
-      <obj_property name="DisplayName">FullPathName</obj_property>
-      <obj_property name="ElementShortName">bd/bd_i/net_wrapper_0_m_udp_payload_axis_tvalid</obj_property>
-      <obj_property name="ObjectShortName">net_wrapper_0_m_udp_payload_axis_tvalid</obj_property>
       <obj_property name="LABELRADIX">true</obj_property>
       <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
    </wvobject>

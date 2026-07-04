@@ -87,7 +87,11 @@ bd_sv your_instance_name (
   .jesd_rxp(jesd_rxp), // input wire [3:0] jesd_rxp
   .jesd_rxn(jesd_rxn), // input wire [3:0] jesd_rxn
   .sfp_mod_abs(sfp_mod_abs), // input wire [0:0] sfp_mod_abs
-  .led(led) // output wire [1:0] led
+  .led(led), // output wire [1:0] led
+  .sfp_tx_gt_port_1_n(sfp_tx_gt_port_1_n), // output wire sfp_tx_gt_port_1_n
+  .sfp_tx_gt_port_1_p(sfp_tx_gt_port_1_p), // output wire sfp_tx_gt_port_1_p
+  .sfp_rx_gt_port_1_n(sfp_rx_gt_port_1_n), // input wire sfp_rx_gt_port_1_n
+  .sfp_rx_gt_port_1_p(sfp_rx_gt_port_1_p) // input wire sfp_rx_gt_port_1_p
 );
 // INST_TAG_END ------  End cut for WRAPPER INSTANTIATION Template  ------
 

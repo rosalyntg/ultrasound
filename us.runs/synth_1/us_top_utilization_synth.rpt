@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
-| Date         : Fri Jul  3 19:09:52 2026
+| Date         : Sat Jul  4 14:25:19 2026
 | Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_utilization -file us_top_utilization_synth.rpt -pb us_top_utilization_synth.pb
 | Design       : us_top
@@ -195,9 +195,9 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | bd_mdm_1_0                         |    1 |
 | bd_lmb_bram_0                      |    1 |
 | bd_jesd204_phy_0_0                 |    1 |
-| bd_in_system_ibert_0_0             |    1 |
 | bd_ilmb_v10_0                      |    1 |
 | bd_ilmb_bram_if_cntlr_0            |    1 |
+| bd_ila_0_0                         |    1 |
 | bd_dlmb_v10_0                      |    1 |
 | bd_dlmb_bram_if_cntlr_0            |    1 |
 | bd_clk_wiz_0_0                     |    1 |

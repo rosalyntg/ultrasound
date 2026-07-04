@@ -56,7 +56,6 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "bd_vio_0_0_synth_1" START { ROLLUP_AUTO }
-set_param tcl.collectionResultDisplayLimit 0
 set_param bd.open.in_stealth_mode 1
 set_param xicom.use_bs_reader 1
 set_param chipscope.maxJobs 6

@@ -729,7 +729,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.FREQ_HZ">100000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.FREQ_HZ">156250000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -747,7 +747,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PHASE</spirit:name>
-          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.PHASE">0.0</spirit:value>
+          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.PHASE">0</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -756,7 +756,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.CLK_DOMAIN"/>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CORE_CLK_1.CLK_DOMAIN">bd_xxv_ethernet_0_0_rx_clk_out_1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -794,7 +794,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_core_clk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_core_clk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -1410,7 +1410,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.FREQ_HZ">100000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.FREQ_HZ">156250000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -1428,7 +1428,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PHASE</spirit:name>
-          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.PHASE">0.0</spirit:value>
+          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.PHASE">0</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -1437,7 +1437,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.CLK_DOMAIN"/>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RXRECCLKOUT_1.CLK_DOMAIN">bd_xxv_ethernet_0_0_rxrecclkout_1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -1484,7 +1484,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rxrecclkout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rxrecclkout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -2652,7 +2652,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.FREQ_HZ">100000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.FREQ_HZ">25000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -2679,7 +2679,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.CLK_DOMAIN"/>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.CLK_DOMAIN">bd_clk_wiz_0_0_mhz25</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -2726,7 +2726,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_drpclk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_drpclk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -3140,7 +3140,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.FREQ_HZ" spirit:minimum="156250000" spirit:maximum="390625000" spirit:rangeType="long">390625000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.FREQ_HZ" spirit:minimum="156250000" spirit:maximum="390625000" spirit:rangeType="long">156250000</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_TOLERANCE_HZ</spirit:name>
@@ -3153,7 +3153,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PHASE</spirit:name>
-          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.PHASE">0.0</spirit:value>
+          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.PHASE">0</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -3162,7 +3162,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.CLK_DOMAIN"/>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.RX_CLK_PORT1.CLK_DOMAIN">bd_xxv_ethernet_0_0_rx_clk_out_1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -3191,7 +3191,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -4403,7 +4403,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -6489,7 +6489,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.FREQ_HZ" spirit:minimum="156250000" spirit:maximum="390625000" spirit:rangeType="long">390625000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.FREQ_HZ" spirit:minimum="156250000" spirit:maximum="390625000" spirit:rangeType="long">156250000</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_TOLERANCE_HZ</spirit:name>
@@ -6502,7 +6502,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PHASE</spirit:name>
-          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.PHASE">0.0</spirit:value>
+          <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.PHASE">0</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -6511,7 +6511,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>CLK_DOMAIN</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.CLK_DOMAIN"/>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.CLK_DOMAIN">bd_xxv_ethernet_0_0_tx_mii_clk_1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -6549,7 +6549,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_mii_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_mii_clk_port1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -8207,7 +8207,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gtwiz_reset_tx_datapath_1_port" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gtwiz_reset_tx_datapath_1_port" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -8247,7 +8247,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gtwiz_reset_rx_datapath_1_port" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gtwiz_reset_rx_datapath_1_port" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -8727,7 +8727,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_reset_port1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.tx_reset_port1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -8887,7 +8887,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_reset_port1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.rx_reset_port1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -9527,7 +9527,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.user_tx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.user_tx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -9687,7 +9687,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.user_rx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.user_rx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -12773,7 +12773,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_trans_debug_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_trans_debug_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -13493,7 +13493,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_drp_ports_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.gt_drp_ports_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -13864,7 +13864,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>PROTOCOL</spirit:name>
-          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.PROTOCOL">AXI4LITE</spirit:value>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.PROTOCOL">AXI4</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13954,7 +13954,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_BURST</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_BURST">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_BURST">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13963,7 +13963,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_LOCK</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_LOCK">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_LOCK">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13972,7 +13972,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_PROT</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_PROT">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_PROT">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13981,7 +13981,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_CACHE</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_CACHE">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_CACHE">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13990,7 +13990,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_QOS</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_QOS">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_QOS">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -13999,7 +13999,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>HAS_REGION</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_REGION">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.HAS_REGION">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -14035,7 +14035,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>SUPPORTS_NARROW_BURST</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.SUPPORTS_NARROW_BURST">0</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.SUPPORTS_NARROW_BURST">1</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -14062,7 +14062,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>MAX_BURST_LENGTH</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.MAX_BURST_LENGTH">1</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.S_AXI_0.MAX_BURST_LENGTH">256</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -15761,7 +15761,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.mii_rx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.mii_rx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -15889,7 +15889,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.mii_tx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.mii_tx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -22361,7 +22361,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.ctl_rx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.ctl_rx_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -26153,7 +26153,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.stat_tx_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.stat_tx_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -27881,7 +27881,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.stat_rx_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.stat_rx_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -74411,7 +74411,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74429,11 +74429,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Apr 20 01:52:15 UTC 2026</spirit:value>
+            <spirit:value>Sat Jul 04 20:11:16 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:0403965d</spirit:value>
+            <spirit:value>9:c8f51e75</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -74447,11 +74447,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Jun 30 05:07:09 UTC 2026</spirit:value>
+            <spirit:value>Sat Jul 04 20:24:13 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74469,11 +74469,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Jun 30 05:05:48 UTC 2026</spirit:value>
+            <spirit:value>Sat Jul 04 20:23:06 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74488,7 +74488,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74512,7 +74512,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:d38dbcc9</spirit:value>
+            <spirit:value>9:b08f4ce8</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74532,11 +74532,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Jun 30 05:05:48 UTC 2026</spirit:value>
+            <spirit:value>Sat Jul 04 20:23:06 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:d38dbcc9</spirit:value>
+            <spirit:value>9:b08f4ce8</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74560,7 +74560,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74580,11 +74580,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue Jun 30 05:05:48 UTC 2026</spirit:value>
+            <spirit:value>Sat Jul 04 20:23:06 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:eba03bc5</spirit:value>
+            <spirit:value>9:1bd6fa31</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductLicenses</spirit:name>
@@ -74783,7 +74783,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -74807,7 +74807,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -74831,7 +74831,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -74858,7 +74858,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;))-1)">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -74921,7 +74921,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxp_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxp_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -75013,7 +75013,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxn_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxn_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -75099,7 +75099,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txp_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txp_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -75179,7 +75179,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txn_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txn_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.IS_BOARD_PROJECT&apos;)) == 0))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -75265,7 +75265,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_core_clk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_core_clk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77183,7 +77183,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.txoutclksel_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) != &quot;GTM&quot;))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.txoutclksel_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) != &quot;GTM&quot;))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77210,7 +77210,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rxoutclksel_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) != &quot;GTM&quot;))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rxoutclksel_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) != &quot;GTM&quot;))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77393,7 +77393,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_dmonitorout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_dmonitorout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77481,7 +77481,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescandataerror_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescandataerror_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77567,7 +77567,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescanreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescanreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77659,7 +77659,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescantrigger_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_eyescantrigger_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77759,7 +77759,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_pcsrsvdin_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_pcsrsvdin_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77859,7 +77859,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxbufreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxbufreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -77953,7 +77953,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxbufstatus_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxbufstatus_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78047,7 +78047,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxcdrhold_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxcdrhold_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78139,7 +78139,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxcommadeten_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxcommadeten_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78231,7 +78231,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxdfeagchold_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxdfeagchold_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78323,7 +78323,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxdfelpmreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxdfelpmreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78415,7 +78415,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxlatclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxlatclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78507,7 +78507,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxlpmen_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxlpmen_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78599,7 +78599,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpcsreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpcsreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78691,7 +78691,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpmareset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpmareset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78783,7 +78783,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpolarity_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxpolarity_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78875,7 +78875,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbscntreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbscntreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -78961,7 +78961,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbserr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbserr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79041,7 +79041,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbslocked_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbslocked_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79135,7 +79135,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbssel_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxprbssel_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79243,7 +79243,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxrate_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxrate_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79343,7 +79343,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxslide_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxslide_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79437,7 +79437,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxstartofseq_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_rxstartofseq_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79525,7 +79525,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txresetdone_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txresetdone_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79613,7 +79613,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txbufstatus_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txbufstatus_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79715,7 +79715,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txdiffctrl_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txdiffctrl_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79815,7 +79815,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txinhibit_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txinhibit_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -79907,7 +79907,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txlatclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txlatclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80007,7 +80007,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txmaincursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txmaincursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80107,7 +80107,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpcsreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpcsreset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80199,7 +80199,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpmareset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpmareset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80291,7 +80291,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpolarity_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpolarity_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80391,7 +80391,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpostcursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txpostcursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80491,7 +80491,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprbsforceerr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprbsforceerr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80583,7 +80583,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txelecidle_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txelecidle_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80683,7 +80683,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprbssel_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprbssel_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80791,7 +80791,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprecursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_txprecursor_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80891,7 +80891,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtwiz_reset_tx_datapath_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtwiz_reset_tx_datapath_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -80983,7 +80983,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtwiz_reset_rx_datapath_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtwiz_reset_rx_datapath_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) != 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81069,7 +81069,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rxrecclkout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rxrecclkout_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81155,7 +81155,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpclk_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81247,7 +81247,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drprst_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplusHBM&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplus58g&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;kintexuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;spartanuplus&quot;)  or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;artixuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;zynquplus&quot;))) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drprst_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;)  and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplusHBM&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;virtexuplus58g&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;kintexuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;spartanuplus&quot;)  or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;artixuplus&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) == &quot;zynquplus&quot;))) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81341,7 +81341,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpdo_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpdo_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81429,7 +81429,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drprdy_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drprdy_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81515,7 +81515,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpen_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpen_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81607,7 +81607,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpwe_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpwe_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81707,7 +81707,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpaddr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpaddr_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -81815,7 +81815,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpdi_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_drpdi_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_ADD_GT_CNTRL_STS_PORTS&apos;))= 1) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_RUNTIME_SWITCH&apos;))= 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -84090,7 +84090,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_clk_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) or ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) == &quot;GTM&quot;))) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_clk_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) or ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) == &quot;GTM&quot;))) and (((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -84170,7 +84170,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_clk_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) or ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) == &quot;GTM&quot;))) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_clk_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) or ((spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_TYPE&apos;)) == &quot;GTM&quot;))) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -84316,7 +84316,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtpowergood_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gtpowergood_out_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -84366,7 +84366,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -84393,7 +84393,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -84420,7 +84420,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -84447,7 +84447,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">0</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) *1)-1">1</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -87128,7 +87128,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_reset_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_reset_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -87398,7 +87398,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_rx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_rx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -87702,7 +87702,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_mii_d_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC 64-bit TSN&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_mii_d_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC 64-bit TSN&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -87798,7 +87798,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_mii_c_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC 64-bit TSN&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.rx_mii_c_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC 64-bit TSN&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -89184,7 +89184,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_test_pattern_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_test_pattern_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -89276,7 +89276,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_data_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_data_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -89368,7 +89368,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -89460,7 +89460,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_prbs31_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_prbs31_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -94866,7 +94866,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_framing_err_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_framing_err_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -94946,7 +94946,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_framing_err_valid_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_framing_err_valid_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -95026,7 +95026,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_local_fault_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_local_fault_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -95106,7 +95106,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_block_lock_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_block_lock_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -95186,7 +95186,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_valid_ctrl_code_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_valid_ctrl_code_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;)  and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -95266,7 +95266,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_status_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC+PCS/PMA 32-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC+PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_status_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC+PCS/PMA 32-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet MAC+PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -95858,7 +95858,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_hi_ber_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_hi_ber_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -98466,7 +98466,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_bad_code_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_bad_code_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -98546,7 +98546,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_bad_code_valid_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_bad_code_valid_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -98634,7 +98634,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_error_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_error_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -98722,7 +98722,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_error_valid_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_error_valid_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) or (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 32-bit&quot;) ) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -98802,7 +98802,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_fifo_error_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_rx_fifo_error_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -99480,7 +99480,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_reset_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_reset_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -99566,7 +99566,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_tx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_tx_reset_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_SHARED_LOGIC&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -99852,7 +99852,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_d_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_d_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -99960,7 +99960,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_c_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.tx_mii_c_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_DATA_PATH_INTERFACE&apos;)) = &quot;MII&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -101882,7 +101882,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_tx_local_fault_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.stat_tx_local_fault_1" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2)">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110444,7 +110444,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110536,7 +110536,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110628,7 +110628,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110720,7 +110720,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_data_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_data_pattern_select_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110820,7 +110820,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_seed_a_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_seed_a_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -110928,7 +110928,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_seed_b_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_test_pattern_seed_b_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -111028,7 +111028,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_prbs31_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_tx_prbs31_test_pattern_enable_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) == &quot;Ethernet PCS/PMA 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;))== 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -124460,7 +124460,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_loopback_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) != &quot;versal&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.gt_loopback_in_1" xilinx:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_FAMILY_CHK&apos;)) != &quot;versal&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -132112,7 +132112,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_wdt_disable_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.ctl_rx_wdt_disable_1" xilinx:dependency="(((spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_CORE&apos;)) != &quot;Ethernet MAC 64-bit TSN&quot;) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_GT_LOCATION&apos;)) == 1)) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_NUM_OF_CORES&apos;)) >= 2) and (spirit:decode(id(&apos;MODELPARAM_VALUE.C_INCLUDE_AXI4_INTERFACE&apos;)) == 0))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -132183,7 +132183,7 @@
       <spirit:modelParameter spirit:dataType="long">
         <spirit:name>C_NUM_OF_CORES</spirit:name>
         <spirit:displayName>Num of Cores</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_NUM_OF_CORES">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_NUM_OF_CORES">2</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>C_CLOCKING</spirit:name>
@@ -132338,7 +132338,7 @@
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>C_LANE2_GT_LOC</spirit:name>
         <spirit:displayName>Lane-01</spirit:displayName>
-        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_LANE2_GT_LOC">NA</spirit:value>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_LANE2_GT_LOC">X0Y1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>C_LANE3_GT_LOC</spirit:name>
@@ -132469,6 +132469,12 @@
       <spirit:enumeration>322.265625</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
+      <spirit:name>choice_list_59ea73c6</spirit:name>
+      <spirit:enumeration>X0Y1</spirit:enumeration>
+      <spirit:enumeration>X0Y2</spirit:enumeration>
+      <spirit:enumeration>X0Y3</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
       <spirit:name>choice_list_5a2568a2</spirit:name>
       <spirit:enumeration>Asynchronous</spirit:enumeration>
     </spirit:choice>
@@ -132580,6 +132586,10 @@
       <spirit:name>xilinx_elaboratesubcores_view_fileset</spirit:name>
       <spirit:file>
         <spirit:name>ip_0/bd_xxv_ethernet_0_0_gt.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ip_1/bd_xxv_ethernet_0_0_gt_1.xci</spirit:name>
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -132777,7 +132787,7 @@
     <spirit:parameter>
       <spirit:name>NUM_OF_CORES</spirit:name>
       <spirit:displayName>Num of Cores</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_OF_CORES" spirit:choiceRef="choice_list_aa031417" spirit:order="6">1</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_OF_CORES" spirit:choiceRef="choice_list_aa031417" spirit:order="6">2</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -133160,11 +133170,11 @@
     <spirit:parameter>
       <spirit:name>LANE2_GT_LOC</spirit:name>
       <spirit:displayName>Lane-01</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.LANE2_GT_LOC" spirit:choiceRef="choice_list_44945da6" spirit:order="39">NA</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.LANE2_GT_LOC" spirit:choiceRef="choice_list_59ea73c6" spirit:order="39">X0Y1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.LANE2_GT_LOC">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.LANE2_GT_LOC">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:parameterInfo>
       </spirit:vendorExtensions>
@@ -133371,14 +133381,23 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.DRP_CLK_PORT.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.DRP_CLK_PORT.PHASE" xilinx:valueSource="ip_propagated" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GTWIZ_RESET_RX_DATAPATH_0_PORT.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GTWIZ_RESET_RX_DATAPATH_1_PORT.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GTWIZ_RESET_TX_DATAPATH_0_PORT.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GTWIZ_RESET_TX_DATAPATH_1_PORT.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.CLK_DOMAIN" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.FREQ_HZ" xilinx:valueSource="ip_propagated" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT0.PHASE" xilinx:valueSource="ip_propagated" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.FREQ_HZ" xilinx:valueSource="ip_propagated" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_DRPCLK_PORT1.PHASE" xilinx:valueSource="ip_propagated" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_REFCLK_OUT.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_REFCLK_OUT.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.GT_REFCLK_OUT.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
@@ -133397,6 +133416,13 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_0.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_0.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_0.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.CLK_DOMAIN" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RXRECCLKOUT_1.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
@@ -133404,6 +133430,13 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT0.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.CLK_DOMAIN" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CLK_PORT1.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
@@ -133411,38 +133444,16 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_0.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_CORE_CLK_1.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_RESET_PORT0.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.RX_RESET_PORT1.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.SYS_RESET_PORT.POLARITY" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.ADDR_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.ARUSER_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.AWUSER_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.BUSER_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.CLK_DOMAIN" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.DATA_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.FREQ_HZ" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_BRESP" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_BURST" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_CACHE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_LOCK" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_PROT" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_QOS" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_REGION" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_RRESP" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.HAS_WSTRB" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.ID_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.MAX_BURST_LENGTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.NUM_READ_OUTSTANDING" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.NUM_READ_THREADS" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.NUM_WRITE_OUTSTANDING" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.NUM_WRITE_THREADS" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.PHASE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.PROTOCOL" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.READ_WRITE_MODE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.RUSER_BITS_PER_BYTE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.RUSER_WIDTH" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.SUPPORTS_NARROW_BURST" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.WUSER_BITS_PER_BYTE" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_0.WUSER_WIDTH" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_SIGNAL_CLOCK0.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_SIGNAL_CLOCK0.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_SIGNAL_RESETN0.POLARITY" xilinx:valuePermission="bd"/>
@@ -133453,9 +133464,19 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT0.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT0.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT0.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.ASSOCIATED_BUSIF" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.ASSOCIATED_PORT" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.ASSOCIATED_RESET" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.CLK_DOMAIN" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.FREQ_HZ" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.FREQ_TOLERANCE_HZ" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_MII_CLK_PORT1.PHASE" xilinx:valueSource="user" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_RESET_PORT0.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.TX_RESET_PORT1.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.USER_RX_RESET_0.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.USER_RX_RESET_1.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.USER_TX_RESET_0.POLARITY" xilinx:valuePermission="bd"/>
+        <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.USER_TX_RESET_1.POLARITY" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ADD_GT_CNTRL_STS_PORTS" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.BASE_R_KR" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CORE" xilinx:valueSource="user"/>
@@ -133464,6 +133485,8 @@
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ENABLE_PIPELINE_REG" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.GT_DRP_CLK" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.INCLUDE_AXI4_INTERFACE" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.LANE1_GT_LOC" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.NUM_OF_CORES" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>

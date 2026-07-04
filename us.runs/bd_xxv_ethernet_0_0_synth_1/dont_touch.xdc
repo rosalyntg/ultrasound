@@ -4,8 +4,16 @@
 # IP: /home/russell/ultrasound/fpga/us/us.srcs/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0.xci
 # IP: The module: 'bd_xxv_ethernet_0_0' is the root of the design. Do not add the DONT_TOUCH constraint.
 
+# IP: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/bd_xxv_ethernet_0_0_gt_1.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt_1 || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt_1} -quiet] -quiet
+
 # IP: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/bd_xxv_ethernet_0_0_gt.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt} -quiet] -quiet
+
+# XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_ooc.xdc
+
+# XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc
+set_property KEEP_HIERARCHY SOFT [get_cells [split [join [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt_1 || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt_1} -quiet] {/inst } ]/inst ] -quiet] -quiet
 
 # XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_ooc.xdc
 
@@ -27,8 +35,16 @@ set_property KEEP_HIERARCHY SOFT [get_cells inst -quiet] -quiet
 # IP: /home/russell/ultrasound/fpga/us/us.srcs/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0.xci
 # IP: The module: 'bd_xxv_ethernet_0_0' is the root of the design. Do not add the DONT_TOUCH constraint.
 
+# IP: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/bd_xxv_ethernet_0_0_gt_1.xci
+#dup# set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt_1 || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt_1} -quiet] -quiet
+
 # IP: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/bd_xxv_ethernet_0_0_gt.xci
 #dup# set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt} -quiet] -quiet
+
+# XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_ooc.xdc
+
+# XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc
+#dup# set_property KEEP_HIERARCHY SOFT [get_cells [split [join [get_cells -hier -filter {REF_NAME==bd_xxv_ethernet_0_0_gt_1 || ORIG_REF_NAME==bd_xxv_ethernet_0_0_gt_1} -quiet] {/inst } ]/inst ] -quiet] -quiet
 
 # XDC: /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_ooc.xdc
 

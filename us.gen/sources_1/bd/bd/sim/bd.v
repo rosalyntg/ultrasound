@@ -2,7 +2,7 @@
 //Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
-//Date        : Fri Jul  3 18:44:00 2026
+//Date        : Sat Jul  4 14:23:05 2026
 //Host        : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 //Command     : generate_target bd.bd
 //Design      : bd
@@ -32,8 +32,12 @@ module bd
     sfp_mod_abs,
     sfp_rx_gt_port_0_n,
     sfp_rx_gt_port_0_p,
+    sfp_rx_gt_port_1_n,
+    sfp_rx_gt_port_1_p,
     sfp_tx_gt_port_0_n,
-    sfp_tx_gt_port_0_p);
+    sfp_tx_gt_port_0_p,
+    sfp_tx_gt_port_1_n,
+    sfp_tx_gt_port_1_p);
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 eth_refclk CLK_N" *) (* X_INTERFACE_MODE = "Slave" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME eth_refclk, CAN_DEBUG false, FREQ_HZ 156250000" *) input eth_refclk_clk_n;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 eth_refclk CLK_P" *) input eth_refclk_clk_p;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 jesd_coreclk CLK_N" *) (* X_INTERFACE_MODE = "Slave" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME jesd_coreclk, CAN_DEBUG false, FREQ_HZ 100000000" *) input [0:0]jesd_coreclk_clk_n;
@@ -54,29 +58,22 @@ module bd
   input [0:0]sfp_mod_abs;
   (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_rx gt_port_0_n" *) (* X_INTERFACE_MODE = "Slave" *) input sfp_rx_gt_port_0_n;
   (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_rx gt_port_0_p" *) input sfp_rx_gt_port_0_p;
+  (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_rx gt_port_1_n" *) input sfp_rx_gt_port_1_n;
+  (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_rx gt_port_1_p" *) input sfp_rx_gt_port_1_p;
   (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_tx gt_port_0_n" *) (* X_INTERFACE_MODE = "Master" *) output sfp_tx_gt_port_0_n;
   (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_tx gt_port_0_p" *) output sfp_tx_gt_port_0_p;
+  (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_tx gt_port_1_n" *) output sfp_tx_gt_port_1_n;
+  (* X_INTERFACE_INFO = "xilinx.com:display_xxv_ethernet:gt_ports_int:2.0 sfp_tx gt_port_1_p" *) output sfp_tx_gt_port_1_p;
 
   wire [15:0]c_counter_binary_0_Q;
   wire [15:0]c_counter_binary_1_Q;
   wire [0:0]clear_arp_cache;
-  wire [0:0]drprst;
+  wire [0:0]drprst0;
+  wire [0:0]drprst1;
   wire eth_refclk_clk_n;
   wire eth_refclk_clk_p;
   wire [31:0]gateway_ip;
   wire [0:0]ilconstant_1_dout;
-  wire [9:0]in_system_ibert_0_GT0_DRP_DADDR;
-  wire in_system_ibert_0_GT0_DRP_DEN;
-  wire [15:0]in_system_ibert_0_GT0_DRP_DI;
-  wire [15:0]in_system_ibert_0_GT0_DRP_DO;
-  wire in_system_ibert_0_GT0_DRP_DRDY;
-  wire in_system_ibert_0_GT0_DRP_DWE;
-  wire [0:0]in_system_ibert_0_eyescanreset_o;
-  wire [0:0]in_system_ibert_0_rxlpmen_o;
-  wire [2:0]in_system_ibert_0_rxrate_o;
-  wire [4:0]in_system_ibert_0_txdiffctrl_o;
-  wire [4:0]in_system_ibert_0_txpostcursor_o;
-  wire [4:0]in_system_ibert_0_txprecursor_o;
   wire [0:0]jesd_coreclk_clk_n;
   wire [0:0]jesd_coreclk_clk_p;
   wire [0:0]jesd_refclk_clk_n;
@@ -212,6 +209,8 @@ module bd
   wire net_wrapper_0_m_axi_WVALID;
   wire net_wrapper_0_rx_error_bad_fcs;
   wire net_wrapper_0_rx_error_bad_frame;
+  wire net_wrapper_0_tx_eth_hdr_ready;
+  wire net_wrapper_0_tx_eth_hdr_valid;
   wire net_wrapper_0_udp_rx_busy;
   wire net_wrapper_0_udp_tx_busy;
   wire [7:0]net_wrapper_0_xgmii_txc;
@@ -219,8 +218,10 @@ module bd
   wire osc_200mhz_clk_n;
   wire osc_200mhz_clk_p;
   wire [0:0]qpllreset;
-  wire [0:0]reset_rx_datapath;
-  wire [0:0]reset_tx_datapath;
+  wire [0:0]reset_rx_datapath0;
+  wire [0:0]reset_rx_datapath1;
+  wire [0:0]reset_tx_datapath0;
+  wire [0:0]reset_tx_datapath1;
   wire [0:0]rst_sysclk_wiz_25M_bus_struct_reset;
   wire rst_sysclk_wiz_25M_mb_reset;
   wire [0:0]rst_sysclk_wiz_25M_peripheral_aresetn;
@@ -236,19 +237,30 @@ module bd
   wire [0:0]sfp_mod_abs;
   wire sfp_rx_gt_port_0_n;
   wire sfp_rx_gt_port_0_p;
+  wire sfp_rx_gt_port_1_n;
+  wire sfp_rx_gt_port_1_p;
   wire sfp_tx_gt_port_0_n;
   wire sfp_tx_gt_port_0_p;
+  wire sfp_tx_gt_port_1_n;
+  wire sfp_tx_gt_port_1_p;
   wire [31:0]subnet_mask;
   wire [0:0]sys_reset;
   wire [0:0]tx_reset;
   wire [0:0]tx_rst;
   wire [0:0]tx_test;
+  wire [4:0]txdiffctrl;
   wire [0:0]txpolarity;
+  wire [4:0]txpostcursor;
+  wire [4:0]txprecursor;
+  wire [0:0]txreset0;
   wire [0:0]util_ds_buf_0_IBUF_OUT;
   wire [0:0]util_ds_buf_1_BUFGCE_O;
-  wire xxv_ethernet_0_gt_txresetdone_0;
+  wire [2:0]vio_eth_probe_out10;
+  wire [0:0]vio_eth_probe_out11;
+  wire [1:0]xxv_ethernet_0_gt_txbufstatus_1;
   wire xxv_ethernet_0_gtpowergood_out_0;
   wire xxv_ethernet_0_rx_clk_out_0;
+  wire xxv_ethernet_0_rx_clk_out_1;
   wire [7:0]xxv_ethernet_0_rx_mii_c_0;
   wire [63:0]xxv_ethernet_0_rx_mii_d_0;
   wire xxv_ethernet_0_stat_rx_bad_code_0;
@@ -264,9 +276,9 @@ module bd
   wire xxv_ethernet_0_stat_rx_status_0;
   wire xxv_ethernet_0_stat_rx_valid_ctrl_code_0;
   wire xxv_ethernet_0_stat_tx_local_fault_0;
-  wire xxv_ethernet_0_tx_mii_clk_0;
+  wire xxv_ethernet_0_tx_mii_clk_1;
   wire xxv_ethernet_0_user_rx_reset_0;
-  wire xxv_ethernet_0_user_tx_reset_0;
+  wire xxv_ethernet_0_user_tx_reset_1;
 
   bd_axi_gpio_0_0 axi_gpio_0
        (.gpio_io_o(led),
@@ -293,25 +305,16 @@ module bd
        (.CLK(xxv_ethernet_0_rx_clk_out_0),
         .Q(c_counter_binary_0_Q));
   bd_c_counter_binary_1_0 c_counter_binary_1
-       (.CLK(xxv_ethernet_0_tx_mii_clk_0),
+       (.CLK(xxv_ethernet_0_tx_mii_clk_1),
         .Q(c_counter_binary_1_Q));
+  bd_ila_0_0 ila_0
+       (.clk(xxv_ethernet_0_tx_mii_clk_1),
+        .probe0(net_wrapper_0_xgmii_txd),
+        .probe1(net_wrapper_0_xgmii_txc),
+        .probe2(net_wrapper_0_tx_eth_hdr_valid),
+        .probe3(net_wrapper_0_tx_eth_hdr_ready));
   
   assign ilconstant_1_dout = 1'h1;
-  bd_in_system_ibert_0_0 in_system_ibert_0
-       (.clk(microblaze_riscv_0_Clk),
-        .eyescanreset_o(in_system_ibert_0_eyescanreset_o),
-        .gt0_drpaddr_o(in_system_ibert_0_GT0_DRP_DADDR),
-        .gt0_drpdi_o(in_system_ibert_0_GT0_DRP_DI),
-        .gt0_drpdo_i(in_system_ibert_0_GT0_DRP_DO),
-        .gt0_drpen_o(in_system_ibert_0_GT0_DRP_DEN),
-        .gt0_drprdy_i(in_system_ibert_0_GT0_DRP_DRDY),
-        .gt0_drpwe_o(in_system_ibert_0_GT0_DRP_DWE),
-        .rxlpmen_o(in_system_ibert_0_rxlpmen_o),
-        .rxoutclk_i(1'b0),
-        .rxrate_o(in_system_ibert_0_rxrate_o),
-        .txdiffctrl_o(in_system_ibert_0_txdiffctrl_o),
-        .txpostcursor_o(in_system_ibert_0_txpostcursor_o),
-        .txprecursor_o(in_system_ibert_0_txprecursor_o));
   bd_jesd204_phy_0_0 jesd204_phy_0
        (.cpll_refclk(util_ds_buf_0_IBUF_OUT),
         .drpclk(microblaze_riscv_0_Clk),
@@ -619,6 +622,8 @@ module bd
         .rx_error_bad_fcs(net_wrapper_0_rx_error_bad_fcs),
         .rx_error_bad_frame(net_wrapper_0_rx_error_bad_frame),
         .subnet_mask(subnet_mask),
+        .tx_eth_hdr_ready(net_wrapper_0_tx_eth_hdr_ready),
+        .tx_eth_hdr_valid(net_wrapper_0_tx_eth_hdr_valid),
         .tx_test(tx_test),
         .udp_rx_busy(net_wrapper_0_udp_rx_busy),
         .udp_tx_busy(net_wrapper_0_udp_tx_busy),
@@ -626,7 +631,7 @@ module bd
         .xgmii_rx_rst(rx_rst),
         .xgmii_rxc(xxv_ethernet_0_rx_mii_c_0),
         .xgmii_rxd(xxv_ethernet_0_rx_mii_d_0),
-        .xgmii_tx_clk(xxv_ethernet_0_tx_mii_clk_0),
+        .xgmii_tx_clk(xxv_ethernet_0_tx_mii_clk_1),
         .xgmii_tx_rst(tx_rst),
         .xgmii_txc(net_wrapper_0_xgmii_txc),
         .xgmii_txd(net_wrapper_0_xgmii_txd));
@@ -682,28 +687,38 @@ module bd
         .probe_in11(xxv_ethernet_0_stat_rx_hi_ber_0),
         .probe_in12(xxv_ethernet_0_stat_rx_local_fault_0),
         .probe_in13(xxv_ethernet_0_stat_rx_valid_ctrl_code_0),
-        .probe_in14(xxv_ethernet_0_gt_txresetdone_0),
+        .probe_in14(1'b0),
         .probe_in15(xxv_ethernet_0_user_rx_reset_0),
         .probe_in16(xxv_ethernet_0_stat_rx_status_0),
         .probe_in17(c_counter_binary_0_Q),
         .probe_in18(c_counter_binary_1_Q),
         .probe_in19(sfp_mod_abs),
         .probe_in2(xxv_ethernet_0_stat_rx_bad_code_valid_0),
+        .probe_in20(xxv_ethernet_0_gt_txbufstatus_1),
         .probe_in3(xxv_ethernet_0_stat_rx_block_lock_0),
         .probe_in4(xxv_ethernet_0_stat_rx_error_0),
         .probe_in5(xxv_ethernet_0_stat_rx_error_valid_0),
         .probe_in6(xxv_ethernet_0_stat_rx_fifo_error_0),
         .probe_in7(xxv_ethernet_0_stat_rx_framing_err_0),
         .probe_in8(xxv_ethernet_0_stat_rx_framing_err_valid_0),
-        .probe_in9(xxv_ethernet_0_user_tx_reset_0),
+        .probe_in9(xxv_ethernet_0_user_tx_reset_1),
         .probe_out0(txpolarity),
-        .probe_out1(reset_tx_datapath),
-        .probe_out2(reset_rx_datapath),
-        .probe_out3(drprst),
+        .probe_out1(reset_tx_datapath0),
+        .probe_out10(vio_eth_probe_out10),
+        .probe_out11(vio_eth_probe_out11),
+        .probe_out12(reset_tx_datapath1),
+        .probe_out13(reset_rx_datapath1),
+        .probe_out14(txdiffctrl),
+        .probe_out15(drprst0),
+        .probe_out16(drprst1),
+        .probe_out2(reset_rx_datapath0),
+        .probe_out3(txpostcursor),
         .probe_out4(sys_reset),
         .probe_out5(rx_reset),
         .probe_out6(tx_reset),
-        .probe_out7(qpllreset));
+        .probe_out7(qpllreset),
+        .probe_out8(txprecursor),
+        .probe_out9(txreset0));
   bd_vio_0_1 vio_rx
        (.clk(xxv_ethernet_0_rx_clk_out_0),
         .probe_in0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
@@ -741,81 +756,135 @@ module bd
         .probe_out6(clear_arp_cache),
         .probe_out7(tx_test));
   bd_vio_0_0 vio_tx
-       (.clk(xxv_ethernet_0_tx_mii_clk_0),
-        .probe_in0(1'b0),
-        .probe_in1({1'b0,1'b0}),
-        .probe_in2(1'b0),
-        .probe_in3(1'b0),
+       (.clk(xxv_ethernet_0_tx_mii_clk_1),
+        .probe_in0(net_wrapper_0_tx_eth_hdr_valid),
+        .probe_in1(net_wrapper_0_tx_eth_hdr_ready),
         .probe_out0(tx_rst));
   bd_xxv_ethernet_0_0 xxv_ethernet_0
        (.ctl_rx_data_pattern_select_0(1'b0),
+        .ctl_rx_data_pattern_select_1(1'b0),
         .ctl_rx_prbs31_test_pattern_enable_0(1'b0),
+        .ctl_rx_prbs31_test_pattern_enable_1(1'b0),
         .ctl_rx_test_pattern_0(1'b0),
+        .ctl_rx_test_pattern_1(1'b0),
         .ctl_rx_test_pattern_enable_0(1'b0),
+        .ctl_rx_test_pattern_enable_1(1'b0),
         .ctl_rx_wdt_disable_0(1'b0),
+        .ctl_rx_wdt_disable_1(1'b0),
         .ctl_tx_data_pattern_select_0(1'b0),
+        .ctl_tx_data_pattern_select_1(1'b0),
         .ctl_tx_prbs31_test_pattern_enable_0(1'b0),
+        .ctl_tx_prbs31_test_pattern_enable_1(1'b0),
         .ctl_tx_test_pattern_0(1'b0),
+        .ctl_tx_test_pattern_1(1'b0),
         .ctl_tx_test_pattern_enable_0(1'b0),
+        .ctl_tx_test_pattern_enable_1(1'b0),
         .ctl_tx_test_pattern_seed_a_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ctl_tx_test_pattern_seed_a_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .ctl_tx_test_pattern_seed_b_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ctl_tx_test_pattern_seed_b_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .ctl_tx_test_pattern_select_0(1'b0),
+        .ctl_tx_test_pattern_select_1(1'b0),
         .dclk(microblaze_riscv_0_Clk),
-        .gt_drpaddr_0(in_system_ibert_0_GT0_DRP_DADDR),
+        .gt_drpaddr_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_drpaddr_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .gt_drpclk_0(microblaze_riscv_0_Clk),
-        .gt_drpdi_0(in_system_ibert_0_GT0_DRP_DI),
-        .gt_drpdo_0(in_system_ibert_0_GT0_DRP_DO),
-        .gt_drpen_0(in_system_ibert_0_GT0_DRP_DEN),
-        .gt_drprdy_0(in_system_ibert_0_GT0_DRP_DRDY),
-        .gt_drprst_0(drprst),
-        .gt_drpwe_0(in_system_ibert_0_GT0_DRP_DWE),
-        .gt_eyescanreset_0(in_system_ibert_0_eyescanreset_o),
+        .gt_drpclk_1(microblaze_riscv_0_Clk),
+        .gt_drpdi_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_drpdi_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_drpen_0(1'b0),
+        .gt_drpen_1(1'b0),
+        .gt_drprst_0(drprst0),
+        .gt_drprst_1(drprst1),
+        .gt_drpwe_0(1'b0),
+        .gt_drpwe_1(1'b0),
+        .gt_eyescanreset_0(1'b0),
+        .gt_eyescanreset_1(1'b0),
         .gt_eyescantrigger_0(1'b0),
-        .gt_loopback_in_0({1'b0,1'b0,1'b0}),
+        .gt_eyescantrigger_1(1'b0),
+        .gt_loopback_in_0(vio_eth_probe_out10),
+        .gt_loopback_in_1({1'b0,1'b0,1'b0}),
         .gt_pcsrsvdin_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_pcsrsvdin_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .gt_refclk_n(eth_refclk_clk_n),
         .gt_refclk_p(eth_refclk_clk_p),
         .gt_rxbufreset_0(1'b0),
+        .gt_rxbufreset_1(1'b0),
         .gt_rxcdrhold_0(1'b0),
+        .gt_rxcdrhold_1(1'b0),
         .gt_rxcommadeten_0(1'b0),
+        .gt_rxcommadeten_1(1'b0),
         .gt_rxdfeagchold_0(1'b0),
+        .gt_rxdfeagchold_1(1'b0),
         .gt_rxdfelpmreset_0(1'b0),
+        .gt_rxdfelpmreset_1(1'b0),
         .gt_rxlatclk_0(1'b0),
-        .gt_rxlpmen_0(in_system_ibert_0_rxlpmen_o),
+        .gt_rxlatclk_1(1'b0),
+        .gt_rxlpmen_0(1'b0),
+        .gt_rxlpmen_1(1'b0),
         .gt_rxn_in_0(sfp_rx_gt_port_0_n),
+        .gt_rxn_in_1(sfp_rx_gt_port_1_n),
         .gt_rxp_in_0(sfp_rx_gt_port_0_p),
+        .gt_rxp_in_1(sfp_rx_gt_port_1_p),
         .gt_rxpcsreset_0(1'b0),
+        .gt_rxpcsreset_1(1'b0),
         .gt_rxpmareset_0(1'b0),
+        .gt_rxpmareset_1(1'b0),
         .gt_rxpolarity_0(1'b0),
+        .gt_rxpolarity_1(1'b0),
         .gt_rxprbscntreset_0(1'b0),
+        .gt_rxprbscntreset_1(1'b0),
         .gt_rxprbssel_0({1'b0,1'b0,1'b0,1'b0}),
-        .gt_rxrate_0(in_system_ibert_0_rxrate_o),
+        .gt_rxprbssel_1({1'b0,1'b0,1'b0,1'b0}),
+        .gt_rxrate_0({1'b0,1'b0,1'b0}),
+        .gt_rxrate_1({1'b0,1'b0,1'b0}),
         .gt_rxslide_in_0(1'b0),
-        .gt_txdiffctrl_0(in_system_ibert_0_txdiffctrl_o),
+        .gt_rxslide_in_1(1'b0),
+        .gt_txbufstatus_1(xxv_ethernet_0_gt_txbufstatus_1),
+        .gt_txdiffctrl_0({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_txdiffctrl_1(txdiffctrl),
         .gt_txelecidle_0(1'b0),
+        .gt_txelecidle_1(1'b0),
         .gt_txinhibit_0(1'b0),
+        .gt_txinhibit_1(1'b0),
         .gt_txlatclk_0(1'b0),
+        .gt_txlatclk_1(1'b0),
         .gt_txmaincursor_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_txmaincursor_1({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .gt_txn_out_0(sfp_tx_gt_port_0_n),
+        .gt_txn_out_1(sfp_tx_gt_port_1_n),
         .gt_txp_out_0(sfp_tx_gt_port_0_p),
+        .gt_txp_out_1(sfp_tx_gt_port_1_p),
         .gt_txpcsreset_0(1'b0),
+        .gt_txpcsreset_1(1'b0),
         .gt_txpmareset_0(1'b0),
-        .gt_txpolarity_0(txpolarity),
-        .gt_txpostcursor_0(in_system_ibert_0_txpostcursor_o),
+        .gt_txpmareset_1(1'b0),
+        .gt_txpolarity_0(1'b0),
+        .gt_txpolarity_1(txpolarity),
+        .gt_txpostcursor_0({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_txpostcursor_1(txpostcursor),
         .gt_txprbsforceerr_0(1'b0),
+        .gt_txprbsforceerr_1(1'b0),
         .gt_txprbssel_0({1'b0,1'b0,1'b0,1'b0}),
-        .gt_txprecursor_0(in_system_ibert_0_txprecursor_o),
-        .gt_txresetdone_0(xxv_ethernet_0_gt_txresetdone_0),
+        .gt_txprbssel_1({1'b0,1'b0,1'b0,1'b0}),
+        .gt_txprecursor_0({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .gt_txprecursor_1(txprecursor),
         .gtpowergood_out_0(xxv_ethernet_0_gtpowergood_out_0),
-        .gtwiz_reset_rx_datapath_0(reset_rx_datapath),
-        .gtwiz_reset_tx_datapath_0(reset_tx_datapath),
+        .gtwiz_reset_rx_datapath_0(reset_rx_datapath0),
+        .gtwiz_reset_rx_datapath_1(reset_rx_datapath1),
+        .gtwiz_reset_tx_datapath_0(reset_tx_datapath0),
+        .gtwiz_reset_tx_datapath_1(reset_tx_datapath1),
         .qpllreset_in_0(qpllreset),
         .rx_clk_out_0(xxv_ethernet_0_rx_clk_out_0),
+        .rx_clk_out_1(xxv_ethernet_0_rx_clk_out_1),
         .rx_core_clk_0(xxv_ethernet_0_rx_clk_out_0),
+        .rx_core_clk_1(xxv_ethernet_0_rx_clk_out_1),
         .rx_mii_c_0(xxv_ethernet_0_rx_mii_c_0),
         .rx_mii_d_0(xxv_ethernet_0_rx_mii_d_0),
         .rx_reset_0(rx_reset),
+        .rx_reset_1(vio_eth_probe_out11),
         .rxoutclksel_in_0({1'b1,1'b0,1'b1}),
+        .rxoutclksel_in_1({1'b1,1'b0,1'b1}),
         .stat_rx_bad_code_0(xxv_ethernet_0_stat_rx_bad_code_0),
         .stat_rx_bad_code_valid_0(xxv_ethernet_0_stat_rx_bad_code_valid_0),
         .stat_rx_block_lock_0(xxv_ethernet_0_stat_rx_block_lock_0),
@@ -830,13 +899,17 @@ module bd
         .stat_rx_valid_ctrl_code_0(xxv_ethernet_0_stat_rx_valid_ctrl_code_0),
         .stat_tx_local_fault_0(xxv_ethernet_0_stat_tx_local_fault_0),
         .sys_reset(sys_reset),
-        .tx_mii_c_0(net_wrapper_0_xgmii_txc),
-        .tx_mii_clk_0(xxv_ethernet_0_tx_mii_clk_0),
-        .tx_mii_d_0(net_wrapper_0_xgmii_txd),
-        .tx_reset_0(tx_reset),
+        .tx_mii_c_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .tx_mii_c_1(net_wrapper_0_xgmii_txc),
+        .tx_mii_clk_1(xxv_ethernet_0_tx_mii_clk_1),
+        .tx_mii_d_0({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .tx_mii_d_1(net_wrapper_0_xgmii_txd),
+        .tx_reset_0(txreset0),
+        .tx_reset_1(tx_reset),
         .txoutclksel_in_0({1'b1,1'b0,1'b1}),
+        .txoutclksel_in_1({1'b1,1'b0,1'b1}),
         .user_rx_reset_0(xxv_ethernet_0_user_rx_reset_0),
-        .user_tx_reset_0(xxv_ethernet_0_user_tx_reset_0));
+        .user_tx_reset_1(xxv_ethernet_0_user_tx_reset_1));
 endmodule
 
 module microblaze_riscv_0_local_memory_imp_1MZ5VT7

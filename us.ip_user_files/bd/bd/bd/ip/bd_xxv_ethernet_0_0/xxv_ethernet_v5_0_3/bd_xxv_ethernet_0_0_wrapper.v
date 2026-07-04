@@ -99,6 +99,10 @@ module bd_xxv_ethernet_0_0_wrapper
     input  wire gt_rxn_in_0,
     output wire gt_txp_out_0,
     output wire gt_txn_out_0,
+    input  wire gt_rxp_in_1,
+    input  wire gt_rxn_in_1,
+    output wire gt_txp_out_1,
+    output wire gt_txn_out_1,
     output wire tx_mii_clk_0,
     input  wire rx_core_clk_0,
     output wire rx_clk_out_0,
@@ -214,6 +218,121 @@ module bd_xxv_ethernet_0_0_wrapper
     input wire [2:0] txoutclksel_in_0,
     input wire [2:0] rxoutclksel_in_0,
     input  wire ctl_rx_wdt_disable_0,
+    output wire tx_mii_clk_1,
+    input  wire rx_core_clk_1,
+    output wire rx_clk_out_1,
+    input  wire [2:0] gt_loopback_in_1,
+//// RX_1 Signals
+    input  wire rx_reset_1,
+    output wire user_rx_reset_1,
+    output wire rxrecclkout_1,
+//// RX_1 User Interface Signals
+    output wire [63:0] rx_mii_d_1,
+    output wire [7:0] rx_mii_c_1,
+//// RX_1 Control Signals
+    input  wire ctl_rx_test_pattern_1,
+    input  wire ctl_rx_test_pattern_enable_1,
+    input  wire ctl_rx_data_pattern_select_1,
+    input  wire ctl_rx_prbs31_test_pattern_enable_1,
+
+
+//// RX_1 Stats Signals
+    output wire stat_rx_block_lock_1,
+    output wire stat_rx_framing_err_valid_1,
+    output wire stat_rx_framing_err_1,
+    output wire stat_rx_hi_ber_1,
+    output wire stat_rx_valid_ctrl_code_1,
+    output wire stat_rx_bad_code_1,
+    output wire stat_rx_bad_code_valid_1,
+    output wire stat_rx_error_valid_1,
+    output wire [7:0] stat_rx_error_1,
+    output wire stat_rx_fifo_error_1,
+    output wire stat_rx_local_fault_1,
+    output wire  stat_rx_status_1,
+
+
+//// TX_1 Signals
+    input  wire tx_reset_1,
+    output wire user_tx_reset_1,
+
+//// TX_1 User Interface Signals
+    input  wire [63:0] tx_mii_d_1,
+    input  wire [7:0] tx_mii_c_1,
+
+
+//// TX_1 Control Signals
+    input  wire ctl_tx_test_pattern_1,
+    input  wire ctl_tx_test_pattern_enable_1,
+    input  wire ctl_tx_test_pattern_select_1,
+    input  wire ctl_tx_data_pattern_select_1,
+    input  wire [57:0] ctl_tx_test_pattern_seed_a_1,
+    input  wire [57:0] ctl_tx_test_pattern_seed_b_1,
+    input  wire ctl_tx_prbs31_test_pattern_enable_1,
+
+
+//// TX_1 Stats Signals
+    output wire stat_tx_local_fault_1,
+
+
+
+
+
+
+
+    input wire gt_drpclk_1,
+    input wire gt_drprst_1,
+////GT Transceiver debug interface ports
+//// GT Debug interface ports
+    output wire [16:0] gt_dmonitorout_1,
+    output wire [0:0] gt_eyescandataerror_1,
+    input  wire [0:0] gt_eyescanreset_1,
+    input  wire [0:0] gt_eyescantrigger_1,
+    input  wire [15:0] gt_pcsrsvdin_1,
+    input  wire [0:0] gt_rxbufreset_1,
+    output wire [2:0] gt_rxbufstatus_1,
+    input  wire [0:0] gt_rxcdrhold_1,
+    input  wire [0:0] gt_rxcommadeten_1,
+    input  wire [0:0] gt_rxdfeagchold_1,
+    input  wire [0:0] gt_rxdfelpmreset_1,
+    input  wire [0:0] gt_rxlatclk_1,
+    input  wire [0:0] gt_rxlpmen_1,
+    input  wire [0:0] gt_rxpcsreset_1,
+    input  wire [0:0] gt_rxpmareset_1,
+    input  wire [0:0] gt_rxpolarity_1,
+    input  wire [0:0] gt_rxprbscntreset_1,
+    output wire [0:0] gt_rxprbserr_1,
+    output wire [0:0] gt_rxprbslocked_1,
+    output wire [0:0] gt_txresetdone_1,
+    input  wire [3:0] gt_rxprbssel_1,
+    input  wire [2:0] gt_rxrate_1,
+    input  wire [0:0] gt_rxslide_in_1,
+    output wire [1:0] gt_rxstartofseq_1,
+    output wire [1:0] gt_txbufstatus_1,
+    input  wire [0:0] gt_txinhibit_1,
+    input  wire [0:0] gt_txlatclk_1,
+    input  wire [6:0] gt_txmaincursor_1,
+    input  wire [0:0] gt_txpcsreset_1,
+    input  wire [0:0] gt_txpmareset_1,
+    input  wire [0:0] gt_txpolarity_1,
+    input  wire [4:0] gt_txpostcursor_1,
+    input  wire [0:0] gt_txprbsforceerr_1,
+    input  wire [0:0] gt_txelecidle_1,
+    input  wire [3:0] gt_txprbssel_1,
+    input  wire [4:0] gt_txprecursor_1,
+    input wire [4:0] gt_txdiffctrl_1,
+////GT DRP ports 
+    output wire [15:0] gt_drpdo_1,
+    output wire [0:0] gt_drprdy_1,
+    input  wire [0:0] gt_drpen_1,
+    input  wire [0:0] gt_drpwe_1,
+    input  wire [9:0] gt_drpaddr_1,
+    input  wire [15:0] gt_drpdi_1,
+    input wire gtwiz_reset_tx_datapath_1,
+    input wire gtwiz_reset_rx_datapath_1,
+    output wire gtpowergood_out_1,
+    input wire [2:0] txoutclksel_in_1,
+    input wire [2:0] rxoutclksel_in_1,
+    input  wire ctl_rx_wdt_disable_1,
     input  wire gt_refclk_p,
     input  wire gt_refclk_n,
     output wire gt_refclk_out,
@@ -239,37 +358,24 @@ module bd_xxv_ethernet_0_0_wrapper
   );
 
 
-  wire [0:0]    qpll0clk_in;
-  wire [0:0]    qpll0refclk_in;
-  wire [0:0]    gtwiz_reset_qpll0lock_in;
-  wire [0:0]    gtwiz_reset_qpll1lock_in;
-  assign gtrefclk00_int_0                        = gt_refclk;
-  assign gtrefclk00_in_0                         = gtrefclk00_int_0;
-
-
-  wire [15:0] drpaddr_common_in_0;
-  assign drpaddr_common_in_0 = 16'b0;
-  wire        drpclk_common_in_0;
-  wire        drpen_common_in_0;
-  wire        drpwe_common_in_0;
-  wire        drprdy_common_out_0;
-  assign      drpen_common_in_0 = 1'b0;
-  assign      drpwe_common_in_0 = 1'b0;
-
-  wire [15:0] drpdi_common_in_0;
-  wire [15:0] drpdo_common_out_0;
-  assign drpdi_common_in_0 = 16'b0;
-  assign drpclk_common_in_0 = dclk;
-
   wire [9:0]     drpaddr_in_0;
+  wire           drprst_in_0;
   wire [15:0]    drpdi_in_0;
   wire [0:0]     drpen_in_0;
   wire [0:0]     drpwe_in_0;
   wire [0:0]     drpclk_in_0;
   wire [15:0]    drpdo_out_0;
   wire [0:0]     drprdy_out_0;
+  wire [9:0]     drpaddr_in_1;
+  wire           drprst_in_1;
+  wire [15:0]    drpdi_in_1;
+  wire [0:0]     drpen_in_1;
+  wire [0:0]     drpwe_in_1;
+  wire [0:0]     drpclk_in_1;
+  wire [15:0]    drpdo_out_1;
+  wire [0:0]     drprdy_out_1;
   wire powergood_out;
-  assign powergood_out = gtpowergood_out_0;
+  assign powergood_out = gtpowergood_out_0 & gtpowergood_out_1;
 
   assign gtwiz_reset_qpll0reset_out = ((~powergood_out)|qpllreset_in_0); 
   assign gtwiz_reset_qpll1reset_out = ((~powergood_out)|qpllreset_in_0); 
@@ -304,6 +410,9 @@ bd_xxv_ethernet_0_0_common_wrapper i_bd_xxv_ethernet_0_0_common_wrapper
   reg [28:0] master_watchdog_0 = MASTER_WATCHDOG_TIMER_RESET;
   reg master_watchdog_barking_0 = 1'b0;
   wire master_watchdog_barking_sync_0;
+  reg [28:0] master_watchdog_1 = MASTER_WATCHDOG_TIMER_RESET;
+  reg master_watchdog_barking_1 = 1'b0;
+  wire master_watchdog_barking_sync_1;
 
 
 
@@ -317,6 +426,15 @@ bd_xxv_ethernet_0_0_common_wrapper i_bd_xxv_ethernet_0_0_common_wrapper
   assign gt_rxp_int_0 = gt_rxp_in_0;
   assign gt_txn_out_0 = gt_txn_int_0;
   assign gt_txp_out_0 = gt_txp_int_0;
+  wire [0:0]      gt_rxn_int_1;
+  wire [0:0]      gt_rxp_int_1;
+  wire [0:0]      gt_txn_int_1;
+  wire [0:0]      gt_txp_int_1;
+
+  assign gt_rxn_int_1 = gt_rxn_in_1;
+  assign gt_rxp_int_1 = gt_rxp_in_1;
+  assign gt_txn_out_1 = gt_txn_int_1;
+  assign gt_txp_out_1 = gt_txp_int_1;
  
   wire [0:0]      gthrxn_in_0;
   wire [0:0]      gthrxp_in_0;
@@ -937,6 +1055,628 @@ bd_xxv_ethernet_0_0_top #(
   .rx_serdes_header0                 (rx_serdes_header0_0),
   .tx_serdes_data0                   (tx_serdes_data0_0),
   .tx_serdes_header0                 (tx_serdes_header0_0)
+
+
+);
+  wire [0:0]      gthrxn_in_1;
+  wire [0:0]      gthrxp_in_1;
+  wire [0:0]      gthtxn_out_1;
+  wire [0:0]      gthtxp_out_1;
+  wire [0:0]      rxpmaresetdone_out_1;
+  wire [0:0]      txprgdivresetdone_out_1;
+  wire [0:0]      txpmaresetdone_out_1;
+
+  wire [0:0]      rxprgdivresetdone_out_1;
+
+  wire [0:0]      gtwiz_userclk_rx_usrclk_out_1;
+  wire [0:0]      gtwiz_userclk_rx_srcclk_out_1;
+  wire [0:0]      gtwiz_userclk_rx_usrclk2_out_1;
+  wire [0:0]      txusrclk_in_1;
+  wire [0:0]      txusrclk2_in_1;
+  wire [0:0]      rxusrclk_in_1;
+  wire [0:0]      rxusrclk2_in_1;
+
+  wire [127:0]    txdata_in_1;
+  wire [127:0]    rxdata_out_1;
+
+  wire [0:0]      gtwiz_reset_rx_done_int_1;
+  wire [0:0]      gtwiz_reset_rx_data_good_in_1;
+  wire [0:0]      gtwiz_reset_clk_freerun_in_1;
+  wire [0:0]      gtwiz_reset_all_in_1;
+  wire [0:0]      gtwiz_reset_tx_pll_and_datapath_in_1;
+  wire [0:0]      gtwiz_reset_tx_datapath_in_1;
+  wire [0:0]      gtwiz_reset_tx_done_out_1;
+  wire [0:0]      gtwiz_reset_rx_pll_and_datapath_in_1;
+  wire [0:0]      gtwiz_reset_rx_datapath_in_1;
+  wire [0:0]      gtwiz_reset_rx_cdr_stable_out_1;
+  wire [0:0]      gtwiz_reset_rx_done_out_1;
+
+  wire [0:0]      gtwiz_reset_tx_done_int_1;
+  wire [0:0]      gtwiz_userclk_tx_active_in_1;
+  wire [0:0]      core_gtwiz_userclk_tx_reset_in_1;
+  wire [0:0]      gtwiz_userclk_tx_srcclk_out_1;
+  wire [0:0]      gtwiz_userclk_tx_usrclk_out_1;
+  wire [0:0]      gtwiz_userclk_tx_usrclk2_out_1;
+  wire [0:0]      core_gtwiz_userclk_tx_active_out_1;
+
+  wire [0:0]      gtwiz_userclk_rx_active_in_1;
+
+  wire [0:0]      core_gtwiz_userclk_rx_reset_in_1;
+  wire [0:0]      core_gtwiz_userclk_rx_active_out_1;
+
+  wire [0:0]      rxgearboxslip_in_1;
+  wire [1:0]      rxdatavalid_out_1;
+  wire [5:0]      rxheader_out_1;
+  wire [1:0]      rxheadervalid_out_1;
+
+  wire [5:0]      txheader_in_1;
+  wire [6:0]      txsequence_in_1 = 7'b0;
+
+  wire [0:0]      rxlatclk_in_1;
+  wire [0:0]      txlatclk_in_1;
+  assign rxlatclk_in_1 = dclk;
+  assign txlatclk_in_1 = dclk;
+  assign    qpll0clk_in_1                = qpll0clk_in;
+  assign    qpll0refclk_in_1             = qpll0refclk_in;
+  assign    qpll1clk_in_1                = qpll1clk_in;
+  assign    qpll1refclk_in_1             = qpll1refclk_in;
+  assign    gtwiz_reset_qpll0lock_in_1   = gtwiz_reset_qpll0lock_in & (~gtwiz_reset_all_in_1);
+  assign    gtwiz_reset_qpll1lock_in_1   = gtwiz_reset_qpll1lock_in & (~gtwiz_reset_all_in_1);
+  wire [15:0]     dmonitorout_out_1;
+  wire [0:0]      eyescandataerror_out_1;
+  wire [0:0]      eyescanreset_in_1;
+  wire [0:0]      eyescantrigger_in_1;
+  wire [15:0]     pcsrsvdin_in_1;
+  wire [0:0]      rxbufreset_in_1;
+  wire [2:0]      rxbufstatus_out_1;
+  wire [0:0]      rxcommadeten_in_1;
+  wire [0:0]      rxdfeagchold_in_1;
+  wire [0:0]      rxpcsreset_in_1;
+  wire [0:0]      rxpolarity_in_1;
+  wire [0:0]      rxprbscntreset_in_1;
+  wire [0:0]      rxprbserr_out_1;
+  wire [0:0]      rxprbslocked_out_1;
+  wire [0:0]      txresetdone_out_1;
+  wire [3:0]      rxprbssel_in_1;
+  wire [2:0]      rxrate_in_1;
+  wire [0:0]      rxslide_in_1;
+  wire [1:0]      rxstartofseq_out_1;
+  wire [1:0]      txbufstatus_out_1;
+  wire [4:0]      txdiffctrl_in_1;
+  wire [0:0]      txinhibit_in_1;
+  wire [6:0]      txmaincursor_in_1;
+  wire [0:0]      txpcsreset_in_1;
+  wire [0:0]      txpmareset_in_1;
+  wire [0:0]      txpolarity_in_1;
+  wire [4:0]      txpostcursor_in_1;
+  wire [0:0]      txprbsforceerr_in_1;
+  wire [0:0]      txelecidle_in_1;
+  wire [3:0]      txprbssel_in_1;
+  wire [4:0]      txprecursor_in_1;
+
+  wire [0:0]      rxlpmen_in_1;
+  wire [0:0]      rxcdrhold_in_1;
+  wire [0:0]      rxdfelfhold_in_1;
+  wire [0:0]      rxlpmlfhold_in_1;
+  wire [0:0]      rxdfelpmreset_in_1;     
+  wire [0:0]      rxpmareset_in_1;
+  assign rxdfelfhold_in_1 = 1'b0;
+  assign rxlpmlfhold_in_1 = 1'b0;
+  assign rxcdrhold_in_1 = gt_rxcdrhold_1;
+  assign rxdfelpmreset_in_1 = gt_rxdfelpmreset_1;
+  assign rxpmareset_in_1 = gt_rxpmareset_1;
+  assign rxlpmen_in_1 = gt_rxlpmen_1;
+
+  wire   rxrecclkout_out_1;
+  assign rxrecclkout_1 = rxrecclkout_out_1;
+  assign gt_dmonitorout_1 = dmonitorout_out_1;
+  assign gt_eyescandataerror_1 = eyescandataerror_out_1;
+  assign eyescanreset_in_1 = gt_eyescanreset_1;
+  assign eyescantrigger_in_1= gt_eyescantrigger_1;
+  assign pcsrsvdin_in_1 = gt_pcsrsvdin_1;
+  assign rxbufreset_in_1 = gt_rxbufreset_1;
+  assign gt_rxbufstatus_1 = rxbufstatus_out_1;
+  assign rxcommadeten_in_1 = gt_rxcommadeten_1;
+  assign rxdfeagchold_in_1 = gt_rxdfeagchold_1;
+  assign rxpcsreset_in_1 = gt_rxpcsreset_1;
+  assign rxpolarity_in_1 = gt_rxpolarity_1;
+  assign rxprbscntreset_in_1 =gt_rxprbscntreset_1;
+  assign gt_rxprbserr_1 = rxprbserr_out_1;
+  assign gt_rxprbslocked_1 = rxprbslocked_out_1;
+  assign gt_txresetdone_1  = txresetdone_out_1;
+  assign rxprbssel_in_1 = gt_rxprbssel_1;
+  assign rxrate_in_1 = gt_rxrate_1;
+  assign rxslide_in_1 = gt_rxslide_in_1;
+  assign gt_rxstartofseq_1 = rxstartofseq_out_1;
+  assign gt_txbufstatus_1 = txbufstatus_out_1;
+  assign txdiffctrl_in_1 = gt_txdiffctrl_1;
+  assign txinhibit_in_1 = gt_txinhibit_1;
+  assign txmaincursor_in_1 = gt_txmaincursor_1;
+  assign txpcsreset_in_1 = gt_txpcsreset_1;
+  assign txpmareset_in_1 = gt_txpmareset_1;
+  assign txpolarity_in_1 = gt_txpolarity_1;
+  assign txpostcursor_in_1 = gt_txpostcursor_1;
+  assign txprbsforceerr_in_1 = gt_txprbsforceerr_1;
+  assign txelecidle_in_1 = gt_txelecidle_1;
+  assign txprbssel_in_1 = gt_txprbssel_1;
+  assign txprecursor_in_1 = gt_txprecursor_1;
+  assign drpaddr_in_1 = gt_drpaddr_1;
+  assign drprst_in_1 = gt_drprst_1;
+  assign drpdi_in_1 = gt_drpdi_1;
+  assign gt_drpdo_1 = drpdo_out_1;
+  assign drpen_in_1 = gt_drpen_1;
+  assign gt_drprdy_1 = drprdy_out_1;
+  assign drpwe_in_1 = gt_drpwe_1;
+  assign drpclk_in_1 = gt_drpclk_1;
+
+  assign gtwiz_reset_tx_datapath_in_1 = gtwiz_reset_tx_datapath_1;
+  assign gtwiz_reset_rx_datapath_in_1 = gtwiz_reset_rx_datapath_1 | master_watchdog_barking_sync_1;
+
+  assign gtwiz_reset_all_in_1 = sys_reset ;
+
+  wire [2:0] loopback_in_1 = gt_loopback_in_1;
+
+  ////assign inputs to GT
+  assign gtwiz_reset_clk_freerun_in_1         = dclk;
+
+  assign gtwiz_reset_tx_pll_and_datapath_in_1 = 1'b0;
+  assign gtwiz_reset_rx_pll_and_datapath_in_1 = 1'b0;
+  assign gtwiz_reset_rx_data_good_in_1        = 1'b1;
+  assign gthrxn_in_1                          = gt_rxn_int_1;
+  assign gthrxp_in_1                          = gt_rxp_int_1;
+
+  ////outputs from GT
+  assign gt_txn_int_1                         = gthtxn_out_1;
+  assign gt_txp_int_1                         = gthtxp_out_1;
+  assign gtwiz_reset_tx_done_int_1            = gtwiz_reset_tx_done_out_1;
+  assign gtwiz_reset_rx_done_int_1            = gtwiz_reset_rx_done_out_1;
+
+  //// ===================================================================================================================
+  //// TX/RX USER CLOCKING Helper block integration
+  //// ===================================================================================================================
+
+  wire [0:0]      txoutclk_out_1;
+  wire [0:0]      rxoutclk_out_1;
+
+  //// ===================================================================================================================
+  //// USER CLOCKING RESETS
+  //// ===================================================================================================================
+
+  //// The TX user clocking helper block should be held in reset until the clock source of that block is known to be
+  //// stable. The following assignment is an example of how that stability can be determined, based on the selected TX
+  //// user clock source. Replace the assignment with the appropriate signal or logic to achieve that behavior as needed.
+
+
+  //// The RX user clocking helper block should be held in reset until the clock source of that block is known to be
+  //// stable. The following assignment is an example of how that stability can be determined, based on the selected RX
+  //// user clock source. Replace the assignment with the appropriate signal or logic to achieve that behavior as needed.
+  //// Note that, if the clock source is derived from the received data, this is indicated by a combination of the
+  //// appropriate reset done signal and the reset helper block's RX CDR stable indicator.
+
+  //// ===================================================================================================================
+  //// USER CLOCKING Source clocks
+  //// ===================================================================================================================
+
+  assign gtwiz_userclk_tx_srcclk_out_1             = txoutclk_out_1;
+  assign gtwiz_userclk_rx_srcclk_out_1             = rxoutclk_out_1;
+
+  //// Instantiate a single instance of the transmitter user clocking network helper block
+  assign core_gtwiz_userclk_tx_reset_in_1 = ~((txprgdivresetdone_out_1) & (txpmaresetdone_out_1));
+  assign core_gtwiz_userclk_rx_reset_in_1 = ~rxpmaresetdone_out_1;
+  //// Generate a single module instance which is driven by a clock source associated with the master transmitter channel,
+  //// and which drives TXUSRCLK and TXUSRCLK2 for all channels
+  //// The source clock is TXOUTCLK from the master transmitter channel
+  bd_xxv_ethernet_0_0_ultrascale_tx_userclk
+  #(
+    .P_CONTENTS                     (0),
+    .P_FREQ_RATIO_SOURCE_TO_USRCLK  (1),
+
+
+    .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (2)
+  ) i_core_gtwiz_userclk_tx_inst_1 (
+    .gtwiz_userclk_tx_srcclk_in   (gtwiz_userclk_tx_srcclk_out_1),
+    .gtwiz_userclk_tx_reset_in    (core_gtwiz_userclk_tx_reset_in_1),
+    .gtwiz_userclk_tx_usrclk_out  (gtwiz_userclk_tx_usrclk_out_1),
+    .gtwiz_userclk_tx_usrclk2_out (gtwiz_userclk_tx_usrclk2_out_1),
+    .gtwiz_userclk_tx_active_out  (core_gtwiz_userclk_tx_active_out_1)
+  );
+
+  //// Generate a single module instance which is driven by a clock source associated with the master receiver channel,
+  //// and which drives RXUSRCLK and RXUSRCLK2 for all channels
+  //// The source clock is RXOUTCLK from the master receiver channel
+  bd_xxv_ethernet_0_0_ultrascale_rx_userclk
+  #(
+    .P_CONTENTS                     (0),
+    .P_FREQ_RATIO_SOURCE_TO_USRCLK  (1),
+    .P_FREQ_RATIO_USRCLK_TO_USRCLK2 (2)
+  ) i_core_gtwiz_userclk_rx_inst_1 (
+      .gtwiz_userclk_rx_srcclk_in   (gtwiz_userclk_rx_srcclk_out_1),
+      .gtwiz_userclk_rx_reset_in    (core_gtwiz_userclk_rx_reset_in_1),
+      .gtwiz_userclk_rx_usrclk_out  (gtwiz_userclk_rx_usrclk_out_1),
+      .gtwiz_userclk_rx_usrclk2_out (gtwiz_userclk_rx_usrclk2_out_1),
+      .gtwiz_userclk_rx_active_out  (core_gtwiz_userclk_rx_active_out_1)
+    );
+
+  //// Drive TXUSRCLK and TXUSRCLK2 for all channels with the respective helper block outputs
+  assign txusrclk_in_1                     = gtwiz_userclk_tx_usrclk_out_1;
+  assign txusrclk2_in_1                    = gtwiz_userclk_tx_usrclk2_out_1;
+  assign gtwiz_userclk_tx_active_in_1      = core_gtwiz_userclk_tx_active_out_1;
+
+  //// Drive RXUSRCLK and RXUSRCLK2 for each channel with the respective outputs of the associated helper block
+  assign rxusrclk_in_1                     = gtwiz_userclk_rx_usrclk_out_1;
+  assign rxusrclk2_in_1                    = gtwiz_userclk_rx_usrclk2_out_1;
+  assign gtwiz_userclk_rx_active_in_1      = core_gtwiz_userclk_rx_active_out_1;
+
+  //// GT Subcore Instatiataion 
+  bd_xxv_ethernet_0_0_gt_1 i_bd_xxv_ethernet_0_0_gt_1
+  (
+   .dmonitorout_out(dmonitorout_out_1),
+   .drpaddr_in(drpaddr_in_1),
+   .drpclk_in(drpclk_in_1),
+   .drpdi_in(drpdi_in_1),
+   .drpdo_out(drpdo_out_1),
+   .drpen_in(drpen_in_1),
+   .drprdy_out(drprdy_out_1),
+   .drprst_in(drprst_in_1),
+   .drpwe_in(drpwe_in_1),
+   .eyescandataerror_out(eyescandataerror_out_1),
+   .eyescanreset_in(eyescanreset_in_1),
+   .eyescantrigger_in(eyescantrigger_in_1),
+   .gthrxn_in(gthrxn_in_1),
+   .gthrxp_in(gthrxp_in_1),
+   .gthtxn_out(gthtxn_out_1),
+   .gthtxp_out(gthtxp_out_1),
+   .gtpowergood_out(gtpowergood_out_1),
+   .gtwiz_reset_all_in(gtwiz_reset_all_in_1),
+   .gtwiz_reset_clk_freerun_in(gtwiz_reset_clk_freerun_in_1),
+   .gtwiz_reset_qpll0lock_in(gtwiz_reset_qpll0lock_in_1),
+   .gtwiz_reset_qpll0reset_out(gtwiz_reset_qpll0reset_out_1),
+   .gtwiz_reset_rx_cdr_stable_out(gtwiz_reset_rx_cdr_stable_out_1),
+   .gtwiz_reset_rx_datapath_in(gtwiz_reset_rx_datapath_in_1),
+   .gtwiz_reset_rx_done_out(gtwiz_reset_rx_done_out_1),
+   .gtwiz_reset_rx_pll_and_datapath_in(gtwiz_reset_rx_pll_and_datapath_in_1),
+   .gtwiz_reset_tx_datapath_in(gtwiz_reset_tx_datapath_in_1),
+   .gtwiz_reset_tx_done_out(gtwiz_reset_tx_done_out_1),
+   .gtwiz_reset_tx_pll_and_datapath_in(gtwiz_reset_tx_pll_and_datapath_in_1),
+   .gtwiz_userclk_rx_active_in(gtwiz_userclk_rx_active_in_1),
+   .gtwiz_userclk_tx_active_in(gtwiz_userclk_tx_active_in_1),
+   .loopback_in(loopback_in_1),
+   .pcsrsvdin_in(pcsrsvdin_in_1),
+   .qpll0clk_in(qpll0clk_in_1),
+   .qpll0refclk_in(qpll0refclk_in_1),
+   .qpll1clk_in(qpll1clk_in_1),
+   .qpll1refclk_in(qpll1refclk_in_1),
+   .rxbufreset_in(rxbufreset_in_1),
+   .rxbufstatus_out(rxbufstatus_out_1),
+   .rxcdrhold_in(rxcdrhold_in_1),
+   .rxcommadeten_in(rxcommadeten_in_1),
+   .rxdata_out(rxdata_out_1),
+   .rxdatavalid_out(rxdatavalid_out_1),
+   .rxdfeagchold_in(rxdfeagchold_in_1),
+   .rxdfelfhold_in(rxdfelfhold_in_1),
+   .rxdfelpmreset_in(rxdfelpmreset_in_1),
+   .rxgearboxslip_in(rxgearboxslip_in_1),
+   .rxheader_out(rxheader_out_1),
+   .rxheadervalid_out(rxheadervalid_out_1),
+   .rxlatclk_in(rxlatclk_in_1),
+   .rxlpmen_in(rxlpmen_in_1),
+   .rxlpmlfhold_in(rxlpmlfhold_in_1),
+   .rxoutclk_out(rxoutclk_out_1),
+   .rxoutclksel_in(rxoutclksel_in_1),
+   .rxpcsreset_in(rxpcsreset_in_1),
+   .rxpmareset_in(rxpmareset_in_1),
+   .rxpmaresetdone_out(rxpmaresetdone_out_1),
+   .rxpolarity_in(rxpolarity_in_1),
+   .rxprbscntreset_in(rxprbscntreset_in_1),
+   .rxprbserr_out(rxprbserr_out_1),
+   .rxprbslocked_out(rxprbslocked_out_1),
+   .rxprbssel_in(rxprbssel_in_1),
+   .rxprgdivresetdone_out(rxprgdivresetdone_out_1),
+   .rxrate_in(rxrate_in_1),
+   .rxrecclkout_out(rxrecclkout_out_1),
+   .rxslide_in(rxslide_in_1),
+   .rxstartofseq_out(rxstartofseq_out_1),
+   .rxusrclk2_in(rxusrclk2_in_1),
+   .rxusrclk_in(rxusrclk_in_1),
+   .txbufstatus_out(txbufstatus_out_1),
+   .txdata_in(txdata_in_1),
+   .txdiffctrl_in(txdiffctrl_in_1),
+   .txelecidle_in(txelecidle_in_1),
+   .txheader_in(txheader_in_1),
+   .txinhibit_in(txinhibit_in_1),
+   .txlatclk_in(txlatclk_in_1),
+   .txmaincursor_in(txmaincursor_in_1),
+   .txoutclk_out(txoutclk_out_1),
+   .txoutclksel_in(txoutclksel_in_1),
+   .txpcsreset_in(txpcsreset_in_1),
+   .txpmareset_in(txpmareset_in_1),
+   .txpmaresetdone_out(txpmaresetdone_out_1),
+   .txpolarity_in(txpolarity_in_1),
+   .txpostcursor_in(txpostcursor_in_1),
+   .txprbsforceerr_in(txprbsforceerr_in_1),
+   .txprbssel_in(txprbssel_in_1),
+   .txprecursor_in(txprecursor_in_1),
+   .txprgdivresetdone_out(txprgdivresetdone_out_1),
+   .txresetdone_out(txresetdone_out_1),
+   .txsequence_in(txsequence_in_1),
+   .txusrclk2_in(txusrclk2_in_1),
+   .txusrclk_in(txusrclk_in_1)
+  );
+
+
+  wire [0:0]      gtwiz_reset_tx_done_int_sync_1;
+  wire [0:0]      gtwiz_reset_tx_done_int_sync_inv_1;
+  wire [0:0]      gtwiz_reset_rx_done_int_sync_1;
+  wire [0:0]      gtwiz_reset_rx_done_int_sync_inv_1;
+  wire [0:0]      rx_reset_done_async_1;
+  wire [0:0]      tx_reset_done_async_1;
+  wire [0:0]      rx_serdes_clk_1;
+  wire [0:0]      rx_serdes_reset_done_1;
+  wire [0:0]      rx_reset_done_1;
+  
+  wire tx_reset_done_sync_1;
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_tx_resetdone_1
+  (
+   .clk              (rx_core_clk_1),
+   .signal_in        (tx_reset_done_async_1), 
+   .signal_out       (tx_reset_done_sync_1)
+  );
+
+  wire tx_reset_done_sync_dclk_1;
+  wire rx_reset_done_sync_dclk_1;
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_tx_resetdone_dclk_1
+  (
+   .clk              (dclk),
+   .signal_in        (tx_reset_done_async_1), 
+   .signal_out       (tx_reset_done_sync_dclk_1)
+  );
+
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_rx_resetdone_dclk_1
+  (
+   .clk              (dclk),
+   .signal_in        (rx_reset_done_async_1), 
+   .signal_out       (rx_reset_done_sync_dclk_1)
+  );
+
+
+  wire stat_rx_block_lock_dclk_1;
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_stat_rx_block_lock_dclk_1
+  (
+   .clk              (dclk),
+   .signal_in        (stat_rx_block_lock_1), 
+   .signal_out       (stat_rx_block_lock_dclk_1)
+  );
+
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_watchdog_barking_sync_1
+  (
+   .clk              (dclk),
+   .signal_in        (master_watchdog_barking_1), 
+   .signal_out       (master_watchdog_barking_sync_1)
+  );
+ wire [3:0] gt_rxprbssel_sync_1;
+  bd_xxv_ethernet_0_0_multibit_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_gt_rxprbssel_sync_1
+  (
+   .clk              (dclk),
+   .signal_in        (gt_rxprbssel_1), 
+   .signal_out       (gt_rxprbssel_sync_1)
+  );
+
+  always @(posedge dclk)
+  begin
+    if ((tx_reset_done_sync_dclk_1 == 1'b0 && rx_reset_done_sync_dclk_1 == 1'b0 && stat_rx_block_lock_dclk_1 == 1'b1) || master_watchdog_1 == 0 || gt_rxprbssel_sync_1 != 0 || ctl_rx_prbs31_test_pattern_enable_1 == 1'b1)
+      master_watchdog_1 <= MASTER_WATCHDOG_TIMER_RESET;
+    else
+      master_watchdog_1 <= master_watchdog_1 - 1;
+    end
+
+  wire ctl_rx_wdt_disable_sync_1;
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_axi_ctl_rx_wdt_disable_1
+  (
+   .clk              (dclk),
+  
+   .signal_in        (ctl_rx_wdt_disable_1), 
+
+   .signal_out       (ctl_rx_wdt_disable_sync_1)
+  );
+
+  always @(posedge dclk)
+  begin
+    if (master_watchdog_1 == 0 && ctl_rx_wdt_disable_sync_1 == 0)
+      master_watchdog_barking_1 <= 1'b1;
+    else
+      master_watchdog_barking_1 <= 1'b0;
+  end
+
+  assign tx_mii_clk_1     =  gtwiz_userclk_tx_usrclk2_out_1;
+  assign rx_clk_out_1     =  gtwiz_userclk_rx_usrclk2_out_1;
+  assign gt_txusrclk2_1   =  gtwiz_userclk_tx_usrclk2_out_1;
+  assign gt_rxusrclk2_1   =  gtwiz_userclk_rx_usrclk2_out_1;
+  wire [63:0]     tx_serdes_data0_1;
+  wire [63:0]     tx_serdes_data0_int_1;
+  wire [1:0]      tx_serdes_header0_1;
+  wire [1:0]      tx_serdes_header0_int_1;
+  wire [1:0]      tx_serdes_headervalid0_1;
+
+  wire [63:0]     rx_serdes_data0_1;
+  wire [1:0]      rx_serdes_header0_1;
+  wire [63:0]     rx_serdes_data0_int_1;
+  wire [1:0]      rx_serdes_header0_int_1;
+  wire [0:0]      rx_serdes_bitslip_1 ;
+  wire [0:0]      rx_serdes_headervalid_1 ;
+  wire [0:0]      rx_serdes_datavalid_1 ;
+  wire [0:0]      rx_serdes_headervalid_int_1;
+  wire [0:0]      rx_serdes_datavalid_int_1;
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_gt_tx_resetdone_1
+  (
+   .clk              (gt_txusrclk2_1),
+   .signal_in        (gtwiz_reset_tx_done_int_1), 
+   .signal_out       (gtwiz_reset_tx_done_int_sync_1)
+  );
+
+  assign gtwiz_reset_tx_done_int_sync_inv_1   =  ~(gtwiz_reset_tx_done_int_sync_1);
+  assign tx_reset_done_async_1                =  gtwiz_reset_tx_done_int_sync_inv_1 | tx_reset_1;
+  assign user_tx_reset_1                      =  tx_reset_done_async_1;
+
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_gt_rx_resetdone_1
+  (
+   .clk              (gt_rxusrclk2_1),
+   .signal_in        (gtwiz_reset_rx_done_int_1), 
+   .signal_out       (gtwiz_reset_rx_done_int_sync_1)
+  );
+
+  assign gtwiz_reset_rx_done_int_sync_inv_1   =  ~(gtwiz_reset_rx_done_int_sync_1);
+  assign rx_reset_done_async_1                =  gtwiz_reset_rx_done_int_sync_inv_1 | rx_reset_1;
+ 
+
+ 
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_gt_rx_serdes_resetdone_1
+  (
+   .clk              (rx_serdes_clk_1),
+   .signal_in        (rx_reset_done_async_1), 
+   .signal_out       (rx_serdes_reset_done_1)
+  );
+  
+  bd_xxv_ethernet_0_0_cdc_sync i_bd_xxv_ethernet_0_0_core_cdc_sync_gt_rxreset_1
+  (
+   .clk              (rx_core_clk_1),
+   .signal_in        (rx_reset_done_async_1), 
+   .signal_out       (rx_reset_done_1)
+  );
+
+
+  assign user_rx_reset_1                      =  rx_reset_done_1;
+
+
+  assign rx_serdes_clk_1                      =  gtwiz_userclk_rx_usrclk2_out_1;
+ 
+
+ 
+  assign txdata_in_1                          =  {64'b0,tx_serdes_data0_int_1};
+  assign txheader_in_1                        =  {4'b0,tx_serdes_header0_int_1};
+
+ bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (64)
+  ) i_bd_xxv_ethernet_0_0_tx_64bit_gt_pipeline_serdes_data0_1 (
+    .clk          (gt_txusrclk2_1),
+    .data_in      (tx_serdes_data0_1),
+    .data_out     (tx_serdes_data0_int_1)
+  );
+
+  bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (2)
+  ) i_bd_xxv_ethernet_0_0_tx_2bit_gt_pipeline_serdes_data0_1 (
+    .clk          (gt_txusrclk2_1),
+    .data_in      (tx_serdes_header0_1),
+    .data_out     (tx_serdes_header0_int_1)
+  );
+
+   assign rx_serdes_data0_int_1             =  rxdata_out_1[63:0];
+   assign rx_serdes_header0_int_1           =  rxheader_out_1[1:0];
+   assign rxgearboxslip_in_1                =  rx_serdes_bitslip_1;
+   assign rx_serdes_datavalid_int_1         =  rxdatavalid_out_1[0];
+   assign rx_serdes_headervalid_int_1       =  rxheadervalid_out_1;
+
+
+  bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (64)
+  ) i_bd_xxv_ethernet_0_0_rx_64bit_gt_pipeline_serdes_data0_1 (
+    .clk          (rx_serdes_clk_1),
+    .data_in      (rx_serdes_data0_int_1),
+    .data_out     (rx_serdes_data0_1)
+  );
+
+  bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (2)
+  ) i_bd_xxv_ethernet_0_0_rx_2bit_gt_pipeline_serdes_header0_1 (
+    .clk          (rx_serdes_clk_1),
+    .data_in      (rx_serdes_header0_int_1),
+    .data_out     (rx_serdes_header0_1)
+  );
+
+  bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (1)
+  ) i_bd_xxv_ethernet_0_0_rx_2bit_gt_pipeline_serdes_data_valid0_1 (
+    .clk          (rx_serdes_clk_1),
+    .data_in      (rx_serdes_datavalid_int_1),
+    .data_out     (rx_serdes_datavalid_1)
+  );
+  bd_xxv_ethernet_0_0_gt_pipeline 
+  #(
+    .WIDTH        (1)
+  ) i_bd_xxv_ethernet_0_0_rx_2bit_gt_pipeline_serdes_header_valid0_1 (
+    .clk          (rx_serdes_clk_1),
+    .data_in      (rx_serdes_headervalid_int_1),
+    .data_out     (rx_serdes_headervalid_1)
+  );
+
+bd_xxv_ethernet_0_0_top #(
+  .SERDES_WIDTH ( 64 )
+) i_bd_xxv_ethernet_0_0_top_1 (
+  .tx_mii_reset (tx_reset_done_async_1),
+  .rx_mii_clk (rx_core_clk_1),
+  .rx_mii_reset (rx_reset_done_1),
+  .tx_serdes_refclk (gt_txusrclk2_1),
+  .tx_serdes_refclk_reset (tx_reset_done_async_1),
+  .rx_serdes_clk (rx_serdes_clk_1),
+  .rx_serdes_reset (rx_serdes_reset_done_1),
+//// RX AXIS Signals
+  .rx_mii_d (rx_mii_d_1),
+  .rx_mii_c (rx_mii_c_1),
+
+//// RX Control Signals
+  .ctl_rx_test_pattern (ctl_rx_test_pattern_1),
+  .ctl_rx_test_pattern_enable (ctl_rx_test_pattern_enable_1),
+  .ctl_rx_data_pattern_select (ctl_rx_data_pattern_select_1),
+  .ctl_rx_prbs31_test_pattern_enable (ctl_rx_prbs31_test_pattern_enable_1),
+
+
+//// RX Stats Signals
+  .stat_rx_status  (stat_rx_status_1),
+  .stat_rx_block_lock (stat_rx_block_lock_1),
+  .stat_rx_framing_err_valid (stat_rx_framing_err_valid_1),
+  .stat_rx_framing_err (stat_rx_framing_err_1),
+  .stat_rx_hi_ber (stat_rx_hi_ber_1),
+  .stat_rx_valid_ctrl_code (stat_rx_valid_ctrl_code_1),
+  .stat_rx_bad_code (stat_rx_bad_code_1),
+  .stat_rx_bad_code_valid (stat_rx_bad_code_valid_1),
+  .stat_rx_error_valid (stat_rx_error_valid_1),
+  .stat_rx_error (stat_rx_error_1),
+  .stat_rx_fifo_error (stat_rx_fifo_error_1),
+  .stat_rx_local_fault (stat_rx_local_fault_1),
+
+
+//// TX AXIS Signals
+  .tx_mii_d (tx_mii_d_1),
+  .tx_mii_c (tx_mii_c_1),
+
+//// TX Control Signals
+  .ctl_tx_test_pattern (ctl_tx_test_pattern_1),
+  .ctl_tx_test_pattern_enable (ctl_tx_test_pattern_enable_1),
+  .ctl_tx_test_pattern_select (ctl_tx_test_pattern_select_1),
+  .ctl_tx_data_pattern_select (ctl_tx_data_pattern_select_1),
+  .ctl_tx_test_pattern_seed_a (ctl_tx_test_pattern_seed_a_1),
+  .ctl_tx_test_pattern_seed_b (ctl_tx_test_pattern_seed_b_1),
+  .ctl_tx_prbs31_test_pattern_enable (ctl_tx_prbs31_test_pattern_enable_1),
+
+
+//// TX Stats Signals
+  .stat_tx_local_fault (stat_tx_local_fault_1),
+
+
+
+  .rx_serdes_datavalid0              (rx_serdes_datavalid_1),
+  .rx_serdes_headervalid0            (rx_serdes_headervalid_1),
+  .rx_serdes_bitslip0                (rx_serdes_bitslip_1),
+
+  .rx_serdes_data0                   (rx_serdes_data0_1),
+  .rx_serdes_header0                 (rx_serdes_header0_1),
+  .tx_serdes_data0                   (tx_serdes_data0_1),
+  .tx_serdes_header0                 (tx_serdes_header0_1)
 
 
 );

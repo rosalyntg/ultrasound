@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="bd_vio_0_0_synth_1" LaunchPart="xcau15p-ffvb676-2-i" LaunchTime="1783119582">
-  <File Type="VDS-TIMING-PB" Name="bd_vio_0_0_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="bd_vio_0_0_timing_summary_synth.rpt"/>
+<GenRun Id="bd_vio_0_0_synth_1" LaunchPart="xcau15p-ffvb676-2-i" LaunchTime="1783185119">
   <File Type="RDS-DCP" Name="bd_vio_0_0.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="bd_vio_0_0_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="bd_vio_0_0_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="bd_vio_0_0_drc_synth.rpt"/>
   <File Type="RDS-RDS" Name="bd_vio_0_0.vds"/>
-  <File Type="REPORTS-TCL" Name="bd_vio_0_0_reports.tcl"/>
+  <File Type="RDS-UTIL" Name="bd_vio_0_0_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="bd_vio_0_0_utilization_synth.pb"/>
   <File Type="PA-TCL" Name="bd_vio_0_0.tcl"/>
+  <File Type="REPORTS-TCL" Name="bd_vio_0_0_reports.tcl"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_vio_0_0" RelGenDir="$PGENDIR/bd_vio_0_0">
     <File Path="$PSRCDIR/sources_1/bd/bd/ip/bd_vio_0_0/bd_vio_0_0.xci">
       <FileInfo>

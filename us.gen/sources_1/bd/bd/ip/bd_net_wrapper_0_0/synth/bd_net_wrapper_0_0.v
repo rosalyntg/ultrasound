@@ -96,7 +96,9 @@ module bd_net_wrapper_0_0 (
   gateway_ip,
   subnet_mask,
   clear_arp_cache,
-  tx_test
+  tx_test,
+  tx_eth_hdr_valid,
+  tx_eth_hdr_ready
 );
 
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 logic_clk CLK" *)
@@ -180,6 +182,8 @@ input wire [31 : 0] gateway_ip;
 input wire [31 : 0] subnet_mask;
 input wire clear_arp_cache;
 input wire tx_test;
+output wire tx_eth_hdr_valid;
+output wire tx_eth_hdr_ready;
 
   net_wrapper #(
     .C_M_AXI_ADDR_WIDTH(32),
@@ -225,6 +229,8 @@ input wire tx_test;
     .gateway_ip(gateway_ip),
     .subnet_mask(subnet_mask),
     .clear_arp_cache(clear_arp_cache),
-    .tx_test(tx_test)
+    .tx_test(tx_test),
+    .tx_eth_hdr_valid(tx_eth_hdr_valid),
+    .tx_eth_hdr_ready(tx_eth_hdr_ready)
   );
 endmodule

@@ -7,12 +7,11 @@
   **** SW Build 6403652 on Thu Mar 19 13:47:00 MDT 2026
   **** IP Build 6403511 on Thu Mar 19 12:41:45 MDT 2026
   **** SharedData Build 6403650 on Thu Mar 19 14:02:13 MDT 2026
-  **** Start of session at: Mon Jun 29 23:05:59 2026
+  **** Start of session at: Sat Jul  4 14:23:15 2026
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source bd_xxv_ethernet_0_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 1632.184 ; gain = 64.055 ; free physical = 16200 ; free virtual = 49736
 Command: synth_design -top bd_xxv_ethernet_0_0 -part xcau15p-ffvb676-2-i -incremental_mode off -mode out_of_context
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xcau15p'
@@ -20,24 +19,36 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcau15p
 INFO: [Device 21-403] Loading part xcau15p-ffvb676-2-i
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 127329
+INFO: [Synth 8-7075] Helper process launched with PID 983028
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2477.168 ; gain = 450.688 ; free physical = 415 ; free virtual = 31028
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2477.926 ; gain = 449.688 ; free physical = 452 ; free virtual = 32737
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0reset_out', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:274]
-INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1reset_out', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:275]
-INFO: [Synth 8-11241] undeclared symbol 'qpll1clk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:286]
-INFO: [Synth 8-11241] undeclared symbol 'qpll1refclk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:287]
-INFO: [Synth 8-11241] undeclared symbol 'qpll0clk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:379]
-INFO: [Synth 8-11241] undeclared symbol 'qpll0refclk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:380]
-INFO: [Synth 8-11241] undeclared symbol 'qpll1clk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:381]
-INFO: [Synth 8-11241] undeclared symbol 'qpll1refclk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:382]
-INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0lock_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:383]
-INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1lock_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:384]
-INFO: [Synth 8-11241] undeclared symbol 'drprst_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:464]
-INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0reset_out_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:593]
-INFO: [Synth 8-11241] undeclared symbol 'gt_txusrclk2_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:752]
-INFO: [Synth 8-11241] undeclared symbol 'gt_rxusrclk2_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:753]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0reset_out', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:380]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1reset_out', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:381]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0lock_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:387]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0clk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:388]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0refclk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:389]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1lock_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:391]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1clk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:392]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1refclk_in', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:393]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0clk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:497]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0refclk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:498]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1clk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:499]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1refclk_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:500]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0lock_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:501]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1lock_in_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:502]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0reset_out_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:711]
+INFO: [Synth 8-11241] undeclared symbol 'gt_txusrclk2_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:870]
+INFO: [Synth 8-11241] undeclared symbol 'gt_rxusrclk2_0', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:871]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0clk_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1119]
+INFO: [Synth 8-11241] undeclared symbol 'qpll0refclk_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1120]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1clk_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1121]
+INFO: [Synth 8-11241] undeclared symbol 'qpll1refclk_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1122]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0lock_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1123]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll1lock_in_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1124]
+INFO: [Synth 8-11241] undeclared symbol 'gtwiz_reset_qpll0reset_out_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1333]
+INFO: [Synth 8-11241] undeclared symbol 'gt_txusrclk2_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1492]
+INFO: [Synth 8-11241] undeclared symbol 'gt_rxusrclk2_1', assumed default net type 'wire' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1493]
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0.v:63]
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_wrapper' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:63]
 INFO: [Synth 8-6157] synthesizing module 'IBUFDS_GTE4' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:83043]
@@ -60,10 +71,10 @@ INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt' [/home/russell
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_gtwizard_top' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gtwizard_top.v:173]
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_gtwizard_gthe4' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gtwizard_gthe4.v:141]
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_gthe4_channel_wrapper' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gthe4_channel_wrapper.v:56]
-INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
+INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
 INFO: [Synth 8-6157] synthesizing module 'GTHE4_CHANNEL' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:53844]
 INFO: [Synth 8-6155] done synthesizing module 'GTHE4_CHANNEL' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:53844]
-INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
+INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_channel' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/gtwizard_ultrascale_v1_7_gthe4_channel.v:53]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_gthe4_channel_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gthe4_channel_wrapper.v:56]
 INFO: [Synth 8-6157] synthesizing module 'gtwizard_ultrascale_v1_7_22_gthe4_delay_powergood' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v:53]
 INFO: [Synth 8-226] default block is never used [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ipshared/5da0/hdl/gtwizard_ultrascale_v1_7_gthe4_delay_powergood.v:136]
@@ -80,20 +91,28 @@ INFO: [Synth 8-6155] done synthesizing module 'gtwizard_ultrascale_v1_7_22_gtwiz
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_gtwizard_gthe4' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gtwizard_gthe4.v:141]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_gtwizard_top' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_gtwizard_top.v:173]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt.v:53]
-INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_cdc_sync' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:950]
-INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_cdc_sync' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:950]
-INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_multibit_cdc_sync' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:983]
-INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_multibit_cdc_sync' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:983]
-INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
-INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
-INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
-INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
-INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
-INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1016]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_cdc_sync' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1690]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_cdc_sync' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1690]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_multibit_cdc_sync' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1723]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_multibit_cdc_sync' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1723]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized0' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_pipeline__parameterized1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:1756]
 INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_top' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_top.v:63]
 INFO: [Synth 8-6157] synthesizing module 'RAM32M' [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:153950]
 INFO: [Synth 8-6155] done synthesizing module 'RAM32M' (0#1) [/home/russell/Xilinx/2025.2.1/Vivado/scripts/rt/data/unisim_comp.v:153950]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_top' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_top.v:63]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_1' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.v:53]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gtwizard_top' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gtwizard_top.v:173]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4.v:141]
+INFO: [Synth 8-6157] synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gthe4_channel_wrapper' [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gthe4_channel_wrapper.v:56]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gthe4_channel_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gthe4_channel_wrapper.v:56]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4.v:141]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_1_gtwizard_top' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_gtwizard_top.v:173]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_gt_1' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.v:53]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0_wrapper' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/xxv_ethernet_v5_0_3/bd_xxv_ethernet_0_0_wrapper.v:63]
 INFO: [Synth 8-6155] done synthesizing module 'bd_xxv_ethernet_0_0' (0#1) [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0.v:63]
 INFO: [Synth 8-4490] FSM extraction disabled for register 'waddr_reg' through user attribute
@@ -206,27 +225,30 @@ INFO: [Synth 8-7129] Port rx_period_ns[35] in module xxv_ethernet_v5_0_3_pcs_bas
 INFO: [Synth 8-7129] Port rx_period_ns[34] in module xxv_ethernet_v5_0_3_pcs_baser_hsec_cores is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2888.105 ; gain = 861.625 ; free physical = 368 ; free virtual = 29059
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2900.863 ; gain = 872.625 ; free physical = 25190 ; free virtual = 37954
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 2888.105 ; gain = 861.625 ; free physical = 364 ; free virtual = 29054
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2900.863 ; gain = 872.625 ; free physical = 25131 ; free virtual = 37894
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 2888.105 ; gain = 861.625 ; free physical = 364 ; free virtual = 29054
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2900.863 ; gain = 872.625 ; free physical = 25131 ; free virtual = 37894
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.13 . Memory (MB): peak = 2888.105 ; gain = 0.000 ; free physical = 429 ; free virtual = 28918
-INFO: [Netlist 29-17] Analyzing 29 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.13 . Memory (MB): peak = 2900.863 ; gain = 0.000 ; free physical = 24965 ; free virtual = 37729
+INFO: [Netlist 29-17] Analyzing 58 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/synth/bd_xxv_ethernet_0_0_ooc.xdc] for cell 'inst'
-create_clock: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2944.133 ; gain = 0.000 ; free physical = 452 ; free virtual = 27830
 Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/synth/bd_xxv_ethernet_0_0_ooc.xdc] for cell 'inst'
+Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc] for cell 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst'
+Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc] for cell 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_xxv_ethernet_0_0_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/bd_xxv_ethernet_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt.xdc] for cell 'inst/i_bd_xxv_ethernet_0_0_gt/inst'
 Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt.xdc] for cell 'inst/i_bd_xxv_ethernet_0_0_gt/inst'
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/bd_xxv_ethernet_0_0_propImpl.xdc].
@@ -240,8 +262,12 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/bd_xxv_ethernet_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has RXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
 WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has TXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
+WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has RXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
+WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has TXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
 WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has RXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
 WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has TXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
+WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has RXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
+WARNING: [Timing 38-277] The instance 'inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST' has TXOUTCLKSEL pins that are not constant, so the corresponding mux will select the input(s) having the worst case (highest frequency) clock(s) for automatic derivation of generated clocks
 INFO: [Timing 38-2] Deriving generated clocks
 Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_xxv_ethernet_0_0_synth_1/dont_touch.xdc]
 Finished Parsing XDC File [/home/russell/ultrasound/fpga/us/us.runs/bd_xxv_ethernet_0_0_synth_1/dont_touch.xdc]
@@ -249,15 +275,15 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/bd_xxv_ethernet_0_0_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2944.133 ; gain = 0.000 ; free physical = 480 ; free virtual = 27632
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2956.891 ; gain = 0.000 ; free physical = 23878 ; free virtual = 36656
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 29 instances were transformed.
-  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 29 instances
+  A total of 58 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 58 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2944.168 ; gain = 0.000 ; free physical = 421 ; free virtual = 27573
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2956.926 ; gain = 0.000 ; free physical = 23839 ; free virtual = 36616
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 2944.168 ; gain = 917.688 ; free physical = 7463 ; free virtual = 34071
+Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2956.926 ; gain = 928.688 ; free physical = 22788 ; free virtual = 35570
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -265,13 +291,13 @@ Start Loading Part and Timing Information
 Loading part: xcau15p-ffvb676-2-i
 INFO: [Synth 8-6742] Reading net delay rules and data
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 2952.137 ; gain = 925.656 ; free physical = 7457 ; free virtual = 34068
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2964.895 ; gain = 936.656 ; free physical = 22788 ; free virtual = 35569
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 2952.137 ; gain = 925.656 ; free physical = 7441 ; free virtual = 34052
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2964.895 ; gain = 936.656 ; free physical = 22785 ; free virtual = 35566
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'sm_reset_all_reg' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
 INFO: [Synth 8-802] inferred FSM for state register 'sm_reset_tx_reg' in module 'gtwizard_ultrascale_v1_7_22_gtwiz_reset'
@@ -378,103 +404,103 @@ INFO: [Synth 8-3354] encoded FSM with state register 'insert_state_reg' using en
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'delete_state_reg' using encoding 'sequential' in module 'xxv_ethernet_v5_0_3_pcs_baser_clk_comp_cl49'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2952.137 ; gain = 925.656 ; free physical = 11901 ; free virtual = 38644
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:21 . Memory (MB): peak = 2964.895 ; gain = 936.656 ; free physical = 22368 ; free virtual = 35156
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   20 Bit       Adders := 1     
-	   2 Input   13 Bit       Adders := 1     
-	   2 Input   10 Bit       Adders := 2     
-	   2 Input    8 Bit       Adders := 1     
-	   2 Input    7 Bit       Adders := 3     
-	   4 Input    7 Bit       Adders := 1     
-	  17 Input    6 Bit       Adders := 2     
-	   2 Input    6 Bit       Adders := 1     
-	  16 Input    5 Bit       Adders := 2     
-	   2 Input    5 Bit       Adders := 3     
-	   3 Input    5 Bit       Adders := 1     
-	   2 Input    4 Bit       Adders := 4     
-	   3 Input    4 Bit       Adders := 1     
-	   2 Input    3 Bit       Adders := 4     
+	   2 Input   20 Bit       Adders := 2     
+	   2 Input   13 Bit       Adders := 2     
+	   2 Input   10 Bit       Adders := 4     
+	   2 Input    8 Bit       Adders := 2     
+	   2 Input    7 Bit       Adders := 6     
+	   4 Input    7 Bit       Adders := 2     
+	  17 Input    6 Bit       Adders := 4     
+	   2 Input    6 Bit       Adders := 2     
+	  16 Input    5 Bit       Adders := 4     
+	   2 Input    5 Bit       Adders := 6     
+	   3 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 8     
+	   3 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 8     
 +---XORs : 
-	   2 Input     66 Bit         XORs := 1     
-	   2 Input     64 Bit         XORs := 1     
-	   5 Input      1 Bit         XORs := 4     
-	   2 Input      1 Bit         XORs := 38    
-	   4 Input      1 Bit         XORs := 19    
-	   3 Input      1 Bit         XORs := 86    
+	   2 Input     66 Bit         XORs := 2     
+	   2 Input     64 Bit         XORs := 2     
+	   5 Input      1 Bit         XORs := 8     
+	   2 Input      1 Bit         XORs := 76    
+	   4 Input      1 Bit         XORs := 38    
+	   3 Input      1 Bit         XORs := 172   
 +---XORs : 
-	               33 Bit    Wide XORs := 65    
-	               32 Bit    Wide XORs := 67    
-	                2 Bit    Wide XORs := 3     
+	               33 Bit    Wide XORs := 130   
+	               32 Bit    Wide XORs := 134   
+	                2 Bit    Wide XORs := 6     
 +---Registers : 
-	              153 Bit    Registers := 1     
-	               80 Bit    Registers := 14    
-	               66 Bit    Registers := 5     
-	               64 Bit    Registers := 18    
-	               58 Bit    Registers := 2     
-	               31 Bit    Registers := 2     
-	               20 Bit    Registers := 1     
-	               16 Bit    Registers := 3     
-	               13 Bit    Registers := 1     
-	               10 Bit    Registers := 2     
-	                9 Bit    Registers := 1     
-	                8 Bit    Registers := 36    
-	                7 Bit    Registers := 13    
-	                6 Bit    Registers := 5     
-	                5 Bit    Registers := 12    
-	                4 Bit    Registers := 12    
-	                3 Bit    Registers := 21    
-	                2 Bit    Registers := 8     
-	                1 Bit    Registers := 307   
+	              153 Bit    Registers := 2     
+	               80 Bit    Registers := 28    
+	               66 Bit    Registers := 10    
+	               64 Bit    Registers := 36    
+	               58 Bit    Registers := 4     
+	               31 Bit    Registers := 4     
+	               20 Bit    Registers := 2     
+	               16 Bit    Registers := 6     
+	               13 Bit    Registers := 2     
+	               10 Bit    Registers := 4     
+	                9 Bit    Registers := 2     
+	                8 Bit    Registers := 72    
+	                7 Bit    Registers := 26    
+	                6 Bit    Registers := 10    
+	                5 Bit    Registers := 24    
+	                4 Bit    Registers := 24    
+	                3 Bit    Registers := 42    
+	                2 Bit    Registers := 16    
+	                1 Bit    Registers := 614   
 +---Muxes : 
-	   2 Input   80 Bit        Muxes := 6     
-	   4 Input   80 Bit        Muxes := 2     
-	   8 Input   80 Bit        Muxes := 1     
-	   3 Input   64 Bit        Muxes := 2     
-	   2 Input   64 Bit        Muxes := 29    
-	   5 Input   64 Bit        Muxes := 2     
-	   4 Input   64 Bit        Muxes := 2     
-	   8 Input   64 Bit        Muxes := 1     
-	   2 Input   58 Bit        Muxes := 5     
-	   4 Input   58 Bit        Muxes := 1     
-	   2 Input   56 Bit        Muxes := 1     
-	   2 Input   48 Bit        Muxes := 1     
-	   2 Input   40 Bit        Muxes := 1     
-	   2 Input   32 Bit        Muxes := 3     
-	   2 Input   24 Bit        Muxes := 1     
-	   2 Input   20 Bit        Muxes := 1     
-	   3 Input   20 Bit        Muxes := 1     
-	   2 Input   16 Bit        Muxes := 1     
-	   2 Input    9 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 23    
-	   4 Input    8 Bit        Muxes := 3     
-	   3 Input    8 Bit        Muxes := 2     
-	   5 Input    8 Bit        Muxes := 1     
-	   8 Input    8 Bit        Muxes := 1     
-	   2 Input    7 Bit        Muxes := 2     
-	   2 Input    6 Bit        Muxes := 1     
-	   2 Input    5 Bit        Muxes := 7     
-	   2 Input    4 Bit        Muxes := 5     
-	   2 Input    3 Bit        Muxes := 25    
-	   7 Input    3 Bit        Muxes := 2     
-	   8 Input    3 Bit        Muxes := 2     
-	   3 Input    3 Bit        Muxes := 7     
-	   4 Input    3 Bit        Muxes := 1     
-	   5 Input    3 Bit        Muxes := 4     
-	  16 Input    3 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 12    
-	   4 Input    2 Bit        Muxes := 3     
-	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 81    
-	   7 Input    1 Bit        Muxes := 13    
-	   8 Input    1 Bit        Muxes := 30    
-	   5 Input    1 Bit        Muxes := 1     
-	   3 Input    1 Bit        Muxes := 1     
-	   4 Input    1 Bit        Muxes := 3     
+	   2 Input   80 Bit        Muxes := 12    
+	   4 Input   80 Bit        Muxes := 4     
+	   8 Input   80 Bit        Muxes := 2     
+	   3 Input   64 Bit        Muxes := 4     
+	   2 Input   64 Bit        Muxes := 58    
+	   5 Input   64 Bit        Muxes := 4     
+	   4 Input   64 Bit        Muxes := 4     
+	   8 Input   64 Bit        Muxes := 2     
+	   2 Input   58 Bit        Muxes := 10    
+	   4 Input   58 Bit        Muxes := 2     
+	   2 Input   56 Bit        Muxes := 2     
+	   2 Input   48 Bit        Muxes := 2     
+	   2 Input   40 Bit        Muxes := 2     
+	   2 Input   32 Bit        Muxes := 6     
+	   2 Input   24 Bit        Muxes := 2     
+	   2 Input   20 Bit        Muxes := 2     
+	   3 Input   20 Bit        Muxes := 2     
+	   2 Input   16 Bit        Muxes := 2     
+	   2 Input    9 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 46    
+	   4 Input    8 Bit        Muxes := 6     
+	   3 Input    8 Bit        Muxes := 4     
+	   5 Input    8 Bit        Muxes := 2     
+	   8 Input    8 Bit        Muxes := 2     
+	   2 Input    7 Bit        Muxes := 4     
+	   2 Input    6 Bit        Muxes := 2     
+	   2 Input    5 Bit        Muxes := 14    
+	   2 Input    4 Bit        Muxes := 10    
+	   2 Input    3 Bit        Muxes := 50    
+	   7 Input    3 Bit        Muxes := 4     
+	   8 Input    3 Bit        Muxes := 4     
+	   3 Input    3 Bit        Muxes := 14    
+	   4 Input    3 Bit        Muxes := 2     
+	   5 Input    3 Bit        Muxes := 8     
+	  16 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 24    
+	   4 Input    2 Bit        Muxes := 6     
+	   3 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 162   
+	   7 Input    1 Bit        Muxes := 26    
+	   8 Input    1 Bit        Muxes := 60    
+	   5 Input    1 Bit        Muxes := 2     
+	   3 Input    1 Bit        Muxes := 2     
+	   4 Input    1 Bit        Muxes := 6     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -491,7 +517,7 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:44 ; elapsed = 00:00:46 . Memory (MB): peak = 2952.137 ; gain = 925.656 ; free physical = 22108 ; free virtual = 48901
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:40 ; elapsed = 00:00:40 . Memory (MB): peak = 2964.895 ; gain = 936.656 ; free physical = 22993 ; free virtual = 35844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -504,6 +530,9 @@ ROM: Preliminary Mapping Report
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_sync     | 32x5          | LUT            | 
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_gray_nxt | 32x5          | LUT            | 
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_waddr_gray_nxt | 32x5          | LUT            | 
+|xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_gray_nxt | 32x5          | LUT            | 
+|xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_waddr_gray_nxt | 32x5          | LUT            | 
+|xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_sync     | 32x5          | LUT            | 
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_gray_nxt | 32x5          | LUT            | 
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_waddr_gray_nxt | 32x5          | LUT            | 
 |xxv_ethernet_v5_0_3_pcs_baser_xgmii_fifo | xgmii_fifo_raddr_sync     | 32x5          | LUT            | 
@@ -521,19 +550,19 @@ Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-565] redefining clock 'gt_refclk_p[0]'
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:46 ; elapsed = 00:00:47 . Memory (MB): peak = 3045.172 ; gain = 1018.691 ; free physical = 22156 ; free virtual = 48952
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:41 ; elapsed = 00:00:41 . Memory (MB): peak = 3057.930 ; gain = 1029.691 ; free physical = 23054 ; free virtual = 35905
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 3045.172 ; gain = 1018.691 ; free physical = 22126 ; free virtual = 48932
+Finished Timing Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 3073.938 ; gain = 1045.699 ; free physical = 22990 ; free virtual = 35841
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:47 ; elapsed = 00:00:49 . Memory (MB): peak = 3085.188 ; gain = 1058.707 ; free physical = 22027 ; free virtual = 48837
+Finished Technology Mapping : Time (s): cpu = 00:00:44 ; elapsed = 00:00:45 . Memory (MB): peak = 3113.961 ; gain = 1085.723 ; free physical = 22853 ; free virtual = 35704
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -551,37 +580,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23812 ; free virtual = 50619
+Finished IO Insertion : Time (s): cpu = 00:00:47 ; elapsed = 00:00:47 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22234 ; free virtual = 35085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23809 ; free virtual = 50623
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:47 ; elapsed = 00:00:47 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22233 ; free virtual = 35084
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23750 ; free virtual = 50563
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:47 ; elapsed = 00:00:47 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22140 ; free virtual = 34992
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23750 ; free virtual = 50563
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:47 ; elapsed = 00:00:48 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22136 ; free virtual = 34987
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23741 ; free virtual = 50553
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:47 ; elapsed = 00:00:48 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22104 ; free virtual = 34955
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23740 ; free virtual = 50553
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:48 ; elapsed = 00:00:48 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22103 ; free virtual = 34954
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -597,55 +626,57 @@ Report Cell Usage:
 +------+--------------+------+
 |      |Cell          |Count |
 +------+--------------+------+
-|1     |BUFG_GT       |     5|
-|2     |CARRY8        |    20|
-|3     |GTHE4_CHANNEL |     1|
+|1     |BUFG_GT       |     9|
+|2     |CARRY8        |    40|
+|3     |GTHE4_CHANNEL |     2|
 |4     |GTHE4_COMMON  |     1|
 |5     |IBUFDS_GTE4   |     1|
-|6     |LUT1          |   147|
-|7     |LUT2          |   428|
-|8     |LUT3          |   310|
-|9     |LUT4          |   316|
-|10    |LUT5          |   472|
-|11    |LUT6          |   916|
-|12    |RAM32M        |    12|
-|13    |FDCE          |    18|
-|14    |FDPE          |    64|
-|15    |FDRE          |  2712|
-|16    |FDSE          |   218|
+|6     |LUT1          |   294|
+|7     |LUT2          |   854|
+|8     |LUT3          |   621|
+|9     |LUT4          |   632|
+|10    |LUT5          |   944|
+|11    |LUT6          |  1832|
+|12    |RAM32M        |    24|
+|13    |FDCE          |    36|
+|14    |FDPE          |   128|
+|15    |FDRE          |  5424|
+|16    |FDSE          |   436|
 +------+--------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23740 ; free virtual = 50553
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:48 ; elapsed = 00:00:48 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22094 ; free virtual = 34946
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 3221.000 ; gain = 1138.457 ; free physical = 23719 ; free virtual = 50532
-Synthesis Optimization Complete : Time (s): cpu = 00:00:50 ; elapsed = 00:00:52 . Memory (MB): peak = 3221.000 ; gain = 1194.520 ; free physical = 23719 ; free virtual = 50533
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:40 ; elapsed = 00:00:41 . Memory (MB): peak = 3251.773 ; gain = 1167.473 ; free physical = 22092 ; free virtual = 34944
+Synthesis Optimization Complete : Time (s): cpu = 00:00:48 ; elapsed = 00:00:48 . Memory (MB): peak = 3251.773 ; gain = 1223.535 ; free physical = 22092 ; free virtual = 34944
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3221.000 ; gain = 0.000 ; free physical = 23947 ; free virtual = 50761
-INFO: [Netlist 29-17] Analyzing 32 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3251.773 ; gain = 0.000 ; free physical = 22250 ; free virtual = 35101
+INFO: [Netlist 29-17] Analyzing 64 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/BUFG_GT_SYNC for BUFG_GT inst/refclk_bufg_gt_i
 INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC for BUFG_GT inst/i_core_gtwiz_userclk_rx_inst_0/gen_gtwiz_userclk_rx_main.bufg_gt_usrclk2_inst
 INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/i_bd_xxv_ethernet_0_0_gt/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC_1 for BUFG_GT inst/i_core_gtwiz_userclk_tx_inst_0/gen_gtwiz_userclk_tx_main.bufg_gt_usrclk2_inst
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3221.000 ; gain = 0.000 ; free physical = 23996 ; free virtual = 50806
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC for BUFG_GT inst/i_core_gtwiz_userclk_rx_inst_1/gen_gtwiz_userclk_rx_main.bufg_gt_usrclk2_inst
+INFO: [Opt 31-441] Inserted BUFG_GT_SYNC inst/i_bd_xxv_ethernet_0_0_gt_1/inst/gen_gtwizard_gthe4_top.bd_xxv_ethernet_0_0_gt_1_gtwizard_gthe4_inst/gen_gtwizard_gthe4.gen_channel_container[0].gen_enabled_channel.gthe4_channel_wrapper_inst/channel_inst/BUFG_GT_SYNC_1 for BUFG_GT inst/i_core_gtwiz_userclk_tx_inst_1/gen_gtwiz_userclk_tx_main.bufg_gt_usrclk2_inst
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3251.773 ; gain = 0.000 ; free physical = 22080 ; free virtual = 34945
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 12 instances were transformed.
-  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 12 instances
+  A total of 24 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 24 instances
 
-Synth Design complete | Checksum: 42f8f447
+Synth Design complete | Checksum: 1effc7f5
 INFO: [Common 17-83] Releasing license: Synthesis
-226 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+249 Infos, 10 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:57 ; elapsed = 00:00:56 . Memory (MB): peak = 3221.000 ; gain = 1588.816 ; free physical = 23985 ; free virtual = 50796
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2149.783; main = 2059.597; forked = 212.117
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4125.906; main = 3183.996; forked = 1015.715
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3221.000 ; gain = 0.000 ; free physical = 24026 ; free virtual = 50838
+synth_design: Time (s): cpu = 00:00:53 ; elapsed = 00:00:51 . Memory (MB): peak = 3251.773 ; gain = 1630.090 ; free physical = 22083 ; free virtual = 34948
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2443.980; main = 2413.670; forked = 333.786
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4073.652; main = 3214.770; forked = 1015.719
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3251.773 ; gain = 0.000 ; free physical = 22080 ; free virtual = 34945
 INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_xxv_ethernet_0_0_synth_1/bd_xxv_ethernet_0_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_xxv_ethernet_0_0, cache-ID = c820e6a7d66c0b38
-INFO: [Coretcl 2-1174] Renamed 69 cell refs.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3221.000 ; gain = 0.000 ; free physical = 23927 ; free virtual = 50751
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP bd_xxv_ethernet_0_0, cache-ID = 31404de8c6c1de45
+INFO: [Coretcl 2-1174] Renamed 137 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3251.773 ; gain = 0.000 ; free physical = 21955 ; free virtual = 34828
 INFO: [Common 17-1381] The checkpoint '/home/russell/ultrasound/fpga/us/us.runs/bd_xxv_ethernet_0_0_synth_1/bd_xxv_ethernet_0_0.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file bd_xxv_ethernet_0_0_utilization_synth.rpt -pb bd_xxv_ethernet_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Jun 29 23:07:09 2026...
+INFO: [Common 17-206] Exiting Vivado at Sat Jul  4 14:24:13 2026...

@@ -74,7 +74,11 @@ COMPONENT bd
     jesd_rxp : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     jesd_rxn : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     sfp_mod_abs : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    led : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+    led : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+    sfp_tx_gt_port_1_n : OUT STD_LOGIC;
+    sfp_tx_gt_port_1_p : OUT STD_LOGIC;
+    sfp_rx_gt_port_1_n : IN STD_LOGIC;
+    sfp_rx_gt_port_1_p : IN STD_LOGIC
   );
 END COMPONENT;
 -- COMP_TAG_END ------  End cut for COMPONENT Declaration  ------
@@ -106,7 +110,11 @@ your_instance_name : bd
     jesd_rxp => jesd_rxp,
     jesd_rxn => jesd_rxn,
     sfp_mod_abs => sfp_mod_abs,
-    led => led
+    led => led,
+    sfp_tx_gt_port_1_n => sfp_tx_gt_port_1_n,
+    sfp_tx_gt_port_1_p => sfp_tx_gt_port_1_p,
+    sfp_rx_gt_port_1_n => sfp_rx_gt_port_1_n,
+    sfp_rx_gt_port_1_p => sfp_rx_gt_port_1_p
   );
 -- INST_TAG_END ------  End cut for INSTANTIATION Template  ------
 

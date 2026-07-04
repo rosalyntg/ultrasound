@@ -70,12 +70,16 @@
 
 create_clock -period 6.40 [get_ports rx_core_clk_0]
 set_property HD.CLK_SRC BUFGCTRL_X0Y1 [get_ports rx_core_clk_0]
+create_clock -period 6.40 [get_ports rx_core_clk_1]
+set_property HD.CLK_SRC BUFGCTRL_X0Y2 [get_ports rx_core_clk_1]
 
 create_clock -period 10.000 [get_ports dclk]
-set_property HD.CLK_SRC BUFGCTRL_X0Y2  [get_ports dclk]
+set_property HD.CLK_SRC BUFGCTRL_X0Y3  [get_ports dclk]
 
 create_clock -period 10.000 [get_ports gt_drpclk_0]
-set_property HD.CLK_SRC BUFGCTRL_X0Y3 [get_ports gt_drpclk_0]
+set_property HD.CLK_SRC BUFGCTRL_X0Y4 [get_ports gt_drpclk_0]
+create_clock -period 10.000 [get_ports gt_drpclk_1]
+set_property HD.CLK_SRC BUFGCTRL_X0Y5 [get_ports gt_drpclk_1]
 
 create_clock -period 6.400 [get_ports gt_refclk_p]
 

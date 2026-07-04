@@ -2,7 +2,7 @@
 //Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
-//Date        : Fri Jul  3 18:44:00 2026
+//Date        : Sat Jul  4 14:23:05 2026
 //Host        : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 //Command     : generate_target bd_wrapper.bd
 //Design      : bd_wrapper
@@ -27,8 +27,12 @@ module bd_wrapper
     sfp_mod_abs,
     sfp_rx_gt_port_0_n,
     sfp_rx_gt_port_0_p,
+    sfp_rx_gt_port_1_n,
+    sfp_rx_gt_port_1_p,
     sfp_tx_gt_port_0_n,
-    sfp_tx_gt_port_0_p);
+    sfp_tx_gt_port_0_p,
+    sfp_tx_gt_port_1_n,
+    sfp_tx_gt_port_1_p);
   input eth_refclk_clk_n;
   input eth_refclk_clk_p;
   input [0:0]jesd_coreclk_clk_n;
@@ -45,8 +49,12 @@ module bd_wrapper
   input [0:0]sfp_mod_abs;
   input sfp_rx_gt_port_0_n;
   input sfp_rx_gt_port_0_p;
+  input sfp_rx_gt_port_1_n;
+  input sfp_rx_gt_port_1_p;
   output sfp_tx_gt_port_0_n;
   output sfp_tx_gt_port_0_p;
+  output sfp_tx_gt_port_1_n;
+  output sfp_tx_gt_port_1_p;
 
   wire eth_refclk_clk_n;
   wire eth_refclk_clk_p;
@@ -70,8 +78,12 @@ module bd_wrapper
   wire [0:0]sfp_mod_abs;
   wire sfp_rx_gt_port_0_n;
   wire sfp_rx_gt_port_0_p;
+  wire sfp_rx_gt_port_1_n;
+  wire sfp_rx_gt_port_1_p;
   wire sfp_tx_gt_port_0_n;
   wire sfp_tx_gt_port_0_p;
+  wire sfp_tx_gt_port_1_n;
+  wire sfp_tx_gt_port_1_p;
 
   bd bd_i
        (.eth_refclk_clk_n(eth_refclk_clk_n),
@@ -94,8 +106,12 @@ module bd_wrapper
         .sfp_mod_abs(sfp_mod_abs),
         .sfp_rx_gt_port_0_n(sfp_rx_gt_port_0_n),
         .sfp_rx_gt_port_0_p(sfp_rx_gt_port_0_p),
+        .sfp_rx_gt_port_1_n(sfp_rx_gt_port_1_n),
+        .sfp_rx_gt_port_1_p(sfp_rx_gt_port_1_p),
         .sfp_tx_gt_port_0_n(sfp_tx_gt_port_0_n),
-        .sfp_tx_gt_port_0_p(sfp_tx_gt_port_0_p));
+        .sfp_tx_gt_port_0_p(sfp_tx_gt_port_0_p),
+        .sfp_tx_gt_port_1_n(sfp_tx_gt_port_1_n),
+        .sfp_tx_gt_port_1_p(sfp_tx_gt_port_1_p));
   IOBUF sfp_i2c_scl_iobuf
        (.I(sfp_i2c_scl_o),
         .IO(sfp_i2c_scl_io),

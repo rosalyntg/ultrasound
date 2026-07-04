@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
-| Date         : Fri Jul  3 18:44:39 2026
+| Date         : Sat Jul  4 10:37:02 2026
 | Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_utilization -file bd_vio_0_1_utilization_synth.rpt -pb bd_vio_0_1_utilization_synth.pb
 | Design       : bd_vio_0_1
@@ -64,8 +64,8 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 0     |          Yes |         Set |            - |
-| 2386  |          Yes |       Reset |            - |
+| 66    |          Yes |         Set |            - |
+| 2320  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -167,10 +167,11 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     | 2386 |            Register |
+| FDRE     | 2320 |            Register |
 | LUT3     |  774 |                 CLB |
 | LUT6     |  406 |                 CLB |
 | MUXF7    |  129 |                 CLB |
+| FDSE     |   66 |            Register |
 | MUXF8    |   64 |                 CLB |
 | LUT4     |   40 |                 CLB |
 | LUT5     |   38 |                 CLB |

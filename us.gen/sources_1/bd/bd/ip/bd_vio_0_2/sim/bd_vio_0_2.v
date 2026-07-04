@@ -48,7 +48,7 @@
 `timescale 1ns / 1ps
 module bd_vio_0_2 (
 clk,
-probe_in0,probe_in1,probe_in2,probe_in3,probe_in4,probe_in5,probe_in6,probe_in7,probe_in8,probe_in9,probe_in10,probe_in11,probe_in12,probe_in13,probe_in14,probe_in15,probe_in16,probe_in17,probe_in18,probe_in19,
+probe_in0,probe_in1,probe_in2,probe_in3,probe_in4,probe_in5,probe_in6,probe_in7,probe_in8,probe_in9,probe_in10,probe_in11,probe_in12,probe_in13,probe_in14,probe_in15,probe_in16,probe_in17,probe_in18,probe_in19,probe_in20,
 probe_out0,
 probe_out1,
 probe_out2,
@@ -56,7 +56,16 @@ probe_out3,
 probe_out4,
 probe_out5,
 probe_out6,
-probe_out7
+probe_out7,
+probe_out8,
+probe_out9,
+probe_out10,
+probe_out11,
+probe_out12,
+probe_out13,
+probe_out14,
+probe_out15,
+probe_out16
 );
 
 input clk;
@@ -80,15 +89,25 @@ input [0 : 0] probe_in16;
 input [15 : 0] probe_in17;
 input [15 : 0] probe_in18;
 input [0 : 0] probe_in19;
+input [1 : 0] probe_in20;
 
 output reg [0 : 0] probe_out0 = 'h1 ;
-output reg [0 : 0] probe_out1 = 'h0 ;
+output reg [0 : 0] probe_out1 = 'h1 ;
 output reg [0 : 0] probe_out2 = 'h0 ;
-output reg [0 : 0] probe_out3 = 'h0 ;
+output reg [4 : 0] probe_out3 = 'h00 ;
 output reg [0 : 0] probe_out4 = 'h0 ;
 output reg [0 : 0] probe_out5 = 'h0 ;
 output reg [0 : 0] probe_out6 = 'h0 ;
 output reg [0 : 0] probe_out7 = 'h0 ;
+output reg [4 : 0] probe_out8 = 'h00 ;
+output reg [0 : 0] probe_out9 = 'h1 ;
+output reg [2 : 0] probe_out10 = 'h0 ;
+output reg [0 : 0] probe_out11 = 'h0 ;
+output reg [0 : 0] probe_out12 = 'h0 ;
+output reg [0 : 0] probe_out13 = 'h1 ;
+output reg [4 : 0] probe_out14 = 'h10 ;
+output reg [0 : 0] probe_out15 = 'h0 ;
+output reg [0 : 0] probe_out16 = 'h0 ;
 
 
 endmodule

@@ -2,7 +2,7 @@
 -- Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
--- Date        : Fri Jul  3 19:09:07 2026
+-- Date        : Sat Jul  4 11:14:12 2026
 -- Host        : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_net_wrapper_0_0/bd_net_wrapper_0_0_stub.vhdl
@@ -55,7 +55,9 @@ entity bd_net_wrapper_0_0 is
     gateway_ip : in STD_LOGIC_VECTOR ( 31 downto 0 );
     subnet_mask : in STD_LOGIC_VECTOR ( 31 downto 0 );
     clear_arp_cache : in STD_LOGIC;
-    tx_test : in STD_LOGIC
+    tx_test : in STD_LOGIC;
+    tx_eth_hdr_valid : out STD_LOGIC;
+    tx_eth_hdr_ready : out STD_LOGIC
   );
 
   attribute CHECK_LICENSE_TYPE : string;
@@ -72,7 +74,7 @@ architecture stub of bd_net_wrapper_0_0 is
   attribute syn_black_box : boolean;
   attribute black_box_pad_pin : string;
   attribute syn_black_box of stub : architecture is true;
-  attribute black_box_pad_pin of stub : architecture is "logic_clk,logic_rst,xgmii_rx_clk,xgmii_rx_rst,xgmii_tx_clk,xgmii_tx_rst,xgmii_rxd[63:0],xgmii_rxc[7:0],xgmii_txd[63:0],xgmii_txc[7:0],m_axi_awaddr[31:0],m_axi_awprot[2:0],m_axi_awvalid,m_axi_awready,m_axi_wdata[31:0],m_axi_wstrb[3:0],m_axi_wvalid,m_axi_wready,m_axi_bresp[1:0],m_axi_bvalid,m_axi_bready,m_axi_araddr[31:0],m_axi_arprot[2:0],m_axi_arvalid,m_axi_arready,m_axi_rdata[31:0],m_axi_rresp[1:0],m_axi_rvalid,m_axi_rready,rx_error_bad_frame,rx_error_bad_fcs,ip_rx_busy,ip_tx_busy,udp_rx_busy,udp_tx_busy,local_mac[47:0],local_ip[31:0],gateway_ip[31:0],subnet_mask[31:0],clear_arp_cache,tx_test";
+  attribute black_box_pad_pin of stub : architecture is "logic_clk,logic_rst,xgmii_rx_clk,xgmii_rx_rst,xgmii_tx_clk,xgmii_tx_rst,xgmii_rxd[63:0],xgmii_rxc[7:0],xgmii_txd[63:0],xgmii_txc[7:0],m_axi_awaddr[31:0],m_axi_awprot[2:0],m_axi_awvalid,m_axi_awready,m_axi_wdata[31:0],m_axi_wstrb[3:0],m_axi_wvalid,m_axi_wready,m_axi_bresp[1:0],m_axi_bvalid,m_axi_bready,m_axi_araddr[31:0],m_axi_arprot[2:0],m_axi_arvalid,m_axi_arready,m_axi_rdata[31:0],m_axi_rresp[1:0],m_axi_rvalid,m_axi_rready,rx_error_bad_frame,rx_error_bad_fcs,ip_rx_busy,ip_tx_busy,udp_rx_busy,udp_tx_busy,local_mac[47:0],local_ip[31:0],gateway_ip[31:0],subnet_mask[31:0],clear_arp_cache,tx_test,tx_eth_hdr_valid,tx_eth_hdr_ready";
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of logic_clk : signal is "xilinx.com:signal:clock:1.0 logic_clk CLK";
   attribute X_INTERFACE_MODE : string;

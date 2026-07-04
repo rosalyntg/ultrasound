@@ -2,7 +2,7 @@
 -- Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
--- Date        : Mon Jun 29 23:07:09 2026
+-- Date        : Sat Jul  4 14:24:12 2026
 -- Host        : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/bd_xxv_ethernet_0_0_stub.vhdl
@@ -19,6 +19,10 @@ entity bd_xxv_ethernet_0_0 is
     gt_rxn_in_0 : in STD_LOGIC;
     gt_txp_out_0 : out STD_LOGIC;
     gt_txn_out_0 : out STD_LOGIC;
+    gt_rxp_in_1 : in STD_LOGIC;
+    gt_rxn_in_1 : in STD_LOGIC;
+    gt_txp_out_1 : out STD_LOGIC;
+    gt_txn_out_1 : out STD_LOGIC;
     tx_mii_clk_0 : out STD_LOGIC;
     rx_core_clk_0 : in STD_LOGIC;
     rx_clk_out_0 : out STD_LOGIC;
@@ -106,11 +110,99 @@ entity bd_xxv_ethernet_0_0 is
     gtpowergood_out_0 : out STD_LOGIC;
     txoutclksel_in_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
     rxoutclksel_in_0 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    tx_mii_clk_1 : out STD_LOGIC;
+    rx_core_clk_1 : in STD_LOGIC;
+    rx_clk_out_1 : out STD_LOGIC;
+    gt_loopback_in_1 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    rx_reset_1 : in STD_LOGIC;
+    user_rx_reset_1 : out STD_LOGIC;
+    rxrecclkout_1 : out STD_LOGIC;
+    rx_mii_d_1 : out STD_LOGIC_VECTOR ( 63 downto 0 );
+    rx_mii_c_1 : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    ctl_rx_test_pattern_1 : in STD_LOGIC;
+    ctl_rx_test_pattern_enable_1 : in STD_LOGIC;
+    ctl_rx_data_pattern_select_1 : in STD_LOGIC;
+    ctl_rx_prbs31_test_pattern_enable_1 : in STD_LOGIC;
+    stat_rx_block_lock_1 : out STD_LOGIC;
+    stat_rx_framing_err_valid_1 : out STD_LOGIC;
+    stat_rx_framing_err_1 : out STD_LOGIC;
+    stat_rx_hi_ber_1 : out STD_LOGIC;
+    stat_rx_valid_ctrl_code_1 : out STD_LOGIC;
+    stat_rx_bad_code_1 : out STD_LOGIC;
+    stat_rx_bad_code_valid_1 : out STD_LOGIC;
+    stat_rx_error_valid_1 : out STD_LOGIC;
+    stat_rx_error_1 : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    stat_rx_fifo_error_1 : out STD_LOGIC;
+    stat_rx_local_fault_1 : out STD_LOGIC;
+    stat_rx_status_1 : out STD_LOGIC;
+    tx_reset_1 : in STD_LOGIC;
+    user_tx_reset_1 : out STD_LOGIC;
+    tx_mii_d_1 : in STD_LOGIC_VECTOR ( 63 downto 0 );
+    tx_mii_c_1 : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    ctl_tx_test_pattern_1 : in STD_LOGIC;
+    ctl_tx_test_pattern_enable_1 : in STD_LOGIC;
+    ctl_tx_test_pattern_select_1 : in STD_LOGIC;
+    ctl_tx_data_pattern_select_1 : in STD_LOGIC;
+    ctl_tx_test_pattern_seed_a_1 : in STD_LOGIC_VECTOR ( 57 downto 0 );
+    ctl_tx_test_pattern_seed_b_1 : in STD_LOGIC_VECTOR ( 57 downto 0 );
+    ctl_tx_prbs31_test_pattern_enable_1 : in STD_LOGIC;
+    stat_tx_local_fault_1 : out STD_LOGIC;
+    gt_dmonitorout_1 : out STD_LOGIC_VECTOR ( 16 downto 0 );
+    gt_eyescandataerror_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_eyescanreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_eyescantrigger_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_pcsrsvdin_1 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    gt_rxbufreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxbufstatus_1 : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    gt_rxcdrhold_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxcommadeten_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxdfeagchold_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxdfelpmreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxlatclk_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxlpmen_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxpcsreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxpmareset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxpolarity_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxprbscntreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxprbserr_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxprbslocked_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txresetdone_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxprbssel_1 : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    gt_rxrate_1 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    gt_rxslide_in_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_rxstartofseq_1 : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    gt_txbufstatus_1 : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    gt_txinhibit_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txlatclk_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txmaincursor_1 : in STD_LOGIC_VECTOR ( 6 downto 0 );
+    gt_txpcsreset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txpmareset_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txpolarity_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txpostcursor_1 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    gt_txprbsforceerr_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txelecidle_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_txprbssel_1 : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    gt_txprecursor_1 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    gt_txdiffctrl_1 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    gt_drpdo_1 : out STD_LOGIC_VECTOR ( 15 downto 0 );
+    gt_drprdy_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_drpen_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_drpwe_1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gt_drpaddr_1 : in STD_LOGIC_VECTOR ( 9 downto 0 );
+    gt_drpdi_1 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    gt_drpclk_1 : in STD_LOGIC;
+    gt_drprst_1 : in STD_LOGIC;
+    gtwiz_reset_tx_datapath_1 : in STD_LOGIC;
+    gtwiz_reset_rx_datapath_1 : in STD_LOGIC;
+    gtpowergood_out_1 : out STD_LOGIC;
+    txoutclksel_in_1 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    rxoutclksel_in_1 : in STD_LOGIC_VECTOR ( 2 downto 0 );
     gt_refclk_p : in STD_LOGIC_VECTOR ( 0 to 0 );
     gt_refclk_n : in STD_LOGIC_VECTOR ( 0 to 0 );
     gt_refclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpllreset_in_0 : in STD_LOGIC;
     ctl_rx_wdt_disable_0 : in STD_LOGIC;
+    ctl_rx_wdt_disable_1 : in STD_LOGIC;
     sys_reset : in STD_LOGIC;
     dclk : in STD_LOGIC
   );
@@ -118,7 +210,7 @@ entity bd_xxv_ethernet_0_0 is
   attribute CHECK_LICENSE_TYPE : string;
   attribute CHECK_LICENSE_TYPE of bd_xxv_ethernet_0_0 : entity is "bd_xxv_ethernet_0_0,xxv_ethernet_core,{}";
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of bd_xxv_ethernet_0_0 : entity is "bd_xxv_ethernet_0_0,xxv_ethernet_v5_0_3,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xxv_ethernet,x_ipVersion=5.0,x_ipCoreRevision=3,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_CORE=Ethernet PCS/PMA 64-bit,C_XGMII_INTERFACE=1,C_LINE_RATE=10,C_NUM_OF_CORES=1,C_CLOCKING=Asynchronous,C_DATA_PATH_INTERFACE=MII,C_RUNTIME_SWITCH=0,C_ENABLE_PREEMPTION=0,C_ENABLE_PREEMPTION_FIFO=0,C_ENABLE_DATAPATH_PARITY=0,C_BASE_R_KR=BASE-R,C_INCLUDE_FEC_LOGIC=0,C_INCLUDE_RSFEC_LOGIC=0,C_INCLUDE_HYBRID_CMAC_RSFEC_LOGIC=0,C_INCLUDE_AUTO_NEG_LT_LOGIC=None,C_ANLT_CLK_IN_MHZ=100,C_INCLUDE_AXI4_INTERFACE=0,C_INCLUDE_STATISTICS_COUNTERS=0,C_STATISTICS_REGS_TYPE=0,C_INCLUDE_USER_FIFO=0,C_ENABLE_TX_FLOW_CONTROL_LOGIC=0,C_ENABLE_RX_FLOW_CONTROL_LOGIC=0,C_ENABLE_TIME_STAMPING=0,C_PTP_OPERATION_MODE=2,C_PTP_CLOCKING_MODE=0,C_TX_LATENCY_ADJUST=0,C_ENABLE_VLANE_ADJUST_MODE=0,C_SYS_CLK=4000,C_GT_LOCATION=1,C_GT_REF_CLK_FREQ=156.25,C_GT_DRP_CLK=100.00,C_GT_TYPE=GTH,C_GT_GROUP_SELECT=Quad X0Y0,C_LANE1_GT_LOC=X0Y0,C_LANE2_GT_LOC=NA,C_LANE3_GT_LOC=NA,C_LANE4_GT_LOC=NA,C_INS_LOSS_NYQ=30,C_RX_EQ_MODE=AUTO,C_ENABLE_PIPELINE_REG=0,C_ADD_GT_CNTRL_STS_PORTS=1,C_ENABLE_GT_BOARD_INTERFACE=0,C_INCLUDE_SHARED_LOGIC=1,C_FAST_SIM_MODE=0,C_SWITCH_1_10_25G=0,C_FAMILY_CHK=artixuplus,IS_BOARD_PROJECT=0,VERSAL_GT_BOARD_FLOW=0,C_AXIS_TDATA_WIDTH=64,C_AXIS_TKEEP_WIDTH=7,C_TX_TOTAL_BYTES_WIDTH=4,C_GT_DIFFCTRL_WIDTH=4,C_MII_DATA_WIDTH=64,C_MII_CTRL_WIDTH=8,C_GTM_GROUP_SELECT=NA,C_CMAC_CORE_SELECT=CMACE4_X0Y0,C_GT_SETTINGS=internal,C_IS_GT_WIZ_OLD=0,x_ipLicense=xxv_eth_mac_pcs@2025.05(design_linking),x_ipLicense=xxv_eth_basekr@2025.05(design_linking),x_ipLicense=xxv_tsn_802d1cm@2025.05(design_linking)}";
+  attribute CORE_GENERATION_INFO of bd_xxv_ethernet_0_0 : entity is "bd_xxv_ethernet_0_0,xxv_ethernet_v5_0_3,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xxv_ethernet,x_ipVersion=5.0,x_ipCoreRevision=3,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_CORE=Ethernet PCS/PMA 64-bit,C_XGMII_INTERFACE=1,C_LINE_RATE=10,C_NUM_OF_CORES=2,C_CLOCKING=Asynchronous,C_DATA_PATH_INTERFACE=MII,C_RUNTIME_SWITCH=0,C_ENABLE_PREEMPTION=0,C_ENABLE_PREEMPTION_FIFO=0,C_ENABLE_DATAPATH_PARITY=0,C_BASE_R_KR=BASE-R,C_INCLUDE_FEC_LOGIC=0,C_INCLUDE_RSFEC_LOGIC=0,C_INCLUDE_HYBRID_CMAC_RSFEC_LOGIC=0,C_INCLUDE_AUTO_NEG_LT_LOGIC=None,C_ANLT_CLK_IN_MHZ=100,C_INCLUDE_AXI4_INTERFACE=0,C_INCLUDE_STATISTICS_COUNTERS=0,C_STATISTICS_REGS_TYPE=0,C_INCLUDE_USER_FIFO=0,C_ENABLE_TX_FLOW_CONTROL_LOGIC=0,C_ENABLE_RX_FLOW_CONTROL_LOGIC=0,C_ENABLE_TIME_STAMPING=0,C_PTP_OPERATION_MODE=2,C_PTP_CLOCKING_MODE=0,C_TX_LATENCY_ADJUST=0,C_ENABLE_VLANE_ADJUST_MODE=0,C_SYS_CLK=4000,C_GT_LOCATION=1,C_GT_REF_CLK_FREQ=156.25,C_GT_DRP_CLK=100.00,C_GT_TYPE=GTH,C_GT_GROUP_SELECT=Quad X0Y0,C_LANE1_GT_LOC=X0Y0,C_LANE2_GT_LOC=X0Y1,C_LANE3_GT_LOC=NA,C_LANE4_GT_LOC=NA,C_INS_LOSS_NYQ=30,C_RX_EQ_MODE=AUTO,C_ENABLE_PIPELINE_REG=0,C_ADD_GT_CNTRL_STS_PORTS=1,C_ENABLE_GT_BOARD_INTERFACE=0,C_INCLUDE_SHARED_LOGIC=1,C_FAST_SIM_MODE=0,C_SWITCH_1_10_25G=0,C_FAMILY_CHK=artixuplus,IS_BOARD_PROJECT=0,VERSAL_GT_BOARD_FLOW=0,C_AXIS_TDATA_WIDTH=64,C_AXIS_TKEEP_WIDTH=7,C_TX_TOTAL_BYTES_WIDTH=4,C_GT_DIFFCTRL_WIDTH=4,C_MII_DATA_WIDTH=64,C_MII_CTRL_WIDTH=8,C_GTM_GROUP_SELECT=NA,C_CMAC_CORE_SELECT=CMACE4_X0Y0,C_GT_SETTINGS=internal,C_IS_GT_WIZ_OLD=0,x_ipLicense=xxv_eth_mac_pcs@2025.05(design_linking),x_ipLicense=xxv_eth_basekr@2025.05(design_linking),x_ipLicense=xxv_tsn_802d1cm@2025.05(design_linking)}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of bd_xxv_ethernet_0_0 : entity is "yes";
 end bd_xxv_ethernet_0_0;
@@ -127,7 +219,7 @@ architecture stub of bd_xxv_ethernet_0_0 is
   attribute syn_black_box : boolean;
   attribute black_box_pad_pin : string;
   attribute syn_black_box of stub : architecture is true;
-  attribute black_box_pad_pin of stub : architecture is "gt_rxp_in_0,gt_rxn_in_0,gt_txp_out_0,gt_txn_out_0,tx_mii_clk_0,rx_core_clk_0,rx_clk_out_0,gt_loopback_in_0[2:0],rx_reset_0,user_rx_reset_0,rxrecclkout_0,rx_mii_d_0[63:0],rx_mii_c_0[7:0],ctl_rx_test_pattern_0,ctl_rx_test_pattern_enable_0,ctl_rx_data_pattern_select_0,ctl_rx_prbs31_test_pattern_enable_0,stat_rx_block_lock_0,stat_rx_framing_err_valid_0,stat_rx_framing_err_0,stat_rx_hi_ber_0,stat_rx_valid_ctrl_code_0,stat_rx_bad_code_0,stat_rx_bad_code_valid_0,stat_rx_error_valid_0,stat_rx_error_0[7:0],stat_rx_fifo_error_0,stat_rx_local_fault_0,stat_rx_status_0,tx_reset_0,user_tx_reset_0,tx_mii_d_0[63:0],tx_mii_c_0[7:0],ctl_tx_test_pattern_0,ctl_tx_test_pattern_enable_0,ctl_tx_test_pattern_select_0,ctl_tx_data_pattern_select_0,ctl_tx_test_pattern_seed_a_0[57:0],ctl_tx_test_pattern_seed_b_0[57:0],ctl_tx_prbs31_test_pattern_enable_0,stat_tx_local_fault_0,gt_dmonitorout_0[16:0],gt_eyescandataerror_0[0:0],gt_eyescanreset_0[0:0],gt_eyescantrigger_0[0:0],gt_pcsrsvdin_0[15:0],gt_rxbufreset_0[0:0],gt_rxbufstatus_0[2:0],gt_rxcdrhold_0[0:0],gt_rxcommadeten_0[0:0],gt_rxdfeagchold_0[0:0],gt_rxdfelpmreset_0[0:0],gt_rxlatclk_0[0:0],gt_rxlpmen_0[0:0],gt_rxpcsreset_0[0:0],gt_rxpmareset_0[0:0],gt_rxpolarity_0[0:0],gt_rxprbscntreset_0[0:0],gt_rxprbserr_0[0:0],gt_rxprbslocked_0[0:0],gt_txresetdone_0[0:0],gt_rxprbssel_0[3:0],gt_rxrate_0[2:0],gt_rxslide_in_0[0:0],gt_rxstartofseq_0[1:0],gt_txbufstatus_0[1:0],gt_txinhibit_0[0:0],gt_txlatclk_0[0:0],gt_txmaincursor_0[6:0],gt_txpcsreset_0[0:0],gt_txpmareset_0[0:0],gt_txpolarity_0[0:0],gt_txpostcursor_0[4:0],gt_txprbsforceerr_0[0:0],gt_txelecidle_0[0:0],gt_txprbssel_0[3:0],gt_txprecursor_0[4:0],gt_txdiffctrl_0[4:0],gt_drpdo_0[15:0],gt_drprdy_0[0:0],gt_drpen_0[0:0],gt_drpwe_0[0:0],gt_drpaddr_0[9:0],gt_drpdi_0[15:0],gt_drpclk_0,gt_drprst_0,gtwiz_reset_tx_datapath_0,gtwiz_reset_rx_datapath_0,gtpowergood_out_0,txoutclksel_in_0[2:0],rxoutclksel_in_0[2:0],gt_refclk_p[0:0],gt_refclk_n[0:0],gt_refclk_out[0:0],qpllreset_in_0,ctl_rx_wdt_disable_0,sys_reset,dclk";
+  attribute black_box_pad_pin of stub : architecture is "gt_rxp_in_0,gt_rxn_in_0,gt_txp_out_0,gt_txn_out_0,gt_rxp_in_1,gt_rxn_in_1,gt_txp_out_1,gt_txn_out_1,tx_mii_clk_0,rx_core_clk_0,rx_clk_out_0,gt_loopback_in_0[2:0],rx_reset_0,user_rx_reset_0,rxrecclkout_0,rx_mii_d_0[63:0],rx_mii_c_0[7:0],ctl_rx_test_pattern_0,ctl_rx_test_pattern_enable_0,ctl_rx_data_pattern_select_0,ctl_rx_prbs31_test_pattern_enable_0,stat_rx_block_lock_0,stat_rx_framing_err_valid_0,stat_rx_framing_err_0,stat_rx_hi_ber_0,stat_rx_valid_ctrl_code_0,stat_rx_bad_code_0,stat_rx_bad_code_valid_0,stat_rx_error_valid_0,stat_rx_error_0[7:0],stat_rx_fifo_error_0,stat_rx_local_fault_0,stat_rx_status_0,tx_reset_0,user_tx_reset_0,tx_mii_d_0[63:0],tx_mii_c_0[7:0],ctl_tx_test_pattern_0,ctl_tx_test_pattern_enable_0,ctl_tx_test_pattern_select_0,ctl_tx_data_pattern_select_0,ctl_tx_test_pattern_seed_a_0[57:0],ctl_tx_test_pattern_seed_b_0[57:0],ctl_tx_prbs31_test_pattern_enable_0,stat_tx_local_fault_0,gt_dmonitorout_0[16:0],gt_eyescandataerror_0[0:0],gt_eyescanreset_0[0:0],gt_eyescantrigger_0[0:0],gt_pcsrsvdin_0[15:0],gt_rxbufreset_0[0:0],gt_rxbufstatus_0[2:0],gt_rxcdrhold_0[0:0],gt_rxcommadeten_0[0:0],gt_rxdfeagchold_0[0:0],gt_rxdfelpmreset_0[0:0],gt_rxlatclk_0[0:0],gt_rxlpmen_0[0:0],gt_rxpcsreset_0[0:0],gt_rxpmareset_0[0:0],gt_rxpolarity_0[0:0],gt_rxprbscntreset_0[0:0],gt_rxprbserr_0[0:0],gt_rxprbslocked_0[0:0],gt_txresetdone_0[0:0],gt_rxprbssel_0[3:0],gt_rxrate_0[2:0],gt_rxslide_in_0[0:0],gt_rxstartofseq_0[1:0],gt_txbufstatus_0[1:0],gt_txinhibit_0[0:0],gt_txlatclk_0[0:0],gt_txmaincursor_0[6:0],gt_txpcsreset_0[0:0],gt_txpmareset_0[0:0],gt_txpolarity_0[0:0],gt_txpostcursor_0[4:0],gt_txprbsforceerr_0[0:0],gt_txelecidle_0[0:0],gt_txprbssel_0[3:0],gt_txprecursor_0[4:0],gt_txdiffctrl_0[4:0],gt_drpdo_0[15:0],gt_drprdy_0[0:0],gt_drpen_0[0:0],gt_drpwe_0[0:0],gt_drpaddr_0[9:0],gt_drpdi_0[15:0],gt_drpclk_0,gt_drprst_0,gtwiz_reset_tx_datapath_0,gtwiz_reset_rx_datapath_0,gtpowergood_out_0,txoutclksel_in_0[2:0],rxoutclksel_in_0[2:0],tx_mii_clk_1,rx_core_clk_1,rx_clk_out_1,gt_loopback_in_1[2:0],rx_reset_1,user_rx_reset_1,rxrecclkout_1,rx_mii_d_1[63:0],rx_mii_c_1[7:0],ctl_rx_test_pattern_1,ctl_rx_test_pattern_enable_1,ctl_rx_data_pattern_select_1,ctl_rx_prbs31_test_pattern_enable_1,stat_rx_block_lock_1,stat_rx_framing_err_valid_1,stat_rx_framing_err_1,stat_rx_hi_ber_1,stat_rx_valid_ctrl_code_1,stat_rx_bad_code_1,stat_rx_bad_code_valid_1,stat_rx_error_valid_1,stat_rx_error_1[7:0],stat_rx_fifo_error_1,stat_rx_local_fault_1,stat_rx_status_1,tx_reset_1,user_tx_reset_1,tx_mii_d_1[63:0],tx_mii_c_1[7:0],ctl_tx_test_pattern_1,ctl_tx_test_pattern_enable_1,ctl_tx_test_pattern_select_1,ctl_tx_data_pattern_select_1,ctl_tx_test_pattern_seed_a_1[57:0],ctl_tx_test_pattern_seed_b_1[57:0],ctl_tx_prbs31_test_pattern_enable_1,stat_tx_local_fault_1,gt_dmonitorout_1[16:0],gt_eyescandataerror_1[0:0],gt_eyescanreset_1[0:0],gt_eyescantrigger_1[0:0],gt_pcsrsvdin_1[15:0],gt_rxbufreset_1[0:0],gt_rxbufstatus_1[2:0],gt_rxcdrhold_1[0:0],gt_rxcommadeten_1[0:0],gt_rxdfeagchold_1[0:0],gt_rxdfelpmreset_1[0:0],gt_rxlatclk_1[0:0],gt_rxlpmen_1[0:0],gt_rxpcsreset_1[0:0],gt_rxpmareset_1[0:0],gt_rxpolarity_1[0:0],gt_rxprbscntreset_1[0:0],gt_rxprbserr_1[0:0],gt_rxprbslocked_1[0:0],gt_txresetdone_1[0:0],gt_rxprbssel_1[3:0],gt_rxrate_1[2:0],gt_rxslide_in_1[0:0],gt_rxstartofseq_1[1:0],gt_txbufstatus_1[1:0],gt_txinhibit_1[0:0],gt_txlatclk_1[0:0],gt_txmaincursor_1[6:0],gt_txpcsreset_1[0:0],gt_txpmareset_1[0:0],gt_txpolarity_1[0:0],gt_txpostcursor_1[4:0],gt_txprbsforceerr_1[0:0],gt_txelecidle_1[0:0],gt_txprbssel_1[3:0],gt_txprecursor_1[4:0],gt_txdiffctrl_1[4:0],gt_drpdo_1[15:0],gt_drprdy_1[0:0],gt_drpen_1[0:0],gt_drpwe_1[0:0],gt_drpaddr_1[9:0],gt_drpdi_1[15:0],gt_drpclk_1,gt_drprst_1,gtwiz_reset_tx_datapath_1,gtwiz_reset_rx_datapath_1,gtpowergood_out_1,txoutclksel_in_1[2:0],rxoutclksel_in_1[2:0],gt_refclk_p[0:0],gt_refclk_n[0:0],gt_refclk_out[0:0],qpllreset_in_0,ctl_rx_wdt_disable_0,ctl_rx_wdt_disable_1,sys_reset,dclk";
   attribute X_CORE_INFO : string;
   attribute X_CORE_INFO of stub : architecture is "xxv_ethernet_v5_0_3,Vivado 2025.2.1";
 begin

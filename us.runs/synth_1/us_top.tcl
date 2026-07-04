@@ -56,13 +56,15 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param power.BramSDPPropagationFix 1
+set_param power.enableLutRouteBelPower 1
+set_param power.enableCarry8RouteBelPower 1
+set_param power.enableUnconnectedCarry8PinPower 1
 set_param tcl.collectionResultDisplayLimit 0
 set_param physdb.placeDBImplUsesPlaceStorage 0
 set_param bd.open.in_stealth_mode 1
 set_param xicom.use_bs_reader 1
-set_param chipscope.maxJobs 6
 set_param general.usePosixSpawnForFork 1
-set_msg_config -id {HDL-1065} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xcau15p-ffvb676-2-i
 
@@ -82,6 +84,8 @@ OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv /home/russell/ultrasound/fpga/us/us.srcs/sources_1/new/us_top.sv
 read_verilog -library xil_defaultlib /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/hdl/bd_wrapper.v
 add_files /home/russell/ultrasound/fpga/us/us.srcs/sources_1/bd/bd/bd.bd
+set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_1/synth/bd_xxv_ethernet_0_0_gt_1.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/ip_0/synth/bd_xxv_ethernet_0_0_gt.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_xxv_ethernet_0_0/synth/bd_xxv_ethernet_0_0_board.xdc]
@@ -164,20 +168,18 @@ set_property used_in_implementation false [get_files -all /home/russell/ultrasou
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_1/bd_vio_0_1_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_2/bd_vio_0_2.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_vio_0_2/bd_vio_0_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/synth/sw_mcs_all.xdc]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/synth/bd_in_system_ibert_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/synth/ibert_waivers.xdc]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/bd_in_system_ibert_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_0_0/bd_c_counter_binary_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_c_counter_binary_1_0/bd_c_counter_binary_1_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/bd_axi_iic_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_iic_0_0/bd_axi_iic_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_gpio_0_0/bd_axi_gpio_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_axi_gpio_0_0/bd_axi_gpio_0_0_ooc.xdc]
+set_property used_in_synthesis false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_ila_0_0/bd_ila_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/bd_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_microblaze_riscv_0_0/data/riscv_bootloop.elf]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/data/mb_bootloop_le.elf]
-set_property used_in_implementation false [get_files -all /home/russell/ultrasound/fpga/us/us.gen/sources_1/bd/bd/ip/bd_in_system_ibert_0_0/mb_bootloop_le.elf]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

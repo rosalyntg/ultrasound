@@ -96,7 +96,15 @@ module bd_sv (
   (* X_INTERFACE_IGNORE = "true" *)
   input wire [0:0] sfp_mod_abs,
   (* X_INTERFACE_IGNORE = "true" *)
-  output wire [1:0] led
+  output wire [1:0] led,
+  (* X_INTERFACE_IGNORE = "true" *)
+  output wire sfp_tx_gt_port_1_n,
+  (* X_INTERFACE_IGNORE = "true" *)
+  output wire sfp_tx_gt_port_1_p,
+  (* X_INTERFACE_IGNORE = "true" *)
+  input wire sfp_rx_gt_port_1_n,
+  (* X_INTERFACE_IGNORE = "true" *)
+  input wire sfp_rx_gt_port_1_p
 );
 
   bd inst (
@@ -121,7 +129,11 @@ module bd_sv (
     .jesd_rxp(jesd_rxp),
     .jesd_rxn(jesd_rxn),
     .sfp_mod_abs(sfp_mod_abs),
-    .led(led)
+    .led(led),
+    .sfp_tx_gt_port_1_n(sfp_tx_gt_port_1_n),
+    .sfp_tx_gt_port_1_p(sfp_tx_gt_port_1_p),
+    .sfp_rx_gt_port_1_n(sfp_rx_gt_port_1_n),
+    .sfp_rx_gt_port_1_p(sfp_rx_gt_port_1_p)
   );
 
 endmodule

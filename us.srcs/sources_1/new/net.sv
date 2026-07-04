@@ -113,6 +113,9 @@ module net #
     input  logic [31:0] subnet_mask,
     input  logic        clear_arp_cache,
 
+    output logic tx_eth_hdr_valid,
+    output logic tx_eth_hdr_ready,
+
     input  logic        tx_test
 );
 
@@ -148,8 +151,8 @@ logic        rx_eth_payload_axis_tready;
 logic        rx_eth_payload_axis_tlast;
 logic        rx_eth_payload_axis_tuser;
 
-logic        tx_eth_hdr_valid;
-logic        tx_eth_hdr_ready;
+// logic        tx_eth_hdr_valid;
+// logic        tx_eth_hdr_ready;
 logic [47:0] tx_eth_dest_mac;
 logic [47:0] tx_eth_src_mac;
 logic [15:0] tx_eth_type;
@@ -286,8 +289,22 @@ eth_axis_tx_inst (
 );
 
 
+
 taxi_axis_if #(.DATA_W(8), .LAST_EN(1), .USER_EN(1), .USER_W(1)) xfcp_rx(), xfcp_tx(), xfcp_tx_checksum();
-assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && m_udp_dest_port == 16'd8001;
+
+wire [15:0] m_udp_dest_port;
+wire m_udp_payload_axis_tvalid;
+logic [15:0] cur_udp_dest_port;
+
+always_ff @(posedge logic_clk) begin
+    if (logic_rst) begin
+        cur_udp_dest_port <= 16'd0;
+    end else if (m_udp_payload_axis_tvalid) begin
+        cur_udp_dest_port <= m_udp_dest_port;
+    end
+end
+
+assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && cur_udp_dest_port == 16'd8001;
 
 udpaux_if udp_tx_checksum();
 
@@ -390,32 +407,32 @@ udp_complete_inst (
     .s_udp_payload_axis_tlast(xfcp_tx_checksum.tlast),
     .s_udp_payload_axis_tuser(xfcp_tx_checksum.tuser),
     // UDP frame output (application side)
-    .m_udp_hdr_valid(m_udp_hdr_valid),
-    .m_udp_hdr_ready(m_udp_hdr_ready),
-    .m_udp_eth_dest_mac(m_udp_eth_dest_mac),
-    .m_udp_eth_src_mac(m_udp_eth_src_mac),
-    .m_udp_eth_type(m_udp_eth_type),
-    .m_udp_ip_version(m_udp_ip_version),
-    .m_udp_ip_ihl(m_udp_ip_ihl),
-    .m_udp_ip_dscp(m_udp_ip_dscp),
-    .m_udp_ip_ecn(m_udp_ip_ecn),
-    .m_udp_ip_length(m_udp_ip_length),
-    .m_udp_ip_identification(m_udp_ip_identification),
-    .m_udp_ip_flags(m_udp_ip_flags),
-    .m_udp_ip_fragment_offset(m_udp_ip_fragment_offset),
-    .m_udp_ip_ttl(m_udp_ip_ttl),
-    .m_udp_ip_protocol(m_udp_ip_protocol),
-    .m_udp_ip_header_checksum(m_udp_ip_header_checksum),
-    .m_udp_ip_source_ip(m_udp_ip_source_ip),
-    .m_udp_ip_dest_ip(m_udp_ip_dest_ip),
-    .m_udp_source_port(m_udp_source_port),
+    .m_udp_hdr_valid(),
+    .m_udp_hdr_ready(1'b1),
+    .m_udp_eth_dest_mac(),
+    .m_udp_eth_src_mac(),
+    .m_udp_eth_type(),
+    .m_udp_ip_version(),
+    .m_udp_ip_ihl(),
+    .m_udp_ip_dscp(),
+    .m_udp_ip_ecn(),
+    .m_udp_ip_length(),
+    .m_udp_ip_identification(),
+    .m_udp_ip_flags(),
+    .m_udp_ip_fragment_offset(),
+    .m_udp_ip_ttl(),
+    .m_udp_ip_protocol(),
+    .m_udp_ip_header_checksum(),
+    .m_udp_ip_source_ip(),
+    .m_udp_ip_dest_ip(),
+    .m_udp_source_port(),
     .m_udp_dest_port(m_udp_dest_port),
-    .m_udp_length(m_udp_length),
-    .m_udp_checksum(m_udp_checksum),
+    .m_udp_length(),
+    .m_udp_checksum(),
     .m_udp_payload_axis_tdata(xfcp_rx.tdata),
     .m_udp_payload_axis_tkeep(xfcp_rx.tkeep),
     .m_udp_payload_axis_tvalid(m_udp_payload_axis_tvalid),
-    .m_udp_payload_axis_tready(xfcp_rx.tready),
+    .m_udp_payload_axis_tready(xfcp_rx.tready | tx_test),
     .m_udp_payload_axis_tlast(xfcp_rx.tlast),
     .m_udp_payload_axis_tuser(xfcp_rx.tuser),
     // Status
@@ -446,8 +463,8 @@ udp_checksum_gen_64 udp_checksum_gen_inst (
     // AXI input
     .s_udp_payload_axis_tdata(xfcp_tx.tdata),
     .s_udp_payload_axis_tkeep(xfcp_tx.tkeep),
-    .s_udp_payload_axis_tvalid(xfcp_tx.tvalid),
-    .s_udp_payload_axis_tready(xfcp_tx.tready | tx_test),
+    .s_udp_payload_axis_tvalid(xfcp_tx.tvalid | tx_test),
+    .s_udp_payload_axis_tready(xfcp_tx.tready),
     .s_udp_payload_axis_tlast(xfcp_tx.tlast),
     .s_udp_payload_axis_tuser(xfcp_tx.tuser),
 

@@ -62,7 +62,7 @@
 
 (* CHECK_LICENSE_TYPE = "bd_xxv_ethernet_0_0,xxv_ethernet_core,{}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-(* CORE_GENERATION_INFO = "bd_xxv_ethernet_0_0,xxv_ethernet_v5_0_3,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xxv_ethernet,x_ipVersion=5.0,x_ipCoreRevision=3,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_CORE=Ethernet PCS/PMA 64-bit,C_XGMII_INTERFACE=1,C_LINE_RATE=10,C_NUM_OF_CORES=1,C_CLOCKING=Asynchronous,C_DATA_PATH_INTERFACE=MII,C_RUNTIME_SWITCH=0,C_ENABLE_PREEMPTION=0,C_ENABLE_PREEMPTION_FIFO=0,C_ENABLE_DATAPATH_PARITY=0,C_BASE_R_KR=BASE-R,C_INCLUDE_FEC_LOGIC=0,C_INCLUDE_RSFEC_LOGIC=0,C_INCLUDE_HYBRID_CMAC_RSFEC_LOGIC=0,C_INCLUDE_AUTO_NEG_LT_LOGIC=None,C_ANLT_CLK_IN_MHZ=100,C_INCLUDE_AXI4_INTERFACE=0,C_INCLUDE_STATISTICS_COUNTERS=0,C_STATISTICS_REGS_TYPE=0,C_INCLUDE_USER_FIFO=0,C_ENABLE_TX_FLOW_CONTROL_LOGIC=0,C_ENABLE_RX_FLOW_CONTROL_LOGIC=0,C_ENABLE_TIME_STAMPING=0,C_PTP_OPERATION_MODE=2,C_PTP_CLOCKING_MODE=0,C_TX_LATENCY_ADJUST=0,C_ENABLE_VLANE_ADJUST_MODE=0,C_SYS_CLK=4000,C_GT_LOCATION=1,C_GT_REF_CLK_FREQ=156.25,C_GT_DRP_CLK=100.00,C_GT_TYPE=GTH,C_GT_GROUP_SELECT=Quad X0Y0,C_LANE1_GT_LOC=X0Y0,C_LANE2_GT_LOC=NA,C_LANE3_GT_LOC=NA,C_LANE4_GT_LOC=NA,C_INS_LOSS_NYQ=30,C_RX_EQ_MODE=AUTO,C_ENABLE_PIPELINE_REG=0,C_ADD_GT_CNTRL_STS_PORTS=1,C_ENABLE_GT_BOARD_INTERFACE=0,C_INCLUDE_SHARED_LOGIC=1,C_FAST_SIM_MODE=0,C_SWITCH_1_10_25G=0,C_FAMILY_CHK=artixuplus,IS_BOARD_PROJECT=0,VERSAL_GT_BOARD_FLOW=0,C_AXIS_TDATA_WIDTH=64,C_AXIS_TKEEP_WIDTH=7,C_TX_TOTAL_BYTES_WIDTH=4,C_GT_DIFFCTRL_WIDTH=4,C_MII_DATA_WIDTH=64,C_MII_CTRL_WIDTH=8,C_GTM_GROUP_SELECT=NA,C_CMAC_CORE_SELECT=CMACE4_X0Y0,C_GT_SETTINGS=internal,C_IS_GT_WIZ_OLD=0,x_ipLicense=xxv_eth_mac_pcs@2025.05(design_linking),x_ipLicense=xxv_eth_basekr@2025.05(design_linking),x_ipLicense=xxv_tsn_802d1cm@2025.05(design_linking)}" *)
+(* CORE_GENERATION_INFO = "bd_xxv_ethernet_0_0,xxv_ethernet_v5_0_3,{x_ipProduct=Vivado 2025.2.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xxv_ethernet,x_ipVersion=5.0,x_ipCoreRevision=3,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_CORE=Ethernet PCS/PMA 64-bit,C_XGMII_INTERFACE=1,C_LINE_RATE=10,C_NUM_OF_CORES=2,C_CLOCKING=Asynchronous,C_DATA_PATH_INTERFACE=MII,C_RUNTIME_SWITCH=0,C_ENABLE_PREEMPTION=0,C_ENABLE_PREEMPTION_FIFO=0,C_ENABLE_DATAPATH_PARITY=0,C_BASE_R_KR=BASE-R,C_INCLUDE_FEC_LOGIC=0,C_INCLUDE_RSFEC_LOGIC=0,C_INCLUDE_HYBRID_CMAC_RSFEC_LOGIC=0,C_INCLUDE_AUTO_NEG_LT_LOGIC=None,C_ANLT_CLK_IN_MHZ=100,C_INCLUDE_AXI4_INTERFACE=0,C_INCLUDE_STATISTICS_COUNTERS=0,C_STATISTICS_REGS_TYPE=0,C_INCLUDE_USER_FIFO=0,C_ENABLE_TX_FLOW_CONTROL_LOGIC=0,C_ENABLE_RX_FLOW_CONTROL_LOGIC=0,C_ENABLE_TIME_STAMPING=0,C_PTP_OPERATION_MODE=2,C_PTP_CLOCKING_MODE=0,C_TX_LATENCY_ADJUST=0,C_ENABLE_VLANE_ADJUST_MODE=0,C_SYS_CLK=4000,C_GT_LOCATION=1,C_GT_REF_CLK_FREQ=156.25,C_GT_DRP_CLK=100.00,C_GT_TYPE=GTH,C_GT_GROUP_SELECT=Quad X0Y0,C_LANE1_GT_LOC=X0Y0,C_LANE2_GT_LOC=X0Y1,C_LANE3_GT_LOC=NA,C_LANE4_GT_LOC=NA,C_INS_LOSS_NYQ=30,C_RX_EQ_MODE=AUTO,C_ENABLE_PIPELINE_REG=0,C_ADD_GT_CNTRL_STS_PORTS=1,C_ENABLE_GT_BOARD_INTERFACE=0,C_INCLUDE_SHARED_LOGIC=1,C_FAST_SIM_MODE=0,C_SWITCH_1_10_25G=0,C_FAMILY_CHK=artixuplus,IS_BOARD_PROJECT=0,VERSAL_GT_BOARD_FLOW=0,C_AXIS_TDATA_WIDTH=64,C_AXIS_TKEEP_WIDTH=7,C_TX_TOTAL_BYTES_WIDTH=4,C_GT_DIFFCTRL_WIDTH=4,C_MII_DATA_WIDTH=64,C_MII_CTRL_WIDTH=8,C_GTM_GROUP_SELECT=NA,C_CMAC_CORE_SELECT=CMACE4_X0Y0,C_GT_SETTINGS=internal,C_IS_GT_WIZ_OLD=0,x_ipLicense=xxv_eth_mac_pcs@2025.05(design_linking),x_ipLicense=xxv_eth_basekr@2025.05(design_linking),x_ipLicense=xxv_tsn_802d1cm@2025.05(design_linking)}" *)
 (* X_CORE_INFO = "xxv_ethernet_v5_0_3,Vivado 2025.2.1" *)
 
 module bd_xxv_ethernet_0_0 (
@@ -72,6 +72,11 @@ module bd_xxv_ethernet_0_0 (
   gt_rxn_in_0,
   gt_txp_out_0,
   gt_txn_out_0,
+//// GT_1 Signals
+  gt_rxp_in_1,
+  gt_rxn_in_1,
+  gt_txp_out_1,
+  gt_txn_out_1,
   tx_mii_clk_0,
   rx_core_clk_0,
   rx_clk_out_0,
@@ -192,11 +197,132 @@ module bd_xxv_ethernet_0_0 (
   rxoutclksel_in_0,
 
 
+  tx_mii_clk_1,
+  rx_core_clk_1,
+  rx_clk_out_1,
+ 
+  gt_loopback_in_1,
+//// RX_1 Signals
+  rx_reset_1,
+  user_rx_reset_1,
+  rxrecclkout_1,
+//// RX_1 User Interface  Signals
+  rx_mii_d_1,
+  rx_mii_c_1,
+
+
+//// RX_1 Control Signals
+  ctl_rx_test_pattern_1,
+  ctl_rx_test_pattern_enable_1,
+  ctl_rx_data_pattern_select_1,
+  ctl_rx_prbs31_test_pattern_enable_1,
+
+
+
+//// RX_1 Stats Signals
+  stat_rx_block_lock_1,
+  stat_rx_framing_err_valid_1,
+  stat_rx_framing_err_1,
+  stat_rx_hi_ber_1,
+  stat_rx_valid_ctrl_code_1,
+  stat_rx_bad_code_1,
+  stat_rx_bad_code_valid_1,
+  stat_rx_error_valid_1,
+  stat_rx_error_1,
+  stat_rx_fifo_error_1,
+  stat_rx_local_fault_1,
+  stat_rx_status_1,
+
+
+
+//// TX_1 Signals
+  tx_reset_1,
+  user_tx_reset_1,
+
+//// TX_1 User Interface  Signals
+  tx_mii_d_1,
+  tx_mii_c_1,
+
+//// TX_1 Control Signals
+  ctl_tx_test_pattern_1,
+  ctl_tx_test_pattern_enable_1,
+  ctl_tx_test_pattern_select_1,
+  ctl_tx_data_pattern_select_1,
+  ctl_tx_test_pattern_seed_a_1,
+  ctl_tx_test_pattern_seed_b_1,
+  ctl_tx_prbs31_test_pattern_enable_1,
+
+
+//// TX_1 Stats Signals
+  stat_tx_local_fault_1,
+
+
+
+
+
+
+
+//// GT Debug Signals
+  gt_dmonitorout_1,
+  gt_eyescandataerror_1,
+  gt_eyescanreset_1,
+  gt_eyescantrigger_1,
+  gt_pcsrsvdin_1,
+  gt_rxbufreset_1,
+  gt_rxbufstatus_1,
+  gt_rxcdrhold_1,
+  gt_rxcommadeten_1,
+  gt_rxdfeagchold_1,
+  gt_rxdfelpmreset_1,
+  gt_rxlatclk_1,
+  gt_rxlpmen_1,
+  gt_rxpcsreset_1,
+  gt_rxpmareset_1,
+  gt_rxpolarity_1,
+  gt_rxprbscntreset_1,
+  gt_rxprbserr_1,
+  gt_rxprbslocked_1,
+  gt_txresetdone_1,
+  gt_rxprbssel_1,
+  gt_rxrate_1,
+  gt_rxslide_in_1,
+  gt_rxstartofseq_1,
+  gt_txbufstatus_1,
+  gt_txinhibit_1,
+  gt_txlatclk_1,
+  gt_txmaincursor_1,
+  gt_txpcsreset_1,
+  gt_txpmareset_1,
+  gt_txpolarity_1,
+  gt_txpostcursor_1,
+  gt_txprbsforceerr_1,
+  gt_txelecidle_1,
+  gt_txprbssel_1,
+  gt_txprecursor_1,
+  gt_txdiffctrl_1,
+//// GT DRP Signals
+  gt_drpdo_1,
+  gt_drprdy_1,
+  gt_drpen_1,
+  gt_drpwe_1,
+  gt_drpaddr_1,
+  gt_drpdi_1,
+  gt_drpclk_1,
+  gt_drprst_1,
+
+  gtwiz_reset_tx_datapath_1,
+  gtwiz_reset_rx_datapath_1,
+  gtpowergood_out_1,
+  txoutclksel_in_1,
+  rxoutclksel_in_1,
+
+
   gt_refclk_p,
   gt_refclk_n,
   gt_refclk_out,
   qpllreset_in_0,
   ctl_rx_wdt_disable_0,
+  ctl_rx_wdt_disable_1,
   sys_reset,
   dclk
 );
@@ -205,6 +331,10 @@ module bd_xxv_ethernet_0_0 (
   input  wire gt_rxn_in_0;
   output wire gt_txp_out_0;
   output wire gt_txn_out_0;
+  input  wire gt_rxp_in_1;
+  input  wire gt_rxn_in_1;
+  output wire gt_txp_out_1;
+  output wire gt_txn_out_1;
   output wire tx_mii_clk_0;
   input  wire rx_core_clk_0;
   output wire rx_clk_out_0;
@@ -321,9 +451,126 @@ module bd_xxv_ethernet_0_0 (
   input wire [2:0] txoutclksel_in_0;
   input wire [2:0] rxoutclksel_in_0;
 
+  output wire tx_mii_clk_1;
+  input  wire rx_core_clk_1;
+  output wire rx_clk_out_1;
+ 
+  input  wire [2:0] gt_loopback_in_1;
+//// RX_1 Signals
+  input  wire rx_reset_1;
+  output wire user_rx_reset_1;
+  output wire rxrecclkout_1;
+//// RX_1 User Interface Signals
+  output wire [63:0] rx_mii_d_1;
+  output wire [7:0] rx_mii_c_1;
+
+
+
+//// RX_1 Control Signals
+  input  wire ctl_rx_test_pattern_1;
+  input  wire ctl_rx_test_pattern_enable_1;
+  input  wire ctl_rx_data_pattern_select_1;
+  input  wire ctl_rx_prbs31_test_pattern_enable_1;
+
+
+
+//// RX_1 Stats Signals
+  output wire stat_rx_block_lock_1;
+  output wire stat_rx_framing_err_valid_1;
+  output wire stat_rx_framing_err_1;
+  output wire stat_rx_hi_ber_1;
+  output wire stat_rx_valid_ctrl_code_1;
+  output wire stat_rx_bad_code_1;
+  output wire stat_rx_bad_code_valid_1;
+  output wire stat_rx_error_valid_1;
+  output wire [7:0] stat_rx_error_1;
+  output wire stat_rx_fifo_error_1;
+  output wire stat_rx_local_fault_1;
+    output wire  stat_rx_status_1;
+
+
+//// TX_1 Signals
+  input  wire tx_reset_1;
+  output wire user_tx_reset_1;
+
+//// TX_1 User Interface Signals
+  input  wire [63:0] tx_mii_d_1;
+  input  wire [7:0] tx_mii_c_1;
+
+//// TX_1 Control Signals
+  input  wire ctl_tx_test_pattern_1;
+  input  wire ctl_tx_test_pattern_enable_1;
+  input  wire ctl_tx_test_pattern_select_1;
+  input  wire ctl_tx_data_pattern_select_1;
+  input  wire [57:0] ctl_tx_test_pattern_seed_a_1;
+  input  wire [57:0] ctl_tx_test_pattern_seed_b_1;
+  input  wire ctl_tx_prbs31_test_pattern_enable_1;
+
+
+//// TX_1 Stats Signals
+  output wire stat_tx_local_fault_1;
+
+
+
+
+
+//// GT Debug interface ports
+  output wire [16:0] gt_dmonitorout_1;
+  output wire [0:0] gt_eyescandataerror_1;
+  input  wire [0:0] gt_eyescanreset_1;
+  input  wire [0:0] gt_eyescantrigger_1;
+  input  wire [15:0] gt_pcsrsvdin_1;
+  input  wire [0:0] gt_rxbufreset_1;
+  output wire [2:0] gt_rxbufstatus_1;
+  input  wire [0:0] gt_rxcdrhold_1;
+  input  wire [0:0] gt_rxcommadeten_1;
+  input  wire [0:0] gt_rxdfeagchold_1;
+  input  wire [0:0] gt_rxdfelpmreset_1;
+  input  wire [0:0] gt_rxlatclk_1;
+  input  wire [0:0] gt_rxlpmen_1;
+  input  wire [0:0] gt_rxpcsreset_1;
+  input  wire [0:0] gt_rxpmareset_1;
+  input  wire [0:0] gt_rxpolarity_1;
+  input  wire [0:0] gt_rxprbscntreset_1;
+  output wire [0:0] gt_rxprbserr_1;
+  output wire [0:0] gt_rxprbslocked_1;
+  output wire [0:0] gt_txresetdone_1;
+  input  wire [3:0] gt_rxprbssel_1;
+  input  wire [2:0] gt_rxrate_1;
+  input  wire [0:0] gt_rxslide_in_1;
+  output wire [1:0] gt_rxstartofseq_1;
+  output wire [1:0] gt_txbufstatus_1;
+  input  wire [0:0] gt_txinhibit_1;
+  input  wire [0:0] gt_txlatclk_1;
+  input  wire [6:0] gt_txmaincursor_1;
+  input  wire [0:0] gt_txpcsreset_1;
+  input  wire [0:0] gt_txpmareset_1;
+  input  wire [0:0] gt_txpolarity_1;
+  input  wire [4:0] gt_txpostcursor_1;
+  input  wire [0:0] gt_txprbsforceerr_1;
+  input  wire [0:0] gt_txelecidle_1;
+  input  wire [3:0] gt_txprbssel_1;
+  input  wire [4:0] gt_txprecursor_1;
+    input wire [4:0] gt_txdiffctrl_1;
+//// GT DRP interface ports
+  output wire [15:0] gt_drpdo_1;
+  output wire [0:0] gt_drprdy_1;
+  input  wire [0:0] gt_drpen_1;
+  input  wire [0:0] gt_drpwe_1;
+  input  wire [9:0] gt_drpaddr_1;
+  input  wire [15:0] gt_drpdi_1;
+  input wire gt_drpclk_1;
+  input wire gt_drprst_1;
+  input wire gtwiz_reset_tx_datapath_1;
+  input wire gtwiz_reset_rx_datapath_1;
+  output wire gtpowergood_out_1;
+  input wire [2:0] txoutclksel_in_1;
+  input wire [2:0] rxoutclksel_in_1;
+
   input  wire sys_reset;
   input  wire dclk;
   input ctl_rx_wdt_disable_0;
+  input ctl_rx_wdt_disable_1;
   input wire qpllreset_in_0;
   input  wire [0:0] gt_refclk_p;
   input  wire [0:0] gt_refclk_n;
@@ -332,7 +579,7 @@ module bd_xxv_ethernet_0_0 (
 
   bd_xxv_ethernet_0_0_wrapper #(
     .C_LINE_RATE(10),
-    .C_NUM_OF_CORES(1),
+    .C_NUM_OF_CORES(2),
     .C_CLOCKING("Asynchronous"),
     .C_DATA_PATH_INTERFACE("MII"),
     .C_BASE_R_KR("BASE-R"),
@@ -356,6 +603,10 @@ module bd_xxv_ethernet_0_0 (
     .gt_rxn_in_0 (gt_rxn_in_0),
     .gt_txp_out_0 (gt_txp_out_0),
     .gt_txn_out_0 (gt_txn_out_0),
+    .gt_rxp_in_1 (gt_rxp_in_1),
+    .gt_rxn_in_1 (gt_rxn_in_1),
+    .gt_txp_out_1 (gt_txp_out_1),
+    .gt_txn_out_1 (gt_txn_out_1),
 
     .tx_mii_clk_0 (tx_mii_clk_0),
     .rx_core_clk_0 (rx_core_clk_0),
@@ -467,11 +718,122 @@ module bd_xxv_ethernet_0_0 (
     .gtpowergood_out_0 (gtpowergood_out_0),
     .txoutclksel_in_0 (txoutclksel_in_0),
     .rxoutclksel_in_0 (rxoutclksel_in_0),
+    .tx_mii_clk_1 (tx_mii_clk_1),
+    .rx_core_clk_1 (rx_core_clk_1),
+    .rx_clk_out_1 (rx_clk_out_1),
+ 
+
+    .gt_loopback_in_1 (gt_loopback_in_1),
+
+    .rx_reset_1(rx_reset_1),
+    .user_rx_reset_1 (user_rx_reset_1),
+    .rxrecclkout_1 (rxrecclkout_1),
+//// RX User Interface Signals
+    .rx_mii_d_1 (rx_mii_d_1),
+    .rx_mii_c_1 (rx_mii_c_1),
+
+
+
+//// RX Control Signals
+    .ctl_rx_test_pattern_1 (ctl_rx_test_pattern_1),
+    .ctl_rx_test_pattern_enable_1 (ctl_rx_test_pattern_enable_1),
+    .ctl_rx_data_pattern_select_1 (ctl_rx_data_pattern_select_1),
+    .ctl_rx_prbs31_test_pattern_enable_1 (ctl_rx_prbs31_test_pattern_enable_1),
+
+
+
+//// RX Stats Signals
+    .stat_rx_block_lock_1 (stat_rx_block_lock_1),
+    .stat_rx_framing_err_valid_1 (stat_rx_framing_err_valid_1),
+    .stat_rx_framing_err_1 (stat_rx_framing_err_1),
+    .stat_rx_hi_ber_1 (stat_rx_hi_ber_1),
+    .stat_rx_valid_ctrl_code_1 (stat_rx_valid_ctrl_code_1),
+    .stat_rx_bad_code_1 (stat_rx_bad_code_1),
+    .stat_rx_bad_code_valid_1 (stat_rx_bad_code_valid_1),
+    .stat_rx_error_valid_1 (stat_rx_error_valid_1),
+    .stat_rx_error_1 (stat_rx_error_1),
+    .stat_rx_fifo_error_1 (stat_rx_fifo_error_1),
+    .stat_rx_local_fault_1 (stat_rx_local_fault_1),
+   .stat_rx_status_1 (stat_rx_status_1),
+
+
+    .tx_reset_1(tx_reset_1),
+    .user_tx_reset_1 (user_tx_reset_1),
+//// TX User Interface Signals
+    .tx_mii_d_1 (tx_mii_d_1),
+    .tx_mii_c_1 (tx_mii_c_1),
+
+//// TX Control Signals
+    .ctl_tx_test_pattern_1 (ctl_tx_test_pattern_1),
+    .ctl_tx_test_pattern_enable_1 (ctl_tx_test_pattern_enable_1),
+    .ctl_tx_test_pattern_select_1 (ctl_tx_test_pattern_select_1),
+    .ctl_tx_data_pattern_select_1 (ctl_tx_data_pattern_select_1),
+    .ctl_tx_test_pattern_seed_a_1 (ctl_tx_test_pattern_seed_a_1),
+    .ctl_tx_test_pattern_seed_b_1 (ctl_tx_test_pattern_seed_b_1),
+    .ctl_tx_prbs31_test_pattern_enable_1 (ctl_tx_prbs31_test_pattern_enable_1),
+
+
+//// TX Stats Signals
+    .stat_tx_local_fault_1 (stat_tx_local_fault_1),
+
+
+
+    .gt_drpclk_1 (gt_drpclk_1),
+    .gt_drprst_1 (gt_drprst_1),
+    .gt_dmonitorout_1(gt_dmonitorout_1),
+    .gt_eyescandataerror_1(gt_eyescandataerror_1),
+    .gt_eyescanreset_1(gt_eyescanreset_1),
+    .gt_eyescantrigger_1(gt_eyescantrigger_1),
+    .gt_pcsrsvdin_1(gt_pcsrsvdin_1),
+    .gt_rxbufreset_1(gt_rxbufreset_1),
+    .gt_rxbufstatus_1(gt_rxbufstatus_1),
+    .gt_rxcdrhold_1(gt_rxcdrhold_1),
+    .gt_rxcommadeten_1(gt_rxcommadeten_1),
+    .gt_rxdfeagchold_1(gt_rxdfeagchold_1),
+    .gt_rxdfelpmreset_1(gt_rxdfelpmreset_1),
+    .gt_rxlatclk_1(gt_rxlatclk_1),
+    .gt_rxlpmen_1(gt_rxlpmen_1),
+    .gt_rxpcsreset_1(gt_rxpcsreset_1),
+    .gt_rxpmareset_1(gt_rxpmareset_1),
+    .gt_rxpolarity_1(gt_rxpolarity_1),
+    .gt_rxprbscntreset_1(gt_rxprbscntreset_1),
+    .gt_rxprbserr_1(gt_rxprbserr_1),
+    .gt_rxprbslocked_1(gt_rxprbslocked_1),
+    .gt_txresetdone_1(gt_txresetdone_1),
+    .gt_rxprbssel_1(gt_rxprbssel_1),
+    .gt_rxrate_1(gt_rxrate_1),
+    .gt_rxslide_in_1(gt_rxslide_in_1),
+    .gt_rxstartofseq_1(gt_rxstartofseq_1),
+    .gt_txbufstatus_1(gt_txbufstatus_1),
+    .gt_txinhibit_1(gt_txinhibit_1),
+    .gt_txlatclk_1(gt_txlatclk_1),
+    .gt_txmaincursor_1(gt_txmaincursor_1),
+    .gt_txpcsreset_1(gt_txpcsreset_1),
+    .gt_txpmareset_1(gt_txpmareset_1),
+    .gt_txpolarity_1(gt_txpolarity_1),
+    .gt_txpostcursor_1(gt_txpostcursor_1),
+    .gt_txprbsforceerr_1(gt_txprbsforceerr_1),
+    .gt_txelecidle_1(gt_txelecidle_1),
+    .gt_txprbssel_1(gt_txprbssel_1),
+    .gt_txprecursor_1(gt_txprecursor_1),
+    .gt_txdiffctrl_1(gt_txdiffctrl_1),
+    .gt_drpdo_1(gt_drpdo_1),
+    .gt_drprdy_1(gt_drprdy_1),
+    .gt_drpen_1(gt_drpen_1),
+    .gt_drpwe_1(gt_drpwe_1),
+    .gt_drpaddr_1(gt_drpaddr_1),
+    .gt_drpdi_1(gt_drpdi_1),
+    .gtwiz_reset_tx_datapath_1 (gtwiz_reset_tx_datapath_1),
+    .gtwiz_reset_rx_datapath_1 (gtwiz_reset_rx_datapath_1),
+    .gtpowergood_out_1 (gtpowergood_out_1),
+    .txoutclksel_in_1 (txoutclksel_in_1),
+    .rxoutclksel_in_1 (rxoutclksel_in_1),
     .gt_refclk_p (gt_refclk_p),
     .gt_refclk_n (gt_refclk_n),
     .gt_refclk_out (gt_refclk_out),
     .qpllreset_in_0 (qpllreset_in_0),
     .ctl_rx_wdt_disable_0 (ctl_rx_wdt_disable_0),
+    .ctl_rx_wdt_disable_1 (ctl_rx_wdt_disable_1),
     .sys_reset (sys_reset),
     .dclk (dclk)
 
