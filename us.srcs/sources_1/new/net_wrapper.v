@@ -104,13 +104,35 @@ module net_wrapper #
      */
     input  wire [47:0] local_mac,
     input  wire [31:0] local_ip,
+    input  wire [31:0] remote_ip,
     input  wire [31:0] gateway_ip,
     input  wire [31:0] subnet_mask,
     input  wire        clear_arp_cache,
 
-    input  wire        tx_test,
-    output wire tx_eth_hdr_valid,
-    output  wire tx_eth_hdr_ready
+    output wire xfcp_rx_tvalid,
+    output wire xfcp_rx_tready,
+    output wire [7:0] xfcp_rx_tdata,
+    output wire xfcp_rx_tlast,
+
+    output wire xfcp_tx_tvalid,
+    output wire xfcp_tx_tready,
+    output wire [7:0] xfcp_tx_tdata,
+    output wire xfcp_tx_tlast,
+
+    output wire [63:0] udp_tx_tdata,
+    output wire [7:0] udp_tx_tkeep,
+    output wire udp_tx_tvalid,
+    output wire udp_tx_tready,
+    output wire udp_tx_tlast,
+
+    output wire [63:0] udp_rx_tdata,
+    output wire udp_rx_tready,
+    output wire udp_rx_tlast,
+    output wire [7:0] udp_rx_tkeep,
+    output wire udp_rx_tvalid,
+
+    output wire udp_header_valid,
+    output wire [15:0] udp_header_dst_port
 );
 
 // ---------------------------------------------------------------------------
@@ -165,12 +187,33 @@ net_inst (
     // Configuration
     .local_mac(local_mac),
     .local_ip(local_ip),
+    .remote_ip(remote_ip),
     .gateway_ip(gateway_ip),
     .subnet_mask(subnet_mask),
     .clear_arp_cache(clear_arp_cache),
-    .tx_test(tx_test),
-    .tx_eth_hdr_valid(tx_eth_hdr_valid),
-    .tx_eth_hdr_ready(tx_eth_hdr_ready)
+
+    .xfcp_rx_tvalid(xfcp_rx_tvalid),
+    .xfcp_rx_tready(xfcp_rx_tready),
+    .xfcp_rx_tdata(xfcp_rx_tdata),
+    .xfcp_rx_tlast(xfcp_rx_tlast),
+    .xfcp_tx_tvalid(xfcp_tx_tvalid),
+    .xfcp_tx_tready(xfcp_tx_tready),
+    .xfcp_tx_tdata(xfcp_tx_tdata),
+    .xfcp_tx_tlast(xfcp_tx_tlast),
+
+    .udp_tx_tdata(udp_tx_tdata),
+    .udp_tx_tkeep(udp_tx_tkeep),
+    .udp_tx_tvalid(udp_tx_tvalid),
+    .udp_tx_tready(udp_tx_tready),
+    .udp_tx_tlast(udp_tx_tlast),
+
+    .udp_rx_tdata(udp_rx_tdata),
+    .udp_rx_tready(udp_rx_tready),
+    .udp_rx_tlast(udp_rx_tlast),
+    .udp_rx_tvalid(udp_rx_tvalid),
+    .udp_rx_tkeep(udp_rx_tkeep),
+    .udp_header_valid(udp_header_valid),
+    .udp_header_dst_port(udp_header_dst_port)
 );
 
 endmodule

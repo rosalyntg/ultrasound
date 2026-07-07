@@ -1,2 +1,8 @@
 */language.settings.xml
 **/.settings/*
+us.ip_user_files/
+us.cache/
+us.hw/
+us.runs/
+us.sim/
+us.gen/

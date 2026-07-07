@@ -1,23 +1,23 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.947323",
-   "Default View_TopLeft":"1459,-1459",
+   "Default View_ScaleFactor":"0.507659",
+   "Default View_TopLeft":"1538,-999",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
 #  -string -flagsOSRD
 preplace port eth_refclk -pg 1 -lvl 0 -x -220 -y -370 -defaultsOSRD
 preplace port sfp_rx -pg 1 -lvl 0 -x -220 -y -350 -defaultsOSRD
-preplace port sfp_tx -pg 1 -lvl 10 -x 4390 -y 370 -defaultsOSRD
+preplace port sfp_tx -pg 1 -lvl 14 -x 5240 -y 370 -defaultsOSRD
 preplace port jesd_refclk -pg 1 -lvl 0 -x -220 -y -1670 -defaultsOSRD
 preplace port osc_200mhz -pg 1 -lvl 0 -x -220 -y 200 -defaultsOSRD
 preplace port jesd_coreclk -pg 1 -lvl 0 -x -220 -y -1440 -defaultsOSRD
-preplace port sfp_i2c -pg 1 -lvl 10 -x 4390 -y 2120 -defaultsOSRD
+preplace port sfp_i2c -pg 1 -lvl 14 -x 5240 -y 2120 -defaultsOSRD
 preplace portBus jesd_rxp -pg 1 -lvl 0 -x -220 -y -1550 -defaultsOSRD
 preplace portBus jesd_rxn -pg 1 -lvl 0 -x -220 -y -1530 -defaultsOSRD
 preplace portBus sfp_mod_abs -pg 1 -lvl 0 -x -220 -y 1770 -defaultsOSRD
-preplace portBus led -pg 1 -lvl 10 -x 4390 -y -1420 -defaultsOSRD
-preplace inst xxv_ethernet_0 -pg 1 -lvl 5 -x 2290 -y 1070 -defaultsOSRD
-preplace inst jesd204_phy_0 -pg 1 -lvl 5 -x 2290 -y -1690 -defaultsOSRD
+preplace portBus led -pg 1 -lvl 14 -x 5240 -y -1420 -defaultsOSRD
+preplace inst xxv_ethernet_0 -pg 1 -lvl 6 -x 2440 -y 1390 -defaultsOSRD
+preplace inst jesd204_phy_0 -pg 1 -lvl 6 -x 2440 -y -1690 -defaultsOSRD
 preplace inst util_ds_buf_0 -pg 1 -lvl 3 -x 730 -y -1670 -defaultsOSRD
 preplace inst jesd_coreclk_buf -pg 1 -lvl 1 -x -30 -y -1440 -defaultsOSRD
 preplace inst sysclk_wiz -pg 1 -lvl 1 -x -30 -y 200 -defaultsOSRD
@@ -25,112 +25,136 @@ preplace inst microblaze_riscv_0 -pg 1 -lvl 4 -x 1320 -y 490 -defaultsOSRD
 preplace inst microblaze_riscv_0_local_memory -pg 1 -lvl 4 -x 1320 -y 1100 -defaultsOSRD
 preplace inst microblaze_riscv_0_axi_periph -pg 1 -lvl 1 -x -30 -y -250 -defaultsOSRD
 preplace inst microblaze_riscv_0_axi_intc -pg 1 -lvl 2 -x 350 -y 220 -defaultsOSRD
-preplace inst microblaze_riscv_0_xlconcat -pg 1 -lvl 9 -x 4260 -y 260 -defaultsOSRD
+preplace inst microblaze_riscv_0_xlconcat -pg 1 -lvl 13 -x 5080 -y 260 -defaultsOSRD
 preplace inst mdm_1 -pg 1 -lvl 2 -x 350 -y 460 -defaultsOSRD
 preplace inst rst_sysclk_wiz_25M -pg 1 -lvl 2 -x 350 -y 670 -defaultsOSRD
-preplace inst vio_tx -pg 1 -lvl 8 -x 3900 -y -680 -defaultsOSRD
-preplace inst vio_rx -pg 1 -lvl 8 -x 3900 -y -280 -defaultsOSRD
-preplace inst vio_eth -pg 1 -lvl 5 -x 2290 -y 2340 -defaultsOSRD
-preplace inst c_counter_binary_0 -pg 1 -lvl 8 -x 3900 -y 210 -defaultsOSRD
-preplace inst c_counter_binary_1 -pg 1 -lvl 8 -x 3900 -y 110 -defaultsOSRD
+preplace inst vio_tx -pg 1 -lvl 12 -x 4750 -y -680 -defaultsOSRD
+preplace inst vio_rx -pg 1 -lvl 6 -x 2440 -y 40 -defaultsOSRD
+preplace inst vio_eth -pg 1 -lvl 6 -x 2440 -y 2660 -defaultsOSRD
+preplace inst c_counter_binary_0 -pg 1 -lvl 12 -x 4750 -y 210 -defaultsOSRD
+preplace inst c_counter_binary_1 -pg 1 -lvl 12 -x 4750 -y 110 -defaultsOSRD
 preplace inst ilconstant_0 -pg 1 -lvl 4 -x 1320 -y -890 -defaultsOSRD
 preplace inst ilconstant_1 -pg 1 -lvl 1 -x -30 -y 650 -defaultsOSRD
-preplace inst sfp_i2c -pg 1 -lvl 5 -x 2290 -y 3720 -defaultsOSRD
-preplace inst net_wrapper_0 -pg 1 -lvl 5 -x 2290 -y -830 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 6 -x 3050 -y -1430 -defaultsOSRD
-preplace inst ila_0 -pg 1 -lvl 7 -x 3380 -y -1130 -defaultsOSRD
-preplace netloc axi_gpio_0_gpio_io_o 1 6 4 NJ -1420 N -1420 NJ -1420 N
-preplace netloc c_counter_binary_0_Q 1 4 5 1950 3640 2830J 3720 N 3720 N 3720 4060
-preplace netloc c_counter_binary_1_Q 1 4 5 2040 3630 2840J 3710 N 3710 N 3710 4100
-preplace netloc clear_arp_cache 1 4 5 1990 30 2800J 60 NJ 60 3480 270 4070
-preplace netloc gateway_ip 1 4 5 1900 40 NJ 40 NJ 40 N 40 4050
+preplace inst sfp_i2c -pg 1 -lvl 6 -x 2440 -y 4040 -defaultsOSRD
+preplace inst net_wrapper_0 -pg 1 -lvl 6 -x 2440 -y -670 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 10 -x 4130 -y -1430 -defaultsOSRD
+preplace inst ila_0 -pg 1 -lvl 11 -x 4400 -y -1130 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 8 -x 3570 -y -1220 -defaultsOSRD
+preplace inst ila_1 -pg 1 -lvl 9 -x 3870 -y -1680 -defaultsOSRD
+preplace inst ilvector_logic_0 -pg 1 -lvl 5 -x 1750 -y -870 -defaultsOSRD
+preplace inst ila_2 -pg 1 -lvl 7 -x 3310 -y -1630 -defaultsOSRD
+preplace netloc Net 1 5 7 2180 -170 3110J -170 N -170 N -170 N -170 NJ -170 4640
+preplace netloc axi_gpio_0_gpio_io_o 1 10 4 NJ -1420 N -1420 NJ -1420 N
+preplace netloc c_counter_binary_0_Q 1 5 8 1990 720 3100J 1040 N 1040 N 1040 N 1040 N 1040 N 1040 4860
+preplace netloc c_counter_binary_1_Q 1 5 8 1980 710 3190J 1030 N 1030 N 1030 N 1030 N 1030 N 1030 4870
+preplace netloc clear_arp_cache 1 5 2 2190 -290 2980J
+preplace netloc drprst0 1 5 2 2170 2040 2960
+preplace netloc drprst1 1 5 2 2180 2030 2970
+preplace netloc gateway_ip 1 5 2 2110 200 2740J
 preplace netloc ilconstant_1_dout 1 1 1 N 650
-preplace netloc local_ip 1 4 5 2040 -640 2830J -790 NJ -790 N -790 4110
-preplace netloc local_mac 1 4 5 2020 -630 2840J -780 NJ -780 N -780 4100
-preplace netloc logic_rst 1 4 5 2040 -1410 2750 -1510 NJ -1510 N -1510 4070
-preplace netloc mdm_1_debug_sys_rst 1 1 2 170 380 530
-preplace netloc microblaze_riscv_0_Clk 1 0 5 -170 260 150J 360 N 360 1030 360 1740
-preplace netloc microblaze_riscv_0_intr 1 1 9 170 110 N 110 N 110 N 110 2730 330 N 330 N 330 N 330 4370
-preplace netloc net_wrapper_0_ip_rx_busy 1 5 3 N -830 N -830 3720
-preplace netloc net_wrapper_0_ip_tx_busy 1 5 3 N -810 N -810 3530
-preplace netloc net_wrapper_0_rx_error_bad_fcs 1 5 3 N -850 N -850 3730
-preplace netloc net_wrapper_0_rx_error_bad_frame 1 5 3 N -870 N -870 3750
-preplace netloc net_wrapper_0_tx_eth_hdr_ready 1 5 3 NJ -730 3280J -730 3520
-preplace netloc net_wrapper_0_tx_eth_hdr_valid 1 5 3 NJ -750 3260J -750 3710
-preplace netloc net_wrapper_0_udp_rx_busy 1 5 3 2820 -770 N -770 3490
-preplace netloc net_wrapper_0_udp_tx_busy 1 5 3 2810 -760 N -760 3480
-preplace netloc qpllreset 1 4 2 1970 2670 2560
-preplace netloc reset_rx_datapath0 1 4 2 1950 2070 2540
-preplace netloc reset_tx_datapath0 1 4 2 2010 2020 2680
+preplace netloc ilvector_logic_0_Res 1 5 1 1960 -870n
+preplace netloc local_ip 1 5 2 1980 210 2810J
+preplace netloc local_mac 1 5 2 2170 -1070 2970J
+preplace netloc logic_rstn 1 4 6 1600 -1100 NJ -1100 3130 -1200 3410 -1410 NJ -1410 NJ
+preplace netloc mdm_1_debug_sys_rst 1 1 2 170 570 530
+preplace netloc microblaze_riscv_0_Clk 1 0 6 -180 100 150J 100 N 100 1040 100 N 100 1950
+preplace netloc microblaze_riscv_0_intr 1 1 13 170 110 N 110 N 110 N 110 1930 220 3200 50 N 50 N 50 N 50 N 50 N 50 N 50 5190
+preplace netloc net_wrapper_0_ip_rx_busy 1 5 2 2130 -280 2810
+preplace netloc net_wrapper_0_ip_tx_busy 1 5 2 2150 -270 2750
+preplace netloc net_wrapper_0_rx_error_bad_fcs 1 5 2 2160 -260 2840
+preplace netloc net_wrapper_0_rx_error_bad_frame 1 5 2 2170 -250 2860J
+preplace netloc net_wrapper_0_udp_header_dst_port 1 6 5 3140 -1130 3410 -1110 N -1110 N -1110 NJ
+preplace netloc net_wrapper_0_udp_header_valid 1 6 5 3160 -1100 N -1100 N -1100 N -1100 4280J
+preplace netloc net_wrapper_0_udp_rx_busy 1 5 2 2180 -160 2800
+preplace netloc net_wrapper_0_udp_rx_tdata 1 6 5 2980 -1110 3430 -1120 3740 -1210 N -1210 NJ
+preplace netloc net_wrapper_0_udp_rx_tkeep 1 6 5 3010 -1090 N -1090 3770 -1170 N -1170 NJ
+preplace netloc net_wrapper_0_udp_rx_tlast 1 6 5 2990 -1120 3420 -1130 3750 -1190 N -1190 NJ
+preplace netloc net_wrapper_0_udp_rx_tready 1 6 5 3030 -1080 N -1080 3710 -1150 N -1150 NJ
+preplace netloc net_wrapper_0_udp_rx_tvalid 1 6 5 3040 -1070 N -1070 3720 -1080 3990 -1090 NJ
+preplace netloc net_wrapper_0_udp_tx_busy 1 5 2 2190 -130 2740
+preplace netloc net_wrapper_0_udp_tx_tdata 1 6 5 3100 -1010 N -1010 N -1010 N -1010 NJ
+preplace netloc net_wrapper_0_udp_tx_tkeep 1 6 5 3110 -990 N -990 N -990 N -990 NJ
+preplace netloc net_wrapper_0_udp_tx_tlast 1 6 5 3120 -970 N -970 N -970 N -970 NJ
+preplace netloc net_wrapper_0_udp_tx_tready 1 6 5 3170 -930 N -930 N -930 N -930 NJ
+preplace netloc net_wrapper_0_udp_tx_tvalid 1 6 5 3150 -950 N -950 N -950 N -950 NJ
+preplace netloc net_wrapper_0_xfcp_rx_tdata 1 6 5 3000 -1350 N -1350 N -1350 3980 -1330 NJ
+preplace netloc net_wrapper_0_xfcp_rx_tlast 1 6 5 3200 -850 N -850 N -850 3970 -910 NJ
+preplace netloc net_wrapper_0_xfcp_rx_tready 1 6 5 3070 -1310 N -1310 3750 -1290 N -1290 NJ
+preplace netloc net_wrapper_0_xfcp_rx_tvalid 1 6 5 3020 -1340 N -1340 3760 -1310 N -1310 NJ
+preplace netloc net_wrapper_0_xfcp_tx_tdata 1 6 5 3060 -1330 N -1330 N -1330 3970 -1340 4280J
+preplace netloc net_wrapper_0_xfcp_tx_tlast 1 6 5 3090 -1300 N -1300 3730 -1070 N -1070 NJ
+preplace netloc net_wrapper_0_xfcp_tx_tready 1 6 5 3180 -1060 N -1060 N -1060 N -1060 4270J
+preplace netloc net_wrapper_0_xfcp_tx_tvalid 1 6 5 3190 -1050 N -1050 3760 -1250 N -1250 NJ
+preplace netloc net_wrapper_0_xgmii_txc 1 5 2 2100 -150 2910
+preplace netloc net_wrapper_0_xgmii_txd 1 5 2 2140 -140 2920
+preplace netloc qpllreset 1 5 2 2160 2050 2850
+preplace netloc remote_ip 1 5 2 1990 230 2750J
+preplace netloc reset_rx_datapath0 1 5 2 2150 2060 2770
+preplace netloc reset_rx_datapath1 1 5 2 2130 2070 2950
+preplace netloc reset_tx_datapath0 1 5 2 2080 2360 2710
+preplace netloc reset_tx_datapath1 1 5 2 2070 2370 2870
 preplace netloc rst_sysclk_wiz_25M_bus_struct_reset 1 2 2 N 650 880
-preplace netloc rst_sysclk_wiz_25M_mb_reset 1 1 3 170 350 550 520 N
-preplace netloc rst_sysclk_wiz_25M_peripheral_aresetn 1 0 5 -180 270 160 370 540 1010 N 1010 1580
-preplace netloc rx_reset 1 4 2 1930 2700 2640
-preplace netloc rx_rst 1 4 5 2010 -620 NJ -620 NJ -620 3510 -760 4050
-preplace netloc rxn_in_1_1 1 0 5 NJ -1530 N -1530 N -1530 N -1530 1600
-preplace netloc rxp_in_1_1 1 0 5 NJ -1550 N -1550 N -1550 N -1550 1580
-preplace netloc sfp_i2c_iic2intc_irpt 1 5 4 2820 280 N 280 N 280 4110J
-preplace netloc sfp_mod_abs 1 0 5 NJ 1770 NJ 1770 NJ 1770 NJ 1770 1590
-preplace netloc subnet_mask 1 4 5 1920 -590 NJ -590 NJ -590 3710 -600 4060
-preplace netloc sys_reset 1 4 2 2020 2010 2700
-preplace netloc tx_reset 1 4 2 1910 2710 2600
-preplace netloc tx_rst 1 4 5 1890 50 NJ 50 NJ 50 N 50 4090
-preplace netloc tx_test 1 4 5 2000 -610 NJ -610 NJ -610 3500 -770 4080
-preplace netloc util_ds_buf_0_IBUF_OUT 1 3 2 920 -1710 N
-preplace netloc util_ds_buf_1_BUFGCE_O 1 1 4 N -1440 N -1440 N -1440 1770
-preplace netloc vio_eth_probe_out10 1 4 2 1750 2860 2790
-preplace netloc xxv_ethernet_0_gtpowergood_out_0 1 4 2 1870 2740 2720
-preplace netloc xxv_ethernet_0_rx_clk_out_0 1 4 4 1790J -1040 2790 10 N 10 3740
-preplace netloc xxv_ethernet_0_rx_mii_c_0 1 4 2 2020 -1030 2590
-preplace netloc xxv_ethernet_0_rx_mii_d_0 1 4 2 2030 -1020 2610
-preplace netloc xxv_ethernet_0_stat_rx_bad_code_0 1 4 2 2040 2060 2650
-preplace netloc xxv_ethernet_0_stat_rx_bad_code_valid_0 1 4 2 2020 2050 2610
-preplace netloc xxv_ethernet_0_stat_rx_block_lock_0 1 4 2 2030 2610 2770
-preplace netloc xxv_ethernet_0_stat_rx_error_0 1 4 2 2010 2630 2570
-preplace netloc xxv_ethernet_0_stat_rx_error_valid_0 1 4 2 2020 2620 2760
-preplace netloc xxv_ethernet_0_stat_rx_fifo_error_0 1 4 2 1860 2750 2740
-preplace netloc xxv_ethernet_0_stat_rx_framing_err_0 1 4 2 1840 2770 2660
-preplace netloc xxv_ethernet_0_stat_rx_framing_err_valid_0 1 4 2 1850 2760 2730
-preplace netloc xxv_ethernet_0_stat_rx_hi_ber_0 1 4 2 1830 2780 2620
-preplace netloc xxv_ethernet_0_stat_rx_local_fault_0 1 4 2 1820 2790 2590
-preplace netloc xxv_ethernet_0_stat_rx_status_0 1 4 2 1810 2800 2580
-preplace netloc xxv_ethernet_0_stat_rx_valid_ctrl_code_0 1 4 2 1800 2810 2750
-preplace netloc xxv_ethernet_0_stat_tx_local_fault_0 1 4 2 2000 2640 2780
-preplace netloc xxv_ethernet_0_user_rx_reset_0 1 4 2 1790 2820 2710
-preplace netloc net_wrapper_0_xgmii_txc 1 4 3 1780 -1050 2760 -1130 N
-preplace netloc net_wrapper_0_xgmii_txd 1 4 3 1770 -1060 2750 -1150 N
-preplace netloc xxv_ethernet_0_rx_clk_out_1 1 4 2 2030 2000 2540
-preplace netloc xxv_ethernet_0_tx_mii_clk_1 1 4 4 1880 -580 2810 -600 3270 -600 3700
-preplace netloc xxv_ethernet_0_user_tx_reset_1 1 4 2 1780 2830 2690
-preplace netloc txdiffctrl 1 4 2 1890 2720 2550
-preplace netloc xxv_ethernet_0_gt_txbufstatus_1 1 4 1 1900 740n
-preplace netloc txpolarity 1 4 2 2000 2030 2630
-preplace netloc txpostcursor 1 4 2 1920 2040 2600
-preplace netloc txprecursor 1 4 2 1880 2730 2700
-preplace netloc txreset0 1 4 2 1770 2840 2670
-preplace netloc vio_eth_probe_out11 1 4 2 1760 2850 2630
-preplace netloc reset_tx_datapath1 1 4 2 1940 2690 2680
-preplace netloc reset_rx_datapath1 1 4 2 1960 2680 2650
-preplace netloc drprst0 1 4 2 1990 2650 2610
-preplace netloc drprst1 1 4 2 1980 2660 2540
+preplace netloc rst_sysclk_wiz_25M_mb_reset 1 1 3 170 540 550 520 N
+preplace netloc rst_sysclk_wiz_25M_peripheral_aresetn 1 0 6 -170 130 130 550 540 1010 N 1010 N 1010 1900
+preplace netloc rx_reset 1 5 2 2040 2380 2760
+preplace netloc rx_rst 1 5 2 2180 -1060 2930J
+preplace netloc rxn_in_1_1 1 0 6 NJ -1530 N -1530 N -1530 N -1530 N -1530 1940
+preplace netloc rxp_in_1_1 1 0 6 NJ -1550 N -1550 N -1550 N -1550 N -1550 1920
+preplace netloc sfp_i2c_iic2intc_irpt 1 6 7 3200 270 N 270 N 270 N 270 N 270 N 270 4880J
+preplace netloc sfp_mod_abs 1 0 6 NJ 1770 NJ 1770 NJ 1770 NJ 1770 N 1770 1910
+preplace netloc subnet_mask 1 5 2 2120 -120 2750J
+preplace netloc sys_reset 1 5 2 2010 2390 2700
+preplace netloc tx_reset 1 5 2 2120 2080 2820
+preplace netloc tx_rst 1 5 8 2110 -1320 NJ -1320 N -1320 N -1320 N -1320 4270J -1430 N -1430 4860
+preplace netloc txdiffctrl 1 5 2 2160 730 2930
+preplace netloc txpolarity 1 5 2 2170 740 2920
+preplace netloc txpostcursor 1 5 2 2190 760 2740
+preplace netloc txprecursor 1 5 2 2180 750 2810
+preplace netloc txreset0 1 5 2 2110 2090 2730
+preplace netloc util_ds_buf_0_IBUF_OUT 1 3 3 880 -1710 N -1710 N
+preplace netloc util_ds_buf_1_BUFGCE_O 1 1 5 N -1440 N -1440 N -1440 N -1440 1970
+preplace netloc vio_eth_probe_out10 1 5 2 2100 2100 2780
+preplace netloc vio_eth_probe_out11 1 5 2 2090 2110 2940
+preplace netloc xxv_ethernet_0_gt_txbufstatus_1 1 5 1 1960 900n
+preplace netloc xxv_ethernet_0_gtpowergood_out_0 1 5 2 2020 2120 2690
+preplace netloc xxv_ethernet_0_rx_clk_out_0 1 5 7 1970 -1090 2940 -1430 3430 -1430 3760 -1430 3990 -1350 4300 -1410 4500
+preplace netloc xxv_ethernet_0_rx_clk_out_1 1 5 2 2190 2020 2730
+preplace netloc xxv_ethernet_0_rx_mii_c_0 1 5 6 2120 -1080 2870 -1030 N -1030 N -1030 N -1030 N
+preplace netloc xxv_ethernet_0_rx_mii_d_0 1 5 6 2190 -1050 3080 -1040 N -1040 N -1040 N -1040 4280
+preplace netloc xxv_ethernet_0_stat_rx_bad_code_0 1 5 2 2090 2140 2830
+preplace netloc xxv_ethernet_0_stat_rx_bad_code_valid_0 1 5 2 2050 2130 2720
+preplace netloc xxv_ethernet_0_stat_rx_block_lock_0 1 5 2 2100 2150 2790
+preplace netloc xxv_ethernet_0_stat_rx_error_0 1 5 2 2120 2170 2860
+preplace netloc xxv_ethernet_0_stat_rx_error_valid_0 1 5 2 2110 2160 2750
+preplace netloc xxv_ethernet_0_stat_rx_fifo_error_0 1 5 2 2130 2180 2840
+preplace netloc xxv_ethernet_0_stat_rx_framing_err_0 1 5 2 2160 2200 2900
+preplace netloc xxv_ethernet_0_stat_rx_framing_err_valid_0 1 5 2 2140 2190 2800
+preplace netloc xxv_ethernet_0_stat_rx_hi_ber_0 1 5 2 2000 2210 2890
+preplace netloc xxv_ethernet_0_stat_rx_local_fault_0 1 5 2 2030 2220 2870
+preplace netloc xxv_ethernet_0_stat_rx_status_0 1 5 2 2060 2230 2710
+preplace netloc xxv_ethernet_0_stat_rx_valid_ctrl_code_0 1 5 2 2150 2240 2880
+preplace netloc xxv_ethernet_0_stat_tx_local_fault_0 1 5 2 2170 2250 2910
+preplace netloc xxv_ethernet_0_user_rx_reset_0 1 5 2 2180 2260 2760
+preplace netloc xxv_ethernet_0_user_tx_reset_1 1 5 2 2190 2270 2700
 preplace netloc CLK_IN1_D_0_1 1 0 1 N 200
 preplace netloc CLK_IN_D_0_1 1 0 3 N -1670 N -1670 N
 preplace netloc CLK_IN_D_0_2 1 0 1 N -1440
-preplace netloc gt_ref_clk_0_1 1 0 5 N -370 N -370 N -370 N -370 1760
-preplace netloc gt_rx_0_1 1 0 5 N -350 N -350 N -350 N -350 1750
-preplace netloc microblaze_riscv_0_axi_dp 1 0 5 -170 -330 N -330 N -330 N -330 1600
-preplace netloc microblaze_riscv_0_axi_periph_M02_AXI 1 1 4 NJ -230 NJ -230 NJ -230 1610
+preplace netloc gt_ref_clk_0_1 1 0 6 N -370 N -370 N -370 N -370 N -370 1960
+preplace netloc gt_rx_0_1 1 0 6 N -350 N -350 N -350 N -350 N -350 1940
+preplace netloc microblaze_riscv_0_axi_dp 1 0 5 -180 -950 N -950 N -950 N -950 1590
+preplace netloc microblaze_riscv_0_axi_periph_M02_AXI 1 1 5 NJ -230 NJ -230 NJ -230 N -230 1920
 preplace netloc microblaze_riscv_0_debug 1 2 2 N 440 880
-preplace netloc microblaze_riscv_0_dlmb_1 1 3 2 1050 390 1580
-preplace netloc microblaze_riscv_0_ilmb_1 1 3 2 1060 400 1590
-preplace netloc microblaze_riscv_0_intc_axi 1 1 1 120 -270n
-preplace netloc microblaze_riscv_0_interrupt 1 2 2 N 220 1040
-preplace netloc microblaze_riscv_0_mdm_axi 1 1 1 110 -250n
-preplace netloc net_wrapper_0_m_axi 1 5 1 2730 -1450n
-preplace netloc sfp_i2c_IIC 1 5 5 NJ 3700 N 3700 3590 2120 NJ 2120 NJ
-preplace netloc xxv_ethernet_0_gt_tx 1 5 5 NJ 700 N 700 N 700 N 700 4370
-levelinfo -pg 1 -220 -30 350 730 1320 2290 3050 3380 3900 4260 4390
-pagesize -pg 1 -db -bbox -sgen -690 -2320 4520 3800
+preplace netloc microblaze_riscv_0_dlmb_1 1 3 2 1050 580 1600
+preplace netloc microblaze_riscv_0_ilmb_1 1 3 2 1060 590 1580
+preplace netloc microblaze_riscv_0_intc_axi 1 1 1 160 -270n
+preplace netloc microblaze_riscv_0_interrupt 1 2 2 N 220 1060
+preplace netloc microblaze_riscv_0_mdm_axi 1 1 1 140 -250n
+preplace netloc net_wrapper_0_m_axi 1 6 2 3050 -1240 N
+preplace netloc sfp_i2c_IIC 1 6 8 NJ 4020 N 4020 N 4020 N 4020 N 4020 4510 2120 NJ 2120 NJ
+preplace netloc smartconnect_0_M00_AXI 1 8 2 3710 -1450 N
+preplace netloc xxv_ethernet_0_gt_tx 1 6 8 NJ 1020 N 1020 N 1020 N 1020 N 1020 N 1020 N 1020 5190
+levelinfo -pg 1 -220 -30 350 730 1320 1750 2440 3310 3570 3870 4130 4400 4750 5080 5240
+pagesize -pg 1 -db -bbox -sgen -690 -2320 5350 4500
 "
 }
 {

@@ -109,14 +109,35 @@ module net #
      */
     input  logic [47:0] local_mac,
     input  logic [31:0] local_ip,
+    input  logic [31:0] remote_ip,
     input  logic [31:0] gateway_ip,
     input  logic [31:0] subnet_mask,
     input  logic        clear_arp_cache,
 
-    output logic tx_eth_hdr_valid,
-    output logic tx_eth_hdr_ready,
+    output logic xfcp_rx_tvalid,
+    output logic xfcp_rx_tready,
+    output logic [7:0] xfcp_rx_tdata,
+    output logic xfcp_rx_tlast,
 
-    input  logic        tx_test
+    output logic xfcp_tx_tvalid,
+    output logic xfcp_tx_tready,
+    output logic [7:0] xfcp_tx_tdata,
+    output logic xfcp_tx_tlast,
+
+    output logic [63:0] udp_tx_tdata,
+    output logic [7:0] udp_tx_tkeep,
+    output logic udp_tx_tvalid,
+    output logic udp_tx_tready,
+    output logic udp_tx_tlast,
+
+    output logic [63:0] udp_rx_tdata,
+    output logic udp_rx_tready,
+    output logic udp_rx_tlast,
+    output logic [7:0] udp_rx_tkeep,
+    output logic udp_rx_tvalid,
+
+    output logic udp_header_valid,
+    output logic [15:0] udp_header_dst_port
 );
 
 // ---------------------------------------------------------------------------
@@ -290,21 +311,13 @@ eth_axis_tx_inst (
 
 
 
-taxi_axis_if #(.DATA_W(8), .LAST_EN(1), .USER_EN(1), .USER_W(1)) xfcp_rx(), xfcp_tx(), xfcp_tx_checksum();
+taxi_axis_if #(.DATA_W(64), .LAST_EN(1), .USER_EN(1), .USER_W(1)) xfcp_rx(), xfcp_tx();
 
 wire [15:0] m_udp_dest_port;
 wire m_udp_payload_axis_tvalid;
-logic [15:0] cur_udp_dest_port;
 
-always_ff @(posedge logic_clk) begin
-    if (logic_rst) begin
-        cur_udp_dest_port <= 16'd0;
-    end else if (m_udp_payload_axis_tvalid) begin
-        cur_udp_dest_port <= m_udp_dest_port;
-    end
-end
 
-assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && cur_udp_dest_port == 16'd8001;
+assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && m_udp_dest_port == 16'd8001;
 
 udpaux_if udp_tx_checksum();
 
@@ -318,7 +331,7 @@ udp_complete_64 #(
 //    .ARP_REQUEST_RETRY_COUNT(ARP_REQUEST_RETRY_COUNT),
 //    .ARP_REQUEST_RETRY_INTERVAL(ARP_REQUEST_RETRY_INTERVAL),
 //    .ARP_REQUEST_TIMEOUT(ARP_REQUEST_TIMEOUT),
-//    .UDP_CHECKSUM_GEN_ENABLE(UDP_CHECKSUM_GEN_ENABLE)
+   .UDP_CHECKSUM_GEN_ENABLE(1)
 )
 udp_complete_inst (
     .clk(logic_clk),
@@ -389,23 +402,24 @@ udp_complete_inst (
     .m_ip_payload_axis_tlast(),
     .m_ip_payload_axis_tuser(),
     // UDP frame input (application side)
-    .s_udp_hdr_valid(udp_tx_checksum.hdr_valid),
-    .s_udp_hdr_ready(udp_tx_checksum.hdr_ready),
-    .s_udp_ip_dscp(udp_tx_checksum.ip_dscp),
-    .s_udp_ip_ecn(udp_tx_checksum.ip_ecn),
-    .s_udp_ip_ttl(udp_tx_checksum.ip_ttl),
-    .s_udp_ip_source_ip(udp_tx_checksum.ip_source_ip),
-    .s_udp_ip_dest_ip(udp_tx_checksum.ip_dest_ip),
-    .s_udp_source_port(udp_tx_checksum.source_port),
-    .s_udp_dest_port(udp_tx_checksum.dest_port),
-    .s_udp_length(udp_tx_checksum.length),
-    .s_udp_checksum(udp_tx_checksum.checksum),
-    .s_udp_payload_axis_tdata(xfcp_tx_checksum.tdata),
-    .s_udp_payload_axis_tkeep(xfcp_tx_checksum.tkeep),
-    .s_udp_payload_axis_tvalid(xfcp_tx_checksum.tvalid),
-    .s_udp_payload_axis_tready(xfcp_tx_checksum.tready),
-    .s_udp_payload_axis_tlast(xfcp_tx_checksum.tlast),
-    .s_udp_payload_axis_tuser(xfcp_tx_checksum.tuser),
+
+    .s_udp_hdr_valid(1'b1),
+    .s_udp_hdr_ready(),
+    .s_udp_ip_dscp(1'b0),
+    .s_udp_ip_ecn(1'b0),
+    .s_udp_ip_ttl(8'd64),
+    .s_udp_ip_source_ip(local_ip),
+    .s_udp_ip_dest_ip(remote_ip),
+    .s_udp_source_port(16'd8001),
+    .s_udp_dest_port(16'd8001),
+    .s_udp_length(), // computed by udp_complete_64
+    .s_udp_checksum(), // computed by udp_complete_64
+    .s_udp_payload_axis_tdata(xfcp_tx.tdata),
+    .s_udp_payload_axis_tkeep(xfcp_tx.tkeep),
+    .s_udp_payload_axis_tvalid(xfcp_tx.tvalid),
+    .s_udp_payload_axis_tready(xfcp_tx.tready),
+    .s_udp_payload_axis_tlast(xfcp_tx.tlast),
+    .s_udp_payload_axis_tuser(xfcp_tx.tuser),
     // UDP frame output (application side)
     .m_udp_hdr_valid(),
     .m_udp_hdr_ready(1'b1),
@@ -432,7 +446,7 @@ udp_complete_inst (
     .m_udp_payload_axis_tdata(xfcp_rx.tdata),
     .m_udp_payload_axis_tkeep(xfcp_rx.tkeep),
     .m_udp_payload_axis_tvalid(m_udp_payload_axis_tvalid),
-    .m_udp_payload_axis_tready(xfcp_rx.tready | tx_test),
+    .m_udp_payload_axis_tready(xfcp_rx.tready),
     .m_udp_payload_axis_tlast(xfcp_rx.tlast),
     .m_udp_payload_axis_tuser(xfcp_rx.tuser),
     // Status
@@ -457,50 +471,9 @@ udp_complete_inst (
     .clear_arp_cache(clear_arp_cache)
 );
 
-udp_checksum_gen_64 udp_checksum_gen_inst (
-    .clk(logic_clk),
-    .rst(logic_rst),
-    // AXI input
-    .s_udp_payload_axis_tdata(xfcp_tx.tdata),
-    .s_udp_payload_axis_tkeep(xfcp_tx.tkeep),
-    .s_udp_payload_axis_tvalid(xfcp_tx.tvalid | tx_test),
-    .s_udp_payload_axis_tready(xfcp_tx.tready),
-    .s_udp_payload_axis_tlast(xfcp_tx.tlast),
-    .s_udp_payload_axis_tuser(xfcp_tx.tuser),
-
-
-    .s_udp_hdr_valid(1'b1),
-    .s_udp_hdr_ready(1'b1),
-    .s_ip_source_ip({8'd10, 8'd80, 8'd4, 8'd1}),
-    .s_ip_dest_ip({8'd10, 8'd80, 8'd4, 8'd2}),
-    .s_udp_source_port(16'd8001),
-    .s_udp_dest_port(16'd8001),
-
-    // AXI output
-    .m_udp_payload_axis_tdata(xfcp_tx_checksum.tdata),
-    .m_udp_payload_axis_tkeep(xfcp_tx_checksum.tkeep),
-    .m_udp_payload_axis_tvalid(xfcp_tx_checksum.tvalid),
-    .m_udp_payload_axis_tready(xfcp_tx_checksum.tready),
-    .m_udp_payload_axis_tlast(xfcp_tx_checksum.tlast),
-    .m_udp_payload_axis_tuser(xfcp_tx_checksum.tuser),
-
-    .m_udp_hdr_valid(udp_tx_checksum.hdr_valid),
-    .m_udp_hdr_ready(udp_tx_checksum.hdr_ready),
-    .m_ip_dscp(udp_tx_checksum.ip_dscp),
-    .m_ip_ecn(udp_tx_checksum.ip_ecn),
-    .m_ip_ttl(udp_tx_checksum.ip_ttl),
-    .m_ip_source_ip(udp_tx_checksum.ip_source_ip),
-    .m_ip_dest_ip(udp_tx_checksum.ip_dest_ip),
-    .m_udp_source_port(udp_tx_checksum.source_port),
-    .m_udp_dest_port(udp_tx_checksum.dest_port),
-    .m_udp_length(udp_tx_checksum.length),
-    .m_udp_checksum(udp_tx_checksum.checksum)
-);
-
 taxi_axil_if #(
     .DATA_W(C_M_AXI_DATA_WIDTH),
-    .ADDR_W(C_M_AXI_ADDR_WIDTH),
-    .STRB_W(C_M_AXI_DATA_WIDTH/8)
+    .ADDR_W(C_M_AXI_ADDR_WIDTH)
 ) m_axil();
 
 assign m_axi_awaddr = m_axil.awaddr;
@@ -523,15 +496,59 @@ assign m_axil.rresp = m_axi_rresp;
 assign m_axil.rvalid = m_axi_rvalid;
 assign m_axi_rready = m_axil.rready;
 
+
+taxi_axis_if xfcp_rx_dwc(), xfcp_tx_dwc();
+
+taxi_axis_adapter rx_width_adapter (
+    .clk(logic_clk),
+    .rst(logic_rst),
+
+    .s_axis(xfcp_rx),
+    .m_axis(xfcp_rx_dwc)
+);
+
+taxi_axis_adapter tx_width_adapter (
+    .clk(logic_clk),
+    .rst(logic_rst),
+
+    .s_axis(xfcp_tx_dwc),
+    .m_axis(xfcp_tx)
+);
+
 taxi_xfcp_mod_axil xfcp (
     .clk(logic_clk),
     .rst(logic_rst),
 
-    .xfcp_usp_ds(xfcp_rx),
-    .xfcp_usp_us(xfcp_tx),
+    .xfcp_usp_ds(xfcp_rx_dwc),
+    .xfcp_usp_us(xfcp_tx_dwc),
 
     .m_axil_wr(m_axil),
     .m_axil_rd(m_axil)
 );
+
+assign xfcp_rx_tvalid = xfcp_rx_dwc.tvalid;
+assign xfcp_rx_tready = xfcp_rx_dwc.tready;
+assign xfcp_rx_tdata = xfcp_rx_dwc.tdata;
+assign xfcp_rx_tlast = xfcp_rx_dwc.tlast;
+
+assign xfcp_tx_tvalid = xfcp_tx_dwc.tvalid;
+assign xfcp_tx_tlast = xfcp_tx_dwc.tlast;
+assign xfcp_tx_tready = xfcp_tx_dwc.tready;
+assign xfcp_tx_tdata = xfcp_tx_dwc.tdata;
+
+assign udp_tx_tdata = xfcp_tx.tdata;
+assign udp_tx_tkeep = xfcp_tx.tkeep;
+assign udp_tx_tvalid = xfcp_tx.tvalid;
+assign udp_tx_tready = xfcp_tx.tready;
+assign udp_tx_tlast = xfcp_tx.tlast;
+
+assign udp_rx_tdata = xfcp_rx.tdata;
+assign udp_rx_tready = xfcp_rx.tready;
+assign udp_rx_tlast = xfcp_rx.tlast;
+assign udp_rx_tvalid = m_udp_payload_axis_tvalid;
+assign udp_rx_tkeep = xfcp_rx.tkeep;
+
+assign udp_header_valid = m_udp_payload_axis_tvalid;
+assign udp_header_dst_port = m_udp_dest_port;
 
 endmodule

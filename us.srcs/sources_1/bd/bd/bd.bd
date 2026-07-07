@@ -39,7 +39,11 @@
       "sfp_i2c": "",
       "net_wrapper_0": "",
       "axi_gpio_0": "",
-      "ila_0": ""
+      "ila_0": "",
+      "smartconnect_0": "",
+      "ila_1": "",
+      "ilvector_logic_0": "",
+      "ila_2": ""
     },
     "interface_ports": {
       "eth_refclk": {
@@ -1042,7 +1046,7 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_NUM_PROBE_IN": {
-            "value": "2"
+            "value": "0"
           },
           "C_NUM_PROBE_OUT": {
             "value": "1"
@@ -1076,13 +1080,13 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_NUM_PROBE_IN": {
-            "value": "26"
+            "value": "10"
           },
           "C_NUM_PROBE_OUT": {
             "value": "8"
           },
           "C_PROBE_IN0_WIDTH": {
-            "value": "48"
+            "value": "1"
           },
           "C_PROBE_IN10_WIDTH": {
             "value": "13"
@@ -1115,31 +1119,31 @@
             "value": "16"
           },
           "C_PROBE_IN1_WIDTH": {
-            "value": "48"
+            "value": "1"
           },
           "C_PROBE_IN2_WIDTH": {
-            "value": "16"
+            "value": "1"
           },
           "C_PROBE_IN3_WIDTH": {
-            "value": "4"
+            "value": "1"
           },
           "C_PROBE_IN4_WIDTH": {
-            "value": "4"
+            "value": "1"
           },
           "C_PROBE_IN5_WIDTH": {
-            "value": "6"
+            "value": "1"
           },
           "C_PROBE_IN6_WIDTH": {
-            "value": "2"
+            "value": "32"
           },
           "C_PROBE_IN7_WIDTH": {
-            "value": "16"
+            "value": "32"
           },
           "C_PROBE_IN8_WIDTH": {
-            "value": "16"
+            "value": "32"
           },
           "C_PROBE_IN9_WIDTH": {
-            "value": "3"
+            "value": "32"
           },
           "C_PROBE_OUT0_WIDTH": {
             "value": "1"
@@ -1154,7 +1158,7 @@
             "value": "1"
           },
           "C_PROBE_OUT1_INIT_VAL": {
-            "value": "0x0"
+            "value": "0x1"
           },
           "C_PROBE_OUT1_WIDTH": {
             "value": "1"
@@ -1166,7 +1170,7 @@
             "value": "48"
           },
           "C_PROBE_OUT3_INIT_VAL": {
-            "value": "0x0a500501"
+            "value": "0x0a500401"
           },
           "C_PROBE_OUT3_WIDTH": {
             "value": "32"
@@ -1178,13 +1182,19 @@
             "value": "32"
           },
           "C_PROBE_OUT5_INIT_VAL": {
-            "value": "0xffffff00"
+            "value": "0x00000000"
           },
           "C_PROBE_OUT5_WIDTH": {
             "value": "32"
           },
           "C_PROBE_OUT6_WIDTH": {
             "value": "1"
+          },
+          "C_PROBE_OUT7_INIT_VAL": {
+            "value": "0x0a500402"
+          },
+          "C_PROBE_OUT7_WIDTH": {
+            "value": "32"
           },
           "C_PROBE_OUT8_WIDTH": {
             "value": "16"
@@ -1315,6 +1325,254 @@
           "boundary_crc": "0x0"
         },
         "interface_ports": {
+          "udp_rx": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "8",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "udp_rx_tdata",
+                "direction": "O",
+                "left": "63",
+                "right": "0"
+              },
+              "TKEEP": {
+                "physical_name": "udp_rx_tkeep",
+                "direction": "O",
+                "left": "7",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "udp_rx_tlast",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "udp_rx_tvalid",
+                "direction": "O"
+              },
+              "TREADY": {
+                "physical_name": "udp_rx_tready",
+                "direction": "O"
+              }
+            }
+          },
+          "udp_tx": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "8",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "udp_tx_tdata",
+                "direction": "O",
+                "left": "63",
+                "right": "0"
+              },
+              "TKEEP": {
+                "physical_name": "udp_tx_tkeep",
+                "direction": "O",
+                "left": "7",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "udp_tx_tlast",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "udp_tx_tvalid",
+                "direction": "O"
+              },
+              "TREADY": {
+                "physical_name": "udp_tx_tready",
+                "direction": "O"
+              }
+            }
+          },
+          "xfcp_rx": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "xfcp_rx_tdata",
+                "direction": "O",
+                "left": "7",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "xfcp_rx_tlast",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "xfcp_rx_tvalid",
+                "direction": "O"
+              },
+              "TREADY": {
+                "physical_name": "xfcp_rx_tready",
+                "direction": "O"
+              }
+            }
+          },
+          "xfcp_tx": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              }
+            },
+            "port_maps": {
+              "TDATA": {
+                "physical_name": "xfcp_tx_tdata",
+                "direction": "O",
+                "left": "7",
+                "right": "0"
+              },
+              "TLAST": {
+                "physical_name": "xfcp_tx_tlast",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "xfcp_tx_tvalid",
+                "direction": "O"
+              },
+              "TREADY": {
+                "physical_name": "xfcp_tx_tready",
+                "direction": "O"
+              }
+            }
+          },
           "m_axi": {
             "mode": "Master",
             "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
@@ -1672,6 +1930,11 @@
             "left": "31",
             "right": "0"
           },
+          "remote_ip": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
           "gateway_ip": {
             "direction": "I",
             "left": "31",
@@ -1685,14 +1948,13 @@
           "clear_arp_cache": {
             "direction": "I"
           },
-          "tx_test": {
-            "direction": "I"
-          },
-          "tx_eth_hdr_valid": {
+          "udp_header_valid": {
             "direction": "O"
           },
-          "tx_eth_hdr_ready": {
-            "direction": "O"
+          "udp_header_dst_port": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
           }
         },
         "addressing": {
@@ -1732,15 +1994,144 @@
             "value": "Native"
           },
           "C_NUM_OF_PROBES": {
-            "value": "4"
+            "value": "22"
           },
           "C_PROBE0_WIDTH": {
+            "value": "8"
+          },
+          "C_PROBE11_WIDTH": {
+            "value": "16"
+          },
+          "C_PROBE13_WIDTH": {
+            "value": "1"
+          },
+          "C_PROBE14_WIDTH": {
             "value": "64"
           },
+          "C_PROBE15_WIDTH": {
+            "value": "8"
+          },
+          "C_PROBE16_WIDTH": {
+            "value": "64"
+          },
+          "C_PROBE17_WIDTH": {
+            "value": "8"
+          },
           "C_PROBE1_WIDTH": {
+            "value": "1"
+          },
+          "C_PROBE3_WIDTH": {
+            "value": "8"
+          },
+          "C_PROBE6_WIDTH": {
+            "value": "64"
+          },
+          "C_PROBE7_WIDTH": {
+            "value": "1"
+          },
+          "C_PROBE8_WIDTH": {
             "value": "8"
           }
         }
+      },
+      "smartconnect_0": {
+        "vlnv": "xilinx.com:ip:smartconnect:1.0",
+        "ip_revision": "28",
+        "xci_name": "bd_smartconnect_0_0",
+        "xci_path": "ip/bd_smartconnect_0_0/bd_smartconnect_0_0.xci",
+        "inst_hier_path": "smartconnect_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "NUM_SI": {
+            "value": "1"
+          }
+        },
+        "interface_ports": {
+          "S00_AXI": {
+            "mode": "Slave",
+            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "parameters": {
+              "NUM_READ_OUTSTANDING": {
+                "value": "1"
+              },
+              "NUM_WRITE_OUTSTANDING": {
+                "value": "1"
+              }
+            },
+            "bridges": [
+              "M00_AXI"
+            ],
+            "bd_attributes": {
+              "BRIDGES": {
+                "value": "M00_AXI",
+                "value_src": "auto"
+              },
+              "TYPE": {
+                "value": "interior",
+                "value_src": "default"
+              }
+            }
+          },
+          "M00_AXI": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:aximm:1.0",
+            "vlnv": "xilinx.com:interface:aximm_rtl:1.0",
+            "parameters": {
+              "NUM_READ_OUTSTANDING": {
+                "value": "1"
+              },
+              "NUM_READ_THREADS": {
+                "value": "1"
+              },
+              "NUM_WRITE_OUTSTANDING": {
+                "value": "1"
+              },
+              "NUM_WRITE_THREADS": {
+                "value": "1"
+              },
+              "RUSER_BITS_PER_BYTE": {
+                "value": "0"
+              },
+              "WUSER_BITS_PER_BYTE": {
+                "value": "0"
+              }
+            },
+            "bd_attributes": {
+              "TYPE": {
+                "value": "interior",
+                "value_src": "default"
+              }
+            }
+          }
+        }
+      },
+      "ila_1": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "ip_revision": "19",
+        "xci_name": "bd_ila_1_0",
+        "xci_path": "ip/bd_ila_1_0/bd_ila_1_0.xci",
+        "inst_hier_path": "ila_1",
+        "has_run_ip_tcl": "true"
+      },
+      "ilvector_logic_0": {
+        "vlnv": "xilinx.com:inline_hdl:ilvector_logic:1.0",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "not"
+          },
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "ila_2": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "ip_revision": "19",
+        "xci_name": "bd_ila_2_0",
+        "xci_path": "ip/bd_ila_2_0/bd_ila_2_0.xci",
+        "inst_hier_path": "ila_2",
+        "has_run_ip_tcl": "true"
       }
     },
     "interface_nets": {
@@ -1825,13 +2216,21 @@
       "net_wrapper_0_m_axi": {
         "interface_ports": [
           "net_wrapper_0/m_axi",
-          "axi_gpio_0/S_AXI"
+          "smartconnect_0/S00_AXI",
+          "ila_2/SLOT_0_AXI"
         ]
       },
       "sfp_i2c_IIC": {
         "interface_ports": [
           "sfp_i2c",
           "sfp_i2c/IIC"
+        ]
+      },
+      "smartconnect_0_M00_AXI": {
+        "interface_ports": [
+          "smartconnect_0/M00_AXI",
+          "axi_gpio_0/S_AXI",
+          "ila_1/SLOT_0_AXI"
         ]
       },
       "xxv_ethernet_0_gt_tx": {
@@ -1842,6 +2241,14 @@
       }
     },
     "nets": {
+      "Net": {
+        "ports": [
+          "xxv_ethernet_0/tx_mii_clk_1",
+          "vio_tx/clk",
+          "c_counter_binary_1/CLK",
+          "net_wrapper_0/xgmii_tx_clk"
+        ]
+      },
       "axi_gpio_0_gpio_io_o": {
         "ports": [
           "axi_gpio_0/gpio_io_o",
@@ -1881,6 +2288,7 @@
       "gateway_ip": {
         "ports": [
           "vio_rx/probe_out4",
+          "vio_rx/probe_in7",
           "net_wrapper_0/gateway_ip"
         ]
       },
@@ -1890,9 +2298,16 @@
           "rst_sysclk_wiz_25M/ext_reset_in"
         ]
       },
+      "ilvector_logic_0_Res": {
+        "ports": [
+          "ilvector_logic_0/Res",
+          "net_wrapper_0/logic_rst"
+        ]
+      },
       "local_ip": {
         "ports": [
           "vio_rx/probe_out3",
+          "vio_rx/probe_in6",
           "net_wrapper_0/local_ip"
         ]
       },
@@ -1902,11 +2317,12 @@
           "net_wrapper_0/local_mac"
         ]
       },
-      "logic_rst": {
+      "logic_rstn": {
         "ports": [
           "vio_rx/probe_out1",
           "axi_gpio_0/s_axi_aresetn",
-          "net_wrapper_0/logic_rst"
+          "smartconnect_0/aresetn",
+          "ilvector_logic_0/Op1"
         ]
       },
       "mdm_1_debug_sys_rst": {
@@ -1942,71 +2358,182 @@
       "net_wrapper_0_ip_rx_busy": {
         "ports": [
           "net_wrapper_0/ip_rx_busy",
-          "vio_rx/probe_in22"
+          "vio_rx/probe_in3"
         ]
       },
       "net_wrapper_0_ip_tx_busy": {
         "ports": [
           "net_wrapper_0/ip_tx_busy",
-          "vio_rx/probe_in23"
+          "vio_rx/probe_in2"
         ]
       },
       "net_wrapper_0_rx_error_bad_fcs": {
         "ports": [
           "net_wrapper_0/rx_error_bad_fcs",
-          "vio_rx/probe_in21"
+          "vio_rx/probe_in4"
         ]
       },
       "net_wrapper_0_rx_error_bad_frame": {
         "ports": [
           "net_wrapper_0/rx_error_bad_frame",
-          "vio_rx/probe_in20"
+          "vio_rx/probe_in5"
         ]
       },
-      "net_wrapper_0_tx_eth_hdr_ready": {
+      "net_wrapper_0_udp_header_dst_port": {
         "ports": [
-          "net_wrapper_0/tx_eth_hdr_ready",
-          "vio_tx/probe_in1",
-          "ila_0/probe3"
+          "net_wrapper_0/udp_header_dst_port",
+          "ila_0/probe11"
         ]
       },
-      "net_wrapper_0_tx_eth_hdr_valid": {
+      "net_wrapper_0_udp_header_valid": {
         "ports": [
-          "net_wrapper_0/tx_eth_hdr_valid",
-          "vio_tx/probe_in0",
-          "ila_0/probe2"
+          "net_wrapper_0/udp_header_valid",
+          "ila_0/probe10"
         ]
       },
       "net_wrapper_0_udp_rx_busy": {
         "ports": [
           "net_wrapper_0/udp_rx_busy",
-          "vio_rx/probe_in24"
+          "vio_rx/probe_in1"
+        ]
+      },
+      "net_wrapper_0_udp_rx_tdata": {
+        "ports": [
+          "net_wrapper_0/udp_rx_tdata",
+          "ila_0/probe6"
+        ]
+      },
+      "net_wrapper_0_udp_rx_tkeep": {
+        "ports": [
+          "net_wrapper_0/udp_rx_tkeep",
+          "ila_0/probe8"
+        ]
+      },
+      "net_wrapper_0_udp_rx_tlast": {
+        "ports": [
+          "net_wrapper_0/udp_rx_tlast",
+          "ila_0/probe7"
+        ]
+      },
+      "net_wrapper_0_udp_rx_tready": {
+        "ports": [
+          "net_wrapper_0/udp_rx_tready",
+          "ila_0/probe9"
+        ]
+      },
+      "net_wrapper_0_udp_rx_tvalid": {
+        "ports": [
+          "net_wrapper_0/udp_rx_tvalid",
+          "ila_0/probe12"
         ]
       },
       "net_wrapper_0_udp_tx_busy": {
         "ports": [
           "net_wrapper_0/udp_tx_busy",
-          "vio_rx/probe_in25"
+          "vio_rx/probe_in0"
+        ]
+      },
+      "net_wrapper_0_udp_tx_tdata": {
+        "ports": [
+          "net_wrapper_0/udp_tx_tdata",
+          "ila_0/probe16"
+        ]
+      },
+      "net_wrapper_0_udp_tx_tkeep": {
+        "ports": [
+          "net_wrapper_0/udp_tx_tkeep",
+          "ila_0/probe17"
+        ]
+      },
+      "net_wrapper_0_udp_tx_tlast": {
+        "ports": [
+          "net_wrapper_0/udp_tx_tlast",
+          "ila_0/probe18"
+        ]
+      },
+      "net_wrapper_0_udp_tx_tready": {
+        "ports": [
+          "net_wrapper_0/udp_tx_tready",
+          "ila_0/probe20"
+        ]
+      },
+      "net_wrapper_0_udp_tx_tvalid": {
+        "ports": [
+          "net_wrapper_0/udp_tx_tvalid",
+          "ila_0/probe19"
+        ]
+      },
+      "net_wrapper_0_xfcp_rx_tdata": {
+        "ports": [
+          "net_wrapper_0/xfcp_rx_tdata",
+          "ila_0/probe0"
+        ]
+      },
+      "net_wrapper_0_xfcp_rx_tlast": {
+        "ports": [
+          "net_wrapper_0/xfcp_rx_tlast",
+          "ila_0/probe21"
+        ]
+      },
+      "net_wrapper_0_xfcp_rx_tready": {
+        "ports": [
+          "net_wrapper_0/xfcp_rx_tready",
+          "ila_0/probe2"
+        ]
+      },
+      "net_wrapper_0_xfcp_rx_tvalid": {
+        "ports": [
+          "net_wrapper_0/xfcp_rx_tvalid",
+          "ila_0/probe1"
+        ]
+      },
+      "net_wrapper_0_xfcp_tx_tdata": {
+        "ports": [
+          "net_wrapper_0/xfcp_tx_tdata",
+          "ila_0/probe3"
+        ]
+      },
+      "net_wrapper_0_xfcp_tx_tlast": {
+        "ports": [
+          "net_wrapper_0/xfcp_tx_tlast",
+          "ila_0/probe13"
+        ]
+      },
+      "net_wrapper_0_xfcp_tx_tready": {
+        "ports": [
+          "net_wrapper_0/xfcp_tx_tready",
+          "ila_0/probe5"
+        ]
+      },
+      "net_wrapper_0_xfcp_tx_tvalid": {
+        "ports": [
+          "net_wrapper_0/xfcp_tx_tvalid",
+          "ila_0/probe4"
         ]
       },
       "net_wrapper_0_xgmii_txc": {
         "ports": [
           "net_wrapper_0/xgmii_txc",
-          "xxv_ethernet_0/tx_mii_c_1",
-          "ila_0/probe1"
+          "xxv_ethernet_0/tx_mii_c_1"
         ]
       },
       "net_wrapper_0_xgmii_txd": {
         "ports": [
           "net_wrapper_0/xgmii_txd",
-          "xxv_ethernet_0/tx_mii_d_1",
-          "ila_0/probe0"
+          "xxv_ethernet_0/tx_mii_d_1"
         ]
       },
       "qpllreset": {
         "ports": [
           "vio_eth/probe_out7",
           "xxv_ethernet_0/qpllreset_in_0"
+        ]
+      },
+      "remote_ip": {
+        "ports": [
+          "vio_rx/probe_out7",
+          "vio_rx/probe_in9",
+          "net_wrapper_0/remote_ip"
         ]
       },
       "reset_rx_datapath0": {
@@ -2094,6 +2621,7 @@
       "subnet_mask": {
         "ports": [
           "vio_rx/probe_out5",
+          "vio_rx/probe_in8",
           "net_wrapper_0/subnet_mask"
         ]
       },
@@ -2113,12 +2641,6 @@
         "ports": [
           "vio_tx/probe_out0",
           "net_wrapper_0/xgmii_tx_rst"
-        ]
-      },
-      "tx_test": {
-        "ports": [
-          "vio_rx/probe_out7",
-          "net_wrapper_0/tx_test"
         ]
       },
       "txdiffctrl": {
@@ -2195,8 +2717,12 @@
           "vio_rx/clk",
           "c_counter_binary_0/CLK",
           "axi_gpio_0/s_axi_aclk",
+          "ila_0/clk",
+          "smartconnect_0/aclk",
+          "ila_1/clk",
           "net_wrapper_0/logic_clk",
-          "net_wrapper_0/xgmii_rx_clk"
+          "net_wrapper_0/xgmii_rx_clk",
+          "ila_2/clk"
         ]
       },
       "xxv_ethernet_0_rx_clk_out_1": {
@@ -2208,12 +2734,14 @@
       "xxv_ethernet_0_rx_mii_c_0": {
         "ports": [
           "xxv_ethernet_0/rx_mii_c_0",
+          "ila_0/probe15",
           "net_wrapper_0/xgmii_rxc"
         ]
       },
       "xxv_ethernet_0_rx_mii_d_0": {
         "ports": [
           "xxv_ethernet_0/rx_mii_d_0",
+          "ila_0/probe14",
           "net_wrapper_0/xgmii_rxd"
         ]
       },
@@ -2295,15 +2823,6 @@
           "vio_eth/probe_in0"
         ]
       },
-      "xxv_ethernet_0_tx_mii_clk_1": {
-        "ports": [
-          "xxv_ethernet_0/tx_mii_clk_1",
-          "net_wrapper_0/xgmii_tx_clk",
-          "vio_tx/clk",
-          "c_counter_binary_1/CLK",
-          "ila_0/clk"
-        ]
-      },
       "xxv_ethernet_0_user_rx_reset_0": {
         "ports": [
           "xxv_ethernet_0/user_rx_reset_0",
@@ -2352,6 +2871,19 @@
                 "offset": "0x00000000",
                 "range": "64K",
                 "offset_high_param": "C_HIGHADDR"
+              }
+            }
+          }
+        }
+      },
+      "/net_wrapper_0": {
+        "address_spaces": {
+          "m_axi": {
+            "segments": {
+              "SEG_axi_gpio_0_Reg": {
+                "address_block": "/axi_gpio_0/S_AXI/Reg",
+                "offset": "0x00000000",
+                "range": "64K"
               }
             }
           }
