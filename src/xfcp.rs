@@ -1,6 +1,6 @@
 // see https://github.com/alexforencich/xfcp/blob/master/python/xfcp/packet.py
 
-use std::{io, time::Duration};
+use std::{io, pin::Pin, time::Duration};
 
 use bytes::Bytes;
 use futures_core::Stream;
@@ -81,7 +81,7 @@ enum MemoryAccessPacketKind {
 
 impl Path {}
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct NodeCommon {
     path: Path,
     name: String,
@@ -96,7 +96,7 @@ pub struct SwitchNode {
     down_ports: u8,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct MemoryNode {
     c: NodeCommon,
     addr_width: u16,
@@ -105,7 +105,7 @@ pub struct MemoryNode {
     count_width: u16,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct I2CNode {
     c: NodeCommon,
 }
@@ -166,16 +166,25 @@ impl Node {
             todo!("Node type 0x{ntype:04x} not implemented")
         }
     }
+
+    pub fn name(&self) -> &str {
+        match self {
+            Node::SwitchNode(s) => &s.c.name,
+            Node::MemoryNode(m) => &m.c.name,
+            Node::I2CNode(i) => &i.c.name,
+        }
+    }
 }
 
-pub struct Interface<T> {
-    transport: T,
+pub struct Interface {
+    rx: Pin<Box<dyn Stream<Item = Bytes>>>,
+    tx: Pin<Box<dyn Sink<Bytes, Error = io::Error>>>,
 }
 
 impl MemoryNode {
-    pub async fn read<T: Stream<Item = Bytes> + Sink<Bytes, Error = io::Error> + Unpin>(
+    pub async fn read(
         &self,
-        interface: &mut Interface<T>,
+        interface: &mut Interface,
         addr: u32,
         count: u16,
     ) -> Result<Vec<u8>, io::Error> {
@@ -193,12 +202,9 @@ impl MemoryNode {
                 kind: MemoryAccessPacketKind::ReadRequest(count),
             }),
         };
-        interface
-            .transport
-            .send(Bytes::from(packet.to_bytes()))
-            .await?;
+        interface.tx.send(Bytes::from(packet.to_bytes())).await?;
 
-        let resp = timeout(TIMEOUT, interface.transport.next())
+        let resp = timeout(TIMEOUT, interface.rx.next())
             .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
 
@@ -217,9 +223,9 @@ impl MemoryNode {
         Ok(data)
     }
 
-    pub async fn write<T: Stream<Item = Bytes> + Sink<Bytes, Error = io::Error> + Unpin>(
+    pub async fn write(
         &self,
-        interface: &mut Interface<T>,
+        interface: &mut Interface,
         addr: u32,
         data: &[u8],
     ) -> Result<(), io::Error> {
@@ -237,12 +243,9 @@ impl MemoryNode {
                 kind: MemoryAccessPacketKind::WriteRequest(data.to_vec()),
             }),
         };
-        interface
-            .transport
-            .send(Bytes::from(packet.to_bytes()))
-            .await?;
+        interface.tx.send(Bytes::from(packet.to_bytes())).await?;
 
-        let resp = timeout(TIMEOUT, interface.transport.next())
+        let resp = timeout(TIMEOUT, interface.rx.next())
             .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
 
@@ -263,10 +266,7 @@ impl MemoryNode {
 }
 
 impl SwitchNode {
-    pub async fn enumerate<T: Stream<Item = Bytes> + Sink<Bytes, Error = io::Error> + Unpin>(
-        &self,
-        interface: &mut Interface<T>,
-    ) -> Result<Vec<Node>, io::Error> {
+    pub async fn enumerate(&self, interface: &mut Interface) -> Result<Vec<Node>, io::Error> {
         let mut nodes = Vec::new();
         for port in 0..self.down_ports {
             let path = self.c.path.join(port);
@@ -278,11 +278,9 @@ impl SwitchNode {
 }
 
 impl I2CNode {
-    pub async fn read_at(
+    pub async fn read_at_offset_1b(
         &self,
-        interface: &mut Interface<
-            impl Stream<Item = Bytes> + Sink<Bytes, Error = io::Error> + Unpin,
-        >,
+        interface: &mut Interface,
         device_addr: u8,
         offset: u8,
         count: u8,
@@ -304,12 +302,9 @@ impl I2CNode {
                 },
             ]),
         };
-        interface
-            .transport
-            .send(Bytes::from(packet.to_bytes()))
-            .await?;
+        interface.tx.send(Bytes::from(packet.to_bytes())).await?;
 
-        let resp = timeout(TIMEOUT, interface.transport.next())
+        let resp = timeout(TIMEOUT, interface.rx.next())
             .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
         dbg!(&resp);
@@ -326,14 +321,65 @@ impl I2CNode {
 
         Ok(data.clone())
     }
+
+    pub async fn write(&self, interface: &mut Interface, device_addr: u8, data: &[u8]) -> Result<(), io::Error> {
+        let packet = Packet {
+            path: self.c.path.clone(),
+            rpath: Path(vec![]), // ??
+            payload: PacketPayload::I2CRequest(vec![
+                I2CRequestOp::SetAddress(device_addr),
+                I2CRequestOp::Write {
+                    data: data.to_vec(),
+                    start: false,
+                    stop: true,
+                },
+            ]),
+        };
+        interface.tx.send(Bytes::from(packet.to_bytes())).await?;
+        timeout(TIMEOUT, interface.rx.next()).await?
+            .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
+        Ok(())
+    }
+    
+    pub async fn read(&self, interface: &mut Interface, address: u8, count: u8) -> Result<Vec<u8>, io::Error> {
+        let packet = Packet {
+            path: self.c.path.clone(),
+            rpath: Path(vec![]), // ??
+            payload: PacketPayload::I2CRequest(vec![
+                I2CRequestOp::SetAddress(address),
+                I2CRequestOp::Read {
+                    count,
+                    start: false,
+                    stop: true,
+                },
+            ]),
+        };
+        interface.tx.send(Bytes::from(packet.to_bytes())).await?;
+        let resp = timeout(TIMEOUT, interface.rx.next()).await?
+            .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
+
+        let packet = Packet::parse(&resp)?;
+
+        let PacketPayload::I2CResponse(ops) = packet.payload else {
+            panic!("Expected I2CResponse packet, got {:?}", packet.payload);
+        };
+
+        let I2CResponseOp::Read(data) = &ops[1] else {
+            panic!("Expected I2CResponse Read op, got {:?}", ops[1]);
+        };
+        Ok(data.clone())
+    }
 }
 
-impl<T> Interface<T>
-where
-    T: Stream<Item = Bytes> + Sink<Bytes, Error = io::Error> + Unpin,
-{
-    pub fn new(transport: T) -> Self {
-        Self { transport }
+impl Interface {
+    pub fn new(
+        rx: impl Stream<Item = Bytes> + Unpin + 'static,
+        tx: impl Sink<Bytes, Error = io::Error> + Unpin + 'static,
+    ) -> Self {
+        Self {
+            rx: Box::pin(rx),
+            tx: Box::pin(tx),
+        }
     }
 
     pub async fn enumerate(&mut self) -> Result<Node, io::Error> {
@@ -347,10 +393,8 @@ where
             payload: PacketPayload::IdRequest,
         };
 
-        self.transport
-            .send(Bytes::from(id_request.to_bytes()))
-            .await?;
-        let resp = timeout(TIMEOUT, self.transport.next())
+        self.tx.send(Bytes::from(id_request.to_bytes())).await?;
+        let resp = timeout(TIMEOUT, self.rx.next())
             .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
 
@@ -435,7 +479,10 @@ impl PacketPayload {
             PacketPayload::I2CRequest(ops) => {
                 for op in ops {
                     match op {
-                        I2CRequestOp::SetAddress(addr) => ret.push(0x80 | addr),
+                        I2CRequestOp::SetAddress(addr) => {
+                            assert!(*addr < 0x80);
+                            ret.push(0x80 | addr)
+                        }
                         I2CRequestOp::Read { count, start, stop } => {
                             let cmd = 0x02
                                 | if *start { 0x01 } else { 0x00 }

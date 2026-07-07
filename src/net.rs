@@ -7,7 +7,7 @@ use futures_util::{SinkExt, StreamExt, future::ready};
 use tokio::time::sleep;
 use tokio_util::{codec::BytesCodec, udp::UdpFramed};
 
-use crate::xfcp::Node;
+use crate::{mcp401x, xfcp::Node, xgpio};
 
 const ULTRASOUND_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 1);
 const ULTRASOUND_HOST_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 2);
@@ -24,8 +24,8 @@ pub async fn main() {
     let dst = SocketAddr::new(std::net::IpAddr::V4(ULTRASOUND_IP), ULTRASOUND_CTRL_PORT);
 
     let frame = UdpFramed::new(socket, BytesCodec::new())
-        .with(|f| ready(Ok((f, dst))))
-        .filter_map(|r| match r {
+        .with(move |f| ready(Ok((f, dst))))
+        .filter_map(move |r| match r {
             Ok((b, from)) => {
                 if from != dst {
                     println!("Received packet from unexpected source: {}, dropping", from);
@@ -40,7 +40,8 @@ pub async fn main() {
             }
         });
 
-    let mut interface = crate::xfcp::Interface::new(frame);
+    let (tx, rx) = frame.split();
+    let mut interface = crate::xfcp::Interface::new(rx, tx);
     let root = interface.enumerate().await.unwrap();
     dbg!(&root);
 
@@ -59,29 +60,64 @@ pub async fn main() {
         panic!("Expected I2C node at index 4");
     };
 
-    dbg!(String::from_utf8_lossy(&i2c.read_at(&mut interface, 0x50, 0x14, 16).await.unwrap()));
+    let Node::I2CNode(ramp_i2c) = nodes.iter().find(|&n| n.name() == "ramp").unwrap() else {
+        panic!("Expected I2C node named 'ramp'");
+    };
 
-    dbg!(mem.read(&mut interface, 0x0, 4).await.unwrap());
+    let mcp4017 = mcp401x::Mcp401x {
+        i2c_node: ramp_i2c.clone(),
+        address: 0b0101111,
+        resistance: 10_000,
+    };
 
-    dbg!(
-        mem.write(&mut interface, 0x0, &[0xff, 0xff, 0xff, 0xff])
-            .await
-            .unwrap()
-    );
-    dbg!(mem.read(&mut interface, 0x0, 4).await.unwrap());
+    let ramp_rst_gpio = xgpio::XGpio {
+        node: mem.clone(),
+        offset: 0x1_0000,
+        width: 1,
+    };
+
+    let led_gpio = xgpio::XGpio {
+        node: mem.clone(),
+        offset: 0x0,
+        width: 2,
+    };
+
+    // loop {
+    //     led_gpio.set_pin(&mut interface, 1).await.unwrap();
+    //     sleep(Duration::from_millis(500)).await;
+    //     led_gpio.clear_pin(&mut interface, 1).await.unwrap();
+    //     sleep(Duration::from_millis(500)).await;
+    // }
+
+    let ramp = crate::ramp::RampGenerator {
+        pot: mcp4017,
+        rst: ramp_rst_gpio,
+    };
+
+    ramp.set_ramp_rate(&mut interface, 30.).await.unwrap();
     loop {
-        dbg!(
-            mem.write(&mut interface, 0x0, &[0xff, 0xff, 0xff, 0xff])
-                .await
-                .unwrap()
-        );
-
+        ramp.rst.clear_pin(&mut interface, 0).await.unwrap();
         sleep(Duration::from_millis(500)).await;
-        dbg!(
-            mem.write(&mut interface, 0x0, &[0x00, 0x00, 0x00, 0x00])
-                .await
-                .unwrap()
-        );
+        ramp.rst.set_pin(&mut interface, 0).await.unwrap();
         sleep(Duration::from_millis(500)).await;
     }
+
+    // ramp.stop(&mut interface).await.unwrap();
+    // sleep(Duration::from_secs(1)).await;
+    // ramp.start(&mut interface).await.unwrap();
+    // sleep(Duration::from_millis(1)).await;
+    // ramp.stop(&mut interface).await.unwrap();
+    // println!("done");
+
+
+    // dbg!(String::from_utf8_lossy(&i2c.read_at_offset_1b(&mut interface, 0x50, 0x14, 16).await.unwrap()));
+
+    // dbg!(mem.read(&mut interface, 0x0, 4).await.unwrap());
+
+    // dbg!(
+    //     mem.write(&mut interface, 0x0, &[0xff, 0xff, 0xff, 0xff])
+    //         .await
+    //         .unwrap()
+    // );
+    // dbg!(mem.read(&mut interface, 0x0, 4).await.unwrap());
 }

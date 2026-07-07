@@ -7,6 +7,11 @@ use iced::{Center, Color, Element, Fill, Font, Pixels, color};
 
 mod net;
 mod xfcp;
+mod mcp401x;
+mod ramp;
+mod xgpio;
+mod hvsupply;
+mod mcp3021;
 
 pub fn main() -> iced::Result {
     net::main();
