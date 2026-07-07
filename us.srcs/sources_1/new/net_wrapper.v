@@ -48,7 +48,7 @@ module net_wrapper #
      * IP Integrator ties M_AXI (and its reset) to this clock automatically.
      */
     (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 logic_clk CLK" *)
-    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI, ASSOCIATED_RESET logic_rst" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI:xfcp_rx:xfcp_tx:udp_tx:udp_rx, ASSOCIATED_RESET logic_rst" *)
     input  wire        logic_clk,
     (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 logic_rst RST" *)
     (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_HIGH" *)
@@ -65,29 +65,6 @@ module net_wrapper #
     input  wire [7:0]  xgmii_rxc,
     output wire [63:0] xgmii_txd,
     output wire [7:0]  xgmii_txc,
-
-    /*
-     * AXI-Lite master
-     */
-    output wire [C_M_AXI_ADDR_WIDTH-1 : 0]     m_axi_awaddr,
-    output wire [2 : 0]                        m_axi_awprot,
-    output wire                                m_axi_awvalid,
-    input  wire                                m_axi_awready,
-    output wire [C_M_AXI_DATA_WIDTH-1 : 0]     m_axi_wdata,
-    output wire [(C_M_AXI_DATA_WIDTH/8)-1 : 0] m_axi_wstrb,
-    output wire                                m_axi_wvalid,
-    input  wire                                m_axi_wready,
-    input  wire [1 : 0]                        m_axi_bresp,
-    input  wire                                m_axi_bvalid,
-    output wire                                m_axi_bready,
-    output wire [C_M_AXI_ADDR_WIDTH-1 : 0]     m_axi_araddr,
-    output wire [2 : 0]                        m_axi_arprot,
-    output wire                                m_axi_arvalid,
-    input  wire                                m_axi_arready,
-    input  wire [C_M_AXI_DATA_WIDTH-1 : 0]     m_axi_rdata,
-    input  wire [1 : 0]                        m_axi_rresp,
-    input  wire                                m_axi_rvalid,
-    output wire                                m_axi_rready,
 
     /*
      * Status
@@ -110,21 +87,23 @@ module net_wrapper #
     input  wire        clear_arp_cache,
 
     output wire xfcp_rx_tvalid,
-    output wire xfcp_rx_tready,
+    input wire xfcp_rx_tready,
     output wire [7:0] xfcp_rx_tdata,
     output wire xfcp_rx_tlast,
 
-    output wire xfcp_tx_tvalid,
+    input wire xfcp_tx_tvalid,
     output wire xfcp_tx_tready,
-    output wire [7:0] xfcp_tx_tdata,
-    output wire xfcp_tx_tlast,
+    input wire [7:0] xfcp_tx_tdata,
+    input wire xfcp_tx_tlast,
 
+    (* X_INTERFACE_MODE = "monitor" *) 
     output wire [63:0] udp_tx_tdata,
     output wire [7:0] udp_tx_tkeep,
     output wire udp_tx_tvalid,
     output wire udp_tx_tready,
     output wire udp_tx_tlast,
 
+    (* X_INTERFACE_MODE = "monitor" *) 
     output wire [63:0] udp_rx_tdata,
     output wire udp_rx_tready,
     output wire udp_rx_tlast,
@@ -157,26 +136,7 @@ net_inst (
     .xgmii_rxc(xgmii_rxc),
     .xgmii_txd(xgmii_txd),
     .xgmii_txc(xgmii_txc),
-    // AXI-Lite master
-    .m_axi_awaddr(m_axi_awaddr),
-    .m_axi_awprot(m_axi_awprot),
-    .m_axi_awvalid(m_axi_awvalid),
-    .m_axi_awready(m_axi_awready),
-    .m_axi_wdata(m_axi_wdata),
-    .m_axi_wstrb(m_axi_wstrb),
-    .m_axi_wvalid(m_axi_wvalid),
-    .m_axi_wready(m_axi_wready),
-    .m_axi_bresp(m_axi_bresp),
-    .m_axi_bvalid(m_axi_bvalid),
-    .m_axi_bready(m_axi_bready),
-    .m_axi_araddr(m_axi_araddr),
-    .m_axi_arprot(m_axi_arprot),
-    .m_axi_arvalid(m_axi_arvalid),
-    .m_axi_arready(m_axi_arready),
-    .m_axi_rdata(m_axi_rdata),
-    .m_axi_rresp(m_axi_rresp),
-    .m_axi_rvalid(m_axi_rvalid),
-    .m_axi_rready(m_axi_rready),
+
     // Status
     .rx_error_bad_frame(rx_error_bad_frame),
     .rx_error_bad_fcs(rx_error_bad_fcs),

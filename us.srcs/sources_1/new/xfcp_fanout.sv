@@ -27,7 +27,7 @@ module xfcp_fanout #
 )
 (
     input aclk,
-    input rst,
+    input aresetn,
 
     input logic xfcp_rx_tvalid,
     output logic xfcp_rx_tready,
@@ -61,18 +61,35 @@ module xfcp_fanout #
     input wire  m_axi_rvalid,
     output wire  m_axi_rready,
 
-    // i2c1
-    output wire i2c_scl_t,
-    input wire i2c_scl_i,
-    output wire i2c_scl_o,
-    output wire i2c_sda_t,
-    input wire i2c_sda_i,
-    output wire i2c_sda_o,
+    output wire i2c_sfp_scl_o,
+    input wire i2c_sfp_scl_i,
+    output wire i2c_sfp_sda_o,
+    input wire i2c_sfp_sda_i,
+
+    output wire i2c_hvplus_scl_o,
+    input wire i2c_hvplus_scl_i,
+    output wire i2c_hvplus_sda_o,
+    input wire i2c_hvplus_sda_i,
+
+    output wire i2c_hvminus_scl_o,
+    input wire i2c_hvminus_scl_i,
+    output wire i2c_hvminus_sda_o,
+    input wire i2c_hvminus_sda_i,
+
+    output wire i2c_clk_scl_o,
+    input wire i2c_clk_scl_i,
+    output wire i2c_clk_sda_o,
+    input wire i2c_clk_sda_i,
+
+    output wire i2c_ramp_scl_o,
+    input wire i2c_ramp_scl_i,
+    output wire i2c_ramp_sda_o,
+    input wire i2c_ramp_sda_i
 );
 
 
 taxi_axis_if #(
-    .DATA_WIDTH(8)
+    .DATA_W(8)
 ) xfcp_rx(), xfcp_tx();
 
 assign xfcp_rx.tdata = xfcp_rx_tdata;
@@ -85,9 +102,12 @@ assign xfcp_tx_tvalid = xfcp_tx.tvalid;
 assign xfcp_tx.tready = xfcp_tx_tready;
 assign xfcp_tx_tlast = xfcp_tx.tlast;
 
+wire rst;
+assign rst = ~aresetn;
+
 // port interfaces
 taxi_axis_if #(
-    .DATA_WIDTH(8)
+    .DATA_W(8)
 ) xfcp_port_ds[5:0](), xfcp_port_us[5:0]();
 
 taxi_xfcp_switch #(
@@ -105,8 +125,8 @@ taxi_xfcp_switch #(
 
 
 taxi_axil_if #(
-    .DATA_WIDTH(C_M_AXI_DATA_WIDTH),
-    .ADDR_WIDTH(C_M_AXI_ADDR_WIDTH)
+    .DATA_W(C_M_AXI_DATA_WIDTH),
+    .ADDR_W(C_M_AXI_ADDR_WIDTH)
 ) m_axil();
 
 assign m_axi_awaddr = m_axil.awaddr;
@@ -140,7 +160,8 @@ taxi_xfcp_mod_axil xfcp_axil (
     .m_axil_rd(m_axil)
 );
 
-taxi_xfcp_mod_i2c_master # (
+
+taxi_xfcp_mod_i2c_master #(
     .XFCP_ID_STR("sfp")
 ) xfcp_i2c_sfp (
     .clk(aclk),
@@ -149,13 +170,70 @@ taxi_xfcp_mod_i2c_master # (
     .xfcp_usp_ds(xfcp_port_ds[1]),
     .xfcp_usp_us(xfcp_port_us[1]),
 
-    .i2c_scl_t(i2c_scl_t),
-    .i2c_scl_i(i2c_scl_i),
-    .i2c_scl_o(i2c_scl_o),
-    .i2c_sda_t(i2c_sda_t),
-    .i2c_sda_i(i2c_sda_i),
-    .i2c_sda_o(i2c_sda_o)
+    .i2c_scl_i(i2c_sfp_scl_i),
+    .i2c_scl_o(i2c_sfp_scl_o),
+    .i2c_sda_i(i2c_sfp_sda_i),
+    .i2c_sda_o(i2c_sfp_sda_o)
 );
 
+taxi_xfcp_mod_i2c_master #(
+    .XFCP_ID_STR("hvplus")
+) xfcp_i2c_hvplus (
+    .clk(aclk),
+    .rst(rst),
+
+    .xfcp_usp_ds(xfcp_port_ds[2]),
+    .xfcp_usp_us(xfcp_port_us[2]),
+
+    .i2c_scl_i(i2c_hvplus_scl_i),
+    .i2c_scl_o(i2c_hvplus_scl_o),
+    .i2c_sda_i(i2c_hvplus_sda_i),
+    .i2c_sda_o(i2c_hvplus_sda_o)
+);
+
+taxi_xfcp_mod_i2c_master #(
+    .XFCP_ID_STR("hvminus")
+) xfcp_i2c_hvminus (
+    .clk(aclk),
+    .rst(rst),
+
+    .xfcp_usp_ds(xfcp_port_ds[3]),
+    .xfcp_usp_us(xfcp_port_us[3]),
+
+    .i2c_scl_i(i2c_hvminus_scl_i),
+    .i2c_scl_o(i2c_hvminus_scl_o),
+    .i2c_sda_i(i2c_hvminus_sda_i),
+    .i2c_sda_o(i2c_hvminus_sda_o)
+);
+
+taxi_xfcp_mod_i2c_master  #(
+    .XFCP_ID_STR("clk")
+) xfcp_i2c_clk (
+    .clk(aclk),
+    .rst(rst),
+
+    .xfcp_usp_ds(xfcp_port_ds[4]),
+    .xfcp_usp_us(xfcp_port_us[4]),
+
+    .i2c_scl_i(i2c_clk_scl_i),
+    .i2c_scl_o(i2c_clk_scl_o),
+    .i2c_sda_i(i2c_clk_sda_i),
+    .i2c_sda_o(i2c_clk_sda_o)
+);
+
+taxi_xfcp_mod_i2c_master #(
+    .XFCP_ID_STR("ramp")
+) xfcp_i2c_ramp (
+    .clk(aclk),
+    .rst(rst),
+
+    .xfcp_usp_ds(xfcp_port_ds[5]),
+    .xfcp_usp_us(xfcp_port_us[5]),
+
+    .i2c_scl_i(i2c_ramp_scl_i),
+    .i2c_scl_o(i2c_ramp_scl_o),
+    .i2c_sda_i(i2c_ramp_sda_i),
+    .i2c_sda_o(i2c_ramp_sda_o)
+);
 
 endmodule

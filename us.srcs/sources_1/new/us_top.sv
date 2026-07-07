@@ -148,10 +148,19 @@ bd_wrapper bd (
     .sfp_rx_gt_port_0_p(sfp_rdp),
     .sfp_tx_gt_port_1_n(sfp_txn),
     .sfp_tx_gt_port_1_p(sfp_txp),
-    .sfp_i2c_scl_io(sfp_scl),
-    .sfp_i2c_sda_io(sfp_sda),
     .sfp_mod_abs(sfp_mod_abs),
-    .led(usrled)
+    .led(usrled),
+    .i2c_clk_sda_io(clk_sda),
+    .i2c_clk_scl_io(clk_scl),
+    .i2c_hvminus_scl_io(hvminus_scl),
+    .i2c_hvminus_sda_io(hvminus_sda),
+    .i2c_hvplus_scl_io(hvplus_scl),
+    .i2c_hvplus_sda_io(hvplus_sda),
+    .i2c_ramp_scl_io(ramp_scl),
+    .i2c_ramp_sda_io(ramp_sda),
+    .i2c_sfp_scl_io(sfp_scl),
+    .i2c_sfp_sda_io(sfp_sda),
+    .ramp_rst(ramp_rst)
 );
     
     

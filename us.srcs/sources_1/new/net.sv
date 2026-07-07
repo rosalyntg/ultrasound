@@ -73,27 +73,6 @@ module net #
     output logic [63:0] xgmii_txd,
     output logic [7:0]  xgmii_txc,
 
-    // AXI-Lite master
-    output wire [C_M_AXI_ADDR_WIDTH-1 : 0] m_axi_awaddr,
-    output wire [2 : 0] m_axi_awprot,
-    output wire  m_axi_awvalid,
-    input wire  m_axi_awready,
-    output wire [C_M_AXI_DATA_WIDTH-1 : 0] m_axi_wdata,
-    output wire [(C_M_AXI_DATA_WIDTH/8)-1 : 0] m_axi_wstrb,
-    output wire  m_axi_wvalid,
-    input wire  m_axi_wready,
-    input wire [1 : 0] m_axi_bresp,
-    input wire  m_axi_bvalid,
-    output wire  m_axi_bready,
-    output wire [C_M_AXI_ADDR_WIDTH-1 : 0] m_axi_araddr,
-    output wire [2 : 0] m_axi_arprot,
-    output wire  m_axi_arvalid,
-    input wire  m_axi_arready,
-    input wire [C_M_AXI_DATA_WIDTH-1 : 0] m_axi_rdata,
-    input wire [1 : 0] m_axi_rresp,
-    input wire  m_axi_rvalid,
-    output wire  m_axi_rready,
-
     /*
      * Status
      */
@@ -115,14 +94,14 @@ module net #
     input  logic        clear_arp_cache,
 
     output logic xfcp_rx_tvalid,
-    output logic xfcp_rx_tready,
+    input logic xfcp_rx_tready,
     output logic [7:0] xfcp_rx_tdata,
     output logic xfcp_rx_tlast,
 
-    output logic xfcp_tx_tvalid,
+    input logic xfcp_tx_tvalid,
     output logic xfcp_tx_tready,
-    output logic [7:0] xfcp_tx_tdata,
-    output logic xfcp_tx_tlast,
+    input logic [7:0] xfcp_tx_tdata,
+    input logic xfcp_tx_tlast,
 
     output logic [63:0] udp_tx_tdata,
     output logic [7:0] udp_tx_tkeep,
@@ -476,27 +455,6 @@ taxi_axil_if #(
     .ADDR_W(C_M_AXI_ADDR_WIDTH)
 ) m_axil();
 
-assign m_axi_awaddr = m_axil.awaddr;
-assign m_axi_awprot = m_axil.awprot;
-assign m_axi_awvalid = m_axil.awvalid;
-assign m_axil.awready = m_axi_awready;
-assign m_axi_wdata = m_axil.wdata;
-assign m_axi_wstrb = m_axil.wstrb;
-assign m_axi_wvalid = m_axil.wvalid;
-assign m_axil.wready = m_axi_wready;
-assign m_axil.bresp = m_axi_bresp;
-assign m_axil.bvalid = m_axi_bvalid;
-assign m_axi_bready = m_axil.bready;
-assign m_axi_araddr = m_axil.araddr;
-assign m_axi_arprot = m_axil.arprot;
-assign m_axi_arvalid = m_axil.arvalid;
-assign m_axil.arready = m_axi_arready;
-assign m_axil.rdata = m_axi_rdata;
-assign m_axil.rresp = m_axi_rresp;
-assign m_axil.rvalid = m_axi_rvalid;
-assign m_axi_rready = m_axil.rready;
-
-
 taxi_axis_if xfcp_rx_dwc(), xfcp_tx_dwc();
 
 taxi_axis_adapter rx_width_adapter (
@@ -515,26 +473,17 @@ taxi_axis_adapter tx_width_adapter (
     .m_axis(xfcp_tx)
 );
 
-taxi_xfcp_mod_axil xfcp (
-    .clk(logic_clk),
-    .rst(logic_rst),
 
-    .xfcp_usp_ds(xfcp_rx_dwc),
-    .xfcp_usp_us(xfcp_tx_dwc),
-
-    .m_axil_wr(m_axil),
-    .m_axil_rd(m_axil)
-);
 
 assign xfcp_rx_tvalid = xfcp_rx_dwc.tvalid;
-assign xfcp_rx_tready = xfcp_rx_dwc.tready;
+assign xfcp_rx_dwc.tready = xfcp_rx_tready;
 assign xfcp_rx_tdata = xfcp_rx_dwc.tdata;
 assign xfcp_rx_tlast = xfcp_rx_dwc.tlast;
 
-assign xfcp_tx_tvalid = xfcp_tx_dwc.tvalid;
-assign xfcp_tx_tlast = xfcp_tx_dwc.tlast;
+assign xfcp_tx_dwc.tvalid = xfcp_tx_tvalid;
 assign xfcp_tx_tready = xfcp_tx_dwc.tready;
-assign xfcp_tx_tdata = xfcp_tx_dwc.tdata;
+assign xfcp_tx_dwc.tdata = xfcp_tx_tdata;
+assign xfcp_tx_dwc.tlast = xfcp_tx_tlast;
 
 assign udp_tx_tdata = xfcp_tx.tdata;
 assign udp_tx_tkeep = xfcp_tx.tkeep;
