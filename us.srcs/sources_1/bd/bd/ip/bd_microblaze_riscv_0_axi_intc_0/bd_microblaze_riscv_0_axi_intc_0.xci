@@ -256,7 +256,7 @@
           "abstraction_type": "xilinx.com:signal:interrupt_rtl:1.0",
           "mode": "slave",
           "parameters": {
-            "SENSITIVITY": [ { "value": "NULL:LEVEL_HIGH", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "usage": "all" } ],
+            "SENSITIVITY": [ { "value": "NULL:LEVEL_HIGH", "value_permission": "bd", "resolve_type": "generated", "usage": "all" } ],
             "PortWidth": [ { "value": "2", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ]
           },
           "port_maps": {
@@ -501,5 +501,5 @@
       }
     }
   },
-  "checksum": "2ee70cf3"
+  "checksum": "a023674b"
 }

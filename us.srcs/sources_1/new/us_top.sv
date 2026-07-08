@@ -160,7 +160,10 @@ bd_wrapper bd (
     .i2c_ramp_sda_io(ramp_sda),
     .i2c_sfp_scl_io(sfp_scl),
     .i2c_sfp_sda_io(sfp_sda),
-    .ramp_rst(ramp_rst)
+    .ramp_rst(ramp_rst),
+    .pulser_neg_0({pulser0_neg, pulser1_neg}),
+    .pulser_pos_0({pulser0_pos, pulser1_pos}),
+    .pulser_oen_0(pulser_oen)
 );
     
     
