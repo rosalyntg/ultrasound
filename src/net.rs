@@ -70,12 +70,6 @@ pub async fn main() {
         resistance: 10_000,
     };
 
-    let ramp_rst_gpio = xgpio::XGpio {
-        node: mem.clone(),
-        offset: 0x1_0000,
-        width: 1,
-    };
-
     let led_gpio = xgpio::XGpio {
         node: mem.clone(),
         offset: 0x0,
@@ -91,16 +85,32 @@ pub async fn main() {
 
     let ramp = crate::ramp::RampGenerator {
         pot: mcp4017,
-        rst: ramp_rst_gpio,
     };
 
-    ramp.set_ramp_rate(&mut interface, 30.).await.unwrap();
+    let pulser = crate::pulser::Pulser {
+        mem: mem.clone(),
+        offset: 0x2_0000,
+    };
+
+    pulser.setup(&mut interface, 2., 200, 35).await.unwrap();
+    dbg!(pulser.get_state(&mut interface).await.unwrap());
+    pulser.arm(&mut interface).await.unwrap();
+    dbg!(pulser.get_state(&mut interface).await.unwrap());
+
+    ramp.set_ramp_rate(&mut interface, 46.).await.unwrap();
+
     loop {
-        ramp.rst.clear_pin(&mut interface, 0).await.unwrap();
-        sleep(Duration::from_millis(500)).await;
-        ramp.rst.set_pin(&mut interface, 0).await.unwrap();
-        sleep(Duration::from_millis(500)).await;
+        // ramp.rst.set_pin(&mut interface, 0).await.unwrap();
+        pulser.start(&mut interface).await.unwrap();
+
+        sleep(Duration::from_millis(200)).await;
     }
+
+    // loop {
+    //     sleep(Duration::from_millis(500)).await;
+    //     ramp.rst.set_pin(&mut interface, 0).await.unwrap();
+    //     sleep(Duration::from_millis(500)).await;
+    // }
 
     // ramp.stop(&mut interface).await.unwrap();
     // sleep(Duration::from_secs(1)).await;

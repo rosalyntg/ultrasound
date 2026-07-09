@@ -12,6 +12,7 @@ mod ramp;
 mod xgpio;
 mod hvsupply;
 mod mcp3021;
+mod pulser;
 
 pub fn main() -> iced::Result {
     net::main();
