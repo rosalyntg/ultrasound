@@ -13,6 +13,7 @@ mod xgpio;
 mod hvsupply;
 mod mcp3021;
 mod pulser;
+mod si5338;
 
 pub fn main() -> iced::Result {
     net::main();

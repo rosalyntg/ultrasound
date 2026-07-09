@@ -56,12 +56,11 @@ pub async fn main() {
         panic!("Expected memory node at index 5");
     };
 
-    let Node::I2CNode(i2c) = &nodes[4] else {
-        panic!("Expected I2C node at index 4");
-    };
-
     let Node::I2CNode(ramp_i2c) = nodes.iter().find(|&n| n.name() == "ramp").unwrap() else {
         panic!("Expected I2C node named 'ramp'");
+    };
+    let Node::I2CNode(clk_i2c) = nodes.iter().find(|&n| n.name() == "clk").unwrap() else {
+        panic!("Expected I2C node named 'clk'");
     };
 
     let mcp4017 = mcp401x::Mcp401x {
@@ -83,14 +82,24 @@ pub async fn main() {
     //     sleep(Duration::from_millis(500)).await;
     // }
 
-    let ramp = crate::ramp::RampGenerator {
-        pot: mcp4017,
-    };
+    let ramp = crate::ramp::RampGenerator { pot: mcp4017 };
 
     let pulser = crate::pulser::Pulser {
         mem: mem.clone(),
         offset: 0x2_0000,
     };
+
+    let clk = crate::si5338::Si5338 {
+        i2c: clk_i2c.clone(),
+        address: 0x70,
+    };
+
+    clk.init(&mut interface).await.unwrap();
+
+    dbg!(clk.rev_id(&mut interface).await.unwrap());
+    dbg!(clk.device_config(&mut interface).await.unwrap());
+    println!("clk status {:08b}", clk.status(&mut interface).await.unwrap());
+    return;
 
     pulser.setup(&mut interface, 2., 200, 35).await.unwrap();
     dbg!(pulser.get_state(&mut interface).await.unwrap());
@@ -118,7 +127,6 @@ pub async fn main() {
     // sleep(Duration::from_millis(1)).await;
     // ramp.stop(&mut interface).await.unwrap();
     // println!("done");
-
 
     // dbg!(String::from_utf8_lossy(&i2c.read_at_offset_1b(&mut interface, 0x50, 0x14, 16).await.unwrap()));
 

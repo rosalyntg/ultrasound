@@ -307,7 +307,6 @@ impl I2CNode {
         let resp = timeout(TIMEOUT, interface.rx.next())
             .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
-        dbg!(&resp);
 
         let packet = Packet::parse(&resp)?;
 
