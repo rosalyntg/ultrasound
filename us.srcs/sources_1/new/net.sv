@@ -473,7 +473,80 @@ taxi_axis_adapter tx_width_adapter (
     .m_axis(xfcp_tx)
 );
 
+// udp_mux # 
+// (
+//     .S_COUNT(2),
+//     .DATA_WIDTH(64)
+// ) udp_mux_inst (
 
+//     .clk(logic_clk),
+//     .rst(logic_rst)
+
+//     .s_udp_hdr_valid(),
+//     .s_udp_hdr_ready(),
+//     .s_eth_dest_mac(),
+//     .s_eth_src_mac(),
+//     .s_eth_type(),
+//     .s_ip_version(),
+//     .s_ip_ihl(),
+//     .s_ip_dscp(),
+//     .s_ip_ecn(),
+//     .s_ip_length(),
+//     .s_ip_identification(),
+//     .s_ip_flags(),
+//     .s_ip_fragment_offset(),
+//     .s_ip_ttl(),
+//     .s_ip_protocol(),
+//     .s_ip_header_checksum(),
+//     .s_ip_source_ip(),
+//     .s_ip_dest_ip(),
+//     .s_udp_source_port(),
+//     .s_udp_dest_port(),
+//     .s_udp_length(),
+//     .s_udp_checksum(),
+//     .s_udp_payload_axis_tdata(),
+//     .s_udp_payload_axis_tkeep(),
+//     .s_udp_payload_axis_tvalid(),
+//     .s_udp_payload_axis_tready(),
+//     .s_udp_payload_axis_tlast(),
+//     .s_udp_payload_axis_tid(),
+//     .s_udp_payload_axis_tdest(),
+//     .s_udp_payload_axis_tuser(),
+
+//     /*
+//      * UDP frame output
+//      */
+//     .m_udp_hdr_valid(),
+//     .m_udp_hdr_ready(),
+//     .m_eth_dest_mac(),
+//     .m_eth_src_mac(),
+//     .m_eth_type(),
+//     .m_ip_version,
+//     output wire [3:0]                    m_ip_ihl,
+//     output wire [5:0]                    m_ip_dscp,
+//     output wire [1:0]                    m_ip_ecn,
+//     output wire [15:0]                   m_ip_length,
+//     output wire [15:0]                   m_ip_identification,
+//     output wire [2:0]                    m_ip_flags,
+//     output wire [12:0]                   m_ip_fragment_offset,
+//     output wire [7:0]                    m_ip_ttl,
+//     output wire [7:0]                    m_ip_protocol,
+//     output wire [15:0]                   m_ip_header_checksum,
+//     output wire [31:0]                   m_ip_source_ip,
+//     output wire [31:0]                   m_ip_dest_ip,
+//     output wire [15:0]                   m_udp_source_port,
+//     output wire [15:0]                   m_udp_dest_port,
+//     output wire [15:0]                   m_udp_length,
+//     output wire [15:0]                   m_udp_checksum,
+//     output wire [DATA_WIDTH-1:0]         m_udp_payload_axis_tdata,
+//     output wire [KEEP_WIDTH-1:0]         m_udp_payload_axis_tkeep,
+//     output wire                          m_udp_payload_axis_tvalid,
+//     input  wire                          m_udp_payload_axis_tready,
+//     output wire                          m_udp_payload_axis_tlast,
+//     output wire [ID_WIDTH-1:0]           m_udp_payload_axis_tid,
+//     output wire [DEST_WIDTH-1:0]         m_udp_payload_axis_tdest,
+//     output wire [USER_WIDTH-1:0]         m_udp_payload_axis_tuser,
+// );
 
 assign xfcp_rx_tvalid = xfcp_rx_dwc.tvalid;
 assign xfcp_rx_dwc.tready = xfcp_rx_tready;

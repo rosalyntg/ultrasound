@@ -48,11 +48,11 @@ module net_wrapper #
      * IP Integrator ties M_AXI (and its reset) to this clock automatically.
      */
     (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 logic_clk CLK" *)
-    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI:xfcp_rx:xfcp_tx:udp_tx:udp_rx, ASSOCIATED_RESET logic_rst" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI:xfcp_rx:xfcp_tx:udp_tx:udp_rx, ASSOCIATED_RESET logic_rstn" *)
     input  wire        logic_clk,
-    (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 logic_rst RST" *)
-    (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_HIGH" *)
-    input  wire        logic_rst,
+    (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 logic_rstn RST" *)
+    (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_LOW" *)
+    input  wire        logic_rstn,
 
     /*
      * XGMII 10G interface (transceiver clock domains)
@@ -126,7 +126,7 @@ net #(
 net_inst (
     // Application / logic clock domain
     .logic_clk(logic_clk),
-    .logic_rst(logic_rst),
+    .logic_rst(~logic_rstn),
     // XGMII 10G interface
     .xgmii_rx_clk(xgmii_rx_clk),
     .xgmii_rx_rst(xgmii_rx_rst),

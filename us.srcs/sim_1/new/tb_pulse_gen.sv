@@ -38,7 +38,8 @@ module tb_pulse_gen;
     localparam bit [31:0] ADDR_PW_POS = 32'h04;
     localparam bit [31:0] ADDR_PW_RTZ = 32'h08;
     localparam bit [31:0] ADDR_PW_NEG = 32'h0C;
-    localparam bit [31:0] ADDR_GO     = 32'h10;
+    localparam bit [31:0] ADDR_PW_WAIT= 32'h10;
+    localparam bit [31:0] ADDR_PW_RECV= 32'h14;
 
     // Commands / states in reg 0
     localparam bit [31:0] CMD_DISARM  = 32'd0;
@@ -51,6 +52,8 @@ module tb_pulse_gen;
     localparam int PW_POS = 10;
     localparam int PW_RTZ = 4;
     localparam int PW_NEG = 12;
+    localparam int PW_WAIT = 4;
+    localparam int PW_RECV = 40;
 
     logic aclk = 0;
     logic aresetn = 0;
@@ -61,6 +64,7 @@ module tb_pulse_gen;
     logic [7:0] pulser_neg;
     logic [7:0] pulser_pos;
     logic       pulser_oen;
+    logic       ramp_rst;
 
     // AXI4-Lite bus between VIP master and DUT
     logic [31:0] awaddr;
@@ -104,14 +108,15 @@ module tb_pulse_gen;
 
     pulse_gen #(
         .C_S_AXI_DATA_WIDTH (32),
-        .C_S_AXI_ADDR_WIDTH (5)
+        .C_S_AXI_ADDR_WIDTH (6)
     ) dut (
         .aclk          (aclk),
         .aresetn       (aresetn),
         .pulser_neg    (pulser_neg),
         .pulser_pos    (pulser_pos),
         .pulser_oen    (pulser_oen),
-        .S_AXI_AWADDR  (awaddr[4:0]),
+        .ramp_rst      (ramp_rst),
+        .S_AXI_AWADDR  (awaddr[5:0]),
         .S_AXI_AWPROT  (awprot),
         .S_AXI_AWVALID (awvalid),
         .S_AXI_AWREADY (awready),
@@ -122,7 +127,7 @@ module tb_pulse_gen;
         .S_AXI_BRESP   (bresp),
         .S_AXI_BVALID  (bvalid),
         .S_AXI_BREADY  (bready),
-        .S_AXI_ARADDR  (araddr[4:0]),
+        .S_AXI_ARADDR  (araddr[5:0]),
         .S_AXI_ARPROT  (arprot),
         .S_AXI_ARVALID (arvalid),
         .S_AXI_ARREADY (arready),
@@ -194,6 +199,8 @@ module tb_pulse_gen;
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_POS, 0, PW_POS, resp);
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_RTZ, 0, PW_RTZ, resp);
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_NEG, 0, PW_NEG, resp);
+        mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_WAIT, 0, PW_WAIT, resp);
+        mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_RECV, 0, PW_RECV, resp);
 
         mst_agent.AXI4LITE_READ_BURST(ADDR_PW_POS, 0, read_data, resp);
         check(read_data[15:0] == PW_POS[15:0], "pulse_width_pos readback");

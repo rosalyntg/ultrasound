@@ -2,18 +2,22 @@ localparam REG_OFFSET_STATE = 0; // write 1 to arm, write 2 to start, read to ge
 localparam REG_OFFSET_PULSE_WIDTH_POS = 1;
 localparam REG_OFFSET_PULSE_WIDTH_RTZ = 2;
 localparam REG_OFFSET_PULSE_WIDTH_NEG = 3;
+localparam REG_OFFSET_PULSE_WIDTH_DELAYRAMP = 4;
+localparam REG_OFFSET_PULSE_WIDTH_RECV = 5;
 
 typedef enum logic [2:0] {
 	IDLE,
 	ARMED,
 	POS,
 	RTZ,
-	NEG
+	NEG,
+	DELAYRAMP, // recv, but ramp not started yet
+	RECV
 } state_t;
 
 module pulse_gen # (
     parameter integer C_S_AXI_DATA_WIDTH	= 32,
-    parameter integer C_S_AXI_ADDR_WIDTH	= 5
+    parameter integer C_S_AXI_ADDR_WIDTH	= 6
 )(
     input logic aclk,
     input logic aresetn,
@@ -21,6 +25,7 @@ module pulse_gen # (
     output logic [7:0] pulser_neg,
     output logic [7:0] pulser_pos,
     output logic pulser_oen,
+	output logic ramp_rst,
 
     // Ports of Axi Slave Bus Interface S_AXI
     input logic [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_AWADDR,
@@ -60,7 +65,7 @@ module pulse_gen # (
 	// ADDR_LSB = 2 for 32 bits (n downto 2)
 	// ADDR_LSB = 3 for 64 bits (n downto 3)
 	localparam integer ADDR_LSB = (C_S_AXI_DATA_WIDTH/32) + 1;
-	localparam integer OPT_MEM_ADDR_BITS = 2;
+	localparam integer OPT_MEM_ADDR_BITS = 3;
 	//----------------------------------------------
 	//-- Signals for user logic register space example
 	//------------------------------------------------
@@ -70,13 +75,17 @@ module pulse_gen # (
 	logic [15:0] pulse_width_pos;
 	logic [15:0] pulse_width_rtz;
 	logic [15:0] pulse_width_neg;
+	logic [15:0] pulse_width_delayramp;
+	logic [15:0] pulse_width_recv;
 
 	logic [15:0] counter;
 
 	assign pulser_oen = state != IDLE;
 
-	assign pulser_pos = (state == POS) ? 8'hFF : 8'h00;
-	assign pulser_neg = (state == NEG) ? 8'hFF : 8'h00;
+	// pos+neg means recv
+	assign pulser_pos = (state == POS || state == RECV || state == DELAYRAMP) ? 8'hFF : 8'h00;
+	assign pulser_neg = (state == NEG || state == RECV || state == DELAYRAMP) ? 8'hFF : 8'h00;
+	assign ramp_rst = (state == RECV) ? 1'b0 : 1'b1;
 	
 	integer	 byte_index;
 	
@@ -179,6 +188,8 @@ module pulse_gen # (
             pulse_width_pos <= 0;
             pulse_width_rtz <= 0;
             pulse_width_neg <= 0;
+			pulse_width_delayramp <= 0;
+			pulse_width_recv <= 0;
 	    end 
 	  else begin
 	    if (S_AXI_WVALID)
@@ -220,11 +231,27 @@ module pulse_gen # (
 	                // Slave register 3
 	                pulse_width_neg[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
+	          3'h4:
+	            for ( byte_index = 0; byte_index <= 1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 4
+	                pulse_width_delayramp[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end  
+	          3'h5:
+	            for ( byte_index = 0; byte_index <= 1; byte_index = byte_index+1 )
+	              if ( S_AXI_WSTRB[byte_index] == 1 ) begin
+	                // Respective byte enables are asserted as per write strobes 
+	                // Slave register 5
+	                pulse_width_recv[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+	              end  
 	          default : begin
                 state <= state;
                 pulse_width_pos <= pulse_width_pos;
                 pulse_width_rtz <= pulse_width_rtz;
                 pulse_width_neg <= pulse_width_neg;
+				pulse_width_delayramp <= pulse_width_delayramp;
+				pulse_width_recv <= pulse_width_recv;
               end
             endcase
 	      end
@@ -250,6 +277,22 @@ module pulse_gen # (
 				end
 			end
 			NEG: begin
+				if (counter == 0) begin
+					state <= DELAYRAMP;
+					counter <= pulse_width_delayramp;
+				end else begin
+					counter <= counter - 1;
+				end
+			end
+			DELAYRAMP: begin
+				if (counter == 0) begin
+					state <= RECV;
+					counter <= pulse_width_recv;
+				end else begin
+					counter <= counter - 1;
+				end
+			end
+			RECV: begin
 				if (counter == 0) begin
 					state <= ARMED;
 				end else begin
@@ -316,7 +359,8 @@ module pulse_gen # (
 	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_PULSE_WIDTH_POS) ? pulse_width_pos : 
 	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_PULSE_WIDTH_RTZ) ? pulse_width_rtz : 
 	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_PULSE_WIDTH_NEG) ? pulse_width_neg : 
-	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_GO) ? '0 : 
+	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_PULSE_WIDTH_DELAYRAMP) ? pulse_width_delayramp : 
+	       (axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] == REG_OFFSET_PULSE_WIDTH_RECV) ? pulse_width_recv : 
 	       0; 
 	// Add user logic here
 

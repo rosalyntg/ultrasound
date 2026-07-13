@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module us_top(
     // Sysclk
     input wire osc200mhz_n,
@@ -68,16 +67,16 @@ module us_top(
     input wire jesd_coreclkn,
     input wire jesd_coreclkp,
     
-    output wire adc0_rstn,
-    output wire adc0_sclk,
-    output wire adc0_mosi,
-    output wire adc0_miso,
+    output wire adc0_rst,
+    inout wire adc0_sclk,
+    inout wire adc0_mosi,
+    inout wire adc0_miso,
     output wire adc0_cs,
     
-    output wire adc_rstn,
-    output wire adc1_sclk,
-    output wire adc1_mosi,
-    output wire adc1_miso,
+    output wire adc1_rst,
+    inout wire adc1_sclk,
+    inout wire adc1_mosi,
+    inout wire adc1_miso,
     output wire adc1_cs,
    
     output wire adc0_syncn,
@@ -118,20 +117,25 @@ module us_top(
     inout wire [6:0] test
 );
 
-wire adc_sync;
+wire adc0_sync;
+wire adc1_sync;
 
 OBUFDS adc0_sync_buf (
-    .I(adc_sync),
+    .I(~adc0_sync), // polarity swapped on board
     .O(adc0_syncp),
     .OB(adc0_syncn)
 );
 
 
 OBUFDS adc1_sync_buf (
-    .I(adc_sync),
+    .I(~adc1_sync), // polarity swapped on board
     .O(adc1_syncp),
     .OB(adc1_syncn)
 );
+
+wire adc0_syncvio, adc_sync_ip, syncoverride;
+assign adc0_sync = syncoverride ? adc0_syncvio : adc_sync_ip;
+
     
 bd_wrapper bd (
     .eth_refclk_clk_n(eth_refclkn),
@@ -140,8 +144,10 @@ bd_wrapper bd (
     .jesd_coreclk_clk_p(jesd_coreclkp),
     .jesd_refclk_clk_n(jesd_refclkn),
     .jesd_refclk_clk_p(jesd_refclkp),
-    .jesd_rxn('{adc0_dan, adc0_ddn, adc1_dan, adc1_ddn}),
-    .jesd_rxp('{adc0_dap, adc0_ddp, adc1_dap, adc1_ddp}),
+    .jesd_rxn('{adc1_dan, adc1_ddn, adc0_dan, adc0_ddn}),
+    .jesd_rxp('{adc1_dap, adc1_ddp, adc0_dap, adc0_ddp}),
+//    .jesd_rxn('{adc0_dan, adc0_ddn}),
+//    .jesd_rxp('{adc0_dap, adc0_ddp}),
     .osc_200mhz_clk_n(osc200mhz_n),
     .osc_200mhz_clk_p(osc200mhz_p),
     .sfp_rx_gt_port_0_n(sfp_rdn),
@@ -163,7 +169,24 @@ bd_wrapper bd (
     .ramp_rst(ramp_rst),
     .pulser_neg_0({pulser0_neg, pulser1_neg}),
     .pulser_pos_0({pulser0_pos, pulser1_pos}),
-    .pulser_oen_0(pulser_oen)
+    .pulser_oen_0(pulser_oen),
+    
+    .spi_adc0_io0_io(adc0_mosi),
+    .spi_adc0_io1_io(adc0_miso),
+    .spi_adc0_sck_io(adc0_sclk),
+    .spi_adc0_ss_io(adc0_cs),
+    
+    .spi_adc1_io0_io(adc1_mosi),
+    .spi_adc1_io1_io(adc1_miso),
+    .spi_adc1_sck_io(adc1_sclk),
+    .spi_adc1_ss_io(adc1_cs),
+    
+    .adc0_sync(adc0_syncvio),
+    .sync_ip(adc_sync_ip),
+    .adc1_sync(adc1_sync),
+    .syncoverride(syncoverride),
+    
+    .adc_rst('{adc1_rst, adc0_rst})
 );
     
     

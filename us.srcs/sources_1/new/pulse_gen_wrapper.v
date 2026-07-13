@@ -22,7 +22,7 @@
 
 module pulse_gen_wrapper # (
     parameter integer C_S_AXI_DATA_WIDTH	= 32,
-    parameter integer C_S_AXI_ADDR_WIDTH	= 5
+    parameter integer C_S_AXI_ADDR_WIDTH	= 6
 ) (
     input wire aclk,
     input wire aresetn,
@@ -30,6 +30,9 @@ module pulse_gen_wrapper # (
     output wire [7:0] pulser_neg,
     output wire [7:0] pulser_pos,
     output wire pulser_oen,
+
+    (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_HIGH" *)
+    output wire ramp_rst,
 
     // Ports of Axi Slave Bus Interface S_AXI
     input wire [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_AWADDR,
@@ -62,6 +65,7 @@ pulse_gen #(
     .pulser_neg(pulser_neg),
     .pulser_pos(pulser_pos),
     .pulser_oen(pulser_oen),
+    .ramp_rst(ramp_rst),
     .S_AXI_AWADDR(S_AXI_AWADDR),
     .S_AXI_AWPROT(S_AXI_AWPROT),
     .S_AXI_AWVALID(S_AXI_AWVALID),
