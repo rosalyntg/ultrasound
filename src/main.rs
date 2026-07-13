@@ -14,6 +14,10 @@ mod hvsupply;
 mod mcp3021;
 mod pulser;
 mod si5338;
+mod xspi;
+mod ad34jx;
+mod jesd204bphy;
+mod i2c;
 
 pub fn main() -> iced::Result {
     net::main();

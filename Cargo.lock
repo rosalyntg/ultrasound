@@ -3928,6 +3928,7 @@ dependencies = [
 name = "ultrasound-client"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "futures-core",
  "futures-sink",

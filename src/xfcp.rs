@@ -9,6 +9,8 @@ use iced::futures::{SinkExt, StreamExt};
 use iced_native::image::Data;
 use tokio::time::timeout;
 
+use crate::i2c::I2c;
+
 const TIMEOUT: Duration = Duration::from_secs(2);
 
 #[derive(Default, Debug, Clone)]
@@ -126,7 +128,7 @@ impl Node {
             payload,
         } = packet.payload
         else {
-            panic!("Expected IdResponse packet")
+            panic!("Expected IdResponse packet, got {:?}", packet.payload)
         };
 
         if ntype & 0x8000 != 0 {
@@ -177,8 +179,8 @@ impl Node {
 }
 
 pub struct Interface {
-    rx: Pin<Box<dyn Stream<Item = Bytes>>>,
-    tx: Pin<Box<dyn Sink<Bytes, Error = io::Error>>>,
+    rx: Pin<Box<dyn Stream<Item = Bytes> + Send>>,
+    tx: Pin<Box<dyn Sink<Bytes, Error = io::Error> + Send>>,
 }
 
 impl MemoryNode {
@@ -320,8 +322,16 @@ impl I2CNode {
 
         Ok(data.clone())
     }
+}
 
-    pub async fn write(&self, interface: &mut Interface, device_addr: u8, data: &[u8]) -> Result<(), io::Error> {
+#[async_trait::async_trait]
+impl I2c for I2CNode {
+    async fn write(
+        &self,
+        interface: &mut Interface,
+        device_addr: u8,
+        data: &[u8],
+    ) -> Result<(), io::Error> {
         let packet = Packet {
             path: self.c.path.clone(),
             rpath: Path(vec![]), // ??
@@ -335,12 +345,18 @@ impl I2CNode {
             ]),
         };
         interface.tx.send(Bytes::from(packet.to_bytes())).await?;
-        timeout(TIMEOUT, interface.rx.next()).await?
+        timeout(TIMEOUT, interface.rx.next())
+            .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
         Ok(())
     }
-    
-    pub async fn read(&self, interface: &mut Interface, address: u8, count: u8) -> Result<Vec<u8>, io::Error> {
+
+    async fn read(
+        &self,
+        interface: &mut Interface,
+        address: u8,
+        count: u8,
+    ) -> Result<Vec<u8>, io::Error> {
         let packet = Packet {
             path: self.c.path.clone(),
             rpath: Path(vec![]), // ??
@@ -354,7 +370,8 @@ impl I2CNode {
             ]),
         };
         interface.tx.send(Bytes::from(packet.to_bytes())).await?;
-        let resp = timeout(TIMEOUT, interface.rx.next()).await?
+        let resp = timeout(TIMEOUT, interface.rx.next())
+            .await?
             .ok_or(io::Error::from(io::ErrorKind::UnexpectedEof))?;
 
         let packet = Packet::parse(&resp)?;
@@ -372,8 +389,8 @@ impl I2CNode {
 
 impl Interface {
     pub fn new(
-        rx: impl Stream<Item = Bytes> + Unpin + 'static,
-        tx: impl Sink<Bytes, Error = io::Error> + Unpin + 'static,
+        rx: impl Stream<Item = Bytes> + Unpin + 'static + Sync + Send,
+        tx: impl Sink<Bytes, Error = io::Error> + Unpin + 'static + Sync + Send,
     ) -> Self {
         Self {
             rx: Box::pin(rx),

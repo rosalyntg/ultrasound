@@ -7,7 +7,14 @@ use futures_util::{SinkExt, StreamExt, future::ready};
 use tokio::time::sleep;
 use tokio_util::{codec::BytesCodec, udp::UdpFramed};
 
-use crate::{mcp401x, xfcp::Node, xgpio};
+use crate::{
+    hvsupply,
+    i2c::FlippedI2c,
+    jesd204bphy, mcp401x, mcp3021,
+    xfcp::Node,
+    xgpio::{self, GpioPin},
+    xspi,
+};
 
 const ULTRASOUND_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 1);
 const ULTRASOUND_HOST_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 2);
@@ -22,6 +29,11 @@ pub async fn main() {
         .expect("Failed to bind UDP socket");
 
     let dst = SocketAddr::new(std::net::IpAddr::V4(ULTRASOUND_IP), ULTRASOUND_CTRL_PORT);
+
+    let mut buf = [0u8; 2048];
+    while let Ok(_) = socket.try_recv(&mut buf) {
+        println!("Drained pending packet: {:?}", &buf);
+    }
 
     let frame = UdpFramed::new(socket, BytesCodec::new())
         .with(move |f| ready(Ok((f, dst))))
@@ -41,16 +53,15 @@ pub async fn main() {
         });
 
     let (tx, rx) = frame.split();
+
     let mut interface = crate::xfcp::Interface::new(rx, tx);
     let root = interface.enumerate().await.unwrap();
-    dbg!(&root);
 
     let Node::SwitchNode(switch) = &root else {
         panic!("Root node is not a switch node");
     };
 
     let nodes = switch.enumerate(&mut interface).await.unwrap();
-    dbg!(&nodes);
 
     let Node::MemoryNode(mem) = &nodes[5] else {
         panic!("Expected memory node at index 5");
@@ -62,9 +73,12 @@ pub async fn main() {
     let Node::I2CNode(clk_i2c) = nodes.iter().find(|&n| n.name() == "clk").unwrap() else {
         panic!("Expected I2C node named 'clk'");
     };
+    let Node::I2CNode(hvplus_i2c) = nodes.iter().find(|&n| n.name() == "hvplus").unwrap() else {
+        panic!("Expected I2C node named 'hvplus'");
+    };
 
-    let mcp4017 = mcp401x::Mcp401x {
-        i2c_node: ramp_i2c.clone(),
+    let ramp_mcp4017 = mcp401x::Mcp401x {
+        i2c: Box::new(ramp_i2c.clone()),
         address: 0b0101111,
         resistance: 10_000,
     };
@@ -72,8 +86,58 @@ pub async fn main() {
     let led_gpio = xgpio::XGpio {
         node: mem.clone(),
         offset: 0x0,
-        width: 2,
+        width: [2, 0],
     };
+    let pinswap_gpio = xgpio::XGpio {
+        node: mem.clone(),
+        offset: 0x6_0000,
+        width: [1, 1],
+    };
+
+    let adc_rst_gpio = xgpio::XGpio {
+        node: mem.clone(),
+        offset: 0x1_0000,
+        width: [2, 0],
+    };
+
+    let spi_adc0 = xspi::XSpi {
+        node: mem.clone(),
+        offset: 0x4_0000,
+        cpol: false,
+        cpha: false,
+    };
+
+    let (hvplus_i2c_nonflip, hvplus_i2c_flip) = FlippedI2c::new(
+        hvplus_i2c.clone(),
+        GpioPin {
+            gpio: pinswap_gpio.clone(),
+            ch: 0,
+            pin: 0,
+        },
+    );
+    let hvplus = hvsupply::HVSupply {
+        pot: mcp401x::Mcp401x {
+            i2c: Box::new(hvplus_i2c_nonflip),
+            address: 0b0101111,
+            resistance: 10_000,
+        },
+        adc: mcp3021::Mcp3021 {
+            i2c: Box::new(hvplus_i2c_flip),
+            address: 0b1001000,
+            mult: 1.0/0.026,
+            vdd: 3.3,
+        },
+    };
+
+    // loop {
+
+    // hvplus.get_voltage(&mut interface).await.unwrap();
+    // }
+
+    // spi_adc0.init(&mut interface).await.unwrap();
+    // for addr in 1..100 {
+    //     dbg!(spi_adc0.transfer(&mut interface, 0, &[0b1100_0000 | addr, 0x00, 0x00]).await.unwrap());
+    // }
 
     // loop {
     //     led_gpio.set_pin(&mut interface, 1).await.unwrap();
@@ -82,7 +146,7 @@ pub async fn main() {
     //     sleep(Duration::from_millis(500)).await;
     // }
 
-    let ramp = crate::ramp::RampGenerator { pot: mcp4017 };
+    let ramp = crate::ramp::RampGenerator { pot: ramp_mcp4017 };
 
     let pulser = crate::pulser::Pulser {
         mem: mem.clone(),
@@ -94,11 +158,46 @@ pub async fn main() {
         address: 0x70,
     };
 
+    let ad34jx = crate::ad34jx::Ad34jx {
+        spi: spi_adc0,
+        cs: 0,
+    };
+
+    let jesd = jesd204bphy::Jesd204bPhy {
+        mem: mem.clone(),
+        offset: 0x3_0000,
+    };
+
+    // // sleep(Duration::from_millis(500)).await;
+    // jesd.setup(&mut interface).await.unwrap();
+
     clk.init(&mut interface).await.unwrap();
 
-    dbg!(clk.rev_id(&mut interface).await.unwrap());
-    dbg!(clk.device_config(&mut interface).await.unwrap());
-    println!("clk status {:08b}", clk.status(&mut interface).await.unwrap());
+    sleep(Duration::from_millis(500)).await;
+
+    println!("set");
+    adc_rst_gpio.set_pin(&mut interface, 0, 0).await.unwrap();
+    adc_rst_gpio.set_pin(&mut interface, 0, 1).await.unwrap();
+    sleep(Duration::from_millis(500)).await;
+    adc_rst_gpio.clear_pin(&mut interface, 0, 0).await.unwrap();
+    adc_rst_gpio.clear_pin(&mut interface, 0, 1).await.unwrap();
+    // sleep(Duration::from_millis(1500)).await;
+
+    ad34jx.init(&mut interface, crate::ad34jx::Mode::Lmfs2441).await.unwrap();
+
+    dbg!(ad34jx.write_reg(&mut interface, 0x34, 0).await); // subclass 0
+    // dbg!(ad34jx.read_reg(&mut interface, 0x34).await);
+
+    // dbg!(ad34jx.read_reg(&mut interface, 0x2f).await);
+
+    // ad34jx.test_pattern(&mut interface, true).await.unwrap();
+    // ad34jx.link_test(&mut interface).await.unwrap();
+    // ad34jx.sw_sync(&mut interface).await.unwrap();
+
+    // jesd.status(&mut interface).await.unwrap();
+
+    // dbg!(ad34jx.write_reg(&mut interface, 0x15, 0b1111_0100).await); // power down all channels
+
     return;
 
     pulser.setup(&mut interface, 2., 200, 35).await.unwrap();
