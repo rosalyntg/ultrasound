@@ -7,6 +7,7 @@ use crate::{xfcp, xspi};
 pub struct Ad34jx {
     pub spi: xspi::XSpi,
     pub cs: u32,
+    pub reset: crate::xgpio::GpioPin,
 }
 
 pub enum Mode {
@@ -41,12 +42,19 @@ impl Ad34jx {
         interface: &mut xfcp::Interface,
         mode: Mode,
     ) -> Result<(), std::io::Error> {
-        self.write_reg(interface, 0x40, 0xa).await?; // reset
-        sleep(Duration::from_millis(100)).await;
+        self.reset.set(interface).await?;
+        sleep(Duration::from_millis(50)).await;
+        self.reset.clear(interface).await?;
+        sleep(Duration::from_millis(50)).await;
 
         if let Mode::Lmfs2441 = mode {
+            dbg!(self.read_reg(interface, 0x2b).await);
+            dbg!(self.read_reg(interface, 0x30).await);
             self.write_reg(interface, 0x2b, 0x01).await?;
             self.write_reg(interface, 0x30, 0x11).await?;
+
+            dbg!(self.read_reg(interface, 0x2b).await);
+            dbg!(self.read_reg(interface, 0x30).await);
         }
 
         Ok(())

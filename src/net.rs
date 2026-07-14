@@ -124,7 +124,7 @@ pub async fn main() {
         adc: mcp3021::Mcp3021 {
             i2c: Box::new(hvplus_i2c_flip),
             address: 0b1001000,
-            mult: 1.0/0.026,
+            mult: 1.0 / 0.026,
             vdd: 3.3,
         },
     };
@@ -161,6 +161,11 @@ pub async fn main() {
     let ad34jx = crate::ad34jx::Ad34jx {
         spi: spi_adc0,
         cs: 0,
+        reset: GpioPin {
+            gpio: adc_rst_gpio.clone(),
+            ch: 0,
+            pin: 0,
+        },
     };
 
     let jesd = jesd204bphy::Jesd204bPhy {
@@ -175,15 +180,10 @@ pub async fn main() {
 
     sleep(Duration::from_millis(500)).await;
 
-    println!("set");
-    adc_rst_gpio.set_pin(&mut interface, 0, 0).await.unwrap();
-    adc_rst_gpio.set_pin(&mut interface, 0, 1).await.unwrap();
-    sleep(Duration::from_millis(500)).await;
-    adc_rst_gpio.clear_pin(&mut interface, 0, 0).await.unwrap();
-    adc_rst_gpio.clear_pin(&mut interface, 0, 1).await.unwrap();
-    // sleep(Duration::from_millis(1500)).await;
-
-    ad34jx.init(&mut interface, crate::ad34jx::Mode::Lmfs2441).await.unwrap();
+    ad34jx
+        .init(&mut interface, crate::ad34jx::Mode::Lmfs2441)
+        .await
+        .unwrap();
 
     dbg!(ad34jx.write_reg(&mut interface, 0x34, 0).await); // subclass 0
     // dbg!(ad34jx.read_reg(&mut interface, 0x34).await);
