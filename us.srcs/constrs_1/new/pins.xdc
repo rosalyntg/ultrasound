@@ -113,6 +113,7 @@ set_property IOSTANDARD LVDS [get_ports adc0_syncn]
 set_property IOSTANDARD LVDS [get_ports adc1_syncp]
 
 create_clock -period 40.00 -name jesd_coreclk -waveform {0.0 20.0} [get_ports jesd_coreclkp]
+create_clock -period 10.00 -name jesd_refclk  -waveform {0.0 5.0} [get_ports jesd_refclkp]
 
 set_property PACKAGE_PIN G11 [get_ports ramp_scl]
 set_property PACKAGE_PIN H11 [get_ports ramp_sda]

@@ -1,13 +1,14 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xBA004003BA864232",
+      "boundary_crc": "0xBA0040031EC70CD2",
       "device": "xcau15p-ffvb676-2-i",
       "gen_directory": "../../../../us.gen/sources_1/bd/bd",
       "name": "bd",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2025.2.1"
+      "tool_version": "2025.2.1",
+      "validated": "true"
     },
     "design_tree": {
       "xxv_ethernet_0": "",
@@ -38,7 +39,10 @@
       "axi_gpio_pinswap": "",
       "ilslice_0": "",
       "ilvector_logic_0": "",
-      "ilvector_logic_1": ""
+      "ilvector_logic_1": "",
+      "eth_wdt_0": "",
+      "util_ds_buf_1": "",
+      "c_counter_binary_1": ""
     },
     "interface_ports": {
       "eth_refclk": {
@@ -569,7 +573,13 @@
       "ramp_rst": {
         "direction": "O",
         "left": "0",
-        "right": "0"
+        "right": "0",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_HIGH",
+            "value_src": "const_prop"
+          }
+        }
       },
       "pulser_pos_0": {
         "direction": "O",
@@ -636,6 +646,9 @@
           },
           "ENABLE_PIPELINE_REG": {
             "value": "0"
+          },
+          "GT_DRP_CLK": {
+            "value": "25"
           },
           "INCLUDE_AXI4_INTERFACE": {
             "value": "0"
@@ -984,7 +997,7 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_NUM_PROBE_IN": {
-            "value": "17"
+            "value": "20"
           },
           "C_NUM_PROBE_OUT": {
             "value": "19"
@@ -2785,7 +2798,7 @@
         "has_run_ip_tcl": "true",
         "parameters": {
           "C_NUM_PROBE_IN": {
-            "value": "13"
+            "value": "14"
           },
           "C_NUM_PROBE_OUT": {
             "value": "7"
@@ -2798,6 +2811,9 @@
           },
           "C_PROBE_IN11_WIDTH": {
             "value": "4"
+          },
+          "C_PROBE_IN13_WIDTH": {
+            "value": "32"
           },
           "C_PROBE_IN4_WIDTH": {
             "value": "1"
@@ -3139,6 +3155,87 @@
             "value": "1"
           }
         }
+      },
+      "eth_wdt_0": {
+        "vlnv": "xilinx.com:module_ref:eth_wdt:1.0",
+        "ip_revision": "1",
+        "xci_name": "bd_eth_wdt_0_0",
+        "xci_path": "ip/bd_eth_wdt_0_0/bd_eth_wdt_0_0.xci",
+        "inst_hier_path": "eth_wdt_0",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "eth_wdt",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "dclk": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "25000000",
+                "value_src": "ip_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "ip_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "bd_clk_wiz_0_0_mhz25",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "user_rx_reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_HIGH",
+                "value_src": "constant"
+              }
+            }
+          },
+          "tx_reset_done": {
+            "direction": "I"
+          },
+          "reset_rx_datapath": {
+            "type": "rst",
+            "direction": "O",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_HIGH",
+                "value_src": "constant"
+              }
+            }
+          }
+        }
+      },
+      "util_ds_buf_1": {
+        "vlnv": "xilinx.com:ip:util_ds_buf:2.2",
+        "ip_revision": "9",
+        "xci_name": "bd_util_ds_buf_1_2",
+        "xci_path": "ip/bd_util_ds_buf_1_2/bd_util_ds_buf_1_2.xci",
+        "inst_hier_path": "util_ds_buf_1",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_BUF_TYPE": {
+            "value": "BUFG_GT"
+          }
+        }
+      },
+      "c_counter_binary_1": {
+        "vlnv": "xilinx.com:ip:c_counter_binary:12.0",
+        "ip_revision": "22",
+        "xci_name": "bd_c_counter_binary_1_0",
+        "xci_path": "ip/bd_c_counter_binary_1_0/bd_c_counter_binary_1_0.xci",
+        "inst_hier_path": "c_counter_binary_1",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Output_Width": {
+            "value": "32"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -3365,6 +3462,12 @@
           "vio_0/probe_in0"
         ]
       },
+      "c_counter_binary_1_Q": {
+        "ports": [
+          "c_counter_binary_1/Q",
+          "vio_0/probe_in13"
+        ]
+      },
       "clear_arp_cache": {
         "ports": [
           "vio_rx/probe_out6",
@@ -3382,6 +3485,13 @@
         "ports": [
           "vio_eth/probe_out16",
           "xxv_ethernet_0/gt_drprst_1"
+        ]
+      },
+      "eth_wdt_0_reset_rx_datapath": {
+        "ports": [
+          "eth_wdt_0/reset_rx_datapath",
+          "xxv_ethernet_0/gtwiz_reset_tx_datapath_0",
+          "vio_eth/probe_in17"
         ]
       },
       "ext_logic_rstn": {
@@ -3683,7 +3793,8 @@
           "xxv_ethernet_0/gt_drpclk_1",
           "axi_quad_spi_0/ext_spi_clk",
           "axi_quad_spi_1/ext_spi_clk",
-          "in_system_ibert_0/clk"
+          "in_system_ibert_0/clk",
+          "eth_wdt_0/dclk"
         ]
       },
       "net_wrapper_0_ip_rx_busy": {
@@ -3906,12 +4017,6 @@
           "xxv_ethernet_0/gtwiz_reset_rx_datapath_1"
         ]
       },
-      "reset_tx_datapath0": {
-        "ports": [
-          "vio_eth/probe_out1",
-          "xxv_ethernet_0/gtwiz_reset_tx_datapath_0"
-        ]
-      },
       "reset_tx_datapath1": {
         "ports": [
           "vio_eth/probe_out12",
@@ -4043,6 +4148,12 @@
           "xxv_ethernet_0/tx_reset_0"
         ]
       },
+      "util_ds_buf_0_IBUF_DS_ODIV2": {
+        "ports": [
+          "util_ds_buf_0/IBUF_DS_ODIV2",
+          "util_ds_buf_1/BUFG_GT_I"
+        ]
+      },
       "util_ds_buf_0_IBUF_OUT": {
         "ports": [
           "util_ds_buf_0/IBUF_OUT",
@@ -4058,6 +4169,12 @@
           "vio_0/clk",
           "ila_3/clk",
           "jesd204b_rx_0/clk"
+        ]
+      },
+      "util_ds_buf_1_BUFG_GT_O": {
+        "ports": [
+          "util_ds_buf_1/BUFG_GT_O",
+          "c_counter_binary_1/CLK"
         ]
       },
       "vio_eth_probe_out10": {
@@ -4088,6 +4205,13 @@
         "ports": [
           "xxv_ethernet_0/gt_txbufstatus_1",
           "vio_eth/probe_in14"
+        ]
+      },
+      "xxv_ethernet_0_gt_txresetdone_1": {
+        "ports": [
+          "xxv_ethernet_0/gt_txresetdone_1",
+          "vio_eth/probe_in18",
+          "eth_wdt_0/tx_reset_done"
         ]
       },
       "xxv_ethernet_0_gtpowergood_out_0": {
@@ -4219,7 +4343,9 @@
         "ports": [
           "xxv_ethernet_0/user_rx_reset_0",
           "ila_0/probe22",
-          "ilvector_logic_1/Op1"
+          "ilvector_logic_1/Op1",
+          "eth_wdt_0/user_rx_reset",
+          "vio_eth/probe_in19"
         ]
       },
       "xxv_ethernet_0_user_tx_reset_1": {
