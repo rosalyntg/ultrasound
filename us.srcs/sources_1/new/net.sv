@@ -45,8 +45,6 @@ interface udpaux_if;
     logic        [31:0] ip_dest_ip;
     logic        [15:0] source_port;
     logic        [15:0] dest_port;
-    logic        [15:0] length;
-    logic        [15:0] checksum;
 endinterface
 
 module net #
@@ -116,7 +114,13 @@ module net #
     output logic udp_rx_tvalid,
 
     output logic udp_header_valid,
-    output logic [15:0] udp_header_dst_port
+    output logic [15:0] udp_header_dst_port,
+
+    input logic [63:0] s_data_tdata,
+    output logic s_data_tready,
+    input logic s_data_tlast,
+    input logic [7:0] s_data_tkeep,
+    input logic s_data_tvalid
 );
 
 // ---------------------------------------------------------------------------
@@ -292,13 +296,51 @@ eth_axis_tx_inst (
 
 taxi_axis_if #(.DATA_W(64), .LAST_EN(1), .USER_EN(1), .USER_W(1)) xfcp_rx(), xfcp_tx();
 
-wire [15:0] m_udp_dest_port;
-wire m_udp_payload_axis_tvalid;
+logic [15:0] m_udp_dest_port;
+logic m_udp_payload_axis_tvalid;
 
 
 assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && m_udp_dest_port == 16'd8001;
 
-udpaux_if udp_tx_checksum();
+udpaux_if udp_tx(), udp_xfcp(), udp_adc();
+taxi_axis_if #(.DATA_W(64), .LAST_EN(1), .USER_EN(0)) udp_tx_data();
+
+udp_hdr_valid_gen udp_hdr_valid_gen_xfcp (
+    .clk(logic_clk),
+    .rst(logic_rst),
+    .axis_tvalid(xfcp_tx_tvalid),
+    .axis_tready(xfcp_tx_tready),
+    .axis_tlast(xfcp_tx_tlast),
+    .hdr_ready(udp_xfcp.hdr_ready),
+    .hdr_valid(udp_xfcp.hdr_valid)
+);
+
+assign udp_xfcp.ip_dscp = 1'b0;
+assign udp_xfcp.ip_ecn = 1'b0;
+assign udp_xfcp.ip_ttl = 8'd64;
+assign udp_xfcp.ip_source_ip = local_ip;
+assign udp_xfcp.ip_dest_ip = remote_ip;
+assign udp_xfcp.source_port = 16'd8001;
+assign udp_xfcp.dest_port = 16'd8001;
+
+udp_hdr_valid_gen udp_hdr_valid_gen_adc (
+    .clk(logic_clk),
+    .rst(logic_rst),
+    .axis_tvalid(s_data_tvalid),
+    .axis_tready(s_data_tready),
+    .axis_tlast(s_data_tlast),
+    .hdr_ready(udp_adc.hdr_ready),
+    .hdr_valid(udp_adc.hdr_valid)
+);
+
+assign udp_adc.ip_dscp = 1'b0;
+assign udp_adc.ip_ecn = 1'b0;
+assign udp_adc.ip_ttl = 8'd64;
+assign udp_adc.ip_source_ip = local_ip;
+assign udp_adc.ip_dest_ip = remote_ip;
+assign udp_adc.source_port = 16'd8002;
+assign udp_adc.dest_port = 16'd8002;
+
 
 // ---------------------------------------------------------------------------
 // UDP/IP stack.  IP frame side is not exposed:
@@ -382,23 +424,23 @@ udp_complete_inst (
     .m_ip_payload_axis_tuser(),
     // UDP frame input (application side)
 
-    .s_udp_hdr_valid(1'b1),
-    .s_udp_hdr_ready(),
-    .s_udp_ip_dscp(1'b0),
-    .s_udp_ip_ecn(1'b0),
-    .s_udp_ip_ttl(8'd64),
-    .s_udp_ip_source_ip(local_ip),
-    .s_udp_ip_dest_ip(remote_ip),
-    .s_udp_source_port(16'd8001),
-    .s_udp_dest_port(16'd8001),
+    .s_udp_hdr_valid(udp_tx.hdr_valid),
+    .s_udp_hdr_ready(udp_tx.hdr_ready),
+    .s_udp_ip_dscp(udp_tx.ip_dscp),
+    .s_udp_ip_ecn(udp_tx.ip_ecn),
+    .s_udp_ip_ttl(udp_tx.ip_ttl),
+    .s_udp_ip_source_ip(udp_tx.ip_source_ip),
+    .s_udp_ip_dest_ip(udp_tx.ip_dest_ip),
+    .s_udp_source_port(udp_tx.source_port),
+    .s_udp_dest_port(udp_tx.dest_port),
     .s_udp_length(), // computed by udp_complete_64
     .s_udp_checksum(), // computed by udp_complete_64
-    .s_udp_payload_axis_tdata(xfcp_tx.tdata),
-    .s_udp_payload_axis_tkeep(xfcp_tx.tkeep),
-    .s_udp_payload_axis_tvalid(xfcp_tx.tvalid),
-    .s_udp_payload_axis_tready(xfcp_tx.tready),
-    .s_udp_payload_axis_tlast(xfcp_tx.tlast),
-    .s_udp_payload_axis_tuser(xfcp_tx.tuser),
+    .s_udp_payload_axis_tdata(udp_tx_data.tdata),
+    .s_udp_payload_axis_tkeep(udp_tx_data.tkeep),
+    .s_udp_payload_axis_tvalid(udp_tx_data.tvalid),
+    .s_udp_payload_axis_tready(udp_tx_data.tready),
+    .s_udp_payload_axis_tlast(udp_tx_data.tlast),
+    .s_udp_payload_axis_tuser(udp_tx_data.tuser),
     // UDP frame output (application side)
     .m_udp_hdr_valid(),
     .m_udp_hdr_ready(1'b1),
@@ -473,80 +515,81 @@ taxi_axis_adapter tx_width_adapter (
     .m_axis(xfcp_tx)
 );
 
-// udp_mux # 
-// (
-//     .S_COUNT(2),
-//     .DATA_WIDTH(64)
-// ) udp_mux_inst (
+udp_arb_mux # 
+(
+    .S_COUNT(2),
+    .DATA_WIDTH(64),
+    .ARB_LSB_HIGH_PRIORITY(0) // xfcp should be priority
+) udp_mux_inst (
 
-//     .clk(logic_clk),
-//     .rst(logic_rst)
+    .clk(logic_clk),
+    .rst(logic_rst),
 
-//     .s_udp_hdr_valid(),
-//     .s_udp_hdr_ready(),
-//     .s_eth_dest_mac(),
-//     .s_eth_src_mac(),
-//     .s_eth_type(),
-//     .s_ip_version(),
-//     .s_ip_ihl(),
-//     .s_ip_dscp(),
-//     .s_ip_ecn(),
-//     .s_ip_length(),
-//     .s_ip_identification(),
-//     .s_ip_flags(),
-//     .s_ip_fragment_offset(),
-//     .s_ip_ttl(),
-//     .s_ip_protocol(),
-//     .s_ip_header_checksum(),
-//     .s_ip_source_ip(),
-//     .s_ip_dest_ip(),
-//     .s_udp_source_port(),
-//     .s_udp_dest_port(),
-//     .s_udp_length(),
-//     .s_udp_checksum(),
-//     .s_udp_payload_axis_tdata(),
-//     .s_udp_payload_axis_tkeep(),
-//     .s_udp_payload_axis_tvalid(),
-//     .s_udp_payload_axis_tready(),
-//     .s_udp_payload_axis_tlast(),
-//     .s_udp_payload_axis_tid(),
-//     .s_udp_payload_axis_tdest(),
-//     .s_udp_payload_axis_tuser(),
+    .s_udp_hdr_valid({udp_xfcp.hdr_valid, udp_adc.hdr_valid}),
+    .s_udp_hdr_ready({udp_xfcp.hdr_ready, udp_adc.hdr_ready}),
+    .s_eth_dest_mac(),
+    .s_eth_src_mac(),
+    .s_eth_type(),
+    .s_ip_version(),
+    .s_ip_ihl(),
+    .s_ip_dscp({udp_xfcp.ip_dscp, udp_adc.ip_dscp}),
+    .s_ip_ecn({udp_xfcp.ip_ecn, udp_adc.ip_ecn}),
+    .s_ip_length(),
+    .s_ip_identification(),
+    .s_ip_flags(),
+    .s_ip_fragment_offset(),
+    .s_ip_ttl({udp_xfcp.ip_ttl, udp_adc.ip_ttl}),
+    .s_ip_protocol(),
+    .s_ip_header_checksum(),
+    .s_ip_source_ip({udp_xfcp.ip_source_ip, udp_adc.ip_source_ip}),
+    .s_ip_dest_ip({udp_xfcp.ip_dest_ip, udp_adc.ip_dest_ip}),
+    .s_udp_source_port({udp_xfcp.source_port, udp_adc.source_port}),
+    .s_udp_dest_port({udp_xfcp.dest_port, udp_adc.dest_port}),
+    .s_udp_length(),
+    .s_udp_checksum(),
+    .s_udp_payload_axis_tdata({xfcp_tx.tdata, s_data_tdata}),
+    .s_udp_payload_axis_tkeep({xfcp_tx.tkeep, s_data_tkeep}),
+    .s_udp_payload_axis_tvalid({xfcp_tx.tvalid, s_data_tvalid}),
+    .s_udp_payload_axis_tready({xfcp_tx.tready, s_data_tready}),
+    .s_udp_payload_axis_tlast({xfcp_tx.tlast, s_data_tlast}),
+    .s_udp_payload_axis_tid(),
+    .s_udp_payload_axis_tdest(),
+    .s_udp_payload_axis_tuser({xfcp_tx.tuser, s_data_tuser}),
 
-//     /*
-//      * UDP frame output
-//      */
-//     .m_udp_hdr_valid(),
-//     .m_udp_hdr_ready(),
-//     .m_eth_dest_mac(),
-//     .m_eth_src_mac(),
-//     .m_eth_type(),
-//     .m_ip_version,
-//     output wire [3:0]                    m_ip_ihl,
-//     output wire [5:0]                    m_ip_dscp,
-//     output wire [1:0]                    m_ip_ecn,
-//     output wire [15:0]                   m_ip_length,
-//     output wire [15:0]                   m_ip_identification,
-//     output wire [2:0]                    m_ip_flags,
-//     output wire [12:0]                   m_ip_fragment_offset,
-//     output wire [7:0]                    m_ip_ttl,
-//     output wire [7:0]                    m_ip_protocol,
-//     output wire [15:0]                   m_ip_header_checksum,
-//     output wire [31:0]                   m_ip_source_ip,
-//     output wire [31:0]                   m_ip_dest_ip,
-//     output wire [15:0]                   m_udp_source_port,
-//     output wire [15:0]                   m_udp_dest_port,
-//     output wire [15:0]                   m_udp_length,
-//     output wire [15:0]                   m_udp_checksum,
-//     output wire [DATA_WIDTH-1:0]         m_udp_payload_axis_tdata,
-//     output wire [KEEP_WIDTH-1:0]         m_udp_payload_axis_tkeep,
-//     output wire                          m_udp_payload_axis_tvalid,
-//     input  wire                          m_udp_payload_axis_tready,
-//     output wire                          m_udp_payload_axis_tlast,
-//     output wire [ID_WIDTH-1:0]           m_udp_payload_axis_tid,
-//     output wire [DEST_WIDTH-1:0]         m_udp_payload_axis_tdest,
-//     output wire [USER_WIDTH-1:0]         m_udp_payload_axis_tuser,
-// );
+    /*
+     * UDP frame output
+     */
+    .m_udp_hdr_valid(udp_tx.hdr_valid),
+    .m_udp_hdr_ready(udp_tx.hdr_ready),
+    .m_eth_dest_mac(),
+    .m_eth_src_mac(),
+    .m_eth_type(),
+    .m_ip_version(),
+    .m_ip_ihl(),
+    .m_ip_dscp(udp_tx.ip_dscp),
+    .m_ip_ecn(udp_tx.ip_ecn),
+    .m_ip_length(),
+    .m_ip_identification(),
+    .m_ip_flags(),
+    .m_ip_fragment_offset(),
+    .m_ip_ttl(udp_tx.ip_ttl),
+    .m_ip_protocol(),
+    .m_ip_header_checksum(),
+    .m_ip_source_ip(udp_tx.ip_source_ip),
+    .m_ip_dest_ip(udp_tx.ip_dest_ip),
+    .m_udp_source_port(udp_tx.source_port),
+    .m_udp_dest_port(udp_tx.dest_port),
+    .m_udp_length(),
+    .m_udp_checksum(),
+    .m_udp_payload_axis_tdata(udp_tx_data.tdata),
+    .m_udp_payload_axis_tkeep(udp_tx_data.tkeep),
+    .m_udp_payload_axis_tvalid(udp_tx_data.tvalid),
+    .m_udp_payload_axis_tready(udp_tx_data.tready),
+    .m_udp_payload_axis_tlast(udp_tx_data.tlast),
+    .m_udp_payload_axis_tid(),
+    .m_udp_payload_axis_tdest(),
+    .m_udp_payload_axis_tuser()
+);
 
 assign xfcp_rx_tvalid = xfcp_rx_dwc.tvalid;
 assign xfcp_rx_dwc.tready = xfcp_rx_tready;
@@ -558,11 +601,11 @@ assign xfcp_tx_tready = xfcp_tx_dwc.tready;
 assign xfcp_tx_dwc.tdata = xfcp_tx_tdata;
 assign xfcp_tx_dwc.tlast = xfcp_tx_tlast;
 
-assign udp_tx_tdata = xfcp_tx.tdata;
-assign udp_tx_tkeep = xfcp_tx.tkeep;
-assign udp_tx_tvalid = xfcp_tx.tvalid;
-assign udp_tx_tready = xfcp_tx.tready;
-assign udp_tx_tlast = xfcp_tx.tlast;
+assign udp_tx_tdata = udp_tx_data.tdata;
+assign udp_tx_tkeep = udp_tx_data.tkeep;
+assign udp_tx_tvalid = udp_tx_data.tvalid;
+assign udp_tx_tready = udp_tx_data.tready;
+assign udp_tx_tlast = udp_tx_data.tlast;
 
 assign udp_rx_tdata = xfcp_rx.tdata;
 assign udp_rx_tready = xfcp_rx.tready;

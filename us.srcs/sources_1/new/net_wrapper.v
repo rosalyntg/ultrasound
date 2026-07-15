@@ -48,7 +48,7 @@ module net_wrapper #
      * IP Integrator ties M_AXI (and its reset) to this clock automatically.
      */
     (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 logic_clk CLK" *)
-    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI:xfcp_rx:xfcp_tx:udp_tx:udp_rx, ASSOCIATED_RESET logic_rstn" *)
+    (* X_INTERFACE_PARAMETER = "ASSOCIATED_BUSIF M_AXI:xfcp_rx:xfcp_tx:udp_tx:udp_rx:s_data, ASSOCIATED_RESET logic_rstn" *)
     input  wire        logic_clk,
     (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 logic_rstn RST" *)
     (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_LOW" *)
@@ -111,7 +111,14 @@ module net_wrapper #
     output wire udp_rx_tvalid,
 
     output wire udp_header_valid,
-    output wire [15:0] udp_header_dst_port
+    output wire [15:0] udp_header_dst_port,
+
+    input wire [63:0] s_data_tdata,
+    output wire s_data_tready,
+    input wire s_data_tlast,
+    input wire [7:0] s_data_tkeep,
+    input wire s_data_tvalid
+
 );
 
 // ---------------------------------------------------------------------------
@@ -173,7 +180,13 @@ net_inst (
     .udp_rx_tvalid(udp_rx_tvalid),
     .udp_rx_tkeep(udp_rx_tkeep),
     .udp_header_valid(udp_header_valid),
-    .udp_header_dst_port(udp_header_dst_port)
+    .udp_header_dst_port(udp_header_dst_port),
+
+    .s_data_tdata(s_data_tdata),
+    .s_data_tready(s_data_tready),
+    .s_data_tlast(s_data_tlast),
+    .s_data_tkeep(s_data_tkeep),
+    .s_data_tvalid(s_data_tvalid)
 );
 
 endmodule

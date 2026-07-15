@@ -30,11 +30,6 @@ module eth_wdt(
    (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_HIGH" *)
     output reset_rx_datapath
 );
-    
-    wire rx_reset_done_sync;
-    wire rx_reset_done_sync;
-    
-    
     localparam [28:0] MASTER_WATCHDOG_TIMER_RESET = (750000000 / (1000 / 25.00));
     
     reg [28:0] ctr = MASTER_WATCHDOG_TIMER_RESET;

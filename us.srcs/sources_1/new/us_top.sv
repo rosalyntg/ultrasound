@@ -136,6 +136,7 @@ OBUFDS adc1_sync_buf (
 wire adc0_syncvio, adc_sync_ip, syncoverride;
 assign adc0_sync = syncoverride ? adc0_syncvio : adc_sync_ip;
 
+wire mhz10;
     
 bd_wrapper bd (
     .eth_refclk_clk_n(eth_refclkn),
@@ -186,7 +187,9 @@ bd_wrapper bd (
     .adc1_sync(adc1_sync),
     .syncoverride(syncoverride),
     
-    .adc_rst('{adc1_rst, adc0_rst})
+    .adc_rst('{adc1_rst, adc0_rst}),
+    
+    .mhz10(mhz10)
 );
     
     
