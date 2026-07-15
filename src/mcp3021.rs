@@ -12,7 +12,7 @@ impl Mcp3021 {
     pub async fn read_voltage(&self, interface: &mut xfcp::Interface) -> Result<f32, std::io::Error> {
         let raw = self.read_raw(interface).await?;
         let voltage_raw = (raw as f32 / (1 << 10) as f32) * self.vdd;
-        let voltage_scaled = dbg!(voltage_raw) * self.mult;
+        let voltage_scaled = voltage_raw * self.mult;
         Ok(voltage_scaled)
     }
 

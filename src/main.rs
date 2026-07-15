@@ -1,25 +1,20 @@
+use std::collections::VecDeque;
+use std::env;
 use std::io;
-use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::ops::RangeInclusive;
 use std::time::Duration;
 
 use iced::alignment;
 use iced::futures::channel::mpsc;
-use iced::futures::{SinkExt, Stream, StreamExt, future::ready};
+use iced::futures::{SinkExt, Stream, StreamExt};
 use iced::mouse;
-use iced::widget::{canvas, column, container, row, scrollable, slider, text};
-use iced::{Element, Fill, Point, Rectangle, Renderer, Subscription, Theme};
-use tokio_util::codec::BytesCodec;
-use tokio_util::udp::UdpFramed;
+use iced::widget::{
+    button, canvas, column, container, radio, row, scrollable, slider, text, text_input,
+    toggler,
+};
+use iced::{Center, Element, Fill, Point, Rectangle, Renderer, Subscription, Theme};
 
-use crate::hvsupply::HVSupply;
-use crate::i2c::FlippedI2c;
-use crate::mcp401x::Mcp401x;
-use crate::mcp3021::Mcp3021;
-use crate::pulser::Pulser;
-use crate::ramp::RampGenerator;
-use crate::xfcp::Node;
-use crate::xgpio::{GpioPin, XGpio};
+use crate::ultrasound::Ultrasound;
 
 #[allow(dead_code)]
 mod net;
@@ -35,41 +30,55 @@ mod xspi;
 mod ad34jx;
 mod jesd204bphy;
 mod i2c;
-
-// keep in sync with net.rs
-const ULTRASOUND_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 1);
-const ULTRASOUND_HOST_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 2);
-
-const ULTRASOUND_CTRL_PORT: u16 = 8001;
-const ULTRASOUND_DATA_PORT: u16 = 8002;
+mod ultrasound;
 
 // usable ramp times for the RC ramp: 10k fixed + 10k pot, see ramp.rs
 const RAMP_RATE_RANGE: RangeInclusive<f32> = 24.0..=47.0; // µs
 const HV_RANGE: RangeInclusive<f32> = 0.0..=100.0; // V
 const PULSE_DURATION_RANGE: RangeInclusive<f32> = 100.0..=2000.0; // ns (full period)
+const PULSE_RATE_RANGE: RangeInclusive<f32> = 1.0..=50.0; // Hz
+const RAMP_DELAY_RANGE: RangeInclusive<f32> = 0.0..=200.0; // µs
+const HOLDOFF_RANGE: RangeInclusive<f32> = 0.0..=131_072.0; // samples
+const TRIGGER_POSITION_RANGE: RangeInclusive<f32> = 0.0..=90.0; // % of window before the trigger
+const X_SCALE_EXP_RANGE: RangeInclusive<f32> = 8.0..=16.0; // samples across = 2^exp
+const Y_SCALE_RANGE: RangeInclusive<f32> = 16.0..=2048.0; // ± ADC codes
+const Y_OFFSET_RANGE: RangeInclusive<f32> = -2048.0..=2047.0; // ADC codes
 
 const PULSER_RECV_TIME_US: u32 = 200;
-const PULSER_DELAY_RAMP_US: u32 = 35;
+
+// 25 MHz ADC sample rate, but the FPGA only sends 1 of every 8 samples
+// over UDP (the `skip` counter in jesd_to_axi4s)
+const ADC_SAMPLE_RATE_HZ: f32 = 25e6;
+const UDP_DECIMATION: f32 = 2.0;
+const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ; // 320 ns
 
 const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
 
-// pub fn main() -> iced::Result {
-//     tracing_subscriber::fmt::init();
+pub fn main() -> iced::Result {
+    tracing_subscriber::fmt::init();
 
-//     iced::application(App::default, App::update, App::view)
-//         .subscription(App::subscription)
-//         .title("Ultrasound Client")
-//         .centered()
-//         .run()
-// }
-use net::main;
+    if let Some(arg1) = env::args().nth(1) && arg1 == "cmd" {
+        net::main();
+        return Ok(());
+    }
+
+    iced::application(App::default, App::update, App::view)
+        .subscription(App::subscription)
+        .title("Ultrasound Client")
+        .centered()
+        .run()
+}
 
 struct App {
     ramp_rate_us: f32,
     hv_plus_setpoint: f32,
     hv_minus_setpoint: f32, // magnitude, displayed negative
     pulse_duration_ns: f32,
+    pulse_rate_hz: f32,
+    ramp_delay_us: f32, // gain ramp delay after the pulse
+    pulsing: bool,
+    adcs_enabled: bool,
 
     hv_plus_reading: Option<f32>,
     hv_minus_reading: Option<f32>,
@@ -77,8 +86,50 @@ struct App {
     status: String,
     hw: Option<mpsc::Sender<HwCommand>>,
 
-    points: Vec<(f32, f32)>,
+    /// Last completed capture — what the plot shows.
+    traces: [Vec<f32>; 4],
+    /// Capture currently being filled; swapped into `traces` when complete.
+    capture: [Vec<f32>; 4],
+    channel_enabled: [bool; 4],
+    acquisition: Acquisition,
+    trigger_mode: TriggerMode,
+    trigger_channel: usize,
+    trigger_level: f32, // ADC codes
+    trigger_level_text: String,
+    holdoff_samples: usize,
+    samples_since_trigger: usize,
+    prev_trigger_sample: Option<f32>,
+    trigger_position_pct: f32, // portion of the window shown before the trigger
+    /// Rolling pre-trigger history, capped at `x_scale` samples.
+    history: [VecDeque<f32>; 4],
+    /// Where the trigger landed in the capture being filled.
+    trigger_index: usize,
+    /// Where the trigger landed in the displayed capture.
+    display_trigger_index: usize,
+    x_scale: usize, // samples across the plot, power of two
+    y_auto: bool,
+    y_scale: f32,  // ± ADC codes around the offset
+    y_offset: f32, // center, ADC codes
     plot_cache: canvas::Cache,
+}
+
+/// How an armed acquisition starts a capture.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum TriggerMode {
+    /// Capture immediately — continuously scrolling data.
+    Auto,
+    /// Wait for the trigger channel to cross the trigger level upward.
+    Normal,
+}
+
+/// Software-trigger acquisition state.
+#[derive(Debug, Clone, Copy)]
+enum Acquisition {
+    Stopped,
+    /// Waiting for the trigger channel to cross the trigger level upward.
+    Armed { continuous: bool },
+    /// Filling the capture buffers up to `x_scale` samples.
+    Capturing { continuous: bool },
 }
 
 impl Default for App {
@@ -88,11 +139,34 @@ impl Default for App {
             hv_plus_setpoint: 0.0,
             hv_minus_setpoint: 0.0,
             pulse_duration_ns: 500.0, // 2 MHz
+            pulse_rate_hz: 5.0,
+            ramp_delay_us: 35.0,
+            pulsing: false,
+            adcs_enabled: true,
             hv_plus_reading: None,
             hv_minus_reading: None,
             status: String::from("starting..."),
             hw: None,
-            points: Vec::new(),
+            traces: Default::default(),
+            capture: Default::default(),
+            channel_enabled: [true; 4],
+            acquisition: Acquisition::Armed { continuous: true },
+            trigger_mode: TriggerMode::Auto,
+            trigger_channel: 0,
+            trigger_level: 0.0,
+            trigger_level_text: String::from("0"),
+            holdoff_samples: 0,
+            // don't block the very first trigger
+            samples_since_trigger: usize::MAX / 2,
+            prev_trigger_sample: None,
+            trigger_position_pct: 0.0,
+            history: Default::default(),
+            trigger_index: 0,
+            display_trigger_index: 0,
+            x_scale: 4096,
+            y_auto: true,
+            y_scale: 2048.0,
+            y_offset: 0.0,
             plot_cache: canvas::Cache::new(),
         }
     }
@@ -108,6 +182,28 @@ enum Message {
     ApplyHvMinus,
     PulseDurationChanged(f32),
     ApplyPulseDuration,
+    RampDelayChanged(f32),
+    ApplyRampDelay,
+    AdcsEnabledToggled(bool),
+    InitHw,
+    SendPulse,
+    PulseRateChanged(f32),
+    ApplyPulseRate,
+    PulsingToggled,
+    RunToggled,
+    SingleShot,
+    TriggerModeSelected(TriggerMode),
+    TriggerChannelSelected(usize),
+    TriggerLevelChanged(f32),
+    TriggerLevelInputChanged(String),
+    TriggerLevelInputSubmitted,
+    HoldoffChanged(f32),
+    TriggerPositionChanged(f32),
+    XScaleChanged(f32),
+    YScaleChanged(f32),
+    YOffsetChanged(f32),
+    YAutoPressed,
+    ChannelToggled(usize),
     Hardware(HwEvent),
 }
 
@@ -119,8 +215,15 @@ enum HwEvent {
     Status(String),
     HvPlusVoltage(f32),
     HvMinusVoltage(f32),
-    /// X/Y points to plot
-    Points(Vec<(f32, f32)>),
+    /// ADC frames, one sample per channel
+    Frames(Vec<[f32; 4]>),
+}
+
+/// Pulser settings applied together via Pulser::setup.
+#[derive(Debug, Clone, Copy)]
+struct PulserConfig {
+    duration_ns: f32,
+    ramp_delay_us: f32,
 }
 
 /// Commands flowing from the GUI to the hardware task.
@@ -129,7 +232,12 @@ enum HwCommand {
     SetRampRate(f32),   // µs
     SetHvPlus(f32),     // V
     SetHvMinus(f32),    // V (magnitude)
-    SetPulseDuration(f32), // ns
+    SetupPulser(PulserConfig),
+    SetAdcsEnabled(bool), // false holds the ADC in reset
+    InitHw,
+    SendPulse(PulserConfig),
+    StartPulses { config: PulserConfig, rate_hz: f32 },
+    StopPulses,
 }
 
 impl App {
@@ -149,7 +257,124 @@ impl App {
             }
             Message::PulseDurationChanged(v) => self.pulse_duration_ns = v,
             Message::ApplyPulseDuration => {
-                self.send(HwCommand::SetPulseDuration(self.pulse_duration_ns));
+                self.send(HwCommand::SetupPulser(self.pulser_config()));
+            }
+            Message::RampDelayChanged(v) => self.ramp_delay_us = v,
+            Message::ApplyRampDelay => {
+                self.send(HwCommand::SetupPulser(self.pulser_config()));
+            }
+            Message::AdcsEnabledToggled(enabled) => {
+                self.adcs_enabled = enabled;
+                self.send(HwCommand::SetAdcsEnabled(enabled));
+            }
+            Message::InitHw => {
+                self.send(HwCommand::InitHw);
+            }
+            Message::SendPulse => {
+                self.send(HwCommand::SendPulse(self.pulser_config()));
+            }
+            Message::PulseRateChanged(rate) => self.pulse_rate_hz = rate,
+            Message::ApplyPulseRate => {
+                if self.pulsing {
+                    self.send(HwCommand::StartPulses {
+                        config: self.pulser_config(),
+                        rate_hz: self.pulse_rate_hz,
+                    });
+                }
+            }
+            Message::PulsingToggled => {
+                self.pulsing = !self.pulsing;
+                if self.pulsing {
+                    self.send(HwCommand::StartPulses {
+                        config: self.pulser_config(),
+                        rate_hz: self.pulse_rate_hz,
+                    });
+                } else {
+                    self.send(HwCommand::StopPulses);
+                }
+            }
+            Message::RunToggled => {
+                self.acquisition = match self.acquisition {
+                    Acquisition::Stopped => Acquisition::Armed { continuous: true },
+                    _ => Acquisition::Stopped,
+                };
+            }
+            Message::SingleShot => {
+                self.acquisition = Acquisition::Armed { continuous: false };
+            }
+            Message::TriggerModeSelected(mode) => {
+                self.trigger_mode = mode;
+            }
+            Message::TriggerChannelSelected(ch) => {
+                self.trigger_channel = ch;
+                self.prev_trigger_sample = None;
+                self.plot_cache.clear();
+            }
+            Message::TriggerLevelChanged(level) => {
+                self.trigger_level = level;
+                self.trigger_level_text = format!("{level:.0}");
+                self.plot_cache.clear();
+            }
+            Message::TriggerLevelInputChanged(input) => {
+                if let Ok(level) = input.trim().parse::<f32>() {
+                    self.trigger_level = level.clamp(-2048.0, 2047.0);
+                    self.plot_cache.clear();
+                }
+                self.trigger_level_text = input;
+            }
+            Message::TriggerLevelInputSubmitted => {
+                self.trigger_level_text = format!("{:.0}", self.trigger_level);
+            }
+            Message::HoldoffChanged(samples) => {
+                self.holdoff_samples = samples as usize;
+            }
+            Message::TriggerPositionChanged(pct) => {
+                self.trigger_position_pct = pct;
+            }
+            Message::XScaleChanged(exp) => {
+                self.x_scale = 1 << exp as u32;
+                for trace in &mut self.traces {
+                    trace.truncate(self.x_scale);
+                }
+                for capture in &mut self.capture {
+                    capture.truncate(self.x_scale);
+                }
+                for history in &mut self.history {
+                    while history.len() > self.x_scale {
+                        history.pop_front();
+                    }
+                }
+                if let Acquisition::Capturing { continuous } = self.acquisition {
+                    if self.capture[0].len() >= self.x_scale {
+                        std::mem::swap(&mut self.traces, &mut self.capture);
+                        self.display_trigger_index = self.trigger_index;
+
+                        self.acquisition = if continuous {
+                            Acquisition::Armed { continuous: true }
+                        } else {
+                            Acquisition::Stopped
+                        };
+                    }
+                }
+                self.plot_cache.clear();
+            }
+            Message::YScaleChanged(scale) => {
+                self.y_scale = scale;
+                self.y_auto = false;
+                self.plot_cache.clear();
+            }
+            Message::YOffsetChanged(offset) => {
+                self.y_offset = offset;
+                self.y_auto = false;
+                self.plot_cache.clear();
+            }
+            Message::YAutoPressed => {
+                self.y_auto = true;
+                self.plot_cache.clear();
+            }
+            Message::ChannelToggled(ch) => {
+                self.channel_enabled[ch] = !self.channel_enabled[ch];
+                self.plot_cache.clear();
             }
             Message::Hardware(event) => match event {
                 HwEvent::Connected(commands) => {
@@ -160,16 +385,107 @@ impl App {
                     self.hw = None;
                     self.hv_plus_reading = None;
                     self.hv_minus_reading = None;
+                    self.pulsing = false;
                     self.status = format!("disconnected: {reason}");
                 }
                 HwEvent::Status(status) => self.status = status,
                 HwEvent::HvPlusVoltage(v) => self.hv_plus_reading = Some(v),
                 HwEvent::HvMinusVoltage(v) => self.hv_minus_reading = Some(v),
-                HwEvent::Points(points) => {
-                    self.points = points;
-                    self.plot_cache.clear();
+                HwEvent::Frames(frames) => {
+                    let mut changed = false;
+
+                    for frame in frames {
+                        let sample = frame[self.trigger_channel];
+
+                        match self.acquisition {
+                            Acquisition::Stopped => {}
+                            Acquisition::Armed { continuous } => {
+                                let triggered = (self.trigger_mode
+                                    == TriggerMode::Auto
+                                    || self.prev_trigger_sample.is_some_and(|prev| {
+                                        prev < self.trigger_level
+                                            && sample >= self.trigger_level
+                                    }))
+                                    && self.samples_since_trigger
+                                        >= self.holdoff_samples;
+
+                                if triggered {
+                                    // prepend pre-trigger history (as much as
+                                    // is available) per the X trigger position
+                                    let pre_target = (self.trigger_position_pct
+                                        / 100.0
+                                        * self.x_scale as f32)
+                                        as usize;
+
+                                    for (capture, (history, sample)) in self
+                                        .capture
+                                        .iter_mut()
+                                        .zip(self.history.iter().zip(frame))
+                                    {
+                                        capture.clear();
+                                        let start =
+                                            history.len().saturating_sub(pre_target);
+                                        capture.extend(history.iter().skip(start));
+                                        capture.push(sample);
+                                    }
+                                    self.trigger_index = self.capture[0].len() - 1;
+
+                                    self.acquisition =
+                                        Acquisition::Capturing { continuous };
+                                    self.samples_since_trigger = 0;
+                                    changed = true;
+                                }
+                            }
+                            Acquisition::Capturing { continuous } => {
+                                for (capture, sample) in
+                                    self.capture.iter_mut().zip(frame)
+                                {
+                                    capture.push(sample);
+                                }
+                                changed = true;
+
+                                if self.capture[0].len() >= self.x_scale {
+                                    // completed: publish to the display buffer
+                                    // (swap keeps the allocations around)
+                                    std::mem::swap(&mut self.traces, &mut self.capture);
+                                    self.display_trigger_index = self.trigger_index;
+
+                                    self.acquisition = if continuous {
+                                        Acquisition::Armed { continuous: true }
+                                    } else {
+                                        Acquisition::Stopped
+                                    };
+                                }
+                            }
+                        }
+
+                        // rolling pre-trigger history, updated after the
+                        // state machine so it never contains the current frame
+                        // at trigger time
+                        for (history, sample) in self.history.iter_mut().zip(frame) {
+                            history.push_back(sample);
+                            while history.len() > self.x_scale {
+                                history.pop_front();
+                            }
+                        }
+
+                        self.prev_trigger_sample = Some(sample);
+                        self.samples_since_trigger =
+                            self.samples_since_trigger.saturating_add(1);
+                    }
+
+                    if changed {
+                        self.plot_cache.clear();
+                    }
                 }
             },
+        }
+    }
+
+    fn pulser_config(&self) -> PulserConfig {
+        PulserConfig {
+            duration_ns: self.pulse_duration_ns,
+            ramp_delay_us: self.ramp_delay_us,
         }
     }
 
@@ -195,6 +511,7 @@ impl App {
             text("Status").size(16),
             text(if connected { "● connected" } else { "○ disconnected" }).size(14),
             text(&self.status).size(13),
+            button("init hw").on_press_maybe(connected.then_some(Message::InitHw)),
         ]
         .spacing(5);
 
@@ -250,6 +567,163 @@ impl App {
             )
             .step(25.0)
             .on_release(Message::ApplyPulseDuration),
+            text(format!("ramp delay: {:.0} µs", self.ramp_delay_us)).size(14),
+            slider(
+                RAMP_DELAY_RANGE,
+                self.ramp_delay_us,
+                Message::RampDelayChanged
+            )
+            .step(1.0)
+            .on_release(Message::ApplyRampDelay),
+            text(format!("rate: {:.0} Hz", self.pulse_rate_hz)).size(14),
+            slider(
+                PULSE_RATE_RANGE,
+                self.pulse_rate_hz,
+                Message::PulseRateChanged
+            )
+            .step(1.0)
+            .on_release(Message::ApplyPulseRate),
+            row![
+                button("send pulse").on_press_maybe(connected.then_some(Message::SendPulse)),
+                button(if self.pulsing {
+                    "stop pulsing"
+                } else {
+                    "start pulsing"
+                })
+                .on_press_maybe(connected.then_some(Message::PulsingToggled)),
+            ]
+            .spacing(10),
+        ]
+        .spacing(5);
+
+        let running = !matches!(self.acquisition, Acquisition::Stopped);
+        let scope_section = column![
+            text("Scope").size(16),
+            row![
+                button(if running { "stop" } else { "run" }).on_press(Message::RunToggled),
+                button("single").on_press(Message::SingleShot),
+            ]
+            .spacing(10),
+            text(match self.acquisition {
+                Acquisition::Stopped => "stopped",
+                Acquisition::Armed { .. } => "armed, waiting for trigger",
+                Acquisition::Capturing { .. } => "capturing...",
+            })
+            .size(13),
+            text("trigger mode").size(14),
+            row![
+                radio(
+                    "auto",
+                    TriggerMode::Auto,
+                    Some(self.trigger_mode),
+                    Message::TriggerModeSelected,
+                )
+                .size(16),
+                radio(
+                    "normal",
+                    TriggerMode::Normal,
+                    Some(self.trigger_mode),
+                    Message::TriggerModeSelected,
+                )
+                .size(16),
+            ]
+            .spacing(10),
+            text("trigger channel").size(14),
+            row((0..4).map(|ch| {
+                radio(
+                    CHANNEL_NAMES[ch],
+                    ch,
+                    Some(self.trigger_channel),
+                    Message::TriggerChannelSelected,
+                )
+                .size(16)
+                .into()
+            }))
+            .spacing(10),
+            row![
+                text("trigger level").size(14),
+                text_input("level", &self.trigger_level_text)
+                    .on_input(Message::TriggerLevelInputChanged)
+                    .on_submit(Message::TriggerLevelInputSubmitted)
+                    .size(13)
+                    .width(70),
+            ]
+            .spacing(10)
+            .align_y(Center),
+            slider(
+                -2048.0..=2047.0,
+                self.trigger_level,
+                Message::TriggerLevelChanged
+            )
+            .step(16.0),
+            text(format!(
+                "trigger position: {:.0}%",
+                self.trigger_position_pct
+            ))
+            .size(14),
+            slider(
+                TRIGGER_POSITION_RANGE,
+                self.trigger_position_pct,
+                Message::TriggerPositionChanged
+            )
+            .step(5.0),
+            text(format!(
+                "holdoff: {} samples ({})",
+                self.holdoff_samples,
+                fmt_samples_as_time(self.holdoff_samples)
+            ))
+            .size(14),
+            slider(
+                HOLDOFF_RANGE,
+                self.holdoff_samples as f32,
+                Message::HoldoffChanged
+            )
+            .step(1024.0),
+        ]
+        .spacing(5);
+
+        let adc_section = column![
+            text("ADCs").size(16),
+            toggler(self.adcs_enabled)
+                .label(if self.adcs_enabled {
+                    "enabled"
+                } else {
+                    "disabled (in reset)"
+                })
+                .on_toggle(Message::AdcsEnabledToggled),
+        ]
+        .spacing(5);
+
+        let x_scale_section = column![
+            text("X scale").size(16),
+            text(format!(
+                "{} samples ({})",
+                self.x_scale,
+                fmt_samples_as_time(self.x_scale)
+            ))
+            .size(14),
+            slider(
+                X_SCALE_EXP_RANGE,
+                self.x_scale.max(1).ilog2() as f32,
+                Message::XScaleChanged
+            )
+            .step(1.0),
+        ]
+        .spacing(5);
+
+        let y_axis_section = column![
+            text("Y axis").size(16),
+            text(if self.y_auto {
+                String::from("auto")
+            } else {
+                String::from("manual")
+            })
+            .size(13),
+            text(format!("scale: ±{:.0}", self.y_scale)).size(14),
+            slider(Y_SCALE_RANGE, self.y_scale, Message::YScaleChanged).step(16.0),
+            text(format!("offset: {:.0}", self.y_offset)).size(14),
+            slider(Y_OFFSET_RANGE, self.y_offset, Message::YOffsetChanged).step(16.0),
+            button("auto").on_press_maybe((!self.y_auto).then_some(Message::YAutoPressed)),
         ]
         .spacing(5);
 
@@ -261,6 +735,10 @@ impl App {
                 hv_plus_section,
                 hv_minus_section,
                 pulse_section,
+                scope_section,
+                adc_section,
+                x_scale_section,
+                y_axis_section,
             ]
             .spacing(20)
             .padding(15),
@@ -269,9 +747,32 @@ impl App {
         .width(280)
         .height(Fill);
 
+        // show the last completed capture; before the first one completes,
+        // show the capture in progress
+        let (shown, shown_trigger_index) = if self.traces.iter().any(|t| !t.is_empty()) {
+            (&self.traces, self.display_trigger_index)
+        } else {
+            (&self.capture, self.trigger_index)
+        };
+        let fill = if matches!(self.acquisition, Acquisition::Capturing { .. }) {
+            self.capture[0].len()
+        } else {
+            0
+        };
+
         let plot = container(
             canvas(Plot {
-                points: &self.points,
+                traces: shown,
+                enabled: self.channel_enabled,
+                x_scale: self.x_scale,
+                trigger_channel: self.trigger_channel,
+                trigger_level: self.trigger_level,
+                trigger_index: shown_trigger_index,
+                fill,
+                y_range: (!self.y_auto).then_some((
+                    self.y_offset - self.y_scale,
+                    self.y_offset + self.y_scale,
+                )),
                 cache: &self.plot_cache,
             })
             .width(Fill)
@@ -292,13 +793,84 @@ fn fmt_voltage(v: Option<f32>) -> String {
     }
 }
 
+fn fmt_samples_as_time(samples: usize) -> String {
+    let seconds = samples as f32 * SAMPLE_PERIOD_S;
+    if seconds >= 1e-3 {
+        format!("{:.2} ms", seconds * 1e3)
+    } else if seconds >= 1e-6 {
+        format!("{:.1} µs", seconds * 1e6)
+    } else {
+        format!("{:.0} ns", seconds * 1e9)
+    }
+}
+
 struct Plot<'a> {
-    points: &'a [(f32, f32)],
+    traces: &'a [Vec<f32>; 4],
+    enabled: [bool; 4],
+    x_scale: usize,
+    trigger_channel: usize,
+    trigger_level: f32,
+    trigger_index: usize,
+    /// Samples filled so far in an in-progress capture (0 when idle).
+    fill: usize,
+    /// Manual Y range (min, max); None autoscales to the data.
+    y_range: Option<(f32, f32)>,
     cache: &'a canvas::Cache,
+}
+
+const PLOT_MARGIN_LEFT: f32 = 60.0;
+const PLOT_MARGIN_RIGHT: f32 = 15.0;
+const PLOT_MARGIN_TOP: f32 = 15.0;
+const PLOT_MARGIN_BOTTOM: f32 = 30.0;
+
+const CHANNEL_NAMES: [&str; 4] = ["A", "B", "C", "D"];
+
+/// Clickable legend entry bounds, relative to the canvas top-left.
+fn legend_rect(ch: usize) -> Rectangle {
+    Rectangle {
+        x: PLOT_MARGIN_LEFT + 10.0 + ch as f32 * 40.0,
+        y: PLOT_MARGIN_TOP + 2.0,
+        width: 36.0,
+        height: 18.0,
+    }
 }
 
 impl canvas::Program<Message> for Plot<'_> {
     type State = ();
+
+    fn update(
+        &self,
+        _state: &mut Self::State,
+        event: &canvas::Event,
+        bounds: Rectangle,
+        cursor: mouse::Cursor,
+    ) -> Option<canvas::Action<Message>> {
+        if let canvas::Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = event {
+            let position = cursor.position_in(bounds)?;
+            for ch in 0..4 {
+                if legend_rect(ch).contains(position) {
+                    return Some(canvas::Action::publish(Message::ChannelToggled(ch)));
+                }
+            }
+        }
+
+        None
+    }
+
+    fn mouse_interaction(
+        &self,
+        _state: &Self::State,
+        bounds: Rectangle,
+        cursor: mouse::Cursor,
+    ) -> mouse::Interaction {
+        if let Some(position) = cursor.position_in(bounds) {
+            if (0..4).any(|ch| legend_rect(ch).contains(position)) {
+                return mouse::Interaction::Pointer;
+            }
+        }
+
+        mouse::Interaction::default()
+    }
 
     fn draw(
         &self,
@@ -311,16 +883,11 @@ impl canvas::Program<Message> for Plot<'_> {
         let geometry = self.cache.draw(renderer, bounds.size(), |frame| {
             let palette = theme.extended_palette();
 
-            let margin_left = 60.0;
-            let margin_right = 15.0;
-            let margin_top = 15.0;
-            let margin_bottom = 30.0;
-
             let area = Rectangle {
-                x: margin_left,
-                y: margin_top,
-                width: (frame.width() - margin_left - margin_right).max(1.0),
-                height: (frame.height() - margin_top - margin_bottom).max(1.0),
+                x: PLOT_MARGIN_LEFT,
+                y: PLOT_MARGIN_TOP,
+                width: (frame.width() - PLOT_MARGIN_LEFT - PLOT_MARGIN_RIGHT).max(1.0),
+                height: (frame.height() - PLOT_MARGIN_TOP - PLOT_MARGIN_BOTTOM).max(1.0),
             };
 
             // plot background & border
@@ -336,7 +903,7 @@ impl canvas::Program<Message> for Plot<'_> {
                     .with_width(1.0),
             );
 
-            if self.points.is_empty() {
+            if self.traces.iter().all(|t| t.is_empty()) {
                 frame.fill_text(canvas::Text {
                     content: String::from("waiting for data..."),
                     position: Point::new(area.center_x(), area.center_y()),
@@ -349,23 +916,33 @@ impl canvas::Program<Message> for Plot<'_> {
                 return;
             }
 
-            let (mut x_min, mut x_max) = (f32::INFINITY, f32::NEG_INFINITY);
-            let (mut y_min, mut y_max) = (f32::INFINITY, f32::NEG_INFINITY);
-            for &(x, y) in self.points {
-                x_min = x_min.min(x);
-                x_max = x_max.max(x);
-                y_min = y_min.min(y);
-                y_max = y_max.max(y);
-            }
-            // avoid a degenerate scale when the data is flat
-            if x_max - x_min < f32::EPSILON {
-                x_min -= 1.0;
-                x_max += 1.0;
-            }
-            if y_max - y_min < f32::EPSILON {
-                y_min -= 1.0;
-                y_max += 1.0;
-            }
+            // fixed X span; Y is manual or autoscaled to the enabled channels
+            let x_min = 0.0f32;
+            let x_max = self.x_scale as f32;
+            let (y_min, y_max) = match self.y_range {
+                Some(range) => range,
+                None => {
+                    let (mut y_min, mut y_max) = (f32::INFINITY, f32::NEG_INFINITY);
+                    for (trace, _) in
+                        self.traces.iter().zip(self.enabled).filter(|&(_, e)| e)
+                    {
+                        for &y in trace {
+                            y_min = y_min.min(y);
+                            y_max = y_max.max(y);
+                        }
+                    }
+                    // no enabled channels with data
+                    if !y_min.is_finite() {
+                        (y_min, y_max) = (-1.0, 1.0);
+                    }
+                    // avoid a degenerate scale when the data is flat
+                    if y_max - y_min < f32::EPSILON {
+                        y_min -= 1.0;
+                        y_max += 1.0;
+                    }
+                    (y_min, y_max)
+                }
+            };
 
             let to_screen = |x: f32, y: f32| {
                 Point::new(
@@ -388,21 +965,104 @@ impl canvas::Program<Message> for Plot<'_> {
                 );
             }
 
-            // trace
-            let trace = canvas::Path::new(|builder| {
-                let mut points = self.points.iter();
-                let &(x, y) = points.next().unwrap();
-                builder.move_to(to_screen(x, y));
-                for &(x, y) in points {
-                    builder.line_to(to_screen(x, y));
+            let channel_colors = [
+                palette.primary.base.color,
+                palette.success.base.color,
+                palette.warning.base.color,
+                palette.danger.base.color,
+            ];
+
+            // trigger level marker
+            if self.trigger_level >= y_min && self.trigger_level <= y_max {
+                let y = to_screen(x_min, self.trigger_level).y;
+                frame.stroke(
+                    &canvas::Path::line(
+                        Point::new(area.x, y),
+                        Point::new(area.x + area.width, y),
+                    ),
+                    canvas::Stroke {
+                        line_dash: canvas::LineDash {
+                            segments: &[4.0, 4.0],
+                            offset: 0,
+                        },
+                        ..canvas::Stroke::default()
+                            .with_color(channel_colors[self.trigger_channel])
+                            .with_width(1.0)
+                    },
+                );
+            }
+
+            // trigger X position marker
+            if self.trigger_index > 0 && self.traces.iter().any(|t| !t.is_empty()) {
+                let x = to_screen(self.trigger_index as f32, 0.0).x;
+                frame.stroke(
+                    &canvas::Path::line(
+                        Point::new(x, area.y),
+                        Point::new(x, area.y + area.height),
+                    ),
+                    canvas::Stroke {
+                        line_dash: canvas::LineDash {
+                            segments: &[4.0, 4.0],
+                            offset: 0,
+                        },
+                        ..canvas::Stroke::default()
+                            .with_color(channel_colors[self.trigger_channel])
+                            .with_width(1.0)
+                    },
+                );
+            }
+
+            // traces: time-ordered from the trigger point. Not clipped: a
+            // manual Y range can draw slightly outside the plot area, but
+            // with_clip doesn't render inside a cached canvas frame
+            for (ch, (trace, color)) in
+                self.traces.iter().zip(channel_colors).enumerate()
+            {
+                if !self.enabled[ch] || trace.len() < 2 {
+                    continue;
                 }
-            });
-            frame.stroke(
-                &trace,
-                canvas::Stroke::default()
-                    .with_color(palette.primary.base.color)
-                    .with_width(1.5),
-            );
+
+                let path = canvas::Path::new(|builder| {
+                    builder.move_to(to_screen(0.0, trace[0]));
+                    for (i, &y) in trace.iter().enumerate().skip(1) {
+                        builder.line_to(to_screen(i as f32, y));
+                    }
+                });
+                frame.stroke(
+                    &path,
+                    canvas::Stroke::default().with_color(color).with_width(1.0),
+                );
+            }
+
+            // sweep position while a capture is filling
+            if self.fill > 0 && self.fill < self.x_scale {
+                let x = to_screen(self.fill as f32, 0.0).x;
+                frame.stroke(
+                    &canvas::Path::line(
+                        Point::new(x, area.y),
+                        Point::new(x, area.y + area.height),
+                    ),
+                    canvas::Stroke::default()
+                        .with_color(palette.background.strong.color)
+                        .with_width(1.0),
+                );
+            }
+
+            // legend (ADC34J2x channel names); click to toggle a channel
+            for (ch, color) in channel_colors.iter().enumerate() {
+                let rect = legend_rect(ch);
+                frame.fill_text(canvas::Text {
+                    content: format!("ch{}", CHANNEL_NAMES[ch]),
+                    position: Point::new(rect.x, rect.y + 3.0),
+                    color: if self.enabled[ch] {
+                        *color
+                    } else {
+                        palette.background.strong.color
+                    },
+                    size: 12.0.into(),
+                    ..canvas::Text::default()
+                });
+            }
 
             // axis extent labels
             let label = |content: String,
@@ -433,13 +1093,19 @@ impl canvas::Program<Message> for Plot<'_> {
                 alignment::Vertical::Center,
             ));
             frame.fill_text(label(
-                format!("{x_min:.0}"),
+                String::from("0"),
                 Point::new(area.x, area.y + area.height + 5.0),
                 text::Alignment::Left,
                 alignment::Vertical::Top,
             ));
             frame.fill_text(label(
-                format!("{x_max:.0}"),
+                fmt_samples_as_time(self.x_scale / 2),
+                Point::new(area.x + area.width / 2.0, area.y + area.height + 5.0),
+                text::Alignment::Center,
+                alignment::Vertical::Top,
+            ));
+            frame.fill_text(label(
+                fmt_samples_as_time(self.x_scale),
                 Point::new(area.x + area.width, area.y + area.height + 5.0),
                 text::Alignment::Right,
                 alignment::Vertical::Top,
@@ -448,6 +1114,18 @@ impl canvas::Program<Message> for Plot<'_> {
 
         vec![geometry]
     }
+}
+
+async fn setup_pulser(u: &mut Ultrasound, config: PulserConfig) -> Result<(), io::Error> {
+    let frequency_mhz = 1000.0 / config.duration_ns;
+    u.pulser
+        .setup(
+            &mut u.interface,
+            frequency_mhz,
+            PULSER_RECV_TIME_US,
+            config.ramp_delay_us as u32,
+        )
+        .await
 }
 
 fn hardware_worker() -> impl Stream<Item = HwEvent> {
@@ -464,137 +1142,15 @@ fn hardware_worker() -> impl Stream<Item = HwEvent> {
     })
 }
 
-/// Connects to the board, brings up the control devices, and services
-/// GUI commands until an I/O error occurs. Modeled on net.rs.
+/// Connects to the board and services GUI commands until an I/O error
+/// occurs.
 async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::Error> {
     let _ = output
         .send(HwEvent::Status(String::from("connecting...")))
         .await;
 
-    let socket = tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_CTRL_PORT)).await?;
-    let data_socket =
-        tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT)).await?;
-
-    let dst = SocketAddr::new(IpAddr::V4(ULTRASOUND_IP), ULTRASOUND_CTRL_PORT);
-
-    // drain stale packets
-    let mut buf = [0u8; 2048];
-    while socket.try_recv(&mut buf).is_ok() {}
-
-    let frame = UdpFramed::new(socket, BytesCodec::new())
-        .with(move |f| ready(Ok((f, dst))))
-        .filter_map(move |r| match r {
-            Ok((b, from)) => {
-                if from != dst {
-                    println!("Received packet from unexpected source: {}, dropping", from);
-                    ready(None)
-                } else {
-                    ready(Some(b.freeze()))
-                }
-            }
-            Err(e) => {
-                println!("Error receiving packet: {}", e);
-                ready(None)
-            }
-        });
-
-    let (tx, rx) = frame.split();
-
-    let mut interface = crate::xfcp::Interface::new(rx, tx);
-    let root = interface.enumerate().await?;
-
-    let Node::SwitchNode(switch) = &root else {
-        return Err(io::Error::other("root node is not a switch node"));
-    };
-
-    let nodes = switch.enumerate(&mut interface).await?;
-
-    let mem = nodes
-        .iter()
-        .find_map(|n| match n {
-            Node::MemoryNode(m) => Some(m.clone()),
-            _ => None,
-        })
-        .ok_or_else(|| io::Error::other("no memory node found"))?;
-
-    let find_i2c = |name: &str| {
-        nodes.iter().find_map(|n| match n {
-            Node::I2CNode(i2c) if n.name() == name => Some(i2c.clone()),
-            _ => None,
-        })
-    };
-
-    let ramp_i2c =
-        find_i2c("ramp").ok_or_else(|| io::Error::other("no I2C node named 'ramp'"))?;
-    let hvplus_i2c =
-        find_i2c("hvplus").ok_or_else(|| io::Error::other("no I2C node named 'hvplus'"))?;
-
-    let pinswap_gpio = XGpio {
-        node: mem.clone(),
-        offset: 0x6_0000,
-        width: [1, 1],
-    };
-
-    let ramp = RampGenerator {
-        pot: Mcp401x {
-            i2c: Box::new(ramp_i2c),
-            address: 0b0101111,
-            resistance: 10_000,
-        },
-    };
-
-    let (hvplus_i2c_nonflip, hvplus_i2c_flip) = FlippedI2c::new(
-        hvplus_i2c,
-        GpioPin {
-            gpio: pinswap_gpio.clone(),
-            ch: 0,
-            pin: 0,
-        },
-    );
-    let hvplus = HVSupply {
-        pot: Mcp401x {
-            i2c: Box::new(hvplus_i2c_nonflip),
-            address: 0b0101111,
-            resistance: 10_000,
-        },
-        adc: Mcp3021 {
-            i2c: Box::new(hvplus_i2c_flip),
-            address: 0b1001000,
-            mult: 1.0 / 0.026,
-            vdd: 3.3,
-        },
-    };
-
-    // HV- doesn't exist in the enumeration yet; wired up provisionally,
-    // mirroring hvplus, for when it does.
-    let hvminus = find_i2c("hvminus").map(|i2c| {
-        let (nonflip, flip) = FlippedI2c::new(
-            i2c,
-            GpioPin {
-                gpio: pinswap_gpio.clone(),
-                ch: 1,
-                pin: 0,
-            },
-        );
-        HVSupply {
-            pot: Mcp401x {
-                i2c: Box::new(nonflip),
-                address: 0b0101111,
-                resistance: 10_000,
-            },
-            adc: Mcp3021 {
-                i2c: Box::new(flip),
-                address: 0b1001000,
-                mult: 1.0 / 0.026,
-                vdd: 3.3,
-            },
-        }
-    });
-
-    let pulser = Pulser {
-        mem: mem.clone(),
-        offset: 0x2_0000,
-    };
+    let data_socket = Ultrasound::bind_data_socket().await?;
+    let mut u = Ultrasound::connect().await?;
 
     let (command_tx, mut command_rx) = mpsc::channel(32);
     let _ = output.send(HwEvent::Connected(command_tx)).await;
@@ -602,14 +1158,21 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
     let mut poll = tokio::time::interval(HV_POLL_PERIOD);
     let mut data_buf = [0u8; 2048];
 
+    let mut pulsing = false;
+    let mut pulse_timer = tokio::time::interval(Duration::from_secs(1));
+
     loop {
         tokio::select! {
+            _ = pulse_timer.tick(), if pulsing => {
+                u.pulser.start(&mut u.interface).await?;
+            }
+
             _ = poll.tick() => {
-                let v = hvplus.get_voltage(&mut interface).await?;
+                let v = u.hvplus.get_voltage(&mut u.interface).await?;
                 let _ = output.send(HwEvent::HvPlusVoltage(v)).await;
 
-                if let Some(hvminus) = &hvminus {
-                    let v = hvminus.get_voltage(&mut interface).await?;
+                if let Some(hvminus) = &u.hvminus {
+                    let v = hvminus.get_voltage(&mut u.interface).await?;
                     let _ = output.send(HwEvent::HvMinusVoltage(v)).await;
                 }
             }
@@ -620,7 +1183,7 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                 let status = match command {
                     HwCommand::SetRampRate(time_us) => {
                         let time_us = time_us.clamp(*RAMP_RATE_RANGE.start(), *RAMP_RATE_RANGE.end());
-                        ramp.set_ramp_rate(&mut interface, time_us).await?;
+                        u.ramp.set_ramp_rate(&mut u.interface, time_us).await?;
                         format!("ramp rate set to {time_us:.1} µs")
                     }
                     // TODO: setting the HV supplies is not implemented yet
@@ -630,12 +1193,50 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                     HwCommand::SetHvMinus(v) => {
                         format!("HV− setpoint −{v:.0} V ignored: HV control not implemented yet")
                     }
-                    HwCommand::SetPulseDuration(duration_ns) => {
-                        let frequency_mhz = 1000.0 / duration_ns;
-                        pulser
-                            .setup(&mut interface, frequency_mhz, PULSER_RECV_TIME_US, PULSER_DELAY_RAMP_US)
-                            .await?;
-                        format!("pulse duration set to {duration_ns:.0} ns")
+                    HwCommand::SetupPulser(config) => {
+                        setup_pulser(&mut u, config).await?;
+                        format!(
+                            "pulser set: {:.0} ns, ramp delay {:.0} µs",
+                            config.duration_ns, config.ramp_delay_us
+                        )
+                    }
+                    HwCommand::SetAdcsEnabled(enabled) => {
+                        if enabled {
+                            u.adc_reset.clear(&mut u.interface).await?;
+                            String::from("ADCs enabled (reset released, may need re-init)")
+                        } else {
+                            u.adc_reset.set(&mut u.interface).await?;
+                            String::from("ADCs held in reset")
+                        }
+                    }
+                    HwCommand::InitHw => {
+                        let _ = output
+                            .send(HwEvent::Status(String::from("initializing hardware...")))
+                            .await;
+
+                        u.init_hw().await?;
+
+                        String::from("hardware initialized (clk + ADC + PHY reset)")
+                    }
+                    HwCommand::SendPulse(config) => {
+                        setup_pulser(&mut u, config).await?;
+                        u.pulser.arm(&mut u.interface).await?;
+                        u.pulser.start(&mut u.interface).await?;
+                        format!("pulse sent ({:.0} ns)", config.duration_ns)
+                    }
+                    HwCommand::StartPulses { config, rate_hz } => {
+                        setup_pulser(&mut u, config).await?;
+                        u.pulser.arm(&mut u.interface).await?;
+
+                        let rate_hz = rate_hz.max(0.1);
+                        pulse_timer = tokio::time::interval(Duration::from_secs_f32(1.0 / rate_hz));
+                        pulsing = true;
+
+                        format!("pulsing at {rate_hz:.0} Hz ({:.0} ns)", config.duration_ns)
+                    }
+                    HwCommand::StopPulses => {
+                        pulsing = false;
+                        String::from("pulsing stopped")
                     }
                 };
                 let _ = output.send(HwEvent::Status(status)).await;
@@ -643,14 +1244,21 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
 
             received = data_socket.recv_from(&mut data_buf) => {
                 let (n, _from) = received?;
-                // provisional: interpret data packets as consecutive LE i16
-                // samples, plotted against sample index
-                let points = data_buf[..n]
-                    .chunks_exact(2)
-                    .enumerate()
-                    .map(|(i, c)| (i as f32, i16::from_le_bytes([c[0], c[1]]) as f32))
+                // each 8-byte chunk is one JESD204B frame (LMFS = 2441,
+                // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
+                // lane DD's, carrying channels A, B, C, D. Each sample is
+                // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
+                // tail bits; 12-bit two's complement
+                let frames = data_buf[..n]
+                    .chunks_exact(8)
+                    .map(|chunk| {
+                        std::array::from_fn(|ch| {
+                            let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
+                            (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
+                        })
+                    })
                     .collect();
-                let _ = output.send(HwEvent::Points(points)).await;
+                let _ = output.send(HwEvent::Frames(frames)).await;
             }
         }
     }
