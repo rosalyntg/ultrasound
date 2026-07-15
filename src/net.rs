@@ -30,6 +30,16 @@ pub async fn main() {
 
     let dst = SocketAddr::new(std::net::IpAddr::V4(ULTRASOUND_IP), ULTRASOUND_CTRL_PORT);
 
+    let data_socket = tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT))
+        .await
+        .expect("Failed to bind UDP socket");
+
+    tokio::spawn(async move {
+        while let Ok((d, _)) = data_socket.recv_from(&mut [0u8; 2048]).await {
+            println!("Received data packet: {:?}", &d);
+        }
+    });
+
     let mut buf = [0u8; 2048];
     while let Ok(_) = socket.try_recv(&mut buf) {
         println!("Drained pending packet: {:?}", &buf);
