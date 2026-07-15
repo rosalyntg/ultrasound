@@ -94,10 +94,10 @@ pub async fn main() {
         width: [1, 1],
     };
 
-    let adc_rst_gpio = xgpio::XGpio {
+    let rst_gpio = xgpio::XGpio {
         node: mem.clone(),
         offset: 0x1_0000,
-        width: [2, 0],
+        width: [3, 0],
     };
 
     let spi_adc0 = xspi::XSpi {
@@ -105,6 +105,12 @@ pub async fn main() {
         offset: 0x4_0000,
         cpol: false,
         cpha: false,
+    };
+
+    let jesd204b_rst = GpioPin {
+        gpio: rst_gpio.clone(),
+        ch: 0,
+        pin: 2,
     };
 
     let (hvplus_i2c_nonflip, hvplus_i2c_flip) = FlippedI2c::new(
@@ -162,7 +168,7 @@ pub async fn main() {
         spi: spi_adc0,
         cs: 0,
         reset: GpioPin {
-            gpio: adc_rst_gpio.clone(),
+            gpio: rst_gpio.clone(),
             ch: 0,
             pin: 0,
         },
@@ -180,12 +186,22 @@ pub async fn main() {
 
     sleep(Duration::from_millis(500)).await;
 
+
     ad34jx
         .init(&mut interface, crate::ad34jx::Mode::Lmfs2441)
         .await
         .unwrap();
 
     dbg!(ad34jx.write_reg(&mut interface, 0x34, 0).await); // subclass 0
+
+    // ad34jx.write_reg(&mut interface, 0x2a, 0b0100_0000).await.unwrap();
+
+    // reset PHY after clk bringup
+    sleep(Duration::from_millis(500)).await;
+    jesd204b_rst.set(&mut interface).await.unwrap();
+    sleep(Duration::from_millis(50)).await;
+    jesd204b_rst.clear(&mut interface).await.unwrap();
+
     // dbg!(ad34jx.read_reg(&mut interface, 0x34).await);
 
     // dbg!(ad34jx.read_reg(&mut interface, 0x2f).await);

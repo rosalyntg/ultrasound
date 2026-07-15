@@ -48,13 +48,9 @@ impl Ad34jx {
         sleep(Duration::from_millis(50)).await;
 
         if let Mode::Lmfs2441 = mode {
-            dbg!(self.read_reg(interface, 0x2b).await);
-            dbg!(self.read_reg(interface, 0x30).await);
             self.write_reg(interface, 0x2b, 0x01).await?;
-            self.write_reg(interface, 0x30, 0x11).await?;
+            self.write_reg(interface, 0x30, 0b11).await?;
 
-            dbg!(self.read_reg(interface, 0x2b).await);
-            dbg!(self.read_reg(interface, 0x30).await);
         }
 
         Ok(())
