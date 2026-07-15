@@ -1,7 +1,7 @@
 use crate::xgpio::GpioPin;
 
 #[async_trait::async_trait]
-pub trait I2c {
+pub trait I2c: Send + Sync {
     async fn read(
         &self,
         interface: &mut crate::xfcp::Interface,

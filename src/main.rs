@@ -1,10 +1,27 @@
-use iced::widget::{Button, Column, Container, Slider};
-use iced::widget::{
-    button, center_x, center_y, checkbox, column, image, radio, rich_text, row,
-    scrollable, slider, space, span, text, text_input, toggler,
-};
-use iced::{Center, Color, Element, Fill, Font, Pixels, color};
+use std::io;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+use std::ops::RangeInclusive;
+use std::time::Duration;
 
+use iced::alignment;
+use iced::futures::channel::mpsc;
+use iced::futures::{SinkExt, Stream, StreamExt, future::ready};
+use iced::mouse;
+use iced::widget::{canvas, column, container, row, scrollable, slider, text};
+use iced::{Element, Fill, Point, Rectangle, Renderer, Subscription, Theme};
+use tokio_util::codec::BytesCodec;
+use tokio_util::udp::UdpFramed;
+
+use crate::hvsupply::HVSupply;
+use crate::i2c::FlippedI2c;
+use crate::mcp401x::Mcp401x;
+use crate::mcp3021::Mcp3021;
+use crate::pulser::Pulser;
+use crate::ramp::RampGenerator;
+use crate::xfcp::Node;
+use crate::xgpio::{GpioPin, XGpio};
+
+#[allow(dead_code)]
 mod net;
 mod xfcp;
 mod mcp401x;
@@ -19,645 +36,622 @@ mod ad34jx;
 mod jesd204bphy;
 mod i2c;
 
-pub fn main() -> iced::Result {
-    net::main();
-    return Ok(());
+// keep in sync with net.rs
+const ULTRASOUND_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 1);
+const ULTRASOUND_HOST_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 2);
 
-    #[cfg(target_arch = "wasm32")]
-    {
-        console_log::init().expect("Initialize logger");
-        std::panic::set_hook(Box::new(console_error_panic_hook::hook));
-    }
+const ULTRASOUND_CTRL_PORT: u16 = 8001;
+const ULTRASOUND_DATA_PORT: u16 = 8002;
 
-    #[cfg(not(target_arch = "wasm32"))]
-    tracing_subscriber::fmt::init();
+// usable ramp times for the RC ramp: 10k fixed + 10k pot, see ramp.rs
+const RAMP_RATE_RANGE: RangeInclusive<f32> = 24.0..=47.0; // µs
+const HV_RANGE: RangeInclusive<f32> = 0.0..=100.0; // V
+const PULSE_DURATION_RANGE: RangeInclusive<f32> = 100.0..=2000.0; // ns (full period)
 
-    iced::application(Tour::default, Tour::update, Tour::view)
-        .title(Tour::title)
-        .centered()
-        .run()
+const PULSER_RECV_TIME_US: u32 = 200;
+const PULSER_DELAY_RAMP_US: u32 = 35;
+
+const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
+const RECONNECT_DELAY: Duration = Duration::from_secs(3);
+
+// pub fn main() -> iced::Result {
+//     tracing_subscriber::fmt::init();
+
+//     iced::application(App::default, App::update, App::view)
+//         .subscription(App::subscription)
+//         .title("Ultrasound Client")
+//         .centered()
+//         .run()
+// }
+use net::main;
+
+struct App {
+    ramp_rate_us: f32,
+    hv_plus_setpoint: f32,
+    hv_minus_setpoint: f32, // magnitude, displayed negative
+    pulse_duration_ns: f32,
+
+    hv_plus_reading: Option<f32>,
+    hv_minus_reading: Option<f32>,
+
+    status: String,
+    hw: Option<mpsc::Sender<HwCommand>>,
+
+    points: Vec<(f32, f32)>,
+    plot_cache: canvas::Cache,
 }
 
-pub struct Tour {
-    screen: Screen,
-    slider: u8,
-    layout: Layout,
-    spacing: u32,
-    text_size: u32,
-    text_color: Color,
-    language: Option<Language>,
-    toggler: bool,
-    image_width: u32,
-    image_filter_method: image::FilterMethod,
-    input_value: String,
-    input_is_secure: bool,
-    input_is_showing_icon: bool,
-    debug: bool,
+impl Default for App {
+    fn default() -> Self {
+        Self {
+            ramp_rate_us: 46.0,
+            hv_plus_setpoint: 0.0,
+            hv_minus_setpoint: 0.0,
+            pulse_duration_ns: 500.0, // 2 MHz
+            hv_plus_reading: None,
+            hv_minus_reading: None,
+            status: String::from("starting..."),
+            hw: None,
+            points: Vec::new(),
+            plot_cache: canvas::Cache::new(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
-pub enum Message {
-    BackPressed,
-    NextPressed,
-    SliderChanged(u8),
-    LayoutChanged(Layout),
-    SpacingChanged(u32),
-    TextSizeChanged(u32),
-    TextColorChanged(Color),
-    LanguageSelected(Language),
-    ImageWidthChanged(u32),
-    ImageUseNearestToggled(bool),
-    InputChanged(String),
-    ToggleSecureInput(bool),
-    ToggleTextInputIcon(bool),
-    DebugToggled(bool),
-    TogglerChanged(bool),
-    OpenTrunk,
+enum Message {
+    RampRateChanged(f32),
+    ApplyRampRate,
+    HvPlusSetpointChanged(f32),
+    ApplyHvPlus,
+    HvMinusSetpointChanged(f32),
+    ApplyHvMinus,
+    PulseDurationChanged(f32),
+    ApplyPulseDuration,
+    Hardware(HwEvent),
 }
 
-impl Tour {
-    fn title(&self) -> String {
-        let screen = match self.screen {
-            Screen::Welcome => "Welcome",
-            Screen::Radio => "Radio button",
-            Screen::Toggler => "Toggler",
-            Screen::Slider => "Slider",
-            Screen::Text => "Text",
-            Screen::Image => "Image",
-            Screen::RowsAndColumns => "Rows and columns",
-            Screen::Scrollable => "Scrollable",
-            Screen::TextInput => "Text input",
-            Screen::Debugger => "Debugger",
-            Screen::End => "End",
-        };
+/// Events flowing from the hardware task to the GUI.
+#[derive(Debug, Clone)]
+enum HwEvent {
+    Connected(mpsc::Sender<HwCommand>),
+    Disconnected(String),
+    Status(String),
+    HvPlusVoltage(f32),
+    HvMinusVoltage(f32),
+    /// X/Y points to plot
+    Points(Vec<(f32, f32)>),
+}
 
-        format!("{screen} - Iced")
+/// Commands flowing from the GUI to the hardware task.
+#[derive(Debug, Clone)]
+enum HwCommand {
+    SetRampRate(f32),   // µs
+    SetHvPlus(f32),     // V
+    SetHvMinus(f32),    // V (magnitude)
+    SetPulseDuration(f32), // ns
+}
+
+impl App {
+    fn update(&mut self, message: Message) {
+        match message {
+            Message::RampRateChanged(v) => self.ramp_rate_us = v,
+            Message::ApplyRampRate => {
+                self.send(HwCommand::SetRampRate(self.ramp_rate_us));
+            }
+            Message::HvPlusSetpointChanged(v) => self.hv_plus_setpoint = v,
+            Message::ApplyHvPlus => {
+                self.send(HwCommand::SetHvPlus(self.hv_plus_setpoint));
+            }
+            Message::HvMinusSetpointChanged(v) => self.hv_minus_setpoint = v,
+            Message::ApplyHvMinus => {
+                self.send(HwCommand::SetHvMinus(self.hv_minus_setpoint));
+            }
+            Message::PulseDurationChanged(v) => self.pulse_duration_ns = v,
+            Message::ApplyPulseDuration => {
+                self.send(HwCommand::SetPulseDuration(self.pulse_duration_ns));
+            }
+            Message::Hardware(event) => match event {
+                HwEvent::Connected(commands) => {
+                    self.hw = Some(commands);
+                    self.status = String::from("connected");
+                }
+                HwEvent::Disconnected(reason) => {
+                    self.hw = None;
+                    self.hv_plus_reading = None;
+                    self.hv_minus_reading = None;
+                    self.status = format!("disconnected: {reason}");
+                }
+                HwEvent::Status(status) => self.status = status,
+                HwEvent::HvPlusVoltage(v) => self.hv_plus_reading = Some(v),
+                HwEvent::HvMinusVoltage(v) => self.hv_minus_reading = Some(v),
+                HwEvent::Points(points) => {
+                    self.points = points;
+                    self.plot_cache.clear();
+                }
+            },
+        }
     }
 
-    fn update(&mut self, event: Message) {
-        match event {
-            Message::BackPressed => {
-                if let Some(screen) = self.screen.previous() {
-                    self.screen = screen;
+    fn send(&mut self, command: HwCommand) {
+        match &mut self.hw {
+            Some(tx) => {
+                if tx.try_send(command).is_err() {
+                    self.status = String::from("hardware task busy, command dropped");
                 }
             }
-            Message::NextPressed => {
-                if let Some(screen) = self.screen.next() {
-                    self.screen = screen;
-                }
-            }
-            Message::SliderChanged(value) => {
-                self.slider = value;
-            }
-            Message::LayoutChanged(layout) => {
-                self.layout = layout;
-            }
-            Message::SpacingChanged(spacing) => {
-                self.spacing = spacing;
-            }
-            Message::TextSizeChanged(text_size) => {
-                self.text_size = text_size;
-            }
-            Message::TextColorChanged(text_color) => {
-                self.text_color = text_color;
-            }
-            Message::LanguageSelected(language) => {
-                self.language = Some(language);
-            }
-            Message::ImageWidthChanged(image_width) => {
-                self.image_width = image_width;
-            }
-            Message::ImageUseNearestToggled(use_nearest) => {
-                self.image_filter_method = if use_nearest {
-                    image::FilterMethod::Nearest
-                } else {
-                    image::FilterMethod::Linear
-                };
-            }
-            Message::InputChanged(input_value) => {
-                self.input_value = input_value;
-            }
-            Message::ToggleSecureInput(is_secure) => {
-                self.input_is_secure = is_secure;
-            }
-            Message::ToggleTextInputIcon(show_icon) => {
-                self.input_is_showing_icon = show_icon;
-            }
-            Message::DebugToggled(debug) => {
-                self.debug = debug;
-            }
-            Message::TogglerChanged(toggler) => {
-                self.toggler = toggler;
-            }
-            Message::OpenTrunk => {
-                // #[cfg(not(target_arch = "wasm32"))]
-                // let _ = open::that_in_background("https://trunkrs.dev");
-            }
+            None => self.status = String::from("not connected, command ignored"),
         }
+    }
+
+    fn subscription(&self) -> Subscription<Message> {
+        Subscription::run(hardware_worker).map(Message::Hardware)
     }
 
     fn view(&self) -> Element<'_, Message> {
-        let controls = row![
-            self.screen.previous().is_some().then(|| {
-                padded_button("Back")
-                    .on_press(Message::BackPressed)
-                    .style(button::secondary)
-            }),
-            space::horizontal(),
-            self.can_continue().then(|| {
-                padded_button("Next").on_press(Message::NextPressed)
+        let connected = self.hw.is_some();
+
+        let status_section = column![
+            text("Status").size(16),
+            text(if connected { "● connected" } else { "○ disconnected" }).size(14),
+            text(&self.status).size(13),
+        ]
+        .spacing(5);
+
+        let ramp_section = column![
+            text("Ramp rate").size(16),
+            text(format!("{:.1} µs", self.ramp_rate_us)).size(14),
+            slider(RAMP_RATE_RANGE, self.ramp_rate_us, Message::RampRateChanged)
+                .step(0.5)
+                .on_release(Message::ApplyRampRate),
+        ]
+        .spacing(5);
+
+        let hv_plus_section = column![
+            text("HV+").size(16),
+            text(format!("measured: {}", fmt_voltage(self.hv_plus_reading))).size(14),
+            text(format!("setpoint: {:.0} V", self.hv_plus_setpoint)).size(14),
+            slider(
+                HV_RANGE,
+                self.hv_plus_setpoint,
+                Message::HvPlusSetpointChanged
+            )
+            .step(1.0)
+            .on_release(Message::ApplyHvPlus),
+        ]
+        .spacing(5);
+
+        let hv_minus_section = column![
+            text("HV−").size(16),
+            text(format!("measured: {}", fmt_voltage(self.hv_minus_reading))).size(14),
+            text(format!("setpoint: −{:.0} V", self.hv_minus_setpoint)).size(14),
+            slider(
+                HV_RANGE,
+                self.hv_minus_setpoint,
+                Message::HvMinusSetpointChanged
+            )
+            .step(1.0)
+            .on_release(Message::ApplyHvMinus),
+        ]
+        .spacing(5);
+
+        let pulse_section = column![
+            text("Pulse duration").size(16),
+            text(format!(
+                "{:.0} ns ({:.2} MHz)",
+                self.pulse_duration_ns,
+                1000.0 / self.pulse_duration_ns
+            ))
+            .size(14),
+            slider(
+                PULSE_DURATION_RANGE,
+                self.pulse_duration_ns,
+                Message::PulseDurationChanged
+            )
+            .step(25.0)
+            .on_release(Message::ApplyPulseDuration),
+        ]
+        .spacing(5);
+
+        let sidebar = container(scrollable(
+            column![
+                text("Ultrasound").size(24),
+                status_section,
+                ramp_section,
+                hv_plus_section,
+                hv_minus_section,
+                pulse_section,
+            ]
+            .spacing(20)
+            .padding(15),
+        ))
+        .style(container::bordered_box)
+        .width(280)
+        .height(Fill);
+
+        let plot = container(
+            canvas(Plot {
+                points: &self.points,
+                cache: &self.plot_cache,
             })
-        ];
+            .width(Fill)
+            .height(Fill),
+        )
+        .width(Fill)
+        .height(Fill)
+        .padding(10);
 
-        let screen = match self.screen {
-            Screen::Welcome => self.welcome(),
-            Screen::Radio => self.radio(),
-            Screen::Toggler => self.toggler(),
-            Screen::Slider => self.slider(),
-            Screen::Text => self.text(),
-            Screen::Image => self.image(),
-            Screen::RowsAndColumns => self.rows_and_columns(),
-            Screen::Scrollable => self.scrollable(),
-            Screen::TextInput => self.text_input(),
-            Screen::Debugger => self.debugger(),
-            Screen::End => self.end(),
-        };
-
-        let content: Element<_> =
-            column![screen, controls].max_width(540).spacing(20).into();
-
-        let scrollable = scrollable(center_x(if self.debug {
-            content.explain(Color::BLACK)
-        } else {
-            content
-        }))
-        .spacing(10)
-        .auto_scroll(true);
-
-        center_y(scrollable).padding(10).into()
+        row![sidebar, plot].into()
     }
+}
 
-    fn can_continue(&self) -> bool {
-        match self.screen {
-            Screen::Welcome => true,
-            Screen::Radio => self.language == Some(Language::Rust),
-            Screen::Toggler => self.toggler,
-            Screen::Slider => true,
-            Screen::Text => true,
-            Screen::Image => true,
-            Screen::RowsAndColumns => true,
-            Screen::Scrollable => true,
-            Screen::TextInput => !self.input_value.is_empty(),
-            Screen::Debugger => true,
-            Screen::End => false,
-        }
+fn fmt_voltage(v: Option<f32>) -> String {
+    match v {
+        Some(v) => format!("{v:.1} V"),
+        None => String::from("—"),
     }
+}
 
-    fn welcome(&self) -> Column<'_, Message> {
-        Self::container("Welcome!")
-            .push(
-                "This is a simple tour meant to showcase a bunch of \
-                widgets that come bundled in Iced.",
-            )
-            .push(
-                "Iced is a cross-platform GUI library for Rust focused on \
-                 simplicity and type-safety. It is heavily inspired by Elm.",
-            )
-            .push(
-                "It was originally born as part of Coffee, an opinionated \
-                 2D game engine for Rust.",
-            )
-            .push(
-                "On native platforms, Iced provides by default a renderer \
-                 built on top of wgpu, a graphics library supporting Vulkan, \
-                 Metal, DX11, and DX12.",
-            )
-            .push(
-                rich_text![
-                    "Additionally, this tour can also run on WebAssembly ",
-                    "by leveraging ",
-                    span("trunk")
-                        .color(color!(0x7777FF))
-                        .underline(true)
-                        .font(Font::MONOSPACE)
-                        .link(Message::OpenTrunk),
-                    "."
-                ]
-                .on_link_click(std::convert::identity),
-            )
-            .push(
-                "You will need to interact with the UI in order to reach \
-                 the end!",
-            )
-    }
+struct Plot<'a> {
+    points: &'a [(f32, f32)],
+    cache: &'a canvas::Cache,
+}
 
-    fn slider(&self) -> Column<'_, Message> {
-        Self::container("Slider")
-            .push(
-                "A slider allows you to smoothly select a value from a range \
-                 of values.",
-            )
-            .push(
-                "The following slider lets you choose an integer from \
-                 0 to 100:",
-            )
-            .push(slider(0..=100, self.slider, Message::SliderChanged))
-            .push(text(self.slider.to_string()).width(Fill).align_x(Center))
-    }
+impl canvas::Program<Message> for Plot<'_> {
+    type State = ();
 
-    fn rows_and_columns(&self) -> Column<'_, Message> {
-        let row_radio = radio(
-            "Row",
-            Layout::Row,
-            Some(self.layout),
-            Message::LayoutChanged,
-        );
+    fn draw(
+        &self,
+        _state: &Self::State,
+        renderer: &Renderer,
+        theme: &Theme,
+        bounds: Rectangle,
+        _cursor: mouse::Cursor,
+    ) -> Vec<canvas::Geometry> {
+        let geometry = self.cache.draw(renderer, bounds.size(), |frame| {
+            let palette = theme.extended_palette();
 
-        let column_radio = radio(
-            "Column",
-            Layout::Column,
-            Some(self.layout),
-            Message::LayoutChanged,
-        );
+            let margin_left = 60.0;
+            let margin_right = 15.0;
+            let margin_top = 15.0;
+            let margin_bottom = 30.0;
 
-        let layout_section: Element<_> = match self.layout {
-            Layout::Row => {
-                row![row_radio, column_radio].spacing(self.spacing).into()
+            let area = Rectangle {
+                x: margin_left,
+                y: margin_top,
+                width: (frame.width() - margin_left - margin_right).max(1.0),
+                height: (frame.height() - margin_top - margin_bottom).max(1.0),
+            };
+
+            // plot background & border
+            frame.fill_rectangle(
+                area.position(),
+                area.size(),
+                palette.background.weakest.color,
+            );
+            frame.stroke(
+                &canvas::Path::rectangle(area.position(), area.size()),
+                canvas::Stroke::default()
+                    .with_color(palette.background.strong.color)
+                    .with_width(1.0),
+            );
+
+            if self.points.is_empty() {
+                frame.fill_text(canvas::Text {
+                    content: String::from("waiting for data..."),
+                    position: Point::new(area.center_x(), area.center_y()),
+                    color: palette.background.strong.color,
+                    size: 20.0.into(),
+                    align_x: text::Alignment::Center,
+                    align_y: alignment::Vertical::Center,
+                    ..canvas::Text::default()
+                });
+                return;
             }
-            Layout::Column => column![row_radio, column_radio]
-                .spacing(self.spacing)
-                .into(),
-        };
 
-        let spacing_section = column![
-            slider(0..=80, self.spacing, Message::SpacingChanged),
-            text!("{} px", self.spacing).width(Fill).align_x(Center),
-        ]
-        .spacing(10);
+            let (mut x_min, mut x_max) = (f32::INFINITY, f32::NEG_INFINITY);
+            let (mut y_min, mut y_max) = (f32::INFINITY, f32::NEG_INFINITY);
+            for &(x, y) in self.points {
+                x_min = x_min.min(x);
+                x_max = x_max.max(x);
+                y_min = y_min.min(y);
+                y_max = y_max.max(y);
+            }
+            // avoid a degenerate scale when the data is flat
+            if x_max - x_min < f32::EPSILON {
+                x_min -= 1.0;
+                x_max += 1.0;
+            }
+            if y_max - y_min < f32::EPSILON {
+                y_min -= 1.0;
+                y_max += 1.0;
+            }
 
-        Self::container("Rows and columns")
-            .spacing(self.spacing)
-            .push(
-                "Iced uses a layout model based on flexbox to position UI \
-                 elements.",
-            )
-            .push(
-                "Rows and columns can be used to distribute content \
-                 horizontally or vertically, respectively.",
-            )
-            .push(layout_section)
-            .push("You can also easily change the spacing between elements:")
-            .push(spacing_section)
-    }
-
-    fn text(&self) -> Column<'_, Message> {
-        let size = self.text_size;
-        let color = self.text_color;
-
-        let size_section = column![
-            "You can change its size:",
-            text!("This text is {size} pixels").size(size),
-            slider(10..=70, size, Message::TextSizeChanged),
-        ]
-        .padding(20)
-        .spacing(20);
-
-        let color_sliders = row![
-            color_slider(color.r, move |r| Color { r, ..color }),
-            color_slider(color.g, move |g| Color { g, ..color }),
-            color_slider(color.b, move |b| Color { b, ..color }),
-        ]
-        .spacing(10);
-
-        let color_section = column![
-            "And its color:",
-            text!("{color:?}").color(color),
-            color_sliders,
-        ]
-        .padding(20)
-        .spacing(20);
-
-        Self::container("Text")
-            .push(
-                "Text is probably the most essential widget for your UI. \
-                 It will try to adapt to the dimensions of its container.",
-            )
-            .push(size_section)
-            .push(color_section)
-    }
-
-    fn radio(&self) -> Column<'_, Message> {
-        let question = column![
-            text("Iced is written in...").size(24),
-            column(
-                Language::all()
-                    .iter()
-                    .copied()
-                    .map(|language| {
-                        radio(
-                            language,
-                            language,
-                            self.language,
-                            Message::LanguageSelected,
-                        )
-                    })
-                    .map(Element::from)
-            )
-            .spacing(10)
-        ]
-        .padding(20)
-        .spacing(10);
-
-        Self::container("Radio button")
-            .push(
-                "A radio button is normally used to represent a choice... \
-                 Surprise test!",
-            )
-            .push(question)
-            .push(
-                "Iced works very well with iterators! The list above is \
-                 basically created by folding a column over the different \
-                 choices, creating a radio button for each one of them!",
-            )
-    }
-
-    fn toggler(&self) -> Column<'_, Message> {
-        Self::container("Toggler")
-            .push("A toggler is mostly used to enable or disable something.")
-            .push(
-                Container::new(
-                    toggler(self.toggler)
-                        .label("Toggle me to continue...")
-                        .on_toggle(Message::TogglerChanged),
+            let to_screen = |x: f32, y: f32| {
+                Point::new(
+                    area.x + (x - x_min) / (x_max - x_min) * area.width,
+                    area.y + area.height - (y - y_min) / (y_max - y_min) * area.height,
                 )
-                .padding([0, 40]),
-            )
-    }
+            };
 
-    fn image(&self) -> Column<'_, Message> {
-        let width = self.image_width;
-        let filter_method = self.image_filter_method;
+            // zero line, if visible
+            if y_min < 0.0 && y_max > 0.0 {
+                let y0 = to_screen(x_min, 0.0).y;
+                frame.stroke(
+                    &canvas::Path::line(
+                        Point::new(area.x, y0),
+                        Point::new(area.x + area.width, y0),
+                    ),
+                    canvas::Stroke::default()
+                        .with_color(palette.background.strong.color)
+                        .with_width(1.0),
+                );
+            }
 
-        Self::container("Image")
-            .push("An image that tries to keep its aspect ratio.")
-            .push(ferris(width, filter_method))
-            .push(slider(100..=500, width, Message::ImageWidthChanged))
-            .push(text!("Width: {width} px").width(Fill).align_x(Center))
-            .push(
-                checkbox(filter_method == image::FilterMethod::Nearest)
-                    .label("Use nearest interpolation")
-                    .on_toggle(Message::ImageUseNearestToggled),
-            )
-            .align_x(Center)
-    }
-
-    fn scrollable(&self) -> Column<'_, Message> {
-        Self::container("Scrollable")
-            .push(
-                "Iced supports scrollable content. Try it out! Find the \
-                 button further below.",
-            )
-            .push(
-                text("Tip: You can use the scrollbar to scroll down faster!")
-                    .size(16),
-            )
-            .push(space().height(4096))
-            .push(
-                text("You are halfway there!")
-                    .width(Fill)
-                    .size(30)
-                    .align_x(Center),
-            )
-            .push(space().height(4096))
-            .push(ferris(300, image::FilterMethod::Linear))
-            .push(text("You made it!").width(Fill).size(50).align_x(Center))
-    }
-
-    fn text_input(&self) -> Column<'_, Message> {
-        let value = &self.input_value;
-        let is_secure = self.input_is_secure;
-        let is_showing_icon = self.input_is_showing_icon;
-
-        let mut text_input = text_input("Type something to continue...", value)
-            .on_input(Message::InputChanged)
-            .padding(10)
-            .size(30);
-
-        if is_showing_icon {
-            text_input = text_input.icon(text_input::Icon {
-                font: Font::default(),
-                code_point: '🚀',
-                size: Some(Pixels(28.0)),
-                spacing: 10.0,
-                side: text_input::Side::Right,
+            // trace
+            let trace = canvas::Path::new(|builder| {
+                let mut points = self.points.iter();
+                let &(x, y) = points.next().unwrap();
+                builder.move_to(to_screen(x, y));
+                for &(x, y) in points {
+                    builder.line_to(to_screen(x, y));
+                }
             });
+            frame.stroke(
+                &trace,
+                canvas::Stroke::default()
+                    .with_color(palette.primary.base.color)
+                    .with_width(1.5),
+            );
+
+            // axis extent labels
+            let label = |content: String,
+                         position: Point,
+                         align_x: text::Alignment,
+                         align_y: alignment::Vertical| {
+                canvas::Text {
+                    content,
+                    position,
+                    color: palette.background.base.text,
+                    size: 12.0.into(),
+                    align_x,
+                    align_y,
+                    ..canvas::Text::default()
+                }
+            };
+
+            frame.fill_text(label(
+                format!("{y_max:.1}"),
+                Point::new(area.x - 5.0, area.y),
+                text::Alignment::Right,
+                alignment::Vertical::Center,
+            ));
+            frame.fill_text(label(
+                format!("{y_min:.1}"),
+                Point::new(area.x - 5.0, area.y + area.height),
+                text::Alignment::Right,
+                alignment::Vertical::Center,
+            ));
+            frame.fill_text(label(
+                format!("{x_min:.0}"),
+                Point::new(area.x, area.y + area.height + 5.0),
+                text::Alignment::Left,
+                alignment::Vertical::Top,
+            ));
+            frame.fill_text(label(
+                format!("{x_max:.0}"),
+                Point::new(area.x + area.width, area.y + area.height + 5.0),
+                text::Alignment::Right,
+                alignment::Vertical::Top,
+            ));
+        });
+
+        vec![geometry]
+    }
+}
+
+fn hardware_worker() -> impl Stream<Item = HwEvent> {
+    iced::stream::channel(100, async move |mut output| {
+        loop {
+            let reason = match hardware_session(&mut output).await {
+                Ok(()) => String::from("command channel closed"),
+                Err(e) => e.to_string(),
+            };
+            let _ = output.send(HwEvent::Disconnected(reason)).await;
+
+            tokio::time::sleep(RECONNECT_DELAY).await;
         }
-
-        Self::container("Text input")
-            .push("Use a text input to ask for different kinds of information.")
-            .push(text_input.secure(is_secure))
-            .push(
-                checkbox(is_secure)
-                    .label("Enable password mode")
-                    .on_toggle(Message::ToggleSecureInput),
-            )
-            .push(
-                checkbox(is_showing_icon)
-                    .label("Show icon")
-                    .on_toggle(Message::ToggleTextInputIcon),
-            )
-            .push(
-                "A text input produces a message every time it changes. It is \
-                 very easy to keep track of its contents:",
-            )
-            .push(
-                text(if value.is_empty() {
-                    "You have not typed anything yet..."
-                } else {
-                    value
-                })
-                .width(Fill)
-                .align_x(Center),
-            )
-    }
-
-    fn debugger(&self) -> Column<'_, Message> {
-        Self::container("Debugger")
-            .push(
-                "You can ask Iced to visually explain the layouting of the \
-                 different elements comprising your UI!",
-            )
-            .push(
-                "Give it a shot! Check the following checkbox to be able to \
-                 see element boundaries.",
-            )
-            .push(
-                checkbox(self.debug)
-                    .label("Explain layout")
-                    .on_toggle(Message::DebugToggled),
-            )
-            .push("Feel free to go back and take a look.")
-    }
-
-    fn end(&self) -> Column<'_, Message> {
-        Self::container("You reached the end!")
-            .push("This tour will be updated as more features are added.")
-            .push("Make sure to keep an eye on it!")
-    }
-
-    fn container(title: &str) -> Column<'_, Message> {
-        column![text(title).size(50)].spacing(20)
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum Screen {
-    Welcome,
-    Slider,
-    RowsAndColumns,
-    Text,
-    Radio,
-    Toggler,
-    Image,
-    Scrollable,
-    TextInput,
-    Debugger,
-    End,
-}
-
-impl Screen {
-    const ALL: &'static [Self] = &[
-        Self::Welcome,
-        Self::Slider,
-        Self::RowsAndColumns,
-        Self::Text,
-        Self::Radio,
-        Self::Toggler,
-        Self::Image,
-        Self::Scrollable,
-        Self::TextInput,
-        Self::Debugger,
-        Self::End,
-    ];
-
-    pub fn next(self) -> Option<Screen> {
-        Self::ALL
-            .get(
-                Self::ALL
-                    .iter()
-                    .copied()
-                    .position(|screen| screen == self)
-                    .expect("Screen must exist")
-                    + 1,
-            )
-            .copied()
-    }
-
-    pub fn previous(self) -> Option<Screen> {
-        let position = Self::ALL
-            .iter()
-            .copied()
-            .position(|screen| screen == self)
-            .expect("Screen must exist");
-
-        if position > 0 {
-            Some(Self::ALL[position - 1])
-        } else {
-            None
-        }
-    }
-}
-
-fn ferris<'a>(
-    width: u32,
-    filter_method: image::FilterMethod,
-) -> Container<'a, Message> {
-    center_x(
-        // This should go away once we unify resource loading on native
-        // platforms
-        if cfg!(target_arch = "wasm32") {
-            image("tour/images/ferris.png")
-        } else {
-            image(concat!(env!("CARGO_MANIFEST_DIR"), "/images/ferris.png"))
-        }
-        .filter_method(filter_method)
-        .width(width),
-    )
-}
-
-fn padded_button<Message: Clone>(label: &str) -> Button<'_, Message> {
-    button(text(label)).padding([12, 24])
-}
-
-fn color_slider<'a>(
-    component: f32,
-    update: impl Fn(f32) -> Color + 'a,
-) -> Slider<'a, f64, Message> {
-    slider(0.0..=1.0, f64::from(component), move |c| {
-        Message::TextColorChanged(update(c as f32))
     })
-    .step(0.01)
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Language {
-    Rust,
-    Elm,
-    Ruby,
-    Haskell,
-    C,
-    Other,
-}
+/// Connects to the board, brings up the control devices, and services
+/// GUI commands until an I/O error occurs. Modeled on net.rs.
+async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::Error> {
+    let _ = output
+        .send(HwEvent::Status(String::from("connecting...")))
+        .await;
 
-impl Language {
-    fn all() -> [Language; 6] {
-        [
-            Language::C,
-            Language::Elm,
-            Language::Ruby,
-            Language::Haskell,
-            Language::Rust,
-            Language::Other,
-        ]
-    }
-}
+    let socket = tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_CTRL_PORT)).await?;
+    let data_socket =
+        tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT)).await?;
 
-impl From<Language> for String {
-    fn from(language: Language) -> String {
-        String::from(match language {
-            Language::Rust => "Rust",
-            Language::Elm => "Elm",
-            Language::Ruby => "Ruby",
-            Language::Haskell => "Haskell",
-            Language::C => "C",
-            Language::Other => "Other",
+    let dst = SocketAddr::new(IpAddr::V4(ULTRASOUND_IP), ULTRASOUND_CTRL_PORT);
+
+    // drain stale packets
+    let mut buf = [0u8; 2048];
+    while socket.try_recv(&mut buf).is_ok() {}
+
+    let frame = UdpFramed::new(socket, BytesCodec::new())
+        .with(move |f| ready(Ok((f, dst))))
+        .filter_map(move |r| match r {
+            Ok((b, from)) => {
+                if from != dst {
+                    println!("Received packet from unexpected source: {}, dropping", from);
+                    ready(None)
+                } else {
+                    ready(Some(b.freeze()))
+                }
+            }
+            Err(e) => {
+                println!("Error receiving packet: {}", e);
+                ready(None)
+            }
+        });
+
+    let (tx, rx) = frame.split();
+
+    let mut interface = crate::xfcp::Interface::new(rx, tx);
+    let root = interface.enumerate().await?;
+
+    let Node::SwitchNode(switch) = &root else {
+        return Err(io::Error::other("root node is not a switch node"));
+    };
+
+    let nodes = switch.enumerate(&mut interface).await?;
+
+    let mem = nodes
+        .iter()
+        .find_map(|n| match n {
+            Node::MemoryNode(m) => Some(m.clone()),
+            _ => None,
         })
-    }
-}
+        .ok_or_else(|| io::Error::other("no memory node found"))?;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Layout {
-    Row,
-    Column,
-}
+    let find_i2c = |name: &str| {
+        nodes.iter().find_map(|n| match n {
+            Node::I2CNode(i2c) if n.name() == name => Some(i2c.clone()),
+            _ => None,
+        })
+    };
 
-impl Default for Tour {
-    fn default() -> Self {
-        Self {
-            screen: Screen::Welcome,
-            slider: 50,
-            layout: Layout::Row,
-            spacing: 20,
-            text_size: 30,
-            text_color: Color::BLACK,
-            language: None,
-            toggler: false,
-            image_width: 300,
-            image_filter_method: image::FilterMethod::Linear,
-            input_value: String::new(),
-            input_is_secure: false,
-            input_is_showing_icon: false,
-            debug: false,
+    let ramp_i2c =
+        find_i2c("ramp").ok_or_else(|| io::Error::other("no I2C node named 'ramp'"))?;
+    let hvplus_i2c =
+        find_i2c("hvplus").ok_or_else(|| io::Error::other("no I2C node named 'hvplus'"))?;
+
+    let pinswap_gpio = XGpio {
+        node: mem.clone(),
+        offset: 0x6_0000,
+        width: [1, 1],
+    };
+
+    let ramp = RampGenerator {
+        pot: Mcp401x {
+            i2c: Box::new(ramp_i2c),
+            address: 0b0101111,
+            resistance: 10_000,
+        },
+    };
+
+    let (hvplus_i2c_nonflip, hvplus_i2c_flip) = FlippedI2c::new(
+        hvplus_i2c,
+        GpioPin {
+            gpio: pinswap_gpio.clone(),
+            ch: 0,
+            pin: 0,
+        },
+    );
+    let hvplus = HVSupply {
+        pot: Mcp401x {
+            i2c: Box::new(hvplus_i2c_nonflip),
+            address: 0b0101111,
+            resistance: 10_000,
+        },
+        adc: Mcp3021 {
+            i2c: Box::new(hvplus_i2c_flip),
+            address: 0b1001000,
+            mult: 1.0 / 0.026,
+            vdd: 3.3,
+        },
+    };
+
+    // HV- doesn't exist in the enumeration yet; wired up provisionally,
+    // mirroring hvplus, for when it does.
+    let hvminus = find_i2c("hvminus").map(|i2c| {
+        let (nonflip, flip) = FlippedI2c::new(
+            i2c,
+            GpioPin {
+                gpio: pinswap_gpio.clone(),
+                ch: 1,
+                pin: 0,
+            },
+        );
+        HVSupply {
+            pot: Mcp401x {
+                i2c: Box::new(nonflip),
+                address: 0b0101111,
+                resistance: 10_000,
+            },
+            adc: Mcp3021 {
+                i2c: Box::new(flip),
+                address: 0b1001000,
+                mult: 1.0 / 0.026,
+                vdd: 3.3,
+            },
+        }
+    });
+
+    let pulser = Pulser {
+        mem: mem.clone(),
+        offset: 0x2_0000,
+    };
+
+    let (command_tx, mut command_rx) = mpsc::channel(32);
+    let _ = output.send(HwEvent::Connected(command_tx)).await;
+
+    let mut poll = tokio::time::interval(HV_POLL_PERIOD);
+    let mut data_buf = [0u8; 2048];
+
+    loop {
+        tokio::select! {
+            _ = poll.tick() => {
+                let v = hvplus.get_voltage(&mut interface).await?;
+                let _ = output.send(HwEvent::HvPlusVoltage(v)).await;
+
+                if let Some(hvminus) = &hvminus {
+                    let v = hvminus.get_voltage(&mut interface).await?;
+                    let _ = output.send(HwEvent::HvMinusVoltage(v)).await;
+                }
+            }
+
+            command = command_rx.next() => {
+                let Some(command) = command else { return Ok(()) };
+
+                let status = match command {
+                    HwCommand::SetRampRate(time_us) => {
+                        let time_us = time_us.clamp(*RAMP_RATE_RANGE.start(), *RAMP_RATE_RANGE.end());
+                        ramp.set_ramp_rate(&mut interface, time_us).await?;
+                        format!("ramp rate set to {time_us:.1} µs")
+                    }
+                    // TODO: setting the HV supplies is not implemented yet
+                    HwCommand::SetHvPlus(v) => {
+                        format!("HV+ setpoint {v:.0} V ignored: HV control not implemented yet")
+                    }
+                    HwCommand::SetHvMinus(v) => {
+                        format!("HV− setpoint −{v:.0} V ignored: HV control not implemented yet")
+                    }
+                    HwCommand::SetPulseDuration(duration_ns) => {
+                        let frequency_mhz = 1000.0 / duration_ns;
+                        pulser
+                            .setup(&mut interface, frequency_mhz, PULSER_RECV_TIME_US, PULSER_DELAY_RAMP_US)
+                            .await?;
+                        format!("pulse duration set to {duration_ns:.0} ns")
+                    }
+                };
+                let _ = output.send(HwEvent::Status(status)).await;
+            }
+
+            received = data_socket.recv_from(&mut data_buf) => {
+                let (n, _from) = received?;
+                // provisional: interpret data packets as consecutive LE i16
+                // samples, plotted against sample index
+                let points = data_buf[..n]
+                    .chunks_exact(2)
+                    .enumerate()
+                    .map(|(i, c)| (i as f32, i16::from_le_bytes([c[0], c[1]]) as f32))
+                    .collect();
+                let _ = output.send(HwEvent::Points(points)).await;
+            }
         }
     }
 }
