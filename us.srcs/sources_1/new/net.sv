@@ -305,12 +305,21 @@ assign xfcp_rx.tvalid = m_udp_payload_axis_tvalid && m_udp_dest_port == 16'd8001
 udpaux_if udp_tx(), udp_xfcp(), udp_adc();
 taxi_axis_if #(.DATA_W(64), .LAST_EN(1), .USER_EN(0)) udp_tx_data();
 
+// Gated payload streams between the sources and udp_arb_mux: the generators
+// hold beats back until their header handshake with the mux has completed.
+logic xfcp_mux_tvalid, xfcp_mux_tready;
+logic adc_mux_tvalid, adc_mux_tready;
+
+// Watches the 64-bit stream the mux actually consumes (after the width
+// adapter), not the 8-bit xfcp_tx_* stream feeding it.
 udp_hdr_valid_gen udp_hdr_valid_gen_xfcp (
     .clk(logic_clk),
     .rst(logic_rst),
-    .axis_tvalid(xfcp_tx_tvalid),
-    .axis_tready(xfcp_tx_tready),
-    .axis_tlast(xfcp_tx_tlast),
+    .s_axis_tvalid(xfcp_tx.tvalid),
+    .s_axis_tready(xfcp_tx.tready),
+    .s_axis_tlast(xfcp_tx.tlast),
+    .m_axis_tvalid(xfcp_mux_tvalid),
+    .m_axis_tready(xfcp_mux_tready),
     .hdr_ready(udp_xfcp.hdr_ready),
     .hdr_valid(udp_xfcp.hdr_valid)
 );
@@ -326,9 +335,11 @@ assign udp_xfcp.dest_port = 16'd8001;
 udp_hdr_valid_gen udp_hdr_valid_gen_adc (
     .clk(logic_clk),
     .rst(logic_rst),
-    .axis_tvalid(s_data_tvalid),
-    .axis_tready(s_data_tready),
-    .axis_tlast(s_data_tlast),
+    .s_axis_tvalid(s_data_tvalid),
+    .s_axis_tready(s_data_tready),
+    .s_axis_tlast(s_data_tlast),
+    .m_axis_tvalid(adc_mux_tvalid),
+    .m_axis_tready(adc_mux_tready),
     .hdr_ready(udp_adc.hdr_ready),
     .hdr_valid(udp_adc.hdr_valid)
 );
@@ -549,8 +560,8 @@ udp_arb_mux #
     .s_udp_checksum(),
     .s_udp_payload_axis_tdata({xfcp_tx.tdata, s_data_tdata}),
     .s_udp_payload_axis_tkeep({xfcp_tx.tkeep, s_data_tkeep}),
-    .s_udp_payload_axis_tvalid({xfcp_tx.tvalid, s_data_tvalid}),
-    .s_udp_payload_axis_tready({xfcp_tx.tready, s_data_tready}),
+    .s_udp_payload_axis_tvalid({xfcp_mux_tvalid, adc_mux_tvalid}),
+    .s_udp_payload_axis_tready({xfcp_mux_tready, adc_mux_tready}),
     .s_udp_payload_axis_tlast({xfcp_tx.tlast, s_data_tlast}),
     .s_udp_payload_axis_tid(),
     .s_udp_payload_axis_tdest(),

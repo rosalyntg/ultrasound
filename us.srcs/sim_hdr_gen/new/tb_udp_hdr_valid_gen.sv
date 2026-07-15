@@ -24,11 +24,16 @@
 //                6. Simultaneous packets with a throttled sink (hdr_ready
 //                   1-in-4 cycles, payload tready 1-in-2 cycles).
 //                7. Single-beat packet, then a normal packet on the same
-//                   input. This exposes a known corner: the mux asserts
-//                   payload tready one cycle before its hdr_ready pulse, so
-//                   a 1-beat packet completes while the generator is still
-//                   PENDING; the generator then parks in HDR_SENT and the
-//                   port deadlocks.
+//                   input. Regression test: before udp_hdr_valid_gen gated
+//                   the payload stream, the mux asserted payload tready one
+//                   cycle ahead of its hdr_ready pulse, so a 1-beat packet's
+//                   tlast transferred in the same cycle as the mux's
+//                   start-of-frame; the mux frame state stuck open, the
+//                   still-asserted hdr_valid re-requested the arbiter, and
+//                   the next packet went out with no UDP header.
+//                8. Same trigger as seen in hardware with both streams
+//                   active: a 1-beat xfcp packet queued behind an adc
+//                   packet, then another xfcp packet.
 //
 //              Passive monitors check per generator that hdr_valid never
 //              drops without a handshake and that there is at most one
@@ -55,11 +60,14 @@ module tb_udp_hdr_valid_gen;
 
     always #(CLK_PERIOD / 2) clk = ~clk;
 
-    // Mux slave-side payload streams (index 0 = adc, index 1 = xfcp)
+    // Source payload streams (index 0 = adc, index 1 = xfcp); the
+    // generators gate tvalid/tready between the sources and the mux
     logic [1:0]  src_tvalid = '0;
     logic [1:0]  src_tlast  = '0;
     logic [63:0] src_tdata [2];
-    wire  [1:0]  src_tready;
+    wire  [1:0]  src_tready;  // driven by the generators
+    wire  [1:0]  mux_tvalid;
+    wire  [1:0]  mux_tready;
 
     // Header handshakes between the generators and the mux
     wire [1:0] gen_hdr_valid;
@@ -78,23 +86,27 @@ module tb_udp_hdr_valid_gen;
     // DUTs: two header-valid generators + arbitrated mux, as in net.sv
     // ------------------------------------------------------------------
     udp_hdr_valid_gen udp_hdr_valid_gen_adc (
-        .clk         (clk),
-        .rst         (rst),
-        .axis_tvalid (src_tvalid[0]),
-        .axis_tready (src_tready[0]),
-        .axis_tlast  (src_tlast[0]),
-        .hdr_ready   (gen_hdr_ready[0]),
-        .hdr_valid   (gen_hdr_valid[0])
+        .clk           (clk),
+        .rst           (rst),
+        .s_axis_tvalid (src_tvalid[0]),
+        .s_axis_tready (src_tready[0]),
+        .s_axis_tlast  (src_tlast[0]),
+        .m_axis_tvalid (mux_tvalid[0]),
+        .m_axis_tready (mux_tready[0]),
+        .hdr_ready     (gen_hdr_ready[0]),
+        .hdr_valid     (gen_hdr_valid[0])
     );
 
     udp_hdr_valid_gen udp_hdr_valid_gen_xfcp (
-        .clk         (clk),
-        .rst         (rst),
-        .axis_tvalid (src_tvalid[1]),
-        .axis_tready (src_tready[1]),
-        .axis_tlast  (src_tlast[1]),
-        .hdr_ready   (gen_hdr_ready[1]),
-        .hdr_valid   (gen_hdr_valid[1])
+        .clk           (clk),
+        .rst           (rst),
+        .s_axis_tvalid (src_tvalid[1]),
+        .s_axis_tready (src_tready[1]),
+        .s_axis_tlast  (src_tlast[1]),
+        .m_axis_tvalid (mux_tvalid[1]),
+        .m_axis_tready (mux_tready[1]),
+        .hdr_ready     (gen_hdr_ready[1]),
+        .hdr_valid     (gen_hdr_valid[1])
     );
 
     udp_arb_mux #(
@@ -129,8 +141,8 @@ module tb_udp_hdr_valid_gen;
         .s_udp_checksum('0),
         .s_udp_payload_axis_tdata({src_tdata[1], src_tdata[0]}),
         .s_udp_payload_axis_tkeep({8'hFF, 8'hFF}),
-        .s_udp_payload_axis_tvalid(src_tvalid),
-        .s_udp_payload_axis_tready(src_tready),
+        .s_udp_payload_axis_tvalid(mux_tvalid),
+        .s_udp_payload_axis_tready(mux_tready),
         .s_udp_payload_axis_tlast(src_tlast),
         .s_udp_payload_axis_tid('0),
         .s_udp_payload_axis_tdest('0),
@@ -333,6 +345,7 @@ module tb_udp_hdr_valid_gen;
     // Stimulus
     // ------------------------------------------------------------------
     bit t7_done = 0;
+    bit t8_done = 0;
 
     initial begin
         src_tdata[0] = '0;
@@ -409,11 +422,10 @@ module tb_udp_hdr_valid_gen;
 
         // ------------------------------------------------------------
         // Test 7: single-beat packet, then a normal packet on the same
-        //         input. The mux asserts payload tready one cycle before
-        //         its hdr_ready pulse, so the 1-beat packet completes
-        //         while the generator is still PENDING; the generator
-        //         then parks in HDR_SENT and never requests a header for
-        //         the following packet.
+        //         input. Regression for the short-packet bug: without the
+        //         payload gate the 1-beat tlast transferred in the same
+        //         cycle as the mux's start-of-frame, wedging the mux frame
+        //         state, and the follow-up packet went out header-less.
         // ------------------------------------------------------------
         $display("--- Test 7: single-beat packet corner case ---");
         queue_expected(1, 1, 8'h77);
@@ -431,10 +443,47 @@ module tb_udp_hdr_valid_gen;
         disable fork;
         src_tvalid[1] <= 0;
         src_tlast[1]  <= 0;
-        check(t7_done, "port usable after single-beat packet (generator not stuck in HDR_SENT)");
-        wait_drain("packet after single-beat packet delivered", 200);
+        check(t7_done, "follow-up xfcp packet accepted by the mux");
+        wait_drain("packet after single-beat packet delivered with a header", 200);
 
-        // discard anything left behind by test 7 so the summary is clean
+        // discard anything left behind so the next test starts clean
+        exp_hdr_q.delete();
+        exp_pl_q.delete();
+        repeat (5) @(posedge clk);
+
+        // ------------------------------------------------------------
+        // Test 8: both streams active (the hardware failure scenario). A
+        //         1-beat xfcp packet arrives while adc is streaming and is
+        //         granted at the packet switch; the following xfcp packet
+        //         must still get its own header.
+        // ------------------------------------------------------------
+        $display("--- Test 8: short xfcp packet while adc streams ---");
+        queue_expected(0, 8, 8'h91);
+        queue_expected(1, 1, 8'h92); // granted right after the adc packet
+        fork
+            send_packet(0, 8, 8'h91);
+            begin
+                repeat (3) @(posedge clk);
+                send_packet(1, 1, 8'h92);
+            end
+        join
+        wait_drain("adc + interleaved 1-beat xfcp packet delivered", 300);
+
+        queue_expected(1, 3, 8'h93);
+        fork
+            begin
+                send_packet(1, 3, 8'h93);
+                t8_done = 1;
+            end
+            repeat (200) @(posedge clk);
+        join_any
+        disable fork;
+        src_tvalid[1] <= 0;
+        src_tlast[1]  <= 0;
+        check(t8_done, "xfcp accepts a packet after the interleaved short one");
+        wait_drain("xfcp packet after short packet delivered with a header", 200);
+
+        // discard anything left behind by the known-failing tests
         exp_hdr_q.delete();
         exp_pl_q.delete();
 
