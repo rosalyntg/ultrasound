@@ -718,7 +718,7 @@
             "value": "25.0"
           },
           "GT_Line_Rate": {
-            "value": "1"
+            "value": "2"
           },
           "GT_Location": {
             "value": "X0Y4"
@@ -727,7 +727,7 @@
             "value": "100"
           },
           "RX_GT_Line_Rate": {
-            "value": "1"
+            "value": "2"
           },
           "RX_GT_REFCLK_FREQ": {
             "value": "100"

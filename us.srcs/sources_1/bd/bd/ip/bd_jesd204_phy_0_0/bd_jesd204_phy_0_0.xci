@@ -13,11 +13,11 @@
         "Transceiver": [ { "value": "GTHE4", "resolve_type": "user", "enabled": false, "usage": "all" } ],
         "SupportLevel": [ { "value": "1", "resolve_type": "user", "usage": "all" } ],
         "TransceiverControl": [ { "value": "true", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
-        "GT_Line_Rate": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
+        "GT_Line_Rate": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "GT_REFCLK_FREQ": [ { "value": "100", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "DRPCLK_FREQ": [ { "value": "25.0", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "C_PLL_SELECTION": [ { "value": "0", "resolve_type": "user", "usage": "all" } ],
-        "RX_GT_Line_Rate": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
+        "RX_GT_Line_Rate": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "RX_GT_REFCLK_FREQ": [ { "value": "100", "value_src": "user", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "RX_PLL_SELECTION": [ { "value": "0", "resolve_type": "user", "usage": "all" } ],
         "Axi_Lite": [ { "value": "true", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
@@ -33,8 +33,8 @@
         "Tx_MasterChan": [ { "value": "1", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "Ins_Loss": [ { "value": "12", "resolve_type": "user", "format": "float", "usage": "all" } ],
         "Config_Type": [ { "value": "0", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
-        "Min_Line_Rate": [ { "value": "1", "resolve_type": "user", "format": "float", "enabled": false, "usage": "all" } ],
-        "Max_Line_Rate": [ { "value": "1", "resolve_type": "user", "format": "float", "enabled": false, "usage": "all" } ]
+        "Min_Line_Rate": [ { "value": "2", "resolve_type": "user", "format": "float", "enabled": false, "usage": "all" } ],
+        "Max_Line_Rate": [ { "value": "2", "resolve_type": "user", "format": "float", "enabled": false, "usage": "all" } ]
       },
       "model_parameters": {
         "C_COMPONENT_NAME": [ { "value": "bd_jesd204_phy_0_0", "resolve_type": "generated", "usage": "all" } ],
@@ -45,11 +45,11 @@
         "C_SupportLevel": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_TransceiverControl": [ { "value": "true", "resolve_type": "generated", "format": "bool", "usage": "all" } ],
         "c_sub_core_name": [ { "value": "bd_jesd204_phy_0_0_gt", "resolve_type": "generated", "usage": "all" } ],
-        "C_GT_Line_Rate": [ { "value": "1", "resolve_type": "generated", "format": "float", "usage": "all" } ],
+        "C_GT_Line_Rate": [ { "value": "2", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_GT_REFCLK_FREQ": [ { "value": "100", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_DRPCLK_FREQ": [ { "value": "25.0", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_PLL_SELECTION": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "C_RX_GT_Line_Rate": [ { "value": "1", "resolve_type": "generated", "format": "float", "usage": "all" } ],
+        "C_RX_GT_Line_Rate": [ { "value": "2", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_RX_GT_REFCLK_FREQ": [ { "value": "100", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_RX_PLL_SELECTION": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_QPLL_FBDIV": [ { "value": "40", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -76,8 +76,8 @@
         "C_Tx_MasterChan": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_Ins_Loss": [ { "value": "12", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_Config_Type": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "C_Min_Line_Rate": [ { "value": "1", "resolve_type": "generated", "format": "float", "usage": "all" } ],
-        "C_Max_Line_Rate": [ { "value": "1", "resolve_type": "generated", "format": "float", "usage": "all" } ],
+        "C_Min_Line_Rate": [ { "value": "2", "resolve_type": "generated", "format": "float", "usage": "all" } ],
+        "C_Max_Line_Rate": [ { "value": "2", "resolve_type": "generated", "format": "float", "usage": "all" } ],
         "C_GT_ENUM": [ { "value": "7", "resolve_type": "generated", "format": "long", "usage": "all" } ]
       },
       "project_parameters": {
@@ -235,9 +235,9 @@
             "SUPPORTS_NARROW_BURST": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "NUM_READ_OUTSTANDING": [ { "value": "1", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "NUM_WRITE_OUTSTANDING": [ { "value": "1", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
-            "MAX_BURST_LENGTH": [ { "value": "1", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "MAX_BURST_LENGTH": [ { "value": "1", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
-            "CLK_DOMAIN": [ { "value": "bd_xxv_ethernet_0_0_rx_clk_out_0", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "bd_xxv_ethernet_0_0_rx_clk_out_0", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "NUM_READ_THREADS": [ { "value": "1", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "NUM_WRITE_THREADS": [ { "value": "1", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "RUSER_BITS_PER_BYTE": [ { "value": "0", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
@@ -273,7 +273,7 @@
             "FREQ_HZ": [ { "value": "156250000", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0", "value_src": "user_prop", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
-            "CLK_DOMAIN": [ { "value": "bd_xxv_ethernet_0_0_rx_clk_out_0", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "bd_xxv_ethernet_0_0_rx_clk_out_0", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
           },
@@ -319,7 +319,7 @@
             "FREQ_HZ": [ { "value": "25000000", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0.0", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
-            "CLK_DOMAIN": [ { "value": "bd_clk_wiz_0_0_mhz25", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "bd_clk_wiz_0_0_mhz25", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "ASSOCIATED_BUSIF": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
             "ASSOCIATED_RESET": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
@@ -352,7 +352,7 @@
           "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
           "mode": "master",
           "parameters": {
-            "FREQ_HZ": [ { "value": "25000000.000", "value_src": "user", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "50000000.000", "value_src": "user", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0.0", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
             "CLK_DOMAIN": [ { "value": "bd_jesd204_phy_0_0_txoutclk", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
@@ -388,7 +388,7 @@
           "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
           "mode": "master",
           "parameters": {
-            "FREQ_HZ": [ { "value": "25000000.000", "value_src": "user", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "50000000.000", "value_src": "user", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
             "PHASE": [ { "value": "0.0", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
             "CLK_DOMAIN": [ { "value": "bd_jesd204_phy_0_0_rxoutclk", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
@@ -530,5 +530,5 @@
       }
     }
   },
-  "checksum": "155d37e4"
+  "checksum": "fd93049a"
 }

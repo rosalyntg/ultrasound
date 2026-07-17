@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"1.01531",
-   "Default View_TopLeft":"2330,-188",
+   "Default View_ScaleFactor":"0.384731",
+   "Default View_TopLeft":"-970,-2864",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0 TLS
 #  -string -flagsOSRD
@@ -70,11 +70,13 @@ preplace inst jesd_to_axi4s_0 -pg 1 -lvl 10 -x 4950 -y -840 -defaultsOSRD
 preplace inst ila_udp -pg 1 -lvl 7 -x 3030 -y 480 -defaultsOSRD
 preplace netloc Net 1 6 13 2590 1390 3540J -460 4240 -510 N -510 N -510 N -510 N -510 N -510 N -510 N -510 NJ -510 7710 -690 N
 preplace netloc adc0_sync 1 6 14 NJ -2240 N -2240 4310 -1710 N -1710 N -1710 N -1710 N -1710 NJ -1710 NJ -1710 NJ -1710 NJ -1710 N -1710 N -1710 N
+preplace netloc adc1_sync 1 6 14 2110 -2250 NJ -2250 NJ -2250 4520 -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 8380J
 preplace netloc axi_gpio_0_gpio_io_o 1 16 4 NJ -1420 N -1420 N -1420 NJ
 preplace netloc axi_gpio_pinswap_gpio2_io_o 1 15 1 7060 -300n
 preplace netloc axi_gpio_pinswap_gpio_io_o 1 15 1 7090 -420n
 preplace netloc axi_gpio_ramp_rst_gpio_io_o 1 15 5 N -580 7440 -570 7700 -600 8060 -750 8360
 preplace netloc axi_gpio_rst_gpio_io_o 1 16 1 7490 -760n
+preplace netloc axis_data_fifo_0_axis_wr_data_count 1 5 7 1750 -340 NJ -340 NJ -340 NJ -340 N -340 NJ -340 5510
 preplace netloc c_counter_binary_0_Q 1 2 4 590 -2400 NJ -2400 N -2400 N
 preplace netloc c_counter_binary_1_Q 1 5 1 1670 -2140n
 preplace netloc clear_arp_cache 1 6 2 2730 1550 3470J
@@ -115,6 +117,7 @@ preplace netloc jesd204b_rx_0_rx_somf 1 8 1 4170 -1200n
 preplace netloc jesd204b_rx_0_rx_valid 1 8 2 4300 -820 N
 preplace netloc jesd204b_rx_0_state 1 8 1 4100 -1400n
 preplace netloc jesd204b_rx_0_sync 1 5 15 1680 -290 N -290 3510 -500 4130 -1900 N -1900 N -1900 N -1900 N -1900 NJ -1900 NJ -1900 NJ -1900 NJ -1900 N -1900 N -1900 NJ
+preplace netloc jesd_to_axi4s_0_dropped_packets 1 5 6 1730 -330 NJ -330 NJ -330 NJ -330 N -330 5130
 preplace netloc local_ip 1 6 2 2570 1680 3350J
 preplace netloc local_mac 1 6 2 2780 1540 3500J
 preplace netloc logic_rstn 1 6 10 2450 -280 3520 -560 4220 -590 4770 -590 5170 -590 N -590 5830 -590 6180 -590 6740J -490 7150
@@ -124,7 +127,17 @@ preplace netloc net_wrapper_0_ip_tx_busy 1 6 2 2610 1580 3280
 preplace netloc net_wrapper_0_rx_error_bad_fcs 1 6 2 2740 1590 3350
 preplace netloc net_wrapper_0_rx_error_bad_frame 1 6 2 2750 1600 3450J
 preplace netloc net_wrapper_0_udp_rx_busy 1 6 2 2760 1610 3390
+preplace netloc net_wrapper_0_udp_rx_tdata 1 6 1 2530 400n
+preplace netloc net_wrapper_0_udp_rx_tkeep 1 6 1 2520 420n
+preplace netloc net_wrapper_0_udp_rx_tlast 1 6 1 2510 440n
+preplace netloc net_wrapper_0_udp_rx_tready 1 6 1 2490 480n
+preplace netloc net_wrapper_0_udp_rx_tvalid 1 6 1 2500 460n
 preplace netloc net_wrapper_0_udp_tx_busy 1 6 2 2770 1620 3310
+preplace netloc net_wrapper_0_udp_tx_tdata 1 6 1 2480 500n
+preplace netloc net_wrapper_0_udp_tx_tkeep 1 6 1 2770 520n
+preplace netloc net_wrapper_0_udp_tx_tlast 1 6 1 2470 540n
+preplace netloc net_wrapper_0_udp_tx_tready 1 6 1 2780 580n
+preplace netloc net_wrapper_0_udp_tx_tvalid 1 6 1 2600 560n
 preplace netloc net_wrapper_0_xgmii_txc 1 6 2 2560 1630 3490
 preplace netloc net_wrapper_0_xgmii_txd 1 6 2 2730 1640 3510
 preplace netloc pulse_gen_wrapper_1_pulser_neg 1 15 5 7060J -850 NJ -850 N -850 7970 -770 8380J
@@ -145,6 +158,7 @@ preplace netloc sfp_mod_abs 1 0 7 NJ 1770 NJ 1770 N 1770 NJ 1770 N 1770 N 1770 2
 preplace netloc slice_adcrst_Dout 1 17 3 NJ -740 7970 -760 N
 preplace netloc slice_jesdrst_Dout 1 6 12 2460 -250 NJ -250 N -250 N -250 N -250 NJ -250 NJ -250 NJ -250 NJ -250 7050J -240 NJ -240 7690
 preplace netloc subnet_mask 1 6 2 2540 1690 3280J
+preplace netloc syncoverride 1 6 14 2730 -2270 NJ -2270 NJ -2270 4530 -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ
 preplace netloc sys_reset 1 6 2 2670 4110 3370
 preplace netloc sysclk_wiz_mhz11 1 1 19 100J 180 NJ 180 NJ 180 NJ 180 NJ 180 NJ 180 NJ 180 N 180 N 180 5130 130 NJ 130 NJ 130 NJ 130 NJ 130 7160J -10 NJ -10 7750 -30 7970 -10 NJ
 preplace netloc tx_reset 1 6 2 2660 4120 3350
@@ -159,6 +173,7 @@ preplace netloc util_ds_buf_0_IBUF_DS_ODIV2 1 3 1 960 -1670n
 preplace netloc util_ds_buf_0_IBUF_OUT 1 3 4 960 -1730 N -1730 N -1730 2400
 preplace netloc util_ds_buf_1_BUFGCE_O 1 1 10 390 -1440 N -1440 N -1440 N -1440 1660 -1440 2370 -440 3450 -570 4140 -900 4760 -720 5160
 preplace netloc util_ds_buf_1_BUFG_GT_O 1 4 1 1320 -1620n
+preplace netloc vio_0_probe_out4 1 6 4 NJ -2220 NJ -2220 NJ -2220 4510
 preplace netloc vio_eth_probe_out10 1 6 2 2640 4140 3360
 preplace netloc wdt_disable0 1 6 2 2630 4150 3320
 preplace netloc wdt_disable1 1 6 2 2620 4160 3520
@@ -184,31 +199,18 @@ preplace netloc xxv_ethernet_0_stat_rx_valid_ctrl_code_0 1 6 2 2570 2570 3450
 preplace netloc xxv_ethernet_0_stat_tx_local_fault_1 1 6 2 2580 2580 3380
 preplace netloc xxv_ethernet_0_user_rx_reset_1 1 6 5 2410 2480 3580 400 N 400 N 400 N
 preplace netloc xxv_ethernet_0_user_tx_reset_1 1 6 2 2420 2490 3520
-preplace netloc jesd_to_axi4s_0_dropped_packets 1 5 6 1730 -330 NJ -330 NJ -330 NJ -330 N -330 5130
-preplace netloc axis_data_fifo_0_axis_wr_data_count 1 5 7 1750 -340 NJ -340 NJ -340 NJ -340 N -340 NJ -340 5510
-preplace netloc syncoverride 1 6 14 2730 -2270 NJ -2270 NJ -2270 4530 -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ -2210 NJ
-preplace netloc adc1_sync 1 6 14 2110 -2250 NJ -2250 NJ -2250 4520 -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 NJ -2160 8380J
-preplace netloc net_wrapper_0_udp_rx_tdata 1 6 1 2530 400n
-preplace netloc net_wrapper_0_udp_rx_tkeep 1 6 1 2520 420n
-preplace netloc net_wrapper_0_udp_rx_tlast 1 6 1 2510 440n
-preplace netloc net_wrapper_0_udp_rx_tvalid 1 6 1 2500 460n
-preplace netloc net_wrapper_0_udp_rx_tready 1 6 1 2490 480n
-preplace netloc net_wrapper_0_udp_tx_tdata 1 6 1 2480 500n
-preplace netloc net_wrapper_0_udp_tx_tkeep 1 6 1 2770 520n
-preplace netloc net_wrapper_0_udp_tx_tlast 1 6 1 2470 540n
-preplace netloc net_wrapper_0_udp_tx_tvalid 1 6 1 2600 560n
-preplace netloc net_wrapper_0_udp_tx_tready 1 6 1 2780 580n
-preplace netloc vio_0_probe_out4 1 6 4 NJ -2220 NJ -2220 NJ -2220 4510
 preplace netloc CLK_IN1_D_0_1 1 0 1 N 200
 preplace netloc CLK_IN_D_0_1 1 0 3 N -1670 N -1670 N
 preplace netloc CLK_IN_D_0_2 1 0 1 N -1440
 preplace netloc axi_quad_spi_0_SPI_0 1 16 4 NJ -110 7710 -110 N -110 NJ
 preplace netloc axi_quad_spi_1_SPI_0 1 16 4 NJ 130 N 130 N 130 NJ
+preplace netloc axis_data_fifo_0_M_AXIS 1 6 6 2730 -240 NJ -240 NJ -240 N -240 NJ -240 5530
 preplace netloc gt_ref_clk_0_1 1 0 7 N -370 N -370 N -370 N -370 N -370 N -370 2130
 preplace netloc gt_rx_0_1 1 0 7 N -350 N -350 N -350 N -350 N -350 N -350 2120
 preplace netloc i2c_pinswap_0_IIC_M 1 16 4 7460J -530 7730 -570 N -570 N
 preplace netloc i2c_pinswap_1_IIC_M 1 16 4 NJ -310 N -310 N -310 8380
 preplace netloc jesd204_phy_0_gt1_rx 1 7 1 3380 -830n
+preplace netloc jesd_to_axi4s_0_m_axis 1 10 1 5130 -860n
 preplace netloc net_wrapper_0_xfcp_rx 1 7 1 3560 830n
 preplace netloc smartconnect_0_M00_AXI 1 14 2 6460 -1450 N
 preplace netloc smartconnect_0_M01_AXI 1 14 2 NJ -1250 7160
@@ -216,17 +218,15 @@ preplace netloc smartconnect_0_M02_AXI 1 14 2 NJ -1230 7080
 preplace netloc smartconnect_0_M03_AXI 1 14 1 6480 -1210n
 preplace netloc smartconnect_0_M04_AXI 1 14 2 NJ -1190 7070
 preplace netloc smartconnect_0_M05_AXI 1 14 1 6470 -1170n
+preplace netloc smartconnect_0_M06_AXI 1 6 9 2730 -450 NJ -450 NJ -450 N -450 NJ -450 NJ -450 NJ -450 NJ -450 6460
 preplace netloc xfcp_fanout_wrapper_0_IIC_CLK 1 8 12 4260 -520 N -520 N -520 N -520 N -520 N -520 NJ -520 N -520 NJ -520 N -520 7970 -530 NJ
 preplace netloc xfcp_fanout_wrapper_0_IIC_HVMINUS 1 8 8 4280 -320 N -320 N -320 N -320 N -320 N -320 NJ -320 N
 preplace netloc xfcp_fanout_wrapper_0_IIC_HVPLUS 1 8 8 4270 -440 N -440 N -440 N -440 N -440 N -440 NJ -440 N
 preplace netloc xfcp_fanout_wrapper_0_IIC_RAMP 1 8 12 4290 830 N 830 N 830 N 830 N 830 N 830 NJ 830 N 830 NJ 830 N 830 N 830 NJ
 preplace netloc xfcp_fanout_wrapper_0_IIC_SFP 1 8 12 4250 -500 N -500 N -500 N -500 N -500 N -500 NJ -500 N -500 NJ -500 N -500 8000 -520 8380J
 preplace netloc xfcp_fanout_wrapper_0_m_axi 1 8 6 4210 -1620 N -1620 N -1620 N -1620 5960 -1230 N
-preplace netloc xxv_ethernet_0_gt_tx 1 7 13 3570J 710 N 710 N 710 N 710 5530 370 N 370 N 370 N 370 N 370 N 370 N 370 N 370 N
-preplace netloc jesd_to_axi4s_0_m_axis 1 10 1 5130 -860n
-preplace netloc axis_data_fifo_0_M_AXIS 1 6 6 2730 -240 NJ -240 NJ -240 N -240 NJ -240 5530
-preplace netloc smartconnect_0_M06_AXI 1 6 9 2730 -450 NJ -450 NJ -450 N -450 NJ -450 NJ -450 NJ -450 NJ -450 6460
 preplace netloc xfcp_fanout_wrapper_0_xfcp_tx 1 6 3 2460 720 NJ 720 4100
+preplace netloc xxv_ethernet_0_gt_tx 1 7 13 3570J 710 N 710 N 710 N 710 5530 370 N 370 N 370 N 370 N 370 N 370 N 370 N 370 N
 levelinfo -pg 1 -220 -30 490 800 1140 1500 1960 3030 3900 4410 4950 5340 5680 6070 6320 6900 7300 7590 7860 8220 8420
 pagesize -pg 1 -db -bbox -sgen -690 -2820 8610 4760
 "
