@@ -144,7 +144,7 @@ impl Ultrasound {
             pot: Mcp401x {
                 i2c: Box::new(ramp_i2c),
                 address: 0b0101111,
-                resistance: 10_000,
+                resistance: 10e3,
             },
         };
 
@@ -160,12 +160,12 @@ impl Ultrasound {
             pot: Mcp401x {
                 i2c: Box::new(hvplus_i2c_nonflip),
                 address: 0b0101111,
-                resistance: 10_000,
+                resistance: 100e3,
             },
             adc: Mcp3021 {
                 i2c: Box::new(hvplus_i2c_flip),
                 address: 0b1001000,
-                mult: 1.0 / 0.026,
+                mult: 1.0 / 0.0329,
                 vdd: 3.3,
             },
         };
@@ -183,7 +183,7 @@ impl Ultrasound {
                 pot: Mcp401x {
                     i2c: Box::new(nonflip),
                     address: 0b0101111,
-                    resistance: 10_000,
+                    resistance: 100e3,
                 },
                 adc: Mcp3021 {
                     i2c: Box::new(flip),

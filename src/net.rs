@@ -6,19 +6,25 @@ use crate::ultrasound::Ultrasound;
 
 #[tokio::main(flavor = "current_thread")]
 pub async fn main() {
-    let data_socket = Ultrasound::bind_data_socket()
-        .await
-        .expect("Failed to bind UDP socket");
-
-    tokio::spawn(async move {
-        while let Ok((d, _)) = data_socket.recv_from(&mut [0u8; 2048]).await {
-            println!("Received data packet: {:?}", &d);
-        }
-    });
-
     let mut u = Ultrasound::connect().await.unwrap();
 
-    u.init_hw().await.unwrap();
+    // u.init_hw().await.unwrap();
+
+    dbg!(u.hvplus.get_target_voltage(&mut u.interface).await);
+
+    
+    // let mut v = vec![];
+    // for _ in 0..1000 {
+    // loop{
+    //     // v.push(u.hvplus.get_voltage(&mut u.interface).await.unwrap());
+    //     // v.push(dbg!(u.hvplus.adc.read_raw(&mut u.interface).await.unwrap()) as f32 / 1024. * 3.3);
+    //     dbg!(u.hvplus.adc.read_raw(&mut u.interface).await.unwrap()) as f32 / 1024. * 3.3;
+    // }
+    // println!("{}", v.iter().sum::<f32>() / v.len() as f32);
+        dbg!(u.hvplus.get_voltage(&mut u.interface).await.unwrap());
+
+
+    dbg!(u.hvplus.adc.read_raw(&mut u.interface).await.unwrap() as f32 / 1024. * 3.3);
 
     // dbg!(u.adc.read_reg(&mut u.interface, 0x34).await);
     // dbg!(u.adc.read_reg(&mut u.interface, 0x2f).await);
