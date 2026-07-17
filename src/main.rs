@@ -12,7 +12,7 @@ use iced::widget::{
     button, canvas, column, container, radio, row, scrollable, slider, text, text_input,
     toggler,
 };
-use iced::{Center, Element, Fill, Point, Rectangle, Renderer, Subscription, Theme};
+use iced::{Center, Color, Element, Fill, Point, Rectangle, Renderer, Size, Subscription, Theme};
 
 use crate::ultrasound::Ultrasound;
 
@@ -43,6 +43,7 @@ const TRIGGER_POSITION_RANGE: RangeInclusive<f32> = 0.0..=90.0; // % of window b
 const X_SCALE_EXP_RANGE: RangeInclusive<f32> = 8.0..=16.0; // samples across = 2^exp
 const Y_SCALE_RANGE: RangeInclusive<f32> = 16.0..=2048.0; // ± ADC codes
 const Y_OFFSET_RANGE: RangeInclusive<f32> = -2048.0..=2047.0; // ADC codes
+const CONTRAST_RANGE: RangeInclusive<f32> = 0.1..=10.0; // brightness gain
 
 const PULSER_RECV_TIME_US: u32 = 200;
 
@@ -110,7 +111,18 @@ struct App {
     y_auto: bool,
     y_scale: f32,  // ± ADC codes around the offset
     y_offset: f32, // center, ADC codes
+    view_tab: ViewTab,
+    contrast: f32, // b-mode brightness gain
     plot_cache: canvas::Cache,
+    bmode_cache: canvas::Cache,
+}
+
+/// Which visualization the main area shows.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum ViewTab {
+    Scope,
+    /// Amplitude as brightness vs depth, top = trigger point.
+    BMode,
 }
 
 /// How an armed acquisition starts a capture.
@@ -167,7 +179,10 @@ impl Default for App {
             y_auto: true,
             y_scale: 2048.0,
             y_offset: 0.0,
+            view_tab: ViewTab::Scope,
+            contrast: 1.0,
             plot_cache: canvas::Cache::new(),
+            bmode_cache: canvas::Cache::new(),
         }
     }
 }
@@ -203,6 +218,8 @@ enum Message {
     YScaleChanged(f32),
     YOffsetChanged(f32),
     YAutoPressed,
+    ViewTabSelected(ViewTab),
+    ContrastChanged(f32),
     ChannelToggled(usize),
     Hardware(HwEvent),
 }
@@ -309,16 +326,19 @@ impl App {
                 self.trigger_channel = ch;
                 self.prev_trigger_sample = None;
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::TriggerLevelChanged(level) => {
                 self.trigger_level = level;
                 self.trigger_level_text = format!("{level:.0}");
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::TriggerLevelInputChanged(input) => {
                 if let Ok(level) = input.trim().parse::<f32>() {
                     self.trigger_level = level.clamp(-2048.0, 2047.0);
                     self.plot_cache.clear();
+                    self.bmode_cache.clear();
                 }
                 self.trigger_level_text = input;
             }
@@ -357,24 +377,36 @@ impl App {
                     }
                 }
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::YScaleChanged(scale) => {
                 self.y_scale = scale;
                 self.y_auto = false;
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::YOffsetChanged(offset) => {
                 self.y_offset = offset;
                 self.y_auto = false;
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::YAutoPressed => {
                 self.y_auto = true;
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
+            }
+            Message::ViewTabSelected(tab) => {
+                self.view_tab = tab;
+            }
+            Message::ContrastChanged(contrast) => {
+                self.contrast = contrast;
+                self.bmode_cache.clear();
             }
             Message::ChannelToggled(ch) => {
                 self.channel_enabled[ch] = !self.channel_enabled[ch];
                 self.plot_cache.clear();
+                self.bmode_cache.clear();
             }
             Message::Hardware(event) => match event {
                 HwEvent::Connected(commands) => {
@@ -476,6 +508,7 @@ impl App {
 
                     if changed {
                         self.plot_cache.clear();
+                        self.bmode_cache.clear();
                     }
                 }
             },
@@ -727,6 +760,13 @@ impl App {
         ]
         .spacing(5);
 
+        let bmode_section = column![
+            text("B-mode").size(16),
+            text(format!("contrast: {:.1}×", self.contrast)).size(14),
+            slider(CONTRAST_RANGE, self.contrast, Message::ContrastChanged).step(0.1),
+        ]
+        .spacing(5);
+
         let sidebar = container(scrollable(
             column![
                 text("Ultrasound").size(24),
@@ -739,6 +779,7 @@ impl App {
                 adc_section,
                 x_scale_section,
                 y_axis_section,
+                bmode_section,
             ]
             .spacing(20)
             .padding(15),
@@ -760,8 +801,23 @@ impl App {
             0
         };
 
-        let plot = container(
-            canvas(Plot {
+        let tab_button = |label, tab| {
+            button(label)
+                .style(if self.view_tab == tab {
+                    button::primary
+                } else {
+                    button::secondary
+                })
+                .on_press(Message::ViewTabSelected(tab))
+        };
+        let tab_bar = row![
+            tab_button("scope", ViewTab::Scope),
+            tab_button("b-mode", ViewTab::BMode),
+        ]
+        .spacing(10);
+
+        let content: Element<'_, Message> = match self.view_tab {
+            ViewTab::Scope => canvas(Plot {
                 traces: shown,
                 enabled: self.channel_enabled,
                 x_scale: self.x_scale,
@@ -776,11 +832,25 @@ impl App {
                 cache: &self.plot_cache,
             })
             .width(Fill)
-            .height(Fill),
-        )
-        .width(Fill)
-        .height(Fill)
-        .padding(10);
+            .height(Fill)
+            .into(),
+            ViewTab::BMode => canvas(BModePlot {
+                traces: shown,
+                enabled: self.channel_enabled,
+                x_scale: self.x_scale,
+                trigger_index: shown_trigger_index,
+                contrast: self.contrast,
+                cache: &self.bmode_cache,
+            })
+            .width(Fill)
+            .height(Fill)
+            .into(),
+        };
+
+        let plot = container(column![tab_bar, content].spacing(10))
+            .width(Fill)
+            .height(Fill)
+            .padding(10);
 
         row![sidebar, plot].into()
     }
@@ -1109,6 +1179,147 @@ impl canvas::Program<Message> for Plot<'_> {
                 Point::new(area.x + area.width, area.y + area.height + 5.0),
                 text::Alignment::Right,
                 alignment::Vertical::Top,
+            ));
+        });
+
+        vec![geometry]
+    }
+}
+
+/// Traditional ultrasound view: amplitude as brightness vs depth (1D).
+/// Top = trigger point, bottom = right edge of the scope's X scale.
+struct BModePlot<'a> {
+    traces: &'a [Vec<f32>; 4],
+    enabled: [bool; 4],
+    x_scale: usize,
+    trigger_index: usize,
+    contrast: f32,
+    cache: &'a canvas::Cache,
+}
+
+impl canvas::Program<Message> for BModePlot<'_> {
+    type State = ();
+
+    fn draw(
+        &self,
+        _state: &Self::State,
+        renderer: &Renderer,
+        theme: &Theme,
+        bounds: Rectangle,
+        _cursor: mouse::Cursor,
+    ) -> Vec<canvas::Geometry> {
+        let geometry = self.cache.draw(renderer, bounds.size(), |frame| {
+            let palette = theme.extended_palette();
+
+            let area = Rectangle {
+                x: PLOT_MARGIN_LEFT,
+                y: PLOT_MARGIN_TOP,
+                width: (frame.width() - PLOT_MARGIN_LEFT - PLOT_MARGIN_RIGHT).max(1.0),
+                height: (frame.height() - PLOT_MARGIN_TOP - PLOT_MARGIN_BOTTOM).max(1.0),
+            };
+
+            // classic ultrasound look: black background regardless of theme
+            frame.fill_rectangle(area.position(), area.size(), Color::BLACK);
+            frame.stroke(
+                &canvas::Path::rectangle(area.position(), area.size()),
+                canvas::Stroke::default()
+                    .with_color(palette.background.strong.color)
+                    .with_width(1.0),
+            );
+
+            if self.traces.iter().all(|t| t.is_empty()) {
+                frame.fill_text(canvas::Text {
+                    content: String::from("waiting for data..."),
+                    position: Point::new(area.center_x(), area.center_y()),
+                    color: palette.background.strong.color,
+                    size: 20.0.into(),
+                    align_x: text::Alignment::Center,
+                    align_y: alignment::Vertical::Center,
+                    ..canvas::Text::default()
+                });
+                return;
+            }
+
+            let channel_colors = [
+                palette.primary.base.color,
+                palette.success.base.color,
+                palette.warning.base.color,
+                palette.danger.base.color,
+            ];
+
+            // depth axis: trigger point at the top, X scale end at the bottom
+            let start = self.trigger_index.min(self.x_scale.saturating_sub(1));
+            let span = (self.x_scale - start).max(1);
+
+            let channels: Vec<usize> =
+                (0..4).filter(|&ch| self.enabled[ch]).collect();
+            if channels.is_empty() {
+                return;
+            }
+
+            let column_width = area.width / channels.len() as f32;
+            let rows = area.height as usize;
+
+            for (i, &ch) in channels.iter().enumerate() {
+                let trace = &self.traces[ch];
+                let column_x = area.x + i as f32 * column_width;
+
+                for row in 0..rows {
+                    // samples covered by this pixel row (peak-detect)
+                    let s0 = start + (row as f32 / rows as f32 * span as f32) as usize;
+                    let s1 = (start
+                        + ((row + 1) as f32 / rows as f32 * span as f32) as usize)
+                        .max(s0 + 1);
+
+                    if s0 >= trace.len() {
+                        break;
+                    }
+
+                    let peak = trace[s0..s1.min(trace.len())]
+                        .iter()
+                        .fold(0.0f32, |max, &v| max.max(v.abs()));
+
+                    let brightness =
+                        (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
+                    if brightness < 1.0 / 512.0 {
+                        continue;
+                    }
+
+                    frame.fill_rectangle(
+                        Point::new(column_x, area.y + row as f32),
+                        Size::new(column_width, 1.0),
+                        Color::from_rgb(brightness, brightness, brightness),
+                    );
+                }
+
+                // channel label, matching the scope's colors
+                frame.fill_text(canvas::Text {
+                    content: format!("ch{}", CHANNEL_NAMES[ch]),
+                    position: Point::new(column_x + 5.0, area.y + 5.0),
+                    color: channel_colors[ch],
+                    size: 12.0.into(),
+                    ..canvas::Text::default()
+                });
+            }
+
+            // depth (time-from-trigger) labels
+            let label = |content: String, y: f32| canvas::Text {
+                content,
+                position: Point::new(area.x - 5.0, y),
+                color: palette.background.base.text,
+                size: 12.0.into(),
+                align_x: text::Alignment::Right,
+                align_y: alignment::Vertical::Center,
+                ..canvas::Text::default()
+            };
+            frame.fill_text(label(String::from("0"), area.y));
+            frame.fill_text(label(
+                fmt_samples_as_time(span / 2),
+                area.y + area.height / 2.0,
+            ));
+            frame.fill_text(label(
+                fmt_samples_as_time(span),
+                area.y + area.height,
             ));
         });
 
