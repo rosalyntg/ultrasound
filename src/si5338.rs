@@ -292,7 +292,7 @@ impl Si5338 {
 //Register map for use with AN428 (JumpStart)
 //https://www.skyworksinc.com/timing
 //#BEGIN_HEADER
-//Date = Thursday, July 09, 2026 6:09 PM
+//Date = Thursday, July 16, 2026 7:53 PM
 //File version = 3
 //Software Name = ClockBuilder Pro
 //Software version = 4.18.0.0
@@ -313,9 +313,9 @@ impl Si5338 {
 //N = 100  (100.0000)
 //Internal feedback enabled
 //Output Clock 0
-// Output Frequency (MHz) = 25.000000000
+// Output Frequency (MHz) = 50.000000000
 // Mux Selection = IDn
-// MultiSynth = 100  (100.0000)
+// MultiSynth = 50  (50.0000)
 // R = 1
 //Output Clock 1
 // Output Frequency (MHz) = 100.000000000
@@ -323,14 +323,14 @@ impl Si5338 {
 // MultiSynth = 25  (25.0000)
 // R = 1
 //Output Clock 2
-// Output Frequency (MHz) = 25.000000000
+// Output Frequency (MHz) = 50.000000000
 // Mux Selection = IDn
-// MultiSynth = 100  (100.0000)
+// MultiSynth = 50  (50.0000)
 // R = 1
 //Output Clock 3
-// Output Frequency (MHz) = 25.000000000
+// Output Frequency (MHz) = 50.000000000
 // Mux Selection = IDn
-// MultiSynth = 100  (100.0000)
+// MultiSynth = 50  (50.0000)
 // R = 1
 //Driver 0
 // Enabled
@@ -371,7 +371,7 @@ impl Si5338 {
 
 // #define NUM_REGS_MAX 350
 
-// typedef struct Reg_Data(
+// typedef struct Reg_Data{
 //    unsigned char Reg_Addr;
 //    unsigned char Reg_Val;
 //    unsigned char Reg_Mask;
@@ -432,7 +432,7 @@ const REG_STORE: &[(u8, u8, u8)] = &[
     (51, 0x07, 0xFF),
     (52, 0x10, 0xFF),
     (53, 0x00, 0xFF),
-    (54, 0x30, 0xFF),
+    (54, 0x17, 0xFF),
     (55, 0x00, 0xFF),
     (56, 0x00, 0xFF),
     (57, 0x00, 0xFF),
@@ -454,7 +454,7 @@ const REG_STORE: &[(u8, u8, u8)] = &[
     (73, 0x00, 0x3F),
     (74, 0x10, 0xFF),
     (75, 0x00, 0xFF),
-    (76, 0x30, 0xFF),
+    (76, 0x17, 0xFF),
     (77, 0x00, 0xFF),
     (78, 0x00, 0xFF),
     (79, 0x00, 0xFF),
@@ -465,7 +465,7 @@ const REG_STORE: &[(u8, u8, u8)] = &[
     (84, 0x00, 0x3F),
     (85, 0x10, 0xFF),
     (86, 0x00, 0xFF),
-    (87, 0x30, 0xFF),
+    (87, 0x17, 0xFF),
     (88, 0x00, 0xFF),
     (89, 0x00, 0xFF),
     (90, 0x00, 0xFF),
