@@ -4,13 +4,14 @@ use tokio::time::sleep;
 
 use crate::{mcp401x, mcp3021};
 
-const VFB: f32 = 1.6;
-const R_UPPER: f32 = 680e3;
-const R_FIXED: f32 = 15e3;
 
 pub struct HVSupply {
     pub pot: mcp401x::Mcp401x,
     pub adc: mcp3021::Mcp3021,
+    pub vfb: f32,
+    pub r_upper: f32,
+    pub r_fixed: f32,
+    pub pot_va: f32, // voltage of `A` pin of the pot
 }
 
 impl HVSupply {
@@ -35,18 +36,20 @@ impl HVSupply {
         interface: &mut crate::xfcp::Interface,
         voltage: f32,
     ) -> Result<(), std::io::Error> {
-        let i_fb = (voltage - VFB) / R_UPPER;
-        let r_pot = VFB / i_fb - R_FIXED;
+        let i_fb = (voltage - self.vfb) / self.r_upper;
+        let r_pot = (self.vfb - self.pot_va) / i_fb - self.r_fixed;
 
         let target_counts = self.pot.count_for_resistance(r_pot);
         let cur_counts = self.pot.get_count(interface).await?;
+
+        dbg!(target_counts, cur_counts);
 
         // swing slowly, they are gentle beasts``
         if target_counts < cur_counts {
             for count in (target_counts..=cur_counts).rev() {
                 self.pot
                     .i2c
-                    .write(interface, self.pot.address, &[count])
+                    .write(interface, self.pot.address, &[dbg!(count)])
                     .await?;
                 sleep(Duration::from_millis(50)).await;
             }
@@ -54,7 +57,7 @@ impl HVSupply {
             for count in cur_counts..=target_counts {
                 self.pot
                     .i2c
-                    .write(interface, self.pot.address, &[count])
+                    .write(interface, self.pot.address, &[dbg!(count)])
                     .await?;
                 sleep(Duration::from_millis(50)).await;
             }
@@ -64,16 +67,24 @@ impl HVSupply {
     }
 
     fn voltage_for_pot(&self, r_pot: f32) -> f32 {
-        let i_fb = VFB / (r_pot + R_FIXED);
-        let vout = i_fb * (R_UPPER + R_FIXED + r_pot);
+        let i_fb = (self.vfb - self.pot_va) / (r_pot + self.r_fixed);
+        let vout = i_fb * (self.r_upper + self.r_fixed + r_pot) - self.pot_va;
 
         vout
     }
 
     pub fn max_voltage(&self) -> f32 {
-        self.voltage_for_pot(0.)
+        if self.vfb < 0. {
+            self.voltage_for_pot(self.pot.resistance)
+        } else {
+            self.voltage_for_pot(0.)
+        }
     }
     pub fn min_voltage(&self) -> f32 {
-        self.voltage_for_pot(self.pot.resistance) + 0.1 // for float rounding
+        if self.vfb < 0. {
+            -50. // artificial cap at -50V, i'm scared to break it
+        } else {
+            self.voltage_for_pot(self.pot.resistance) + 0.1 // float rounding
+        }
     }
 }

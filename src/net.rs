@@ -26,6 +26,10 @@ pub async fn main() {
 
     dbg!(u.hvplus.adc.read_raw(&mut u.interface).await.unwrap() as f32 / 1024. * 3.3);
 
+    // u.hvplus.set_target_voltage(&mut u.interface, dbg!(u.hvplus.max_voltage())).await;
+    // u.hvplus.set_target_voltage(&mut u.interface, 35.).await;
+    u.hvminus.set_target_voltage(&mut u.interface, -20.).await;
+
     // dbg!(u.adc.read_reg(&mut u.interface, 0x34).await);
     // dbg!(u.adc.read_reg(&mut u.interface, 0x2f).await);
 

@@ -9,32 +9,30 @@ use iced::futures::channel::mpsc;
 use iced::futures::{SinkExt, Stream, StreamExt};
 use iced::mouse;
 use iced::widget::{
-    button, canvas, column, container, radio, row, scrollable, slider, text, text_input,
-    toggler,
+    button, canvas, column, container, radio, row, scrollable, slider, text, text_input, toggler,
 };
 use iced::{Center, Color, Element, Fill, Point, Rectangle, Renderer, Size, Subscription, Theme};
 
 use crate::ultrasound::Ultrasound;
 
+mod ad34jx;
+mod hvsupply;
+mod i2c;
+mod jesd204bphy;
+mod mcp3021;
+mod mcp401x;
 #[allow(dead_code)]
 mod net;
-mod xfcp;
-mod mcp401x;
-mod ramp;
-mod xgpio;
-mod hvsupply;
-mod mcp3021;
 mod pulser;
+mod ramp;
 mod si5338;
-mod xspi;
-mod ad34jx;
-mod jesd204bphy;
-mod i2c;
 mod ultrasound;
+mod xfcp;
+mod xgpio;
+mod xspi;
 
 // usable ramp times for the RC ramp: 10k fixed + 10k pot, see ramp.rs
 const RAMP_RATE_RANGE: RangeInclusive<f32> = 24.0..=47.0; // µs
-const HV_RANGE: RangeInclusive<f32> = 0.0..=100.0; // V
 const PULSE_DURATION_RANGE: RangeInclusive<f32> = 100.0..=2000.0; // ns (full period)
 const PULSE_RATE_RANGE: RangeInclusive<f32> = 1.0..=50.0; // Hz
 const RAMP_DELAY_RANGE: RangeInclusive<f32> = 0.0..=200.0; // µs
@@ -59,7 +57,9 @@ const RECONNECT_DELAY: Duration = Duration::from_secs(3);
 pub fn main() -> iced::Result {
     tracing_subscriber::fmt::init();
 
-    if let Some(arg1) = env::args().nth(1) && arg1 == "cmd" {
+    if let Some(arg1) = env::args().nth(1)
+        && arg1 == "cmd"
+    {
         net::main();
         return Ok(());
     }
@@ -83,6 +83,10 @@ struct App {
 
     hv_plus_reading: Option<f32>,
     hv_minus_reading: Option<f32>,
+    /// Setpoint limits, reported by the hardware task at connect;
+    /// the setpoint controls are greyed out until then.
+    hv_plus_range: Option<RangeInclusive<f32>>,
+    hv_minus_range: Option<RangeInclusive<f32>>,
 
     status: String,
     hw: Option<mpsc::Sender<HwCommand>>,
@@ -139,9 +143,13 @@ enum TriggerMode {
 enum Acquisition {
     Stopped,
     /// Waiting for the trigger channel to cross the trigger level upward.
-    Armed { continuous: bool },
+    Armed {
+        continuous: bool,
+    },
     /// Filling the capture buffers up to `x_scale` samples.
-    Capturing { continuous: bool },
+    Capturing {
+        continuous: bool,
+    },
 }
 
 impl Default for App {
@@ -157,6 +165,8 @@ impl Default for App {
             adcs_enabled: true,
             hv_plus_reading: None,
             hv_minus_reading: None,
+            hv_plus_range: None,
+            hv_minus_range: None,
             status: String::from("starting..."),
             hw: None,
             traces: Default::default(),
@@ -232,6 +242,18 @@ enum HwEvent {
     Status(String),
     HvPlusVoltage(f32),
     HvMinusVoltage(f32),
+    /// Supply limits and the target currently set in hardware, reported
+    /// once at connect.
+    HvPlusInfo {
+        min: f32,
+        max: f32,
+        target: f32,
+    },
+    HvMinusInfo {
+        min: f32,
+        max: f32,
+        target: f32,
+    },
     /// ADC frames, one sample per channel
     Frames(Vec<[f32; 4]>),
 }
@@ -246,9 +268,9 @@ struct PulserConfig {
 /// Commands flowing from the GUI to the hardware task.
 #[derive(Debug, Clone)]
 enum HwCommand {
-    SetRampRate(f32),   // µs
-    SetHvPlus(f32),     // V
-    SetHvMinus(f32),    // V (magnitude)
+    SetRampRate(f32), // µs
+    SetHvPlus(f32),   // V
+    SetHvMinus(f32),  // V (magnitude)
     SetupPulser(PulserConfig),
     SetAdcsEnabled(bool), // false holds the ADC in reset
     InitHw,
@@ -417,12 +439,22 @@ impl App {
                     self.hw = None;
                     self.hv_plus_reading = None;
                     self.hv_minus_reading = None;
+                    self.hv_plus_range = None;
+                    self.hv_minus_range = None;
                     self.pulsing = false;
                     self.status = format!("disconnected: {reason}");
                 }
                 HwEvent::Status(status) => self.status = status,
                 HwEvent::HvPlusVoltage(v) => self.hv_plus_reading = Some(v),
                 HwEvent::HvMinusVoltage(v) => self.hv_minus_reading = Some(v),
+                HwEvent::HvPlusInfo { min, max, target } => {
+                    self.hv_plus_range = Some(min..=max);
+                    self.hv_plus_setpoint = target;
+                }
+                HwEvent::HvMinusInfo { min, max, target } => {
+                    self.hv_minus_range = Some(min..=max);
+                    self.hv_minus_setpoint = target;
+                }
                 HwEvent::Frames(frames) => {
                     let mut changed = false;
 
@@ -432,46 +464,36 @@ impl App {
                         match self.acquisition {
                             Acquisition::Stopped => {}
                             Acquisition::Armed { continuous } => {
-                                let triggered = (self.trigger_mode
-                                    == TriggerMode::Auto
+                                let triggered = (self.trigger_mode == TriggerMode::Auto
                                     || self.prev_trigger_sample.is_some_and(|prev| {
-                                        prev < self.trigger_level
-                                            && sample >= self.trigger_level
+                                        prev < self.trigger_level && sample >= self.trigger_level
                                     }))
-                                    && self.samples_since_trigger
-                                        >= self.holdoff_samples;
+                                    && self.samples_since_trigger >= self.holdoff_samples;
 
                                 if triggered {
                                     // prepend pre-trigger history (as much as
                                     // is available) per the X trigger position
-                                    let pre_target = (self.trigger_position_pct
-                                        / 100.0
+                                    let pre_target = (self.trigger_position_pct / 100.0
                                         * self.x_scale as f32)
                                         as usize;
 
-                                    for (capture, (history, sample)) in self
-                                        .capture
-                                        .iter_mut()
-                                        .zip(self.history.iter().zip(frame))
+                                    for (capture, (history, sample)) in
+                                        self.capture.iter_mut().zip(self.history.iter().zip(frame))
                                     {
                                         capture.clear();
-                                        let start =
-                                            history.len().saturating_sub(pre_target);
+                                        let start = history.len().saturating_sub(pre_target);
                                         capture.extend(history.iter().skip(start));
                                         capture.push(sample);
                                     }
                                     self.trigger_index = self.capture[0].len() - 1;
 
-                                    self.acquisition =
-                                        Acquisition::Capturing { continuous };
+                                    self.acquisition = Acquisition::Capturing { continuous };
                                     self.samples_since_trigger = 0;
                                     changed = true;
                                 }
                             }
                             Acquisition::Capturing { continuous } => {
-                                for (capture, sample) in
-                                    self.capture.iter_mut().zip(frame)
-                                {
+                                for (capture, sample) in self.capture.iter_mut().zip(frame) {
                                     capture.push(sample);
                                 }
                                 changed = true;
@@ -502,8 +524,7 @@ impl App {
                         }
 
                         self.prev_trigger_sample = Some(sample);
-                        self.samples_since_trigger =
-                            self.samples_since_trigger.saturating_add(1);
+                        self.samples_since_trigger = self.samples_since_trigger.saturating_add(1);
                     }
 
                     if changed {
@@ -542,7 +563,12 @@ impl App {
 
         let status_section = column![
             text("Status").size(16),
-            text(if connected { "● connected" } else { "○ disconnected" }).size(14),
+            text(if connected {
+                "● connected"
+            } else {
+                "○ disconnected"
+            })
+            .size(14),
             text(&self.status).size(13),
             button("init hw").on_press_maybe(connected.then_some(Message::InitHw)),
         ]
@@ -557,31 +583,46 @@ impl App {
         ]
         .spacing(5);
 
+        // setpoint controls are greyed out until the hardware task reports
+        // the supply's range and current target
+        let hv_setpoint = |range: &Option<RangeInclusive<f32>>,
+                           setpoint: f32,
+                           on_change: fn(f32) -> Message,
+                           on_apply: Message| {
+            match range {
+                Some(range) => column![
+                    text(format!("setpoint: {setpoint:.1} V",)).size(14),
+                    slider(range.clone(), setpoint, on_change)
+                        .step(1.0)
+                        .on_release(on_apply),
+                ]
+                .spacing(5)
+                .into(),
+                None => Element::from(text("setpoint: waiting for hardware...").size(13)),
+            }
+        };
+
         let hv_plus_section = column![
             text("HV+").size(16),
             text(format!("measured: {}", fmt_voltage(self.hv_plus_reading))).size(14),
-            text(format!("setpoint: {:.0} V", self.hv_plus_setpoint)).size(14),
-            slider(
-                HV_RANGE,
+            hv_setpoint(
+                &self.hv_plus_range,
                 self.hv_plus_setpoint,
-                Message::HvPlusSetpointChanged
-            )
-            .step(1.0)
-            .on_release(Message::ApplyHvPlus),
+                Message::HvPlusSetpointChanged,
+                Message::ApplyHvPlus,
+            ),
         ]
         .spacing(5);
 
         let hv_minus_section = column![
             text("HV−").size(16),
             text(format!("measured: {}", fmt_voltage(self.hv_minus_reading))).size(14),
-            text(format!("setpoint: −{:.0} V", self.hv_minus_setpoint)).size(14),
-            slider(
-                HV_RANGE,
+            hv_setpoint(
+                &self.hv_minus_range,
                 self.hv_minus_setpoint,
-                Message::HvMinusSetpointChanged
-            )
-            .step(1.0)
-            .on_release(Message::ApplyHvMinus),
+                Message::HvMinusSetpointChanged,
+                Message::ApplyHvMinus,
+            ),
         ]
         .spacing(5);
 
@@ -825,10 +866,8 @@ impl App {
                 trigger_level: self.trigger_level,
                 trigger_index: shown_trigger_index,
                 fill,
-                y_range: (!self.y_auto).then_some((
-                    self.y_offset - self.y_scale,
-                    self.y_offset + self.y_scale,
-                )),
+                y_range: (!self.y_auto)
+                    .then_some((self.y_offset - self.y_scale, self.y_offset + self.y_scale)),
                 cache: &self.plot_cache,
             })
             .width(Fill)
@@ -993,9 +1032,7 @@ impl canvas::Program<Message> for Plot<'_> {
                 Some(range) => range,
                 None => {
                     let (mut y_min, mut y_max) = (f32::INFINITY, f32::NEG_INFINITY);
-                    for (trace, _) in
-                        self.traces.iter().zip(self.enabled).filter(|&(_, e)| e)
-                    {
+                    for (trace, _) in self.traces.iter().zip(self.enabled).filter(|&(_, e)| e) {
                         for &y in trace {
                             y_min = y_min.min(y);
                             y_max = y_max.max(y);
@@ -1046,10 +1083,7 @@ impl canvas::Program<Message> for Plot<'_> {
             if self.trigger_level >= y_min && self.trigger_level <= y_max {
                 let y = to_screen(x_min, self.trigger_level).y;
                 frame.stroke(
-                    &canvas::Path::line(
-                        Point::new(area.x, y),
-                        Point::new(area.x + area.width, y),
-                    ),
+                    &canvas::Path::line(Point::new(area.x, y), Point::new(area.x + area.width, y)),
                     canvas::Stroke {
                         line_dash: canvas::LineDash {
                             segments: &[4.0, 4.0],
@@ -1066,10 +1100,7 @@ impl canvas::Program<Message> for Plot<'_> {
             if self.trigger_index > 0 && self.traces.iter().any(|t| !t.is_empty()) {
                 let x = to_screen(self.trigger_index as f32, 0.0).x;
                 frame.stroke(
-                    &canvas::Path::line(
-                        Point::new(x, area.y),
-                        Point::new(x, area.y + area.height),
-                    ),
+                    &canvas::Path::line(Point::new(x, area.y), Point::new(x, area.y + area.height)),
                     canvas::Stroke {
                         line_dash: canvas::LineDash {
                             segments: &[4.0, 4.0],
@@ -1085,9 +1116,7 @@ impl canvas::Program<Message> for Plot<'_> {
             // traces: time-ordered from the trigger point. Not clipped: a
             // manual Y range can draw slightly outside the plot area, but
             // with_clip doesn't render inside a cached canvas frame
-            for (ch, (trace, color)) in
-                self.traces.iter().zip(channel_colors).enumerate()
-            {
+            for (ch, (trace, color)) in self.traces.iter().zip(channel_colors).enumerate() {
                 if !self.enabled[ch] || trace.len() < 2 {
                     continue;
                 }
@@ -1108,10 +1137,7 @@ impl canvas::Program<Message> for Plot<'_> {
             if self.fill > 0 && self.fill < self.x_scale {
                 let x = to_screen(self.fill as f32, 0.0).x;
                 frame.stroke(
-                    &canvas::Path::line(
-                        Point::new(x, area.y),
-                        Point::new(x, area.y + area.height),
-                    ),
+                    &canvas::Path::line(Point::new(x, area.y), Point::new(x, area.y + area.height)),
                     canvas::Stroke::default()
                         .with_color(palette.background.strong.color)
                         .with_width(1.0),
@@ -1251,8 +1277,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
             let start = self.trigger_index.min(self.x_scale.saturating_sub(1));
             let span = (self.x_scale - start).max(1);
 
-            let channels: Vec<usize> =
-                (0..4).filter(|&ch| self.enabled[ch]).collect();
+            let channels: Vec<usize> = (0..4).filter(|&ch| self.enabled[ch]).collect();
             if channels.is_empty() {
                 return;
             }
@@ -1267,8 +1292,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                 for row in 0..rows {
                     // samples covered by this pixel row (peak-detect)
                     let s0 = start + (row as f32 / rows as f32 * span as f32) as usize;
-                    let s1 = (start
-                        + ((row + 1) as f32 / rows as f32 * span as f32) as usize)
+                    let s1 = (start + ((row + 1) as f32 / rows as f32 * span as f32) as usize)
                         .max(s0 + 1);
 
                     if s0 >= trace.len() {
@@ -1279,8 +1303,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                         .iter()
                         .fold(0.0f32, |max, &v| max.max(v.abs()));
 
-                    let brightness =
-                        (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
+                    let brightness = (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
                     if brightness < 1.0 / 512.0 {
                         continue;
                     }
@@ -1317,10 +1340,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                 fmt_samples_as_time(span / 2),
                 area.y + area.height / 2.0,
             ));
-            frame.fill_text(label(
-                fmt_samples_as_time(span),
-                area.y + area.height,
-            ));
+            frame.fill_text(label(fmt_samples_as_time(span), area.y + area.height));
         });
 
         vec![geometry]
@@ -1366,6 +1386,25 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
     let (command_tx, mut command_rx) = mpsc::channel(32);
     let _ = output.send(HwEvent::Connected(command_tx)).await;
 
+    // report the supply limits and the target currently set in hardware,
+    // so the GUI setpoint controls start out matching reality
+    let target = u.hvplus.get_target_voltage(&mut u.interface).await?;
+    let _ = output
+        .send(HwEvent::HvPlusInfo {
+            min: u.hvplus.min_voltage(),
+            max: u.hvplus.max_voltage(),
+            target,
+        })
+        .await;
+    let target = u.hvminus.get_target_voltage(&mut u.interface).await?;
+    let _ = output
+        .send(HwEvent::HvMinusInfo {
+            min: u.hvminus.min_voltage(),
+            max: u.hvminus.max_voltage(),
+            target,
+        })
+        .await;
+
     let mut poll = tokio::time::interval(HV_POLL_PERIOD);
     let mut data_buf = [0u8; 2048];
 
@@ -1382,10 +1421,8 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                 let v = u.hvplus.get_voltage(&mut u.interface).await?;
                 let _ = output.send(HwEvent::HvPlusVoltage(v)).await;
 
-                if let Some(hvminus) = &u.hvminus {
-                    let v = hvminus.get_voltage(&mut u.interface).await?;
-                    let _ = output.send(HwEvent::HvMinusVoltage(v)).await;
-                }
+                let v = u.hvminus.get_voltage(&mut u.interface).await?;
+                let _ = output.send(HwEvent::HvMinusVoltage(v)).await;
             }
 
             command = command_rx.next() => {
@@ -1397,12 +1434,19 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                         u.ramp.set_ramp_rate(&mut u.interface, time_us).await?;
                         format!("ramp rate set to {time_us:.1} µs")
                     }
-                    // TODO: setting the HV supplies is not implemented yet
                     HwCommand::SetHvPlus(v) => {
-                        format!("HV+ setpoint {v:.0} V ignored: HV control not implemented yet")
+                        let _ = output
+                            .send(HwEvent::Status(format!("ramping HV+ to {v:.1} V...")))
+                            .await;
+                        u.hvplus.set_target_voltage(&mut u.interface, v).await?;
+                        format!("HV+ target set to {v:.1} V")
                     }
                     HwCommand::SetHvMinus(v) => {
-                        format!("HV− setpoint −{v:.0} V ignored: HV control not implemented yet")
+                        let _ = output
+                            .send(HwEvent::Status(format!("ramping HV− to −{v:.1} V...")))
+                            .await;
+                        u.hvminus.set_target_voltage(&mut u.interface, v).await?;
+                        format!("HV− target set to {v:.1} V")
                     }
                     HwCommand::SetupPulser(config) => {
                         setup_pulser(&mut u, config).await?;

@@ -25,6 +25,8 @@ pub const ULTRASOUND_HOST_IP: Ipv4Addr = Ipv4Addr::new(10, 80, 4, 2);
 pub const ULTRASOUND_CTRL_PORT: u16 = 8001;
 pub const ULTRASOUND_DATA_PORT: u16 = 8002;
 
+pub const HV_POT_RESISTANCE: f32 = 100e3;
+
 /// The ultrasound board: the XFCP interface plus all peripherals hanging
 /// off of it.
 pub struct Ultrasound {
@@ -37,9 +39,7 @@ pub struct Ultrasound {
 
     pub ramp: RampGenerator,
     pub hvplus: HVSupply,
-    /// HV- doesn't exist in the enumeration yet; wired up provisionally,
-    /// mirroring hvplus, for when it does.
-    pub hvminus: Option<HVSupply>,
+    pub hvminus: HVSupply,
     pub pulser: Pulser,
     pub clk: Si5338,
     pub adc: Ad34jx,
@@ -108,10 +108,11 @@ impl Ultrasound {
 
         let ramp_i2c =
             find_i2c("ramp").ok_or_else(|| io::Error::other("no I2C node named 'ramp'"))?;
-        let clk_i2c =
-            find_i2c("clk").ok_or_else(|| io::Error::other("no I2C node named 'clk'"))?;
+        let clk_i2c = find_i2c("clk").ok_or_else(|| io::Error::other("no I2C node named 'clk'"))?;
         let hvplus_i2c =
             find_i2c("hvplus").ok_or_else(|| io::Error::other("no I2C node named 'hvplus'"))?;
+        let hvminus_i2c =
+            find_i2c("hvminus").ok_or_else(|| io::Error::other("no I2C node named 'hvminus'"))?;
 
         let led_gpio = XGpio {
             node: mem.clone(),
@@ -160,7 +161,7 @@ impl Ultrasound {
             pot: Mcp401x {
                 i2c: Box::new(hvplus_i2c_nonflip),
                 address: 0b0101111,
-                resistance: 100e3,
+                resistance: HV_POT_RESISTANCE,
             },
             adc: Mcp3021 {
                 i2c: Box::new(hvplus_i2c_flip),
@@ -168,31 +169,38 @@ impl Ultrasound {
                 mult: 1.0 / 0.0329,
                 vdd: 3.3,
             },
+            vfb: 1.6,
+            r_upper: 680e3,
+            r_fixed: 15e3,
+            pot_va: 0.,
         };
 
-        let hvminus = find_i2c("hvminus").map(|i2c| {
-            let (nonflip, flip) = FlippedI2c::new(
-                i2c,
-                GpioPin {
-                    gpio: pinswap_gpio.clone(),
-                    ch: 1,
-                    pin: 0,
-                },
-            );
-            HVSupply {
-                pot: Mcp401x {
-                    i2c: Box::new(nonflip),
-                    address: 0b0101111,
-                    resistance: 100e3,
-                },
-                adc: Mcp3021 {
-                    i2c: Box::new(flip),
-                    address: 0b1001000,
-                    mult: 1.0 / 0.026,
-                    vdd: 3.3,
-                },
-            }
-        });
+        let (hvminus_i2c_nonflip, hvminus_i2c_flip) = FlippedI2c::new(
+            hvminus_i2c,
+            GpioPin {
+                gpio: pinswap_gpio.clone(),
+                ch: 1,
+                pin: 0,
+            },
+        );
+
+        let hvminus = HVSupply {
+            pot: Mcp401x {
+                i2c: Box::new(hvminus_i2c_nonflip),
+                address: 0b0101111,
+                resistance: HV_POT_RESISTANCE,
+            },
+            adc: Mcp3021 {
+                i2c: Box::new(hvminus_i2c_flip),
+                address: 0b1001000,
+                mult: -1.0 / 0.0294,
+                vdd: 3.3,
+            },
+            vfb: -0.8,
+            r_upper: 383e3,
+            r_fixed: 20e3,
+            pot_va: 3.3,
+        };
 
         let pulser = Pulser {
             mem: mem.clone(),
