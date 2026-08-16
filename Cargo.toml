@@ -11,6 +11,7 @@ futures-sink = "0.3.32"
 futures-util = "0.3.32"
 iced = { version = "0.14.0", features = ["image", "canvas", "tokio"] }
 iced_native = "0.10.3"
+rustfft = "6"
 tokio = { version = "1.52.3", features = ["macros", "net", "rt", "time"] }
 tokio-util = { version = "0.7.18", features = ["net", "codec"] }
 tracing-subscriber = "0.3.23"

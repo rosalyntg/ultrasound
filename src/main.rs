@@ -1,8 +1,12 @@
 use std::collections::VecDeque;
 use std::env;
+use std::fmt::Write as _;
 use std::io;
 use std::ops::RangeInclusive;
-use std::time::Duration;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
+
+use rustfft::FftPlanner;
+use rustfft::num_complex::Complex;
 
 use iced::alignment;
 use iced::futures::channel::mpsc;
@@ -31,8 +35,6 @@ mod xfcp;
 mod xgpio;
 mod xspi;
 
-// usable ramp times for the RC ramp: 10k fixed + 10k pot, see ramp.rs
-const RAMP_RATE_RANGE: RangeInclusive<f32> = 24.0..=47.0; // µs
 const PULSE_DURATION_RANGE: RangeInclusive<f32> = 100.0..=2000.0; // ns (full period)
 const PULSE_RATE_RANGE: RangeInclusive<f32> = 1.0..=50.0; // Hz
 const RAMP_DELAY_RANGE: RangeInclusive<f32> = 0.0..=200.0; // µs
@@ -42,14 +44,14 @@ const X_SCALE_EXP_RANGE: RangeInclusive<f32> = 8.0..=16.0; // samples across = 2
 const Y_SCALE_RANGE: RangeInclusive<f32> = 16.0..=2048.0; // ± ADC codes
 const Y_OFFSET_RANGE: RangeInclusive<f32> = -2048.0..=2047.0; // ADC codes
 const CONTRAST_RANGE: RangeInclusive<f32> = 0.1..=10.0; // brightness gain
+const DEPTH_GAIN_RANGE: RangeInclusive<f32> = 0.0..=60.0; // dB at the far edge
+const NOTCH_FREQ_RANGE: RangeInclusive<f32> = 0.0..=25.0; // MHz, up to Nyquist
 
-const PULSER_RECV_TIME_US: u32 = 200;
+const PULSER_RECV_TIME_US: u32 = 1000;
 
-// 25 MHz ADC sample rate, but the FPGA only sends 1 of every 8 samples
-// over UDP (the `skip` counter in jesd_to_axi4s)
-const ADC_SAMPLE_RATE_HZ: f32 = 25e6;
-const UDP_DECIMATION: f32 = 2.0;
-const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ; // 320 ns
+const ADC_SAMPLE_RATE_HZ: f32 = 50e6;
+const UDP_DECIMATION: f32 = 1.0;
+const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ;
 
 const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
@@ -87,12 +89,19 @@ struct App {
     /// the setpoint controls are greyed out until then.
     hv_plus_range: Option<RangeInclusive<f32>>,
     hv_minus_range: Option<RangeInclusive<f32>>,
+    ramp_rate_range: Option<RangeInclusive<f32>>, // µs
 
     status: String,
     hw: Option<mpsc::Sender<HwCommand>>,
 
     /// Last completed capture — what the plot shows.
     traces: [Vec<f32>; 4],
+    /// Notch-filtered copy of `traces`, shown instead when the notch
+    /// filter is enabled. Display-only: the trigger sees raw data.
+    filtered: [Vec<f32>; 4],
+    notch_enabled: bool,
+    notch_low_mhz: f32,
+    notch_high_mhz: f32,
     /// Capture currently being filled; swapped into `traces` when complete.
     capture: [Vec<f32>; 4],
     channel_enabled: [bool; 4],
@@ -117,6 +126,9 @@ struct App {
     y_offset: f32, // center, ADC codes
     view_tab: ViewTab,
     contrast: f32, // b-mode brightness gain
+    /// Extra b-mode gain at the far edge (dB), ramping exponentially
+    /// from 0 dB at the trigger point. Compensates depth attenuation.
+    depth_gain_db: f32,
     plot_cache: canvas::Cache,
     bmode_cache: canvas::Cache,
 }
@@ -167,9 +179,14 @@ impl Default for App {
             hv_minus_reading: None,
             hv_plus_range: None,
             hv_minus_range: None,
+            ramp_rate_range: None,
             status: String::from("starting..."),
             hw: None,
             traces: Default::default(),
+            filtered: Default::default(),
+            notch_enabled: false,
+            notch_low_mhz: 1.0,
+            notch_high_mhz: 3.0,
             capture: Default::default(),
             channel_enabled: [true; 4],
             acquisition: Acquisition::Armed { continuous: true },
@@ -191,6 +208,7 @@ impl Default for App {
             y_offset: 0.0,
             view_tab: ViewTab::Scope,
             contrast: 1.0,
+            depth_gain_db: 0.0,
             plot_cache: canvas::Cache::new(),
             bmode_cache: canvas::Cache::new(),
         }
@@ -230,7 +248,12 @@ enum Message {
     YAutoPressed,
     ViewTabSelected(ViewTab),
     ContrastChanged(f32),
+    DepthGainChanged(f32),
     ChannelToggled(usize),
+    NotchToggled(bool),
+    NotchLowChanged(f32),
+    NotchHighChanged(f32),
+    SaveCsv,
     Hardware(HwEvent),
 }
 
@@ -242,6 +265,9 @@ enum HwEvent {
     Status(String),
     HvPlusVoltage(f32),
     HvMinusVoltage(f32),
+    /// Usable ramp times in µs (min = fastest ramp), reported once at
+    /// connect.
+    RampRateInfo { min_us: f32, max_us: f32 },
     /// Supply limits and the target currently set in hardware, reported
     /// once at connect.
     HvPlusInfo {
@@ -398,6 +424,7 @@ impl App {
                         };
                     }
                 }
+                self.apply_notch();
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
             }
@@ -425,10 +452,38 @@ impl App {
                 self.contrast = contrast;
                 self.bmode_cache.clear();
             }
+            Message::DepthGainChanged(gain_db) => {
+                self.depth_gain_db = gain_db;
+                self.bmode_cache.clear();
+            }
             Message::ChannelToggled(ch) => {
                 self.channel_enabled[ch] = !self.channel_enabled[ch];
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
+            }
+            Message::NotchToggled(enabled) => {
+                self.notch_enabled = enabled;
+                self.apply_notch();
+                self.plot_cache.clear();
+                self.bmode_cache.clear();
+            }
+            Message::NotchLowChanged(mhz) => {
+                self.notch_low_mhz = mhz;
+                self.apply_notch();
+                self.plot_cache.clear();
+                self.bmode_cache.clear();
+            }
+            Message::NotchHighChanged(mhz) => {
+                self.notch_high_mhz = mhz;
+                self.apply_notch();
+                self.plot_cache.clear();
+                self.bmode_cache.clear();
+            }
+            Message::SaveCsv => {
+                self.status = match self.save_csv() {
+                    Ok(path) => format!("saved {path}"),
+                    Err(e) => format!("csv save failed: {e}"),
+                };
             }
             Message::Hardware(event) => match event {
                 HwEvent::Connected(commands) => {
@@ -441,12 +496,17 @@ impl App {
                     self.hv_minus_reading = None;
                     self.hv_plus_range = None;
                     self.hv_minus_range = None;
+                    self.ramp_rate_range = None;
                     self.pulsing = false;
                     self.status = format!("disconnected: {reason}");
                 }
                 HwEvent::Status(status) => self.status = status,
                 HwEvent::HvPlusVoltage(v) => self.hv_plus_reading = Some(v),
                 HwEvent::HvMinusVoltage(v) => self.hv_minus_reading = Some(v),
+                HwEvent::RampRateInfo { min_us, max_us } => {
+                    self.ramp_rate_us = self.ramp_rate_us.clamp(min_us, max_us);
+                    self.ramp_rate_range = Some(min_us..=max_us);
+                }
                 HwEvent::HvPlusInfo { min, max, target } => {
                     self.hv_plus_range = Some(min..=max);
                     self.hv_plus_setpoint = target;
@@ -457,6 +517,7 @@ impl App {
                 }
                 HwEvent::Frames(frames) => {
                     let mut changed = false;
+                    let mut completed = false;
 
                     for frame in frames {
                         let sample = frame[self.trigger_channel];
@@ -503,6 +564,7 @@ impl App {
                                     // (swap keeps the allocations around)
                                     std::mem::swap(&mut self.traces, &mut self.capture);
                                     self.display_trigger_index = self.trigger_index;
+                                    completed = true;
 
                                     self.acquisition = if continuous {
                                         Acquisition::Armed { continuous: true }
@@ -527,6 +589,9 @@ impl App {
                         self.samples_since_trigger = self.samples_since_trigger.saturating_add(1);
                     }
 
+                    if completed {
+                        self.apply_notch();
+                    }
                     if changed {
                         self.plot_cache.clear();
                         self.bmode_cache.clear();
@@ -534,6 +599,90 @@ impl App {
                 }
             },
         }
+    }
+
+    /// Recomputes `filtered` from `traces`: FFT, zero the bins inside the
+    /// notch band, inverse FFT. Applied only to the displayed capture, not
+    /// the incoming stream, so triggering is unaffected.
+    fn apply_notch(&mut self) {
+        if !self.notch_enabled {
+            return;
+        }
+
+        let lo_hz = self.notch_low_mhz.min(self.notch_high_mhz) * 1e6;
+        let hi_hz = self.notch_low_mhz.max(self.notch_high_mhz) * 1e6;
+
+        let mut planner = FftPlanner::<f32>::new();
+        for (filtered, trace) in self.filtered.iter_mut().zip(&self.traces) {
+            filtered.clear();
+            let n = trace.len();
+            if n < 2 {
+                filtered.extend_from_slice(trace);
+                continue;
+            }
+
+            let mut buf: Vec<Complex<f32>> =
+                trace.iter().map(|&y| Complex::new(y, 0.0)).collect();
+            planner.plan_fft_forward(n).process(&mut buf);
+
+            let bin_hz = ADC_SAMPLE_RATE_HZ / n as f32;
+            for k in 0..=n / 2 {
+                let f = k as f32 * bin_hz;
+                if f >= lo_hz && f <= hi_hz {
+                    buf[k] = Complex::ZERO;
+                    // mirror bin (the input is real)
+                    if k != 0 && k != n - k {
+                        buf[n - k] = Complex::ZERO;
+                    }
+                }
+            }
+
+            planner.plan_fft_inverse(n).process(&mut buf);
+            filtered.extend(buf.iter().map(|c| c.re / n as f32));
+        }
+    }
+
+    /// The traces currently on screen and their trigger index.
+    fn shown(&self) -> (&[Vec<f32>; 4], usize) {
+        if self.traces.iter().any(|t| !t.is_empty()) {
+            let traces = if self.notch_enabled {
+                &self.filtered
+            } else {
+                &self.traces
+            };
+            (traces, self.display_trigger_index)
+        } else {
+            // before the first capture completes, show the one in progress
+            (&self.capture, self.trigger_index)
+        }
+    }
+
+    /// Writes the traces currently on screen (filtered, if the notch is
+    /// enabled) to a timestamped CSV in the working directory.
+    fn save_csv(&self) -> Result<String, io::Error> {
+        let (shown, trigger_index) = self.shown();
+        let rows = shown.iter().map(Vec::len).max().unwrap_or(0);
+        if rows == 0 {
+            return Err(io::Error::other("no data on screen"));
+        }
+
+        let mut csv = String::from("time_us,chA,chB,chC,chD\n");
+        for i in 0..rows {
+            // t = 0 at the trigger point
+            let t = (i as f32 - trigger_index as f32) * SAMPLE_PERIOD_S * 1e6;
+            let _ = write!(csv, "{t:.4}");
+            for trace in shown {
+                csv.push(',');
+                if let Some(v) = trace.get(i) {
+                    let _ = write!(csv, "{v}");
+                }
+            }
+            csv.push('\n');
+        }
+
+        let name = format!("scope_{}.csv", utc_timestamp());
+        std::fs::write(&name, csv)?;
+        Ok(name)
     }
 
     fn pulser_config(&self) -> PulserConfig {
@@ -574,14 +723,19 @@ impl App {
         ]
         .spacing(5);
 
-        let ramp_section = column![
-            text("Ramp rate").size(16),
-            text(format!("{:.1} µs", self.ramp_rate_us)).size(14),
-            slider(RAMP_RATE_RANGE, self.ramp_rate_us, Message::RampRateChanged)
-                .step(0.5)
-                .on_release(Message::ApplyRampRate),
-        ]
-        .spacing(5);
+        // greyed out until the hardware task reports the usable range
+        let ramp_control: Element<'_, Message> = match &self.ramp_rate_range {
+            Some(range) => column![
+                text(format!("{:.1} µs", self.ramp_rate_us)).size(14),
+                slider(range.clone(), self.ramp_rate_us, Message::RampRateChanged)
+                    .step(0.5)
+                    .on_release(Message::ApplyRampRate),
+            ]
+            .spacing(5)
+            .into(),
+            None => Element::from(text("waiting for hardware...").size(13)),
+        };
+        let ramp_section = column![text("Ramp rate").size(16), ramp_control].spacing(5);
 
         // setpoint controls are greyed out until the hardware task reports
         // the supply's range and current target
@@ -676,6 +830,7 @@ impl App {
             row![
                 button(if running { "stop" } else { "run" }).on_press(Message::RunToggled),
                 button("single").on_press(Message::SingleShot),
+                button("save csv").on_press(Message::SaveCsv),
             ]
             .spacing(10),
             text(match self.acquisition {
@@ -801,10 +956,44 @@ impl App {
         ]
         .spacing(5);
 
+        let notch_section = column![
+            text("Notch filter").size(16),
+            text("applied to displayed data only").size(12),
+            toggler(self.notch_enabled)
+                .label(if self.notch_enabled {
+                    "enabled"
+                } else {
+                    "disabled"
+                })
+                .on_toggle(Message::NotchToggled),
+            text(format!("low cutoff: {:.2} MHz", self.notch_low_mhz)).size(14),
+            slider(
+                NOTCH_FREQ_RANGE,
+                self.notch_low_mhz,
+                Message::NotchLowChanged
+            )
+            .step(0.05),
+            text(format!("high cutoff: {:.2} MHz", self.notch_high_mhz)).size(14),
+            slider(
+                NOTCH_FREQ_RANGE,
+                self.notch_high_mhz,
+                Message::NotchHighChanged
+            )
+            .step(0.05),
+        ]
+        .spacing(5);
+
         let bmode_section = column![
             text("B-mode").size(16),
             text(format!("contrast: {:.1}×", self.contrast)).size(14),
             slider(CONTRAST_RANGE, self.contrast, Message::ContrastChanged).step(0.1),
+            text(format!("depth gain: {:.0} dB", self.depth_gain_db)).size(14),
+            slider(
+                DEPTH_GAIN_RANGE,
+                self.depth_gain_db,
+                Message::DepthGainChanged
+            )
+            .step(1.0),
         ]
         .spacing(5);
 
@@ -820,6 +1009,7 @@ impl App {
                 adc_section,
                 x_scale_section,
                 y_axis_section,
+                notch_section,
                 bmode_section,
             ]
             .spacing(20)
@@ -829,13 +1019,7 @@ impl App {
         .width(280)
         .height(Fill);
 
-        // show the last completed capture; before the first one completes,
-        // show the capture in progress
-        let (shown, shown_trigger_index) = if self.traces.iter().any(|t| !t.is_empty()) {
-            (&self.traces, self.display_trigger_index)
-        } else {
-            (&self.capture, self.trigger_index)
-        };
+        let (shown, shown_trigger_index) = self.shown();
         let fill = if matches!(self.acquisition, Acquisition::Capturing { .. }) {
             self.capture[0].len()
         } else {
@@ -879,6 +1063,7 @@ impl App {
                 x_scale: self.x_scale,
                 trigger_index: shown_trigger_index,
                 contrast: self.contrast,
+                depth_gain_db: self.depth_gain_db,
                 cache: &self.bmode_cache,
             })
             .width(Fill)
@@ -893,6 +1078,29 @@ impl App {
 
         row![sidebar, plot].into()
     }
+}
+
+/// `YYYYMMDD_HHMMSS` in UTC, for CSV filenames (avoids a chrono
+/// dependency; date math per Howard Hinnant's civil_from_days).
+fn utc_timestamp() -> String {
+    let secs = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_secs() as i64;
+    let (days, rem) = (secs.div_euclid(86400), secs.rem_euclid(86400));
+    let (h, min, s) = (rem / 3600, rem % 3600 / 60, rem % 60);
+
+    let z = days + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z.rem_euclid(146_097);
+    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = yoe + era * 400 + i64::from(m <= 2);
+
+    format!("{y:04}{m:02}{d:02}_{h:02}{min:02}{s:02}")
 }
 
 fn fmt_voltage(v: Option<f32>) -> String {
@@ -1220,6 +1428,8 @@ struct BModePlot<'a> {
     x_scale: usize,
     trigger_index: usize,
     contrast: f32,
+    /// Extra gain at the bottom edge (dB), exponential ramp from the top.
+    depth_gain_db: f32,
     cache: &'a canvas::Cache,
 }
 
@@ -1303,7 +1513,14 @@ impl canvas::Program<Message> for BModePlot<'_> {
                         .iter()
                         .fold(0.0f32, |max, &v| max.max(v.abs()));
 
-                    let brightness = (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
+                    // time-gain compensation: exponential gain ramp with
+                    // depth, 0 dB at the trigger up to depth_gain_db at
+                    // the bottom edge
+                    let depth = row as f32 / rows as f32;
+                    let depth_gain = 10.0f32.powf(self.depth_gain_db * depth / 20.0);
+
+                    let brightness =
+                        (peak / 2048.0 * self.contrast * depth_gain).clamp(0.0, 1.0);
                     if brightness < 1.0 / 512.0 {
                         continue;
                     }
@@ -1404,6 +1621,13 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
             target,
         })
         .await;
+    let _ = output
+        .send(HwEvent::RampRateInfo {
+            // the fastest ramp rate is the shortest ramp time
+            min_us: u.ramp.max_ramp_rate(),
+            max_us: u.ramp.min_ramp_rate(),
+        })
+        .await;
 
     let mut poll = tokio::time::interval(HV_POLL_PERIOD);
     let mut data_buf = [0u8; 2048];
@@ -1430,7 +1654,12 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
 
                 let status = match command {
                     HwCommand::SetRampRate(time_us) => {
-                        let time_us = time_us.clamp(*RAMP_RATE_RANGE.start(), *RAMP_RATE_RANGE.end());
+                        // stay strictly inside the limits: set_ramp_rate
+                        // asserts 0 < r_pot < full scale
+                        let time_us = time_us.clamp(
+                            u.ramp.max_ramp_rate() + 0.1,
+                            u.ramp.min_ramp_rate() - 0.1,
+                        );
                         u.ramp.set_ramp_rate(&mut u.interface, time_us).await?;
                         format!("ramp rate set to {time_us:.1} µs")
                     }
