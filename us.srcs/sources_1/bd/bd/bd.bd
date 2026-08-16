@@ -2963,7 +2963,7 @@
             "value": "4"
           },
           "C_PROBE_OUT4_INIT_VAL": {
-            "value": "0x08"
+            "value": "0x00"
           },
           "C_PROBE_OUT4_WIDTH": {
             "value": "8"
@@ -4445,6 +4445,12 @@
           "vio_eth/probe_in15"
         ]
       },
+      "skip_serialize": {
+        "ports": [
+          "vio_0/probe_out4",
+          "jesd_to_axi4s_0/skip"
+        ]
+      },
       "slice_adcrst_Dout": {
         "ports": [
           "slice_adcrst/Dout",
@@ -4562,12 +4568,6 @@
         "ports": [
           "util_ds_buf_1/BUFG_GT_O",
           "c_counter_binary_1/CLK"
-        ]
-      },
-      "vio_0_probe_out4": {
-        "ports": [
-          "vio_0/probe_out4",
-          "jesd_to_axi4s_0/skip"
         ]
       },
       "vio_eth_probe_out10": {
