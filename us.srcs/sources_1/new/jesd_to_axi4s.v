@@ -55,6 +55,8 @@ reg [7:0] skip_ctr, next_skip_ctr;
 reg [1:0] state, next_state;
 reg [31:0] next_dropped_packets;
 
+reg last_packet, next_last_packet;
+
 localparam STATE_IDLE = 0;
 localparam STATE_HDR = 1;
 localparam STATE_STREAMING = 2;
@@ -66,6 +68,7 @@ always @(posedge aclk) begin
         skip_ctr <= skip;
         state <= STATE_IDLE;
         m_axis_tvalid <= 0;
+        last_packet <= 0;
     end else begin
         dropped_packets <= next_dropped_packets;
         last_ctr <= next_last_ctr;
@@ -74,7 +77,7 @@ always @(posedge aclk) begin
         m_axis_tdata <= next_m_axis_tdata;
         m_axis_tvalid <= next_m_axis_tvalid;
         m_axis_tlast <= next_m_axis_tlast;
-        
+        last_packet <= next_last_packet;
     end
 end
 
@@ -86,6 +89,7 @@ always @* begin
     next_m_axis_tdata = m_axis_tdata;
     next_m_axis_tvalid = m_axis_tvalid;
     next_m_axis_tlast = m_axis_tlast;
+    next_last_packet = last_packet;
     
     case (state)
         STATE_IDLE: begin
@@ -93,6 +97,7 @@ always @* begin
                 next_m_axis_tvalid = 0;
                 next_m_axis_tlast = 1'bx;
                 next_m_axis_tdata = 1'bx;
+                next_last_packet = 0;
             end
             if (us_sol | us_sof) begin
                 next_state = STATE_HDR;
@@ -111,6 +116,7 @@ always @* begin
                 next_m_axis_tdata = rx_data;
                 next_m_axis_tvalid = 1;
                 next_state = STATE_STREAMING;
+                next_last_ctr = FRAMES_PER_PACKET - 2;
             end
         end
         STATE_STREAMING: begin       
@@ -122,8 +128,11 @@ always @* begin
                 next_m_axis_tlast = 1'b0;
                 next_m_axis_tdata = 1'bx;
                 if (last_ctr == 0 && m_axis_tready) begin
-                    next_last_ctr = FRAMES_PER_PACKET - 2;
+                    next_last_ctr = FRAMES_PER_PACKET - 1;
                     next_m_axis_tlast = 1;
+                    if (last_packet) begin
+                        next_state = STATE_IDLE;
+                    end
                 end else if (last_ctr == 0) begin
                     next_last_ctr = 0;
                 end else begin
@@ -142,9 +151,7 @@ always @* begin
             end
 
             if (us_eol) begin
-                next_state = STATE_IDLE;
-                next_m_axis_tlast = 1;
-                next_m_axis_tvalid = 1;
+                next_last_packet = 1;
             end 
         end
     endcase
