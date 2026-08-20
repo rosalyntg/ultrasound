@@ -76,7 +76,8 @@ impl Ad34jx {
     }
 
     pub async fn link_test(&self, interface: &mut xfcp::Interface) -> Result<(), io::Error> {
-        self.write_reg(interface, 0x2f, 0b0010_0000).await?; // LINK TEST
+        self.write_reg(interface, 0x3b, 0b0010_0000).await?; // D21.5 test pattern
+        // self.write_reg(interface, 0x3b, 0b0100_0000).await?; // K28.5 test pattern
         Ok(())
     }
 }

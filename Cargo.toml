@@ -6,6 +6,10 @@ edition = "2024"
 [dependencies]
 async-trait = "0.1.89"
 bytes = "1.12.0"
+compio = "0.19.1"
+compio-net = "0.12.4"
+compio-runtime = "0.12.5"
+console-subscriber = "0.5.0"
 futures-core = "0.3.32"
 futures-sink = "0.3.32"
 futures-util = "0.3.32"
@@ -13,5 +17,6 @@ iced = { version = "0.14.0", features = ["image", "canvas", "tokio"] }
 iced_native = "0.10.3"
 rustfft = "6"
 tokio = { version = "1.52.3", features = ["macros", "net", "rt", "time"] }
+# tokio-uring = "0.5.0"
 tokio-util = { version = "0.7.18", features = ["net", "codec"] }
 tracing-subscriber = "0.3.23"

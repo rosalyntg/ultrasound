@@ -1,6 +1,8 @@
 // register map from PG198 (v4.1) "JESD204 PHY LogiCORE IP Product Guide", chapter 2
 
-use std::io;
+use std::{io, time::Duration};
+
+use tokio::time::sleep;
 
 use crate::xfcp;
 
@@ -43,6 +45,7 @@ const REG_RX_INVALID_SH_MAX: u32 = 0x610; // 64b66b RX only
 pub struct Jesd204bPhy {
     pub mem: xfcp::MemoryNode,
     pub offset: u32,
+    pub rst: crate::xgpio::GpioPin,
 }
 
 fn yes_no(b: bool) -> &'static str {
@@ -124,6 +127,13 @@ impl Jesd204bPhy {
             self.write_reg(interface, REG_GT_SEL, gt).await?;
             self.write_reg(interface, REG_RXPOLARITY, 1).await?;
         }
+
+
+        // reset PHY after clk bringup
+        self.rst.set(interface).await?;
+        sleep(Duration::from_millis(50)).await;
+        self.rst.clear(interface).await?;
+
         Ok(())
     }
 

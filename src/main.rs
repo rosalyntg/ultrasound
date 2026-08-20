@@ -1,21 +1,24 @@
 use std::collections::VecDeque;
-use std::env;
 use std::fmt::Write as _;
 use std::io;
+use std::num::NonZero;
 use std::ops::RangeInclusive;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::{env, fmt};
 
+use compio::driver::ProactorBuilder;
 use rustfft::FftPlanner;
 use rustfft::num_complex::Complex;
 
-use iced::alignment;
 use iced::futures::channel::mpsc;
 use iced::futures::{SinkExt, Stream, StreamExt};
 use iced::mouse;
 use iced::widget::{
-    button, canvas, column, container, radio, row, scrollable, slider, text, text_input, toggler,
+    button, canvas, column, combo_box, container, radio, row, scrollable, slider, text, text_input,
+    toggler,
 };
 use iced::{Center, Color, Element, Fill, Point, Rectangle, Renderer, Size, Subscription, Theme};
+use iced::{alignment, stream};
 
 use crate::ultrasound::Ultrasound;
 
@@ -57,7 +60,8 @@ const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
 
 pub fn main() -> iced::Result {
-    tracing_subscriber::fmt::init();
+    // tracing_subscriber::fmt::init();
+    console_subscriber::init();
 
     if let Some(arg1) = env::args().nth(1)
         && arg1 == "cmd"
@@ -95,19 +99,20 @@ struct App {
     hw: Option<mpsc::Sender<HwCommand>>,
 
     /// Last completed capture — what the plot shows.
-    traces: [Vec<f32>; 4],
+    traces: [Vec<f32>; 8],
     /// Notch-filtered copy of `traces`, shown instead when the notch
     /// filter is enabled. Display-only: the trigger sees raw data.
-    filtered: [Vec<f32>; 4],
+    filtered: [Vec<f32>; 8],
     notch_enabled: bool,
     notch_low_mhz: f32,
     notch_high_mhz: f32,
     /// Capture currently being filled; swapped into `traces` when complete.
-    capture: [Vec<f32>; 4],
-    channel_enabled: [bool; 4],
+    capture: [Vec<f32>; 8],
+    channel_enabled: [bool; 8],
     acquisition: Acquisition,
     trigger_mode: TriggerMode,
     trigger_channel: usize,
+    trigger_channel_cb: combo_box::State<TriggerChannel>,
     trigger_level: f32, // ADC codes
     trigger_level_text: String,
     holdoff_samples: usize,
@@ -115,7 +120,7 @@ struct App {
     prev_trigger_sample: Option<f32>,
     trigger_position_pct: f32, // portion of the window shown before the trigger
     /// Rolling pre-trigger history, capped at `x_scale` samples.
-    history: [VecDeque<f32>; 4],
+    history: [VecDeque<f32>; 8],
     /// Where the trigger landed in the capture being filled.
     trigger_index: usize,
     /// Where the trigger landed in the displayed capture.
@@ -164,6 +169,15 @@ enum Acquisition {
     },
 }
 
+#[derive(Clone)]
+struct TriggerChannel(usize);
+
+impl fmt::Display for TriggerChannel {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", CHANNEL_NAMES[self.0])
+    }
+}
+
 impl Default for App {
     fn default() -> Self {
         Self {
@@ -188,10 +202,11 @@ impl Default for App {
             notch_low_mhz: 1.0,
             notch_high_mhz: 3.0,
             capture: Default::default(),
-            channel_enabled: [true; 4],
+            channel_enabled: [true; 8],
             acquisition: Acquisition::Armed { continuous: true },
             trigger_mode: TriggerMode::Auto,
             trigger_channel: 0,
+            trigger_channel_cb: combo_box::State::new((0..8).map(TriggerChannel).collect()),
             trigger_level: 0.0,
             trigger_level_text: String::from("0"),
             holdoff_samples: 0,
@@ -255,6 +270,7 @@ enum Message {
     NotchHighChanged(f32),
     SaveCsv,
     Hardware(HwEvent),
+    Frames(FramesEvent),
 }
 
 /// Events flowing from the hardware task to the GUI.
@@ -267,7 +283,10 @@ enum HwEvent {
     HvMinusVoltage(f32),
     /// Usable ramp times in µs (min = fastest ramp), reported once at
     /// connect.
-    RampRateInfo { min_us: f32, max_us: f32 },
+    RampRateInfo {
+        min_us: f32,
+        max_us: f32,
+    },
     /// Supply limits and the target currently set in hardware, reported
     /// once at connect.
     HvPlusInfo {
@@ -280,9 +299,11 @@ enum HwEvent {
         max: f32,
         target: f32,
     },
-    /// ADC frames, one sample per channel
-    Frames(Vec<[f32; 4]>),
 }
+
+/// ADC frames, one sample per channel
+#[derive(Debug, Clone)]
+struct FramesEvent(Vec<[f32; 8]>);
 
 /// Pulser settings applied together via Pulser::setup.
 #[derive(Debug, Clone, Copy)]
@@ -515,89 +536,89 @@ impl App {
                     self.hv_minus_range = Some(min..=max);
                     self.hv_minus_setpoint = target;
                 }
-                HwEvent::Frames(frames) => {
-                    let mut changed = false;
-                    let mut completed = false;
+            },
+            Message::Frames(frames) => {
+                let mut changed = false;
+                let mut completed = false;
 
-                    for frame in frames {
-                        let sample = frame[self.trigger_channel];
+                for frame in frames.0 {
+                    let sample = frame[self.trigger_channel];
 
-                        match self.acquisition {
-                            Acquisition::Stopped => {}
-                            Acquisition::Armed { continuous } => {
-                                let triggered = (self.trigger_mode == TriggerMode::Auto
-                                    || self.prev_trigger_sample.is_some_and(|prev| {
-                                        prev < self.trigger_level && sample >= self.trigger_level
-                                    }))
-                                    && self.samples_since_trigger >= self.holdoff_samples;
+                    match self.acquisition {
+                        Acquisition::Stopped => {}
+                        Acquisition::Armed { continuous } => {
+                            let triggered = (self.trigger_mode == TriggerMode::Auto
+                                || self.prev_trigger_sample.is_some_and(|prev| {
+                                    prev < self.trigger_level && sample >= self.trigger_level
+                                }))
+                                && self.samples_since_trigger >= self.holdoff_samples;
 
-                                if triggered {
-                                    // prepend pre-trigger history (as much as
-                                    // is available) per the X trigger position
-                                    let pre_target = (self.trigger_position_pct / 100.0
-                                        * self.x_scale as f32)
-                                        as usize;
+                            if triggered {
+                                // prepend pre-trigger history (as much as
+                                // is available) per the X trigger position
+                                let pre_target = (self.trigger_position_pct / 100.0
+                                    * self.x_scale as f32)
+                                    as usize;
 
-                                    for (capture, (history, sample)) in
-                                        self.capture.iter_mut().zip(self.history.iter().zip(frame))
-                                    {
-                                        capture.clear();
-                                        let start = history.len().saturating_sub(pre_target);
-                                        capture.extend(history.iter().skip(start));
-                                        capture.push(sample);
-                                    }
-                                    self.trigger_index = self.capture[0].len() - 1;
-
-                                    self.acquisition = Acquisition::Capturing { continuous };
-                                    self.samples_since_trigger = 0;
-                                    changed = true;
-                                }
-                            }
-                            Acquisition::Capturing { continuous } => {
-                                for (capture, sample) in self.capture.iter_mut().zip(frame) {
+                                for (capture, (history, sample)) in
+                                    self.capture.iter_mut().zip(self.history.iter().zip(frame))
+                                {
+                                    capture.clear();
+                                    let start = history.len().saturating_sub(pre_target);
+                                    capture.extend(history.iter().skip(start));
                                     capture.push(sample);
                                 }
+                                self.trigger_index = self.capture[0].len() - 1;
+
+                                self.acquisition = Acquisition::Capturing { continuous };
+                                self.samples_since_trigger = 0;
                                 changed = true;
-
-                                if self.capture[0].len() >= self.x_scale {
-                                    // completed: publish to the display buffer
-                                    // (swap keeps the allocations around)
-                                    std::mem::swap(&mut self.traces, &mut self.capture);
-                                    self.display_trigger_index = self.trigger_index;
-                                    completed = true;
-
-                                    self.acquisition = if continuous {
-                                        Acquisition::Armed { continuous: true }
-                                    } else {
-                                        Acquisition::Stopped
-                                    };
-                                }
                             }
                         }
+                        Acquisition::Capturing { continuous } => {
+                            for (capture, sample) in self.capture.iter_mut().zip(frame) {
+                                capture.push(sample);
+                            }
+                            changed = true;
 
-                        // rolling pre-trigger history, updated after the
-                        // state machine so it never contains the current frame
-                        // at trigger time
-                        for (history, sample) in self.history.iter_mut().zip(frame) {
-                            history.push_back(sample);
-                            while history.len() > self.x_scale {
-                                history.pop_front();
+                            if self.capture[0].len() >= self.x_scale {
+                                // completed: publish to the display buffer
+                                // (swap keeps the allocations around)
+                                std::mem::swap(&mut self.traces, &mut self.capture);
+                                self.display_trigger_index = self.trigger_index;
+                                completed = true;
+
+                                self.acquisition = if continuous {
+                                    Acquisition::Armed { continuous: true }
+                                } else {
+                                    Acquisition::Stopped
+                                };
                             }
                         }
-
-                        self.prev_trigger_sample = Some(sample);
-                        self.samples_since_trigger = self.samples_since_trigger.saturating_add(1);
                     }
 
-                    if completed {
-                        self.apply_notch();
+                    // rolling pre-trigger history, updated after the
+                    // state machine so it never contains the current frame
+                    // at trigger time
+                    for (history, sample) in self.history.iter_mut().zip(frame) {
+                        history.push_back(sample);
+                        while history.len() > self.x_scale {
+                            history.pop_front();
+                        }
                     }
-                    if changed {
-                        self.plot_cache.clear();
-                        self.bmode_cache.clear();
-                    }
+
+                    self.prev_trigger_sample = Some(sample);
+                    self.samples_since_trigger = self.samples_since_trigger.saturating_add(1);
                 }
-            },
+
+                if completed {
+                    self.apply_notch();
+                }
+                if changed {
+                    self.plot_cache.clear();
+                    self.bmode_cache.clear();
+                }
+            }
         }
     }
 
@@ -621,8 +642,7 @@ impl App {
                 continue;
             }
 
-            let mut buf: Vec<Complex<f32>> =
-                trace.iter().map(|&y| Complex::new(y, 0.0)).collect();
+            let mut buf: Vec<Complex<f32>> = trace.iter().map(|&y| Complex::new(y, 0.0)).collect();
             planner.plan_fft_forward(n).process(&mut buf);
 
             let bin_hz = ADC_SAMPLE_RATE_HZ / n as f32;
@@ -643,7 +663,7 @@ impl App {
     }
 
     /// The traces currently on screen and their trigger index.
-    fn shown(&self) -> (&[Vec<f32>; 4], usize) {
+    fn shown(&self) -> (&[Vec<f32>; 8], usize) {
         if self.traces.iter().any(|t| !t.is_empty()) {
             let traces = if self.notch_enabled {
                 &self.filtered
@@ -704,7 +724,10 @@ impl App {
     }
 
     fn subscription(&self) -> Subscription<Message> {
-        Subscription::run(hardware_worker).map(Message::Hardware)
+        Subscription::batch([
+            Subscription::run(hardware_ctrl_worker).map(Message::Hardware),
+            Subscription::run(hardware_data_worker).map(Message::Frames),
+        ])
     }
 
     fn view(&self) -> Element<'_, Message> {
@@ -858,17 +881,25 @@ impl App {
             ]
             .spacing(10),
             text("trigger channel").size(14),
-            row((0..4).map(|ch| {
-                radio(
-                    CHANNEL_NAMES[ch],
-                    ch,
-                    Some(self.trigger_channel),
-                    Message::TriggerChannelSelected,
-                )
-                .size(16)
-                .into()
-            }))
-            .spacing(10),
+            // row(
+            combo_box(
+                &self.trigger_channel_cb,
+                "trigger channel",
+                Some(&TriggerChannel(self.trigger_channel)),
+                |ch| { Message::TriggerChannelSelected(ch.0) }
+            ),
+            //     (0..8).map(|ch| {
+            //     radio(
+            //         CHANNEL_NAMES[ch],
+            //         ch,
+            //         Some(self.trigger_channel),
+            //         Message::TriggerChannelSelected,
+            //     )
+            //     .size(16)
+            //     .into()
+            // })
+            // )
+            // .spacing(10),
             row![
                 text("trigger level").size(14),
                 text_input("level", &self.trigger_level_text)
@@ -1122,8 +1153,8 @@ fn fmt_samples_as_time(samples: usize) -> String {
 }
 
 struct Plot<'a> {
-    traces: &'a [Vec<f32>; 4],
-    enabled: [bool; 4],
+    traces: &'a [Vec<f32>; 8],
+    enabled: [bool; 8],
     x_scale: usize,
     trigger_channel: usize,
     trigger_level: f32,
@@ -1140,7 +1171,7 @@ const PLOT_MARGIN_RIGHT: f32 = 15.0;
 const PLOT_MARGIN_TOP: f32 = 15.0;
 const PLOT_MARGIN_BOTTOM: f32 = 30.0;
 
-const CHANNEL_NAMES: [&str; 4] = ["A", "B", "C", "D"];
+const CHANNEL_NAMES: [&str; 8] = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
 /// Clickable legend entry bounds, relative to the canvas top-left.
 fn legend_rect(ch: usize) -> Rectangle {
@@ -1164,7 +1195,7 @@ impl canvas::Program<Message> for Plot<'_> {
     ) -> Option<canvas::Action<Message>> {
         if let canvas::Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = event {
             let position = cursor.position_in(bounds)?;
-            for ch in 0..4 {
+            for ch in 0..8 {
                 if legend_rect(ch).contains(position) {
                     return Some(canvas::Action::publish(Message::ChannelToggled(ch)));
                 }
@@ -1181,7 +1212,7 @@ impl canvas::Program<Message> for Plot<'_> {
         cursor: mouse::Cursor,
     ) -> mouse::Interaction {
         if let Some(position) = cursor.position_in(bounds) {
-            if (0..4).any(|ch| legend_rect(ch).contains(position)) {
+            if (0..8).any(|ch| legend_rect(ch).contains(position)) {
                 return mouse::Interaction::Pointer;
             }
         }
@@ -1285,6 +1316,10 @@ impl canvas::Program<Message> for Plot<'_> {
                 palette.success.base.color,
                 palette.warning.base.color,
                 palette.danger.base.color,
+                palette.secondary.base.color,
+                Color::from_rgb(0.5, 0., 0.5),
+                Color::from_rgb(0.5, 0.5, 0.),
+                Color::from_rgb(0., 0.5, 0.5),
             ];
 
             // trigger level marker
@@ -1423,8 +1458,8 @@ impl canvas::Program<Message> for Plot<'_> {
 /// Traditional ultrasound view: amplitude as brightness vs depth (1D).
 /// Top = trigger point, bottom = right edge of the scope's X scale.
 struct BModePlot<'a> {
-    traces: &'a [Vec<f32>; 4],
-    enabled: [bool; 4],
+    traces: &'a [Vec<f32>; 8],
+    enabled: [bool; 8],
     x_scale: usize,
     trigger_index: usize,
     contrast: f32,
@@ -1476,18 +1511,22 @@ impl canvas::Program<Message> for BModePlot<'_> {
                 return;
             }
 
-            let channel_colors = [
+            let channel_colors: [Color; 8] = [
                 palette.primary.base.color,
                 palette.success.base.color,
                 palette.warning.base.color,
                 palette.danger.base.color,
+                palette.secondary.base.color,
+                Color::from_rgb(0.5, 0., 0.5),
+                Color::from_rgb(0.5, 0.5, 0.),
+                Color::from_rgb(0., 0.5, 0.5),
             ];
 
             // depth axis: trigger point at the top, X scale end at the bottom
             let start = self.trigger_index.min(self.x_scale.saturating_sub(1));
             let span = (self.x_scale - start).max(1);
 
-            let channels: Vec<usize> = (0..4).filter(|&ch| self.enabled[ch]).collect();
+            let channels: Vec<usize> = (0..8).filter(|&ch| self.enabled[ch]).collect();
             if channels.is_empty() {
                 return;
             }
@@ -1519,8 +1558,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                     let depth = row as f32 / rows as f32;
                     let depth_gain = 10.0f32.powf(self.depth_gain_db * depth / 20.0);
 
-                    let brightness =
-                        (peak / 2048.0 * self.contrast * depth_gain).clamp(0.0, 1.0);
+                    let brightness = (peak / 2048.0 * self.contrast * depth_gain).clamp(0.0, 1.0);
                     if brightness < 1.0 / 512.0 {
                         continue;
                     }
@@ -1576,10 +1614,10 @@ async fn setup_pulser(u: &mut Ultrasound, config: PulserConfig) -> Result<(), io
         .await
 }
 
-fn hardware_worker() -> impl Stream<Item = HwEvent> {
+fn hardware_ctrl_worker() -> impl Stream<Item = HwEvent> {
     iced::stream::channel(100, async move |mut output| {
         loop {
-            let reason = match hardware_session(&mut output).await {
+            let reason = match hardware_ctrl_session(&mut output).await {
                 Ok(()) => String::from("command channel closed"),
                 Err(e) => e.to_string(),
             };
@@ -1590,14 +1628,24 @@ fn hardware_worker() -> impl Stream<Item = HwEvent> {
     })
 }
 
+fn hardware_data_worker() -> impl Stream<Item = FramesEvent> {
+    let (mut sender, receiver) = mpsc::channel(4096);
+    tokio::task::spawn_blocking(move || hardware_data_session(&mut sender));
+    receiver
+    // iced::stream::channel(4096, async move |mut output| {
+    //     if let Err(e) = hardware_data_session(&mut output).await {
+    //         println!("Closed data session.... {e}");
+    //     }
+    // })
+}
+
 /// Connects to the board and services GUI commands until an I/O error
 /// occurs.
-async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::Error> {
+async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::Error> {
     let _ = output
         .send(HwEvent::Status(String::from("connecting...")))
         .await;
 
-    let data_socket = Ultrasound::bind_data_socket().await?;
     let mut u = Ultrasound::connect().await?;
 
     let (command_tx, mut command_rx) = mpsc::channel(32);
@@ -1630,7 +1678,6 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
         .await;
 
     let mut poll = tokio::time::interval(HV_POLL_PERIOD);
-    let mut data_buf = [0u8; 2048];
 
     let mut pulsing = false;
     let mut pulse_timer = tokio::time::interval(Duration::from_secs(1));
@@ -1685,13 +1732,14 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                         )
                     }
                     HwCommand::SetAdcsEnabled(enabled) => {
-                        if enabled {
-                            u.adc_reset.clear(&mut u.interface).await?;
-                            String::from("ADCs enabled (reset released, may need re-init)")
-                        } else {
-                            u.adc_reset.set(&mut u.interface).await?;
-                            String::from("ADCs held in reset")
-                        }
+                        // if enabled {
+                        //     u.adc_reset.clear(&mut u.interface).await?;
+                        //     String::from("ADCs enabled (reset released, may need re-init)")
+                        // } else {
+                        //     u.adc_reset.set(&mut u.interface).await?;
+                        //     String::from("ADCs held in reset")
+                        // }
+                        "ADCs enabled/disabled not implemented".to_string()
                     }
                     HwCommand::InitHw => {
                         let _ = output
@@ -1726,15 +1774,92 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                 let _ = output.send(HwEvent::Status(status)).await;
             }
 
-            received = data_socket.recv_from(&mut data_buf) => {
-                let (n, _from) = received?;
-                // each 8-byte chunk is one JESD204B frame (LMFS = 2441,
-                // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
-                // lane DD's, carrying channels A, B, C, D. Each sample is
-                // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
-                // tail bits; 12-bit two's complement
-                let frames = data_buf[..n]
-                    .chunks_exact(8)
+        }
+    }
+}
+
+fn hardware_data_session(output: &mut mpsc::Sender<FramesEvent>) -> Result<(), io::Error> {
+    // let data_socket = Ultrasound::bind_data_socket().await?;
+    // let mut data_buf = [0u8; 65_535];
+    // loop {
+    //     let received = data_socket.recv_from(&mut data_buf).await;
+    //     let (n, _from) = received?;
+    //     // each 16-byte chunk is two JESD204B frame (LMFS = 2441,
+    //     // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
+    //     // lane DD's, carrying channels A, B, C, D. Each sample is
+    //     // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
+    //     // tail bits; 12-bit two's complement
+    //     let frames = data_buf[..n]
+    //         .chunks_exact(16)
+    //         .map(|chunk| {
+    //             std::array::from_fn(|ch| {
+    //                 let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
+    //                 (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
+    //             })
+    //         })
+    //         .collect();
+    //     if let Err(e) = output.try_send(FramesEvent(frames)) && e.is_full() {
+    //         println!("Queue full, dropping");
+    //     }
+    // }
+
+    // tokio_uring::start(async {
+    //     let data_socket = Ultrasound::bind_data_socket_uring().await?;
+    //     let mut data_buf = Some(vec![0u8; 65_535]);
+    //     loop {
+    //         let (result, db) = data_socket.recv_from(data_buf.take().unwrap()).await;
+    //         let (n, _from) = result?;
+    //         // each 16-byte chunk is two JESD204B frame (LMFS = 2441,
+    //         // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
+    //         // lane DD's, carrying channels A, B, C, D. Each sample is
+    //         // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
+    //         // tail bits; 12-bit two's complement
+    //         let frames = db[..n]
+    //             .chunks_exact(16)
+    //             .map(|chunk| {
+    //                 std::array::from_fn(|ch| {
+    //                     let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
+    //                     (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
+    //                 })
+    //             })
+    //             .collect();
+    //         if let Err(e) = output.try_send(FramesEvent(frames))
+    //             && e.is_full()
+    //         {
+    //             println!("Queue full, dropping");
+    //         }
+
+    //         data_buf = Some(db);
+    //     }
+
+    //     #[allow(unreachable_code)]
+    //     Ok::<_, io::Error>(())
+    // })?;
+
+    let mut pb = ProactorBuilder::new();
+    // pb.buffer_pool_buffer_len(1024 * 16);
+    pb.buffer_pool_size(NonZero::new(2048).unwrap());
+
+    let runtime = compio_runtime::Runtime::builder()
+        .with_proactor(pb)
+        .build()?;
+    runtime.block_on(async {
+        println!("binding socket");
+        let data_socket = Ultrasound::bind_data_socket_compio().await?;
+        // let mut data_buf = Some(vec![0u8; 65_535]);
+        loop {
+            let mut packet_stream = data_socket.recv_multi(0);
+            while let Some(result) = packet_stream.next().await {
+                let result = match result {
+                    Ok(result) => result,
+                    Err(e) => {
+                        println!("Error receiving data: {e}");
+                        continue;
+                    }
+                };
+
+                let frames = result
+                    .chunks_exact(16)
                     .map(|chunk| {
                         std::array::from_fn(|ch| {
                             let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
@@ -1742,8 +1867,19 @@ async fn hardware_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(), io::
                         })
                     })
                     .collect();
-                let _ = output.send(HwEvent::Frames(frames)).await;
+                match output.try_send(FramesEvent(frames)) {
+                    Err(e) if e.is_full() => {
+                        // println!("Queue full, dropping");
+                    }
+                    Err(e) if e.is_disconnected() => {
+                        return Ok::<_, io::Error>(())
+                    }
+                    _ => (),
+                }
             }
         }
-    }
+        
+    })?;
+
+    Ok(())
 }

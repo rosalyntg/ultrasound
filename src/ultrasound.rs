@@ -34,15 +34,15 @@ pub struct Ultrasound {
     pub mem: xfcp::MemoryNode,
 
     pub led_gpio: XGpio,
-    pub adc_reset: GpioPin,
-    pub jesd204b_rst: GpioPin,
+    pub jesd204b_rx_rst: GpioPin,
 
     pub ramp: RampGenerator,
     pub hvplus: HVSupply,
     pub hvminus: HVSupply,
     pub pulser: Pulser,
     pub clk: Si5338,
-    pub adc: Ad34jx,
+    pub adc0: Ad34jx,
+    pub adc1: Ad34jx,
     pub jesd: Jesd204bPhy,
 }
 
@@ -50,6 +50,12 @@ impl Ultrasound {
     pub async fn bind_data_socket() -> Result<tokio::net::UdpSocket, io::Error> {
         tokio::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT)).await
     }
+    pub async fn bind_data_socket_compio() -> Result<compio_net::UdpSocket, io::Error> {
+        compio_net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT)).await
+    }
+    // pub async fn bind_data_socket_uring() -> Result<tokio_uring::net::UdpSocket, io::Error> {
+    //     tokio_uring::net::UdpSocket::bind((ULTRASOUND_HOST_IP, ULTRASOUND_DATA_PORT).into()).await
+    // }
 
     /// Binds the control socket, enumerates the XFCP bus, and constructs
     /// all peripherals.
@@ -127,18 +133,28 @@ impl Ultrasound {
         let rst_gpio = XGpio {
             node: mem.clone(),
             offset: 0x1_0000,
-            width: [3, 0],
+            width: [4, 0],
         };
 
-        let adc_reset = GpioPin {
+        let adc0_reset = GpioPin {
             gpio: rst_gpio.clone(),
             ch: 0,
             pin: 0,
         };
-        let jesd204b_rst = GpioPin {
-            gpio: rst_gpio,
+        let adc1_reset = GpioPin {
+            gpio: rst_gpio.clone(),
+            ch: 0,
+            pin: 1,
+        };
+        let jesd204b_phy_rst = GpioPin {
+            gpio: rst_gpio.clone(),
             ch: 0,
             pin: 2,
+        };
+        let jesd204b_rx_rst = GpioPin {
+            gpio: rst_gpio,
+            ch: 0,
+            pin: 3,
         };
 
         let ramp = RampGenerator {
@@ -212,7 +228,7 @@ impl Ultrasound {
             address: 0x70,
         };
 
-        let adc = Ad34jx {
+        let adc0 = Ad34jx {
             spi: XSpi {
                 node: mem.clone(),
                 offset: 0x4_0000,
@@ -220,26 +236,37 @@ impl Ultrasound {
                 cpha: false,
             },
             cs: 0,
-            reset: adc_reset.clone(),
+            reset: adc0_reset,
+        };
+        let adc1 = Ad34jx {
+            spi: XSpi {
+                node: mem.clone(),
+                offset: 0x5_0000,
+                cpol: false,
+                cpha: false,
+            },
+            cs: 0,
+            reset: adc1_reset,
         };
 
         let jesd = Jesd204bPhy {
             mem: mem.clone(),
             offset: 0x3_0000,
+            rst: jesd204b_phy_rst,
         };
 
         Ok(Self {
             interface,
             mem,
             led_gpio,
-            adc_reset,
-            jesd204b_rst,
+            jesd204b_rx_rst,
             ramp,
             hvplus,
             hvminus,
             pulser,
             clk,
-            adc,
+            adc0,
+            adc1,
             jesd,
         })
     }
@@ -250,16 +277,27 @@ impl Ultrasound {
 
         sleep(Duration::from_millis(500)).await;
 
-        self.adc
+        self.jesd204b_rx_rst.clear(&mut self.interface).await?;
+        sleep(Duration::from_millis(500)).await;
+
+        self.adc0
             .init(&mut self.interface, crate::ad34jx::Mode::Lmfs2441)
             .await?;
-        self.adc.write_reg(&mut self.interface, 0x34, 0).await?; // subclass 0
+        // self.adc0.write_reg(&mut self.interface, 0x34, 0).await?; // subclass 0
 
-        // reset PHY after clk bringup
-        sleep(Duration::from_millis(500)).await;
-        self.jesd204b_rst.set(&mut self.interface).await?;
+        self.adc1
+            .init(&mut self.interface, crate::ad34jx::Mode::Lmfs2441)
+            .await?;
+        // self.adc1.write_reg(&mut self.interface, 0x34, 0).await?; // subclass 0
+
+        self.jesd.setup(&mut self.interface).await?;
+
+        // reset RX after phy reset (active low)
         sleep(Duration::from_millis(50)).await;
-        self.jesd204b_rst.clear(&mut self.interface).await?;
+        self.jesd204b_rx_rst.set(&mut self.interface).await?;
+
+        sleep(Duration::from_millis(500)).await;
+
 
         Ok(())
     }
