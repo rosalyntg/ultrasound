@@ -117,24 +117,22 @@ module us_top(
     inout wire [6:0] test
 );
 
-wire adc0_sync;
-wire adc1_sync;
+wire [1:0] adc_sync;
+
+wire syncoverride;
 
 OBUFDS adc0_sync_buf (
-    .I(~adc0_sync), // polarity swapped on board
+    .I(~(adc_sync[0] | syncoverride)), // polarity swapped on board
     .O(adc0_syncp),
     .OB(adc0_syncn)
 );
 
 
 OBUFDS adc1_sync_buf (
-    .I(~adc1_sync), // polarity swapped on board
+    .I(~(adc_sync[1] | syncoverride)), // polarity swapped on board
     .O(adc1_syncp),
     .OB(adc1_syncn)
 );
-
-wire adc0_syncvio, adc_sync_ip, syncoverride;
-assign adc0_sync = syncoverride ? adc0_syncvio : adc_sync_ip;
 
 wire mhz10;
     
@@ -182,12 +180,11 @@ bd_wrapper bd (
     .spi_adc1_sck_io(adc1_sclk),
     .spi_adc1_ss_io(adc1_cs),
     
-    .adc0_sync(adc0_syncvio),
-    .sync_ip(adc_sync_ip),
-    .adc1_sync(adc1_sync),
-    .syncoverride(syncoverride),
+    .adc_sync(adc_sync),
     
     .adc_rst('{adc1_rst, adc0_rst}),
+    
+    .syncoverride(syncoverride),
     
     .mhz10(mhz10)
 );

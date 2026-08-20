@@ -233,7 +233,7 @@
             "V5": {
                 "VT": "AC",
                 "BA": "0x00020000",
-                "HA": "0x00020FFF",
+                "HA": "0x0002FFFF",
                 "BP": "C_BASEADDR",
                 "HP": "C_HIGHADDR",
                 "MA": "m_axi",

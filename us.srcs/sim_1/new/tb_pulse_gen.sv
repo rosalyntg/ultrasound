@@ -40,6 +40,11 @@ module tb_pulse_gen;
     localparam bit [31:0] ADDR_PW_NEG = 32'h0C;
     localparam bit [31:0] ADDR_PW_WAIT= 32'h10;
     localparam bit [31:0] ADDR_PW_RECV= 32'h14;
+    localparam bit [31:0] ADDR_PW_IDLE= 32'h18;
+    localparam bit [31:0] ADDR_PW_NUM_SCANLINES= 32'h1c;
+    localparam bit [31:0] ADDR_TABLE_START = 32'h400;
+
+    localparam bit [31:0] TABLE_CH_LEN = 32'h400;
 
     // Commands / states in reg 0
     localparam bit [31:0] CMD_DISARM  = 32'd0;
@@ -54,6 +59,8 @@ module tb_pulse_gen;
     localparam int PW_NEG = 12;
     localparam int PW_WAIT = 4;
     localparam int PW_RECV = 40;
+    localparam int PW_IDLE = 8;
+    localparam int NUM_SCANLINES = 4;
 
     logic aclk = 0;
     logic aresetn = 0;
@@ -107,8 +114,7 @@ module tb_pulse_gen;
     );
 
     pulse_gen #(
-        .C_S_AXI_DATA_WIDTH (32),
-        .C_S_AXI_ADDR_WIDTH (6)
+        .C_S_AXI_DATA_WIDTH (32)
     ) dut (
         .aclk          (aclk),
         .aresetn       (aresetn),
@@ -116,7 +122,7 @@ module tb_pulse_gen;
         .pulser_pos    (pulser_pos),
         .pulser_oen    (pulser_oen),
         .ramp_rst      (ramp_rst),
-        .S_AXI_AWADDR  (awaddr[5:0]),
+        .S_AXI_AWADDR  (awaddr[13:0]),
         .S_AXI_AWPROT  (awprot),
         .S_AXI_AWVALID (awvalid),
         .S_AXI_AWREADY (awready),
@@ -127,7 +133,7 @@ module tb_pulse_gen;
         .S_AXI_BRESP   (bresp),
         .S_AXI_BVALID  (bvalid),
         .S_AXI_BREADY  (bready),
-        .S_AXI_ARADDR  (araddr[5:0]),
+        .S_AXI_ARADDR  (araddr[13:0]),
         .S_AXI_ARPROT  (arprot),
         .S_AXI_ARVALID (arvalid),
         .S_AXI_ARREADY (arready),
@@ -181,13 +187,16 @@ module tb_pulse_gen;
 
     realtime t_pos_rise, t_pos_fall, t_neg_rise, t_neg_fall, t_oen_fall;
 
+    integer sl;
+    integer ch;
+
     initial begin
         mst_agent = new("pulse_gen_mst_agent", vip.inst.IF);
         mst_agent.start_master();
 
         // Reset
         aresetn = 0;
-        repeat (10) @(posedge aclk);
+        repeat (16) @(posedge aclk);
         aresetn = 1;
         repeat (5) @(posedge aclk);
 
@@ -201,6 +210,14 @@ module tb_pulse_gen;
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_NEG, 0, PW_NEG, resp);
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_WAIT, 0, PW_WAIT, resp);
         mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_RECV, 0, PW_RECV, resp);
+        mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_IDLE, 0, PW_IDLE, resp);
+        mst_agent.AXI4LITE_WRITE_BURST(ADDR_PW_NUM_SCANLINES, 0, NUM_SCANLINES, resp);
+
+        for (sl = 0; sl < NUM_SCANLINES; sl = sl + 1) begin
+            for (ch = 0; ch < 8; ch = ch + 1) begin
+                mst_agent.AXI4LITE_WRITE_BURST(ADDR_TABLE_START + ch * TABLE_CH_LEN + sl * 4, 0, sl*CHANNELS+ch, resp);
+            end
+        end
 
         mst_agent.AXI4LITE_READ_BURST(ADDR_PW_POS, 0, read_data, resp);
         check(read_data[15:0] == PW_POS[15:0], "pulse_width_pos readback");

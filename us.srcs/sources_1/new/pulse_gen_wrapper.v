@@ -22,7 +22,7 @@
 
 module pulse_gen_wrapper # (
     parameter integer C_S_AXI_DATA_WIDTH	= 32,
-    parameter integer C_S_AXI_ADDR_WIDTH	= 6
+    parameter integer C_S_AXI_ADDR_WIDTH	= 14
 ) (
     input wire aclk,
     input wire aresetn,
@@ -30,6 +30,10 @@ module pulse_gen_wrapper # (
     output wire [7:0] pulser_neg,
     output wire [7:0] pulser_pos,
     output wire pulser_oen,
+    
+	output wire sol_pulse,
+	output wire eol_pulse,
+	output wire sof_pulse,
 
     (* X_INTERFACE_PARAMETER = "POLARITY ACTIVE_HIGH" *)
     output wire ramp_rst,
@@ -65,6 +69,9 @@ pulse_gen #(
     .pulser_neg(pulser_neg),
     .pulser_pos(pulser_pos),
     .pulser_oen(pulser_oen),
+    .sol_pulse(sol_pulse),
+    .eol_pulse(eol_pulse),
+    .sof_pulse(sof_pulse),
     .ramp_rst(ramp_rst),
     .S_AXI_AWADDR(S_AXI_AWADDR),
     .S_AXI_AWPROT(S_AXI_AWPROT),

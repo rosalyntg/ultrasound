@@ -8,8 +8,8 @@
     "gen_directory": "../../../../../../us.gen/sources_1/bd/bd/ip/bd_jesd204b_rx_0_0",
     "parameters": {
       "component_parameters": {
-        "LINKS": [ { "value": "1", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "L": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "LINKS": [ { "value": "2", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "L": [ { "value": "4", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "DATA_WIDTH": [ { "value": "32", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "F": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "K": [ { "value": "9", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
@@ -17,8 +17,8 @@
         "DESCRAMBLING": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ]
       },
       "model_parameters": {
-        "LINKS": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "L": [ { "value": "2", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "LINKS": [ { "value": "2", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "L": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "DATA_WIDTH": [ { "value": "32", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "F": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "K": [ { "value": "9", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -60,12 +60,20 @@
         "gt1_rxcharisk": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
         "gt1_rxdisperr": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
         "gt1_rxnotintable": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt2_rxdata": [ { "direction": "in", "size_left": "31", "size_right": "0" } ],
+        "gt2_rxcharisk": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt2_rxdisperr": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt2_rxnotintable": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt3_rxdata": [ { "direction": "in", "size_left": "31", "size_right": "0" } ],
+        "gt3_rxcharisk": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt3_rxdisperr": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "gt3_rxnotintable": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
         "sysref": [ { "direction": "in" } ],
         "rx_reset_done": [ { "direction": "in" } ],
-        "sync": [ { "direction": "out", "size_left": "0", "size_right": "0" } ],
+        "sync": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
         "gtx_en_char_align": [ { "direction": "out" } ],
         "rx_reset_gt": [ { "direction": "out" } ],
-        "rx_data": [ { "direction": "out", "size_left": "63", "size_right": "0" } ],
+        "rx_data": [ { "direction": "out", "size_left": "127", "size_right": "0" } ],
         "rx_valid": [ { "direction": "out" } ],
         "rx_eof": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
         "rx_sof": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
@@ -73,10 +81,10 @@
         "rx_somf": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
         "state": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
         "lmfc_clk": [ { "direction": "out", "size_left": "0", "size_right": "0" } ],
-        "cgs_detected": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
-        "char_cgs": [ { "direction": "out", "size_left": "7", "size_right": "0" } ],
-        "char_is_k28": [ { "direction": "out", "size_left": "7", "size_right": "0" } ],
-        "char_is_unexpected": [ { "direction": "out", "size_left": "7", "size_right": "0" } ]
+        "cgs_detected": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
+        "char_cgs": [ { "direction": "out", "size_left": "15", "size_right": "0" } ],
+        "char_is_k28": [ { "direction": "out", "size_left": "15", "size_right": "0" } ],
+        "char_is_unexpected": [ { "direction": "out", "size_left": "15", "size_right": "0" } ]
       },
       "interfaces": {
         "gt0": {
@@ -101,13 +109,36 @@
             "rxnotintable": [ { "physical_name": "gt1_rxnotintable" } ]
           }
         },
+        "gt2": {
+          "vlnv": "xilinx.com:display_jesd204:jesd204_rx_bus:1.0",
+          "abstraction_type": "xilinx.com:display_jesd204:jesd204_rx_bus_rtl:1.0",
+          "mode": "slave",
+          "port_maps": {
+            "rxdata": [ { "physical_name": "gt2_rxdata" } ],
+            "rxcharisk": [ { "physical_name": "gt2_rxcharisk" } ],
+            "rxdisperr": [ { "physical_name": "gt2_rxdisperr" } ],
+            "rxnotintable": [ { "physical_name": "gt2_rxnotintable" } ]
+          }
+        },
+        "gt3": {
+          "vlnv": "xilinx.com:display_jesd204:jesd204_rx_bus:1.0",
+          "abstraction_type": "xilinx.com:display_jesd204:jesd204_rx_bus_rtl:1.0",
+          "mode": "slave",
+          "port_maps": {
+            "rxdata": [ { "physical_name": "gt3_rxdata" } ],
+            "rxcharisk": [ { "physical_name": "gt3_rxcharisk" } ],
+            "rxdisperr": [ { "physical_name": "gt3_rxdisperr" } ],
+            "rxnotintable": [ { "physical_name": "gt3_rxnotintable" } ]
+          }
+        },
         "rst_n": {
           "vlnv": "xilinx.com:signal:reset:1.0",
           "abstraction_type": "xilinx.com:signal:reset_rtl:1.0",
           "mode": "slave",
           "parameters": {
             "POLARITY": [ { "value": "ACTIVE_LOW", "value_src": "constant", "value_permission": "bd_and_user", "usage": "all" } ],
-            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ],
+            "PortWidth": [ { "value": "1", "value_src": "default_prop", "value_permission": "bd_and_user", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ]
           },
           "port_maps": {
             "RST": [ { "physical_name": "rst_n" } ]
@@ -134,5 +165,5 @@
       }
     }
   },
-  "checksum": "b9f7e14a"
+  "checksum": "e788fb5a"
 }

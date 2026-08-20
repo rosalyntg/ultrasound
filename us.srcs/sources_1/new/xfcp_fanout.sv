@@ -95,7 +95,7 @@ taxi_axis_if #(
 assign xfcp_rx.tdata = xfcp_rx_tdata;
 assign xfcp_rx.tvalid = xfcp_rx_tvalid;
 assign xfcp_rx_tready = xfcp_rx.tready;
-assign xfcp_rx_tlast = xfcp_rx.tlast;
+assign xfcp_rx.tlast = xfcp_rx_tlast;
 
 assign xfcp_tx_tdata = xfcp_tx.tdata;
 assign xfcp_tx_tvalid = xfcp_tx.tvalid;
