@@ -3,7 +3,8 @@ use std::fmt::Write as _;
 use std::io;
 use std::num::NonZero;
 use std::ops::RangeInclusive;
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::sync::mpsc as std_mpsc;
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use std::{env, fmt};
 
 use compio::driver::ProactorBuilder;
@@ -19,7 +20,7 @@ use iced::widget::{
     toggler,
 };
 use iced::{Center, Color, Element, Fill, Point, Rectangle, Renderer, Size, Subscription, Theme};
-use iced::{alignment, stream};
+use iced::alignment;
 
 use crate::ultrasound::Ultrasound;
 
@@ -67,6 +68,14 @@ const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ;
 const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
 
+/// Fastest the scope thread publishes completed captures to the GUI.
+const CAPTURE_PUBLISH_PERIOD: Duration = Duration::from_millis(25);
+/// Fastest the scope thread publishes completed pulsed-array frames.
+const FRAME_PUBLISH_PERIOD: Duration = Duration::from_millis(50);
+/// How often the in-progress pulsed-array frame is snapshotted to the
+/// GUI while no complete frame has been published recently.
+const PROGRESS_PUBLISH_PERIOD: Duration = Duration::from_millis(200);
+
 pub fn main() -> iced::Result {
     // tracing_subscriber::fmt::init();
     console_subscriber::init();
@@ -104,6 +113,9 @@ struct App {
 
     status: String,
     hw: Option<mpsc::Sender<HwCommand>>,
+    /// Commands to the scope-processing thread; the GUI keeps mirrors of
+    /// the settings below and forwards them on change.
+    scope: Option<std_mpsc::Sender<ScopeCommand>>,
 
     /// Last completed capture — what the plot shows.
     traces: [Vec<f32>; 8],
@@ -113,8 +125,6 @@ struct App {
     notch_enabled: bool,
     notch_low_mhz: f32,
     notch_high_mhz: f32,
-    /// Capture currently being filled; swapped into `traces` when complete.
-    capture: [Vec<f32>; 8],
     channel_enabled: [bool; 8],
     acquisition: Acquisition,
     trigger_mode: TriggerMode,
@@ -123,13 +133,7 @@ struct App {
     trigger_level: f32, // ADC codes
     trigger_level_text: String,
     holdoff_samples: usize,
-    samples_since_trigger: usize,
-    prev_trigger_sample: Option<f32>,
     trigger_position_pct: f32, // portion of the window shown before the trigger
-    /// Rolling pre-trigger history, capped at `x_scale` samples.
-    history: [VecDeque<f32>; 8],
-    /// Where the trigger landed in the capture being filled.
-    trigger_index: usize,
     /// Where the trigger landed in the displayed capture.
     display_trigger_index: usize,
     x_scale: usize, // samples across the plot, power of two
@@ -141,8 +145,8 @@ struct App {
     /// Completed pulsed-array frame: one trace per scanline, built from
     /// `array_source`. What the pulsed-array b-mode shows.
     scanlines: Vec<Vec<f32>>,
-    /// Pulsed-array frame currently being assembled from the
-    /// start-of-frame / start-of-line packet markers.
+    /// Snapshot of the frame the scope thread is assembling, shown until
+    /// the first frame completes.
     scanline_capture: Vec<Vec<f32>>,
     array_source: ArraySource,
     array_source_cb: combo_box::State<ArraySource>,
@@ -245,12 +249,12 @@ impl Default for App {
             ramp_rate_range: None,
             status: String::from("starting..."),
             hw: None,
+            scope: None,
             traces: Default::default(),
             filtered: Default::default(),
             notch_enabled: false,
             notch_low_mhz: 1.0,
             notch_high_mhz: 3.0,
-            capture: Default::default(),
             channel_enabled: [true; 8],
             acquisition: Acquisition::Armed { continuous: true },
             trigger_mode: TriggerMode::Auto,
@@ -259,12 +263,7 @@ impl Default for App {
             trigger_level: 0.0,
             trigger_level_text: String::from("0"),
             holdoff_samples: 0,
-            // don't block the very first trigger
-            samples_since_trigger: usize::MAX / 2,
-            prev_trigger_sample: None,
             trigger_position_pct: 0.0,
-            history: Default::default(),
-            trigger_index: 0,
             display_trigger_index: 0,
             x_scale: 4096,
             y_auto: true,
@@ -335,7 +334,7 @@ enum Message {
     NotchHighChanged(f32),
     SaveCsv,
     Hardware(HwEvent),
-    Frames(FramesEvent),
+    Scope(ScopeEvent),
 }
 
 /// Events flowing from the hardware task to the GUI.
@@ -366,15 +365,77 @@ enum HwEvent {
     },
 }
 
-/// One UDP data packet: its header flags plus the ADC frames it carried,
-/// one sample per channel.
-#[derive(Debug, Clone)]
-struct FramesEvent {
+/// One parsed UDP data packet, flowing from the ingest thread to the
+/// scope-processing thread.
+struct DataPacket {
     /// The packet begins a new pulsed-array frame (header bit 6).
     start_of_frame: bool,
     /// The packet begins a new scanline (header bit 7).
     start_of_line: bool,
-    frames: Vec<[f32; 8]>,
+    /// Channel-major samples: all of channel 0, then all of channel 1, …
+    /// so each channel is a contiguous slice of len `samples.len() / 8`.
+    samples: Vec<f32>,
+}
+
+/// The scope settings the processing thread needs, mirrored from the GUI.
+#[derive(Debug, Clone, Copy)]
+struct ScopeSettings {
+    trigger_mode: TriggerMode,
+    trigger_channel: usize,
+    trigger_level: f32, // ADC codes
+    holdoff_samples: usize,
+    trigger_position_pct: f32,
+    x_scale: usize,
+    array_source: ArraySource,
+    channel_enabled: [bool; 8],
+}
+
+impl Default for ScopeSettings {
+    fn default() -> Self {
+        // must match App::default so the thread behaves before the GUI's
+        // first sync
+        Self {
+            trigger_mode: TriggerMode::Auto,
+            trigger_channel: 0,
+            trigger_level: 0.0,
+            holdoff_samples: 0,
+            trigger_position_pct: 0.0,
+            x_scale: 4096,
+            array_source: ArraySource::Average,
+            channel_enabled: [true; 8],
+        }
+    }
+}
+
+/// Commands flowing from the GUI to the scope-processing thread.
+#[derive(Debug)]
+enum ScopeCommand {
+    Settings(ScopeSettings),
+    /// Run (armed, continuous) or stop.
+    Run(bool),
+    /// Arm for a single capture.
+    Single,
+}
+
+/// Display-rate events flowing from the scope-processing thread to the
+/// GUI: at most a few tens per second, each carrying a finished result.
+#[derive(Debug, Clone)]
+enum ScopeEvent {
+    /// Sent once at startup so the GUI can command the thread.
+    Ready(std_mpsc::Sender<ScopeCommand>),
+    /// A completed capture. `stopped` reports that the acquisition ended
+    /// (single-shot) so the GUI can update its run/stop state.
+    Capture {
+        traces: [Vec<f32>; 8],
+        trigger_index: usize,
+        stopped: bool,
+    },
+    /// A pulsed-array frame: completed if `complete`, otherwise a
+    /// snapshot of the one being assembled.
+    Scanlines {
+        lines: Vec<Vec<f32>>,
+        complete: bool,
+    },
 }
 
 /// Pulser settings applied together via Pulser::setup.
@@ -448,28 +509,34 @@ impl App {
                     Acquisition::Stopped => Acquisition::Armed { continuous: true },
                     _ => Acquisition::Stopped,
                 };
+                let running = !matches!(self.acquisition, Acquisition::Stopped);
+                self.send_scope(ScopeCommand::Run(running));
             }
             Message::SingleShot => {
                 self.acquisition = Acquisition::Armed { continuous: false };
+                self.send_scope(ScopeCommand::Single);
             }
             Message::TriggerModeSelected(mode) => {
                 self.trigger_mode = mode;
+                self.sync_scope();
             }
             Message::TriggerChannelSelected(ch) => {
                 self.trigger_channel = ch;
-                self.prev_trigger_sample = None;
+                self.sync_scope();
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
             }
             Message::TriggerLevelChanged(level) => {
                 self.trigger_level = level;
                 self.trigger_level_text = format!("{level:.0}");
+                self.sync_scope();
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
             }
             Message::TriggerLevelInputChanged(input) => {
                 if let Ok(level) = input.trim().parse::<f32>() {
                     self.trigger_level = level.clamp(-2048.0, 2047.0);
+                    self.sync_scope();
                     self.plot_cache.clear();
                     self.bmode_cache.clear();
                 }
@@ -480,35 +547,18 @@ impl App {
             }
             Message::HoldoffChanged(samples) => {
                 self.holdoff_samples = samples as usize;
+                self.sync_scope();
             }
             Message::TriggerPositionChanged(pct) => {
                 self.trigger_position_pct = pct;
+                self.sync_scope();
             }
             Message::XScaleChanged(exp) => {
                 self.x_scale = 1 << exp as u32;
                 for trace in &mut self.traces {
                     trace.truncate(self.x_scale);
                 }
-                for capture in &mut self.capture {
-                    capture.truncate(self.x_scale);
-                }
-                for history in &mut self.history {
-                    while history.len() > self.x_scale {
-                        history.pop_front();
-                    }
-                }
-                if let Acquisition::Capturing { continuous } = self.acquisition {
-                    if self.capture[0].len() >= self.x_scale {
-                        std::mem::swap(&mut self.traces, &mut self.capture);
-                        self.display_trigger_index = self.trigger_index;
-
-                        self.acquisition = if continuous {
-                            Acquisition::Armed { continuous: true }
-                        } else {
-                            Acquisition::Stopped
-                        };
-                    }
-                }
+                self.sync_scope();
                 self.apply_notch();
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
@@ -541,6 +591,7 @@ impl App {
             Message::ArraySourceSelected(source) => {
                 // takes effect as new scanlines are ingested
                 self.array_source = source;
+                self.sync_scope();
             }
             Message::IdleTimeChanged(v) => self.idle_time_us = v,
             Message::NumScanlinesChanged(v) => self.num_scanlines = v as u32,
@@ -569,6 +620,7 @@ impl App {
             }
             Message::ChannelToggled(ch) => {
                 self.channel_enabled[ch] = !self.channel_enabled[ch];
+                self.sync_scope();
                 self.plot_cache.clear();
                 self.bmode_cache.clear();
             }
@@ -627,134 +679,39 @@ impl App {
                     self.hv_minus_setpoint = target;
                 }
             },
-            Message::Frames(event) => {
-                let mut changed = false;
-                let mut completed = false;
-
-                // pulsed-array assembly, driven by the packet markers and
-                // independent of the scope's software trigger
-                if event.start_of_frame && !self.scanline_capture.is_empty() {
-                    std::mem::swap(&mut self.scanlines, &mut self.scanline_capture);
-                    self.scanline_capture.clear();
+            Message::Scope(event) => match event {
+                ScopeEvent::Ready(tx) => {
+                    self.scope = Some(tx);
+                    self.sync_scope();
+                    let running = !matches!(self.acquisition, Acquisition::Stopped);
+                    self.send_scope(ScopeCommand::Run(running));
+                }
+                ScopeEvent::Capture {
+                    traces,
+                    trigger_index,
+                    stopped,
+                } => {
+                    self.traces = traces;
+                    self.display_trigger_index = trigger_index;
+                    if stopped {
+                        self.acquisition = Acquisition::Stopped;
+                    }
+                    self.apply_notch();
+                    self.plot_cache.clear();
+                    self.bmode_cache.clear();
+                }
+                ScopeEvent::Scanlines { lines, complete } => {
+                    if complete {
+                        self.scanlines = lines;
+                        self.scanline_capture.clear();
+                    } else {
+                        self.scanline_capture = lines;
+                    }
                     if self.bmode_mode == BModeMode::PulsedArray {
                         self.bmode_cache.clear();
                     }
                 }
-                if (event.start_of_frame || event.start_of_line)
-                    && self.scanline_capture.len() < pulser::MAX_SCANLINES
-                {
-                    self.scanline_capture.push(Vec::new());
-                }
-                // samples arriving before the first start-of-line (a
-                // mid-line join) are dropped
-                if let Some(line) = self.scanline_capture.last_mut() {
-                    for frame in &event.frames {
-                        if line.len() >= MAX_SCANLINE_SAMPLES {
-                            break;
-                        }
-                        match self.array_source {
-                            ArraySource::Channel(ch) => line.push(frame[ch]),
-                            ArraySource::Average => {
-                                let (mut sum, mut n) = (0.0f32, 0u32);
-                                for (&sample, &enabled) in frame.iter().zip(&self.channel_enabled) {
-                                    if enabled {
-                                        sum += sample;
-                                        n += 1;
-                                    }
-                                }
-                                if n > 0 {
-                                    line.push(sum / n as f32);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (i, frame) in event.frames.into_iter().enumerate() {
-                    let sample = frame[self.trigger_channel];
-
-                    match self.acquisition {
-                        Acquisition::Stopped => {}
-                        Acquisition::Armed { continuous } => {
-                            let condition = match self.trigger_mode {
-                                TriggerMode::Auto => true,
-                                TriggerMode::Normal => {
-                                    self.prev_trigger_sample.is_some_and(|prev| {
-                                        prev < self.trigger_level && sample >= self.trigger_level
-                                    })
-                                }
-                                // the marker applies to the packet's first sample
-                                TriggerMode::Line => i == 0 && event.start_of_line,
-                            };
-                            let triggered =
-                                condition && self.samples_since_trigger >= self.holdoff_samples;
-
-                            if triggered {
-                                // prepend pre-trigger history (as much as
-                                // is available) per the X trigger position
-                                let pre_target = (self.trigger_position_pct / 100.0
-                                    * self.x_scale as f32)
-                                    as usize;
-
-                                for (capture, (history, sample)) in
-                                    self.capture.iter_mut().zip(self.history.iter().zip(frame))
-                                {
-                                    capture.clear();
-                                    let start = history.len().saturating_sub(pre_target);
-                                    capture.extend(history.iter().skip(start));
-                                    capture.push(sample);
-                                }
-                                self.trigger_index = self.capture[0].len() - 1;
-
-                                self.acquisition = Acquisition::Capturing { continuous };
-                                self.samples_since_trigger = 0;
-                                changed = true;
-                            }
-                        }
-                        Acquisition::Capturing { continuous } => {
-                            for (capture, sample) in self.capture.iter_mut().zip(frame) {
-                                capture.push(sample);
-                            }
-                            changed = true;
-
-                            if self.capture[0].len() >= self.x_scale {
-                                // completed: publish to the display buffer
-                                // (swap keeps the allocations around)
-                                std::mem::swap(&mut self.traces, &mut self.capture);
-                                self.display_trigger_index = self.trigger_index;
-                                completed = true;
-
-                                self.acquisition = if continuous {
-                                    Acquisition::Armed { continuous: true }
-                                } else {
-                                    Acquisition::Stopped
-                                };
-                            }
-                        }
-                    }
-
-                    // rolling pre-trigger history, updated after the
-                    // state machine so it never contains the current frame
-                    // at trigger time
-                    for (history, sample) in self.history.iter_mut().zip(frame) {
-                        history.push_back(sample);
-                        while history.len() > self.x_scale {
-                            history.pop_front();
-                        }
-                    }
-
-                    self.prev_trigger_sample = Some(sample);
-                    self.samples_since_trigger = self.samples_since_trigger.saturating_add(1);
-                }
-
-                if completed {
-                    self.apply_notch();
-                }
-                if changed {
-                    self.plot_cache.clear();
-                    self.bmode_cache.clear();
-                }
-            }
+            },
         }
     }
 
@@ -810,17 +767,12 @@ impl App {
 
     /// The traces currently on screen and their trigger index.
     fn shown(&self) -> (&[Vec<f32>; 8], usize) {
-        if self.traces.iter().any(|t| !t.is_empty()) {
-            let traces = if self.notch_enabled {
-                &self.filtered
-            } else {
-                &self.traces
-            };
-            (traces, self.display_trigger_index)
+        let traces = if self.notch_enabled {
+            &self.filtered
         } else {
-            // before the first capture completes, show the one in progress
-            (&self.capture, self.trigger_index)
-        }
+            &self.traces
+        };
+        (traces, self.display_trigger_index)
     }
 
     /// Writes the traces currently on screen (filtered, if the notch is
@@ -869,10 +821,35 @@ impl App {
         }
     }
 
+    fn scope_settings(&self) -> ScopeSettings {
+        ScopeSettings {
+            trigger_mode: self.trigger_mode,
+            trigger_channel: self.trigger_channel,
+            trigger_level: self.trigger_level,
+            holdoff_samples: self.holdoff_samples,
+            trigger_position_pct: self.trigger_position_pct,
+            x_scale: self.x_scale,
+            array_source: self.array_source,
+            channel_enabled: self.channel_enabled,
+        }
+    }
+
+    fn send_scope(&mut self, command: ScopeCommand) {
+        if let Some(tx) = &self.scope {
+            let _ = tx.send(command);
+        }
+    }
+
+    /// Forwards the current scope settings to the processing thread.
+    fn sync_scope(&mut self) {
+        let settings = self.scope_settings();
+        self.send_scope(ScopeCommand::Settings(settings));
+    }
+
     fn subscription(&self) -> Subscription<Message> {
         Subscription::batch([
             Subscription::run(hardware_ctrl_worker).map(Message::Hardware),
-            Subscription::run(hardware_data_worker).map(Message::Frames),
+            Subscription::run(hardware_data_worker).map(Message::Scope),
         ])
     }
 
@@ -1240,11 +1217,9 @@ impl App {
         .height(Fill);
 
         let (shown, shown_trigger_index) = self.shown();
-        let fill = if matches!(self.acquisition, Acquisition::Capturing { .. }) {
-            self.capture[0].len()
-        } else {
-            0
-        };
+        // capture progress lives on the scope thread now; at 50 MSPS a
+        // capture fills in ~1 ms, so the sweep marker was never visible
+        let fill = 0;
 
         let tab_button = |label, tab| {
             button(label)
@@ -2014,15 +1989,25 @@ fn hardware_ctrl_worker() -> impl Stream<Item = HwEvent> {
     })
 }
 
-fn hardware_data_worker() -> impl Stream<Item = FramesEvent> {
-    let (mut sender, receiver) = mpsc::channel(4096);
-    tokio::task::spawn_blocking(move || hardware_data_session(&mut sender));
-    receiver
-    // iced::stream::channel(4096, async move |mut output| {
-    //     if let Err(e) = hardware_data_session(&mut output).await {
-    //         println!("Closed data session.... {e}");
-    //     }
-    // })
+fn hardware_data_worker() -> impl Stream<Item = ScopeEvent> {
+    let (mut gui_tx, gui_rx) = mpsc::channel(256);
+    // deep enough to ride out scheduling hiccups on the scope thread
+    // (~30 ms of packets at full stream rate)
+    let (packet_tx, packet_rx) = std_mpsc::sync_channel(16384);
+    let (command_tx, command_rx) = std_mpsc::channel();
+
+    let _ = gui_tx.try_send(ScopeEvent::Ready(command_tx));
+
+    let _ = std::thread::Builder::new().name(String::from("ingest")).spawn(move || {
+        if let Err(e) = hardware_data_session(packet_tx) {
+            println!("data session closed: {e}");
+        }
+    });
+    let _ = std::thread::Builder::new()
+        .name(String::from("scope"))
+        .spawn(move || scope_session(packet_rx, command_rx, gui_tx));
+
+    gui_rx
 }
 
 /// Connects to the board and services GUI commands until an I/O error
@@ -2159,72 +2144,21 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
     }
 }
 
-fn hardware_data_session(output: &mut mpsc::Sender<FramesEvent>) -> Result<(), io::Error> {
-    // let data_socket = Ultrasound::bind_data_socket().await?;
-    // let mut data_buf = [0u8; 65_535];
-    // loop {
-    //     let received = data_socket.recv_from(&mut data_buf).await;
-    //     let (n, _from) = received?;
-    //     // each 16-byte chunk is two JESD204B frame (LMFS = 2441,
-    //     // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
-    //     // lane DD's, carrying channels A, B, C, D. Each sample is
-    //     // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
-    //     // tail bits; 12-bit two's complement
-    //     let frames = data_buf[..n]
-    //         .chunks_exact(16)
-    //         .map(|chunk| {
-    //             std::array::from_fn(|ch| {
-    //                 let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
-    //                 (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
-    //             })
-    //         })
-    //         .collect();
-    //     if let Err(e) = output.try_send(FramesEvent(frames)) && e.is_full() {
-    //         println!("Queue full, dropping");
-    //     }
-    // }
-
-    // tokio_uring::start(async {
-    //     let data_socket = Ultrasound::bind_data_socket_uring().await?;
-    //     let mut data_buf = Some(vec![0u8; 65_535]);
-    //     loop {
-    //         let (result, db) = data_socket.recv_from(data_buf.take().unwrap()).await;
-    //         let (n, _from) = result?;
-    //         // each 16-byte chunk is two JESD204B frame (LMFS = 2441,
-    //         // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
-    //         // lane DD's, carrying channels A, B, C, D. Each sample is
-    //         // two octets, MSB first: ch[11:4] then ch[3:0] + 4 zero
-    //         // tail bits; 12-bit two's complement
-    //         let frames = db[..n]
-    //             .chunks_exact(16)
-    //             .map(|chunk| {
-    //                 std::array::from_fn(|ch| {
-    //                     let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
-    //                     (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
-    //                 })
-    //             })
-    //             .collect();
-    //         if let Err(e) = output.try_send(FramesEvent(frames))
-    //             && e.is_full()
-    //         {
-    //             println!("Queue full, dropping");
-    //         }
-
-    //         data_buf = Some(db);
-    //     }
-
-    //     #[allow(unreachable_code)]
-    //     Ok::<_, io::Error>(())
-    // })?;
-
+fn hardware_data_session(output: std_mpsc::SyncSender<DataPacket>) -> Result<(), io::Error> {
     let mut pb = ProactorBuilder::new();
-    // pb.buffer_pool_buffer_len(1024 * 16);
-    pb.buffer_pool_size(NonZero::new(2048).unwrap());
+    // each packet consumes one pool buffer regardless of its size, so
+    // size the buffers to the packet (~1.3 KB) and provide ~60 ms worth
+    // at the full ~500k packets/s stream rate
+    pb.buffer_pool_buffer_len(2048);
+    pb.buffer_pool_size(NonZero::new(32768).unwrap());
 
     let runtime = compio_runtime::Runtime::builder()
         .with_proactor(pb)
         .build()?;
     runtime.block_on(async {
+        // allocate the buffer pool before binding: the stream floods the
+        // socket the moment it exists, and lazy pool init would eat ~10 ms
+        compio_runtime::Runtime::with_current(|rt| rt.buffer_pool().map(drop))?;
         println!("binding socket");
         let data_socket = Ultrasound::bind_data_socket_compio().await?;
         unsafe {
@@ -2232,14 +2166,21 @@ fn hardware_data_session(output: &mut mpsc::Sender<FramesEvent>) -> Result<(), i
                 .set_socket_option::<libc::c_int>(SOL_SOCKET, SO_RCVBUF, &(4 * 1024 * 1024))
                 .unwrap();
         }
-        // let mut data_buf = Some(vec![0u8; 65_535]);
+        let mut dropped = 0u64;
+        let mut recv_errors = 0u64;
+        let mut last_drop_report = Instant::now();
         loop {
             let mut packet_stream = data_socket.recv_multi(0);
             while let Some(result) = packet_stream.next().await {
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
-                        println!("Error receiving data: {e}");
+                        recv_errors += 1;
+                        if last_drop_report.elapsed() >= Duration::from_secs(1) {
+                            println!("Error receiving data ({recv_errors}x): {e}");
+                            recv_errors = 0;
+                            last_drop_report = Instant::now();
+                        }
                         continue;
                     }
                 };
@@ -2255,29 +2196,405 @@ fn hardware_data_session(output: &mut mpsc::Sender<FramesEvent>) -> Result<(), i
                     (false, false, &result[..])
                 };
 
-                let frames = payload
-                    .chunks_exact(16)
-                    .map(|chunk| {
-                        std::array::from_fn(|ch| {
-                            let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
-                            (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
-                        })
-                    })
-                    .collect();
-                match output.try_send(FramesEvent {
+                // each 16-byte chunk is two JESD204B frames (LMFS = 2441,
+                // ADC34J2x datasheet fig. 158): lane DA's 4 octets then
+                // lane DD's, one sample per channel. Each sample is two
+                // octets, MSB first: ch[11:4] then ch[3:0] + 4 zero tail
+                // bits; 12-bit two's complement. Parsed channel-major so
+                // the scope thread gets a contiguous slice per channel.
+                let n = payload.len() / 16;
+                let mut samples = Vec::with_capacity(n * 8);
+                for ch in 0..8 {
+                    samples.extend(payload.chunks_exact(16).map(|chunk| {
+                        let word = i16::from_be_bytes([chunk[2 * ch], chunk[2 * ch + 1]]);
+                        (word >> 4) as f32 // arithmetic: drops tail bits, keeps sign
+                    }));
+                }
+                match output.try_send(DataPacket {
                     start_of_frame: sof,
                     start_of_line: sol,
-                    frames,
+                    samples,
                 }) {
-                    Err(e) if e.is_full() => {
-                        // println!("Queue full, dropping");
+                    Ok(()) => (),
+                    Err(std_mpsc::TrySendError::Full(_)) => dropped += 1,
+                    Err(std_mpsc::TrySendError::Disconnected(_)) => {
+                        return Ok::<_, io::Error>(());
                     }
-                    Err(e) if e.is_disconnected() => return Ok::<_, io::Error>(()),
-                    _ => (),
+                }
+                if dropped > 0 && last_drop_report.elapsed() >= Duration::from_secs(1) {
+                    println!("ingest: dropped {dropped} packets (scope thread backlog)");
+                    dropped = 0;
+                    last_drop_report = Instant::now();
                 }
             }
         }
     })?;
 
     Ok(())
+}
+
+/// The scope-processing thread: consumes every data packet, runs the
+/// software-trigger state machine and pulsed-array assembly, and
+/// publishes only display-rate results to the GUI.
+fn scope_session(
+    packets: std_mpsc::Receiver<DataPacket>,
+    commands: std_mpsc::Receiver<ScopeCommand>,
+    mut output: mpsc::Sender<ScopeEvent>,
+) {
+    let mut scope = ScopeState::default();
+    while let Ok(first) = packets.recv() {
+        for command in commands.try_iter() {
+            scope.apply(command);
+        }
+        scope.process(&first);
+        // drain whatever else is already queued before publishing
+        for packet in packets.try_iter().take(512) {
+            scope.process(&packet);
+        }
+        if !scope.publish(&mut output) {
+            return; // GUI is gone
+        }
+    }
+}
+
+struct ScopeState {
+    settings: ScopeSettings,
+    acquisition: Acquisition,
+    /// Capture currently being filled; moved into `pending_capture` when
+    /// complete.
+    capture: [Vec<f32>; 8],
+    /// Where the trigger landed in the capture being filled.
+    trigger_index: usize,
+    /// Completed capture awaiting a (throttled) publish; newer
+    /// completions replace older unpublished ones.
+    pending_capture: Option<([Vec<f32>; 8], usize, bool)>,
+    /// Rolling pre-trigger history, capped at `x_scale` samples per
+    /// channel. Maintained only while the trigger position is nonzero.
+    history: [VecDeque<f32>; 8],
+    /// Last sample of the trigger channel from the previous packet.
+    prev_trigger_sample: Option<f32>,
+    /// Global frame index of the first frame of the current packet.
+    frame_count: u64,
+    /// Global frame index of the last trigger, for holdoff.
+    last_trigger: Option<u64>,
+    /// Pulsed-array frame currently being assembled from the
+    /// start-of-frame / start-of-line packet markers.
+    scanline_capture: Vec<Vec<f32>>,
+    /// Completed frame awaiting a (throttled) publish.
+    pending_frame: Option<Vec<Vec<f32>>>,
+    scanline_dirty: bool,
+    avg_scratch: Vec<f32>,
+    last_capture_publish: Option<Instant>,
+    last_frame_publish: Option<Instant>,
+    last_progress_publish: Option<Instant>,
+}
+
+impl Default for ScopeState {
+    fn default() -> Self {
+        Self {
+            settings: ScopeSettings::default(),
+            acquisition: Acquisition::Armed { continuous: true },
+            capture: Default::default(),
+            trigger_index: 0,
+            pending_capture: None,
+            history: Default::default(),
+            prev_trigger_sample: None,
+            frame_count: 0,
+            last_trigger: None,
+            scanline_capture: Vec::new(),
+            pending_frame: None,
+            scanline_dirty: false,
+            avg_scratch: Vec::new(),
+            last_capture_publish: None,
+            last_frame_publish: None,
+            last_progress_publish: None,
+        }
+    }
+}
+
+impl ScopeState {
+    fn apply(&mut self, command: ScopeCommand) {
+        match command {
+            ScopeCommand::Settings(settings) => {
+                if settings.trigger_channel != self.settings.trigger_channel {
+                    self.prev_trigger_sample = None;
+                }
+                if settings.x_scale != self.settings.x_scale {
+                    for capture in &mut self.capture {
+                        capture.truncate(settings.x_scale);
+                    }
+                    for history in &mut self.history {
+                        let excess = history.len().saturating_sub(settings.x_scale);
+                        history.drain(..excess);
+                    }
+                    self.settings.x_scale = settings.x_scale;
+                    if let Acquisition::Capturing { continuous } = self.acquisition
+                        && self.capture[0].len() >= settings.x_scale
+                    {
+                        self.complete_capture(continuous);
+                    }
+                }
+                self.settings = settings;
+            }
+            ScopeCommand::Run(true) => self.acquisition = Acquisition::Armed { continuous: true },
+            ScopeCommand::Run(false) => self.acquisition = Acquisition::Stopped,
+            ScopeCommand::Single => self.acquisition = Acquisition::Armed { continuous: false },
+        }
+    }
+
+    fn process(&mut self, packet: &DataPacket) {
+        let n = packet.samples.len() / 8;
+        if n == 0 {
+            return;
+        }
+        let chan = |ch: usize| &packet.samples[ch * n..(ch + 1) * n];
+
+        // pulsed-array assembly, driven by the packet markers and
+        // independent of the scope's software trigger
+        if packet.start_of_frame && !self.scanline_capture.is_empty() {
+            self.pending_frame = Some(std::mem::take(&mut self.scanline_capture));
+            self.scanline_dirty = false;
+        }
+        if (packet.start_of_frame || packet.start_of_line)
+            && self.scanline_capture.len() < pulser::MAX_SCANLINES
+        {
+            self.scanline_capture.push(Vec::new());
+        }
+        // samples arriving before the first start-of-line (a mid-line
+        // join) are dropped
+        if let Some(line) = self.scanline_capture.last_mut() {
+            let take = n.min(MAX_SCANLINE_SAMPLES - line.len());
+            if take > 0 {
+                match self.settings.array_source {
+                    ArraySource::Channel(ch) => line.extend_from_slice(&chan(ch)[..take]),
+                    ArraySource::Average => {
+                        let enabled = self.settings.channel_enabled;
+                        let count = enabled.iter().filter(|&&e| e).count();
+                        if count > 0 {
+                            self.avg_scratch.clear();
+                            self.avg_scratch.resize(take, 0.0);
+                            for ch in 0..8 {
+                                if enabled[ch] {
+                                    for (acc, &s) in self.avg_scratch.iter_mut().zip(chan(ch)) {
+                                        *acc += s;
+                                    }
+                                }
+                            }
+                            let inv = 1.0 / count as f32;
+                            line.extend(self.avg_scratch.iter().map(|&s| s * inv));
+                        }
+                    }
+                }
+                self.scanline_dirty = true;
+            }
+        }
+
+        // software-trigger capture, in bulk segments instead of
+        // per-sample: Armed scans for a trigger index, Capturing copies
+        // slices until full (possibly re-arming within the same packet)
+        let trigger_channel = self.settings.trigger_channel.min(7);
+        let mut cursor = 0;
+        while cursor < n {
+            match self.acquisition {
+                Acquisition::Stopped => break,
+                Acquisition::Armed { continuous } => {
+                    match self.find_trigger(chan(trigger_channel), cursor, packet.start_of_line) {
+                        Some(t) => {
+                            self.begin_capture(&packet.samples, n, t);
+                            self.acquisition = Acquisition::Capturing { continuous };
+                            self.last_trigger = Some(self.frame_count + t as u64);
+                            cursor = t;
+                        }
+                        None => break,
+                    }
+                }
+                Acquisition::Capturing { continuous } => {
+                    let need = self.settings.x_scale.saturating_sub(self.capture[0].len());
+                    let take = need.min(n - cursor);
+                    for ch in 0..8 {
+                        self.capture[ch].extend_from_slice(&chan(ch)[cursor..cursor + take]);
+                    }
+                    cursor += take;
+                    if self.capture[0].len() >= self.settings.x_scale {
+                        self.complete_capture(continuous);
+                    }
+                }
+            }
+        }
+
+        // rolling pre-trigger history, only maintained while a trigger
+        // position is set (it is only read at trigger time)
+        if self.settings.trigger_position_pct > 0.0 {
+            let cap = self.settings.x_scale;
+            for ch in 0..8 {
+                let history = &mut self.history[ch];
+                history.extend(chan(ch));
+                let excess = history.len().saturating_sub(cap);
+                history.drain(..excess);
+            }
+        } else if !self.history[0].is_empty() {
+            for history in &mut self.history {
+                history.clear();
+            }
+        }
+
+        self.prev_trigger_sample = Some(chan(trigger_channel)[n - 1]);
+        self.frame_count += n as u64;
+    }
+
+    /// First frame index >= `cursor` where the trigger condition and
+    /// holdoff are both met, tracking `prev_trigger_sample` semantics of
+    /// the original per-sample loop.
+    fn find_trigger(&self, trig: &[f32], cursor: usize, start_of_line: bool) -> Option<usize> {
+        // holdoff: frames since the last trigger must reach the setting
+        let earliest = match self.last_trigger {
+            None => 0,
+            Some(last) => {
+                let ready_at = last + self.settings.holdoff_samples as u64;
+                usize::try_from(ready_at.saturating_sub(self.frame_count)).ok()?
+            }
+        };
+        match self.settings.trigger_mode {
+            TriggerMode::Auto => {
+                let t = cursor.max(earliest);
+                (t < trig.len()).then_some(t)
+            }
+            // the marker applies to the packet's first sample
+            TriggerMode::Line => (start_of_line && cursor == 0 && earliest == 0).then_some(0),
+            TriggerMode::Normal => {
+                let level = self.settings.trigger_level;
+                let mut prev = if cursor == 0 {
+                    self.prev_trigger_sample
+                } else {
+                    Some(trig[cursor - 1])
+                };
+                for (i, &sample) in trig.iter().enumerate().skip(cursor) {
+                    if i >= earliest && prev.is_some_and(|p| p < level) && sample >= level {
+                        return Some(i);
+                    }
+                    prev = Some(sample);
+                }
+                None
+            }
+        }
+    }
+
+    /// Starts a capture triggered at frame `t` of the current packet:
+    /// clears the capture buffers and prepends pre-trigger samples (as
+    /// many as are available) per the X trigger position, drawn from the
+    /// packet's own prefix and then the history.
+    fn begin_capture(&mut self, samples: &[f32], n: usize, t: usize) {
+        let pre_target =
+            (self.settings.trigger_position_pct / 100.0 * self.settings.x_scale as f32) as usize;
+        let from_packet = t.min(pre_target);
+        let from_history = pre_target - from_packet;
+        for ch in 0..8 {
+            let capture = &mut self.capture[ch];
+            capture.clear();
+            let history = &self.history[ch];
+            let start = history.len().saturating_sub(from_history);
+            capture.extend(history.range(start..));
+            let channel = &samples[ch * n..(ch + 1) * n];
+            capture.extend_from_slice(&channel[t - from_packet..t]);
+        }
+        self.trigger_index = self.capture[0].len();
+    }
+
+    /// Publishes the filled capture to the pending slot (recycling the
+    /// previous unpublished buffers, if any) and re-arms or stops.
+    fn complete_capture(&mut self, continuous: bool) {
+        let mut traces = match self.pending_capture.take() {
+            Some((mut old, _, _)) => {
+                for trace in &mut old {
+                    trace.clear();
+                }
+                old
+            }
+            None => Default::default(),
+        };
+        std::mem::swap(&mut traces, &mut self.capture);
+        self.pending_capture = Some((traces, self.trigger_index, !continuous));
+        self.acquisition = if continuous {
+            Acquisition::Armed { continuous: true }
+        } else {
+            Acquisition::Stopped
+        };
+    }
+
+    /// Sends pending results to the GUI, rate-limited so the GUI sees at
+    /// most a few tens of events per second. Returns false when the GUI
+    /// side has disconnected.
+    fn publish(&mut self, output: &mut mpsc::Sender<ScopeEvent>) -> bool {
+        fn due(last: Option<Instant>, period: Duration) -> bool {
+            last.is_none_or(|t| t.elapsed() >= period)
+        }
+
+        if let Some((_, _, stopped)) = self.pending_capture
+            && (stopped || due(self.last_capture_publish, CAPTURE_PUBLISH_PERIOD))
+        {
+            let (traces, trigger_index, stopped) = self.pending_capture.take().unwrap();
+            match output.try_send(ScopeEvent::Capture {
+                traces,
+                trigger_index,
+                stopped,
+            }) {
+                Ok(()) => self.last_capture_publish = Some(Instant::now()),
+                Err(e) => {
+                    if e.is_disconnected() {
+                        return false;
+                    }
+                    // channel full: retry next round
+                    if let ScopeEvent::Capture {
+                        traces,
+                        trigger_index,
+                        stopped,
+                    } = e.into_inner()
+                    {
+                        self.pending_capture = Some((traces, trigger_index, stopped));
+                    }
+                }
+            }
+        }
+
+        if self.pending_frame.is_some() && due(self.last_frame_publish, FRAME_PUBLISH_PERIOD) {
+            let lines = self.pending_frame.take().unwrap();
+            match output.try_send(ScopeEvent::Scanlines {
+                lines,
+                complete: true,
+            }) {
+                Ok(()) => self.last_frame_publish = Some(Instant::now()),
+                Err(e) => {
+                    if e.is_disconnected() {
+                        return false;
+                    }
+                    if let ScopeEvent::Scanlines { lines, .. } = e.into_inner() {
+                        self.pending_frame = Some(lines);
+                    }
+                }
+            }
+        }
+
+        // snapshot the frame being assembled so the GUI has something to
+        // show before the first frame completes (or if markers stop)
+        if self.scanline_dirty
+            && self.pending_frame.is_none()
+            && due(self.last_frame_publish, Duration::from_secs(2))
+            && due(self.last_progress_publish, PROGRESS_PUBLISH_PERIOD)
+        {
+            let event = ScopeEvent::Scanlines {
+                lines: self.scanline_capture.clone(),
+                complete: false,
+            };
+            match output.try_send(event) {
+                Ok(()) => {
+                    self.last_progress_publish = Some(Instant::now());
+                    self.scanline_dirty = false;
+                }
+                Err(e) if e.is_disconnected() => return false,
+                Err(_) => (),
+            }
+        }
+
+        true
+    }
 }
