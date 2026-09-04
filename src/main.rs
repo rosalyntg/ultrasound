@@ -54,6 +54,8 @@ const CONTRAST_RANGE: RangeInclusive<f32> = 0.1..=10.0; // brightness gain
 const NOTCH_FREQ_RANGE: RangeInclusive<f32> = 0.0..=25.0; // MHz, up to Nyquist
 const IDLE_TIME_RANGE: RangeInclusive<f32> = 0.0..=5000.0; // µs after recv before the next scanline
 const NUM_SCANLINES_RANGE: RangeInclusive<f32> = 1.0..=256.0;
+const BEAM_WIDTH_RANGE: RangeInclusive<f32> = 0.0..=120.0; // degrees, total steering span
+const FOCAL_DISTANCE_RANGE: RangeInclusive<f32> = 5.0..=200.0; // mm
 
 const NUM_SAMPLES_PER_PACKET: usize = 80;
 
@@ -65,8 +67,21 @@ const ADC_SAMPLE_RATE_HZ: f32 = 50e6;
 const UDP_DECIMATION: f32 = 1.0;
 const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ;
 
-/// Standard assumed speed of sound in tissue, for the depth axis.
+/// Standard assumed speed of sound in tissue, for the depth axis and
+/// the transmit/receive beamforming geometry.
 const SPEED_OF_SOUND_M_S: f32 = 1540.0;
+
+/// Pulser delay-table clock.
+const PULSER_CLK_HZ: f32 = 156.25e6;
+
+/// Delay-table value meaning "do not fire this channel".
+const DELAY_NO_FIRE: u16 = 0xffff;
+
+/// ADC channel index → pulser channel index. Pulser channels 0-7 drive
+/// the elements read back on ADC channels E, F, H, G, A, B, D, C (see
+/// read_calib_csv in calibration.py). Calibration data is stored in
+/// pulser order; the RF data is in ADC order.
+const ADC_TO_PULSER: [usize; 8] = [4, 5, 7, 6, 0, 1, 3, 2];
 
 const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
@@ -116,6 +131,11 @@ struct App {
 
     status: String,
     hw: Option<mpsc::Sender<HwCommand>>,
+    /// Commands that didn't fit in the hardware channel (a slider being
+    /// dragged faster than the hardware task keeps up), one per kind
+    /// with the newest replacing older ones; flushed as the task
+    /// reports progress.
+    hw_backlog: Vec<HwCommand>,
     /// Commands to the scope-processing thread; the GUI keeps mirrors of
     /// the settings below and forwards them on change.
     scope: Option<std_mpsc::Sender<ScopeCommand>>,
@@ -163,8 +183,23 @@ struct App {
     array_source: ArraySource,
     array_source_cb: combo_box::State<ArraySource>,
     idle_time_us: f32,  // wait after recv before the next scanline
-    num_scanlines: u32, // scanlines per frame
+    /// Scanlines per frame, set by the loaded or generated delay table.
+    num_scanlines: u32,
+    delay_source: DelaySource,
     delay_csv_path: String,
+    calib_csv_path: String,
+    /// Element positions / channel offsets from the calibration csv,
+    /// pulser channel order.
+    calibration: Option<Calibration>,
+    /// Add the calibrated per-channel time offsets (τ) to the transmit
+    /// delays and receive beamformer.
+    use_tau: bool,
+    beam_width_deg: f32,   // total steering span of a generated table
+    gen_scanlines: u32,    // scanlines in a generated table
+    focal_distance_mm: f32,
+    /// Geometry of the last generated delay table, for the receive
+    /// beamformer. None until a table has been generated.
+    beamform: Option<BeamformSettings>,
     contrast: f32, // b-mode brightness gain
     /// What the b-mode depth axis labels show.
     y_units: YUnits,
@@ -187,15 +222,69 @@ enum ArraySource {
     Average,
     /// A single channel.
     Channel(usize),
+    /// Delay-and-sum receive beamforming along each scanline's transmit
+    /// direction using the calibrated element geometry, then the
+    /// envelope. Falls back to the average until a delay table has been
+    /// generated.
+    Beamformed,
 }
 
 impl fmt::Display for ArraySource {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             ArraySource::Average => write!(f, "average"),
+            ArraySource::Beamformed => write!(f, "beamformed"),
             ArraySource::Channel(ch) => write!(f, "ch{}", CHANNEL_NAMES[*ch]),
         }
     }
+}
+
+/// Where the pulser's transmit delay table comes from.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum DelaySource {
+    /// A raw table loaded from a csv (test / calibration patterns).
+    Csv,
+    /// Generated from the calibrated element geometry and the beam
+    /// width / scanline count / focal distance settings, regenerated
+    /// whenever any of them change.
+    Beamforming,
+}
+
+/// Per-element geometry from calibration.csv: one row per pulser
+/// channel, `x_m,tau_s` — element x position (relative to pulser
+/// channel 0, all elements at y = 0) and per-channel time offset.
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct Calibration {
+    x_el: [f32; 8], // metres, pulser order
+    tau: [f32; 8],  // seconds, pulser order
+}
+
+/// What the receive beamformer needs to know about the transmitted
+/// frame: element geometry (in ADC channel order, matching the RF data)
+/// and the scan pattern the delay table was generated for.
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct BeamformSettings {
+    x_el: [f32; 8], // metres, ADC order
+    tau: [f32; 8],  // seconds, ADC order (zero when τ is disabled)
+    /// Total steering span; scanline i is steered to
+    /// `scanline_angle(width, n, i)`.
+    beam_width_deg: f32,
+    num_scanlines: u32,
+    /// Time from the start-of-line marker at which the transmit
+    /// wavefront leaves the beam origin (pulser channel 0).
+    t0_s: f32,
+}
+
+/// Steering angle (radians, positive = +x) of scanline `i` of `n`
+/// spanning `width_deg`: numpy.linspace(+width/2, -width/2, n), as in
+/// delays.py.
+fn scanline_angle(width_deg: f32, n: u32, i: usize) -> f32 {
+    let half = width_deg.to_radians() / 2.0;
+    if n <= 1 {
+        return 0.0;
+    }
+    let i = (i as u32).min(n - 1) as f32;
+    half - i * (2.0 * half) / (n - 1) as f32
 }
 
 /// How the b-mode tab renders.
@@ -269,6 +358,7 @@ impl Default for App {
             ramp_rate_range: None,
             status: String::from("starting..."),
             hw: None,
+            hw_backlog: Vec::new(),
             scope: None,
             traces: Default::default(),
             filtered: Default::default(),
@@ -301,13 +391,23 @@ impl Default for App {
             show_notch: false,
             array_source: ArraySource::Average,
             array_source_cb: combo_box::State::new(
-                std::iter::once(ArraySource::Average)
+                [ArraySource::Average, ArraySource::Beamformed]
+                    .into_iter()
                     .chain((0..8).map(ArraySource::Channel))
                     .collect(),
             ),
             idle_time_us: 100.0,
             num_scanlines: 16,
+            delay_source: DelaySource::Beamforming,
             delay_csv_path: String::new(),
+            calib_csv_path: String::from("calibration.csv"),
+            // best effort: picked up if the default file is there
+            calibration: load_calibration_csv("calibration.csv").ok(),
+            use_tau: false,
+            beam_width_deg: 40.0,
+            gen_scanlines: 64,
+            focal_distance_mm: 30.0,
+            beamform: None,
             contrast: 1.0,
             y_units: YUnits::Depth,
             plot_cache: canvas::Cache::new(),
@@ -349,10 +449,17 @@ enum Message {
     BModeModeSelected(BModeMode),
     ArraySourceSelected(ArraySource),
     IdleTimeChanged(f32),
-    NumScanlinesChanged(f32),
     ApplyArrayConfig,
     DelayCsvPathChanged(String),
     LoadDelayCsv,
+    DelaySourceSelected(DelaySource),
+    /// Also (re)loads the file at the new path.
+    CalibCsvPathChanged(String),
+    LoadCalibCsv,
+    UseTauToggled(bool),
+    BeamWidthChanged(f32),
+    GenScanlinesChanged(f32),
+    FocalDistanceChanged(f32),
     ContrastChanged(f32),
     YUnitsSelected(YUnits),
     ChannelToggled(usize),
@@ -451,6 +558,7 @@ struct ScopeSettings {
     x_scale: usize,
     array_source: ArraySource,
     channel_enabled: [bool; 8],
+    beamform: Option<BeamformSettings>,
 }
 
 impl Default for ScopeSettings {
@@ -466,6 +574,7 @@ impl Default for ScopeSettings {
             x_scale: 4096,
             array_source: ArraySource::Average,
             channel_enabled: [true; 8],
+            beamform: None,
         }
     }
 }
@@ -545,27 +654,45 @@ enum HwCommand {
 impl App {
     fn update(&mut self, message: Message) {
         match message {
-            Message::RampRateChanged(v) => self.ramp_rate_us = v,
+            Message::RampRateChanged(v) => {
+                self.ramp_rate_us = v;
+                self.update(Message::ApplyRampRate);
+            }
             Message::ApplyRampRate => {
                 self.send(HwCommand::SetRampRate(self.ramp_rate_us));
             }
-            Message::HvPlusSetpointChanged(v) => self.hv_plus_setpoint = v,
+            Message::HvPlusSetpointChanged(v) => {
+                self.hv_plus_setpoint = v;
+                self.update(Message::ApplyHvPlus);
+            }
             Message::ApplyHvPlus => {
                 self.send(HwCommand::SetHvPlus(self.hv_plus_setpoint));
             }
-            Message::HvMinusSetpointChanged(v) => self.hv_minus_setpoint = v,
+            Message::HvMinusSetpointChanged(v) => {
+                self.hv_minus_setpoint = v;
+                self.update(Message::ApplyHvMinus);
+            }
             Message::ApplyHvMinus => {
                 self.send(HwCommand::SetHvMinus(self.hv_minus_setpoint));
             }
-            Message::PulseDurationChanged(v) => self.pulse_duration_ns = v,
+            Message::PulseDurationChanged(v) => {
+                self.pulse_duration_ns = v;
+                self.update(Message::ApplyPulseDuration);
+            }
             Message::ApplyPulseDuration => {
                 self.send(HwCommand::SetupPulser(self.pulser_config()));
             }
-            Message::RampDelayChanged(v) => self.ramp_delay_us = v,
+            Message::RampDelayChanged(v) => {
+                self.ramp_delay_us = v;
+                self.update(Message::ApplyRampDelay);
+            }
             Message::ApplyRampDelay => {
                 self.send(HwCommand::SetupPulser(self.pulser_config()));
             }
-            Message::RecvTimeChanged(v) => self.recv_time_us = v,
+            Message::RecvTimeChanged(v) => {
+                self.recv_time_us = v;
+                self.update(Message::ApplyRecvTime);
+            }
             Message::ApplyRecvTime => {
                 self.send(HwCommand::SetupPulser(self.pulser_config()));
             }
@@ -669,8 +796,10 @@ impl App {
                 self.array_source = source;
                 self.sync_scope();
             }
-            Message::IdleTimeChanged(v) => self.idle_time_us = v,
-            Message::NumScanlinesChanged(v) => self.num_scanlines = v as u32,
+            Message::IdleTimeChanged(v) => {
+                self.idle_time_us = v;
+                self.update(Message::ApplyArrayConfig);
+            }
             Message::ApplyArrayConfig => {
                 self.send(HwCommand::SetupArray {
                     idle_us: self.idle_time_us,
@@ -694,6 +823,38 @@ impl App {
                 }
                 Err(e) => self.status = format!("delay csv: {e}"),
             },
+            Message::DelaySourceSelected(source) => {
+                self.delay_source = source;
+                self.regenerate_delays();
+            }
+            Message::CalibCsvPathChanged(path) => {
+                self.calib_csv_path = path;
+                // typed paths are reloaded as they change; a path that
+                // doesn't parse yet just leaves the previous calibration
+                if let Ok(calib) = load_calibration_csv(&self.calib_csv_path) {
+                    self.set_calibration(calib);
+                }
+            }
+            Message::LoadCalibCsv => match load_calibration_csv(&self.calib_csv_path) {
+                Ok(calib) => self.set_calibration(calib),
+                Err(e) => self.status = format!("calibration csv: {e}"),
+            },
+            Message::UseTauToggled(on) => {
+                self.use_tau = on;
+                self.regenerate_delays();
+            }
+            Message::BeamWidthChanged(v) => {
+                self.beam_width_deg = v;
+                self.regenerate_delays();
+            }
+            Message::GenScanlinesChanged(v) => {
+                self.gen_scanlines = v as u32;
+                self.regenerate_delays();
+            }
+            Message::FocalDistanceChanged(v) => {
+                self.focal_distance_mm = v;
+                self.regenerate_delays();
+            }
             Message::ContrastChanged(contrast) => {
                 self.contrast = contrast;
                 self.bmode_cache.clear();
@@ -743,6 +904,7 @@ impl App {
                 HwEvent::PulsingState(pulsing) => self.pulsing = pulsing,
                 HwEvent::Disconnected(reason) => {
                     self.hw = None;
+                    self.hw_backlog.clear();
                     self.hv_plus_reading = None;
                     self.hv_minus_reading = None;
                     self.hv_plus_range = None;
@@ -751,7 +913,10 @@ impl App {
                     self.pulsing = false;
                     self.status = format!("disconnected: {reason}");
                 }
-                HwEvent::Status(status) => self.status = status,
+                HwEvent::Status(status) => {
+                    self.status = status;
+                    self.flush_backlog();
+                }
                 HwEvent::HvPlusVoltage(v) => self.hv_plus_reading = Some(v),
                 HwEvent::HvMinusVoltage(v) => self.hv_minus_reading = Some(v),
                 HwEvent::RampRateInfo { min_us, max_us } => {
@@ -960,12 +1125,137 @@ impl App {
     fn send(&mut self, command: HwCommand) {
         match &mut self.hw {
             Some(tx) => {
-                if tx.try_send(command).is_err() {
-                    self.status = String::from("hardware task busy, command dropped");
+                if let Err(e) = tx.try_send(command) {
+                    if e.is_full() {
+                        let command = e.into_inner();
+                        self.hw_backlog
+                            .retain(|c| std::mem::discriminant(c) != std::mem::discriminant(&command));
+                        self.hw_backlog.push(command);
+                    } else {
+                        self.status = String::from("hardware task gone, command dropped");
+                    }
                 }
             }
             None => self.status = String::from("not connected, command ignored"),
         }
+    }
+
+    /// Resends backlogged commands, oldest first, as far as the channel
+    /// allows.
+    fn flush_backlog(&mut self) {
+        while !self.hw_backlog.is_empty() {
+            let Some(tx) = &mut self.hw else { break };
+            let command = self.hw_backlog.remove(0);
+            if let Err(e) = tx.try_send(command) {
+                if e.is_full() {
+                    self.hw_backlog.insert(0, e.into_inner());
+                }
+                break;
+            }
+        }
+    }
+
+    fn set_calibration(&mut self, calib: Calibration) {
+        let changed = self.calibration != Some(calib);
+        self.calibration = Some(calib);
+        let span = calib.x_el.iter().copied().fold(f32::MIN, f32::max)
+            - calib.x_el.iter().copied().fold(f32::MAX, f32::min);
+        self.status = format!("loaded calibration: aperture {:.2} mm", span * 1e3);
+        if changed {
+            self.regenerate_delays();
+        }
+    }
+
+    /// Regenerates and loads the transmit delay table from the current
+    /// beamforming settings — a no-op unless the delay source is
+    /// beamforming, a calibration is loaded and the hardware is
+    /// connected.
+    fn regenerate_delays(&mut self) {
+        if self.delay_source != DelaySource::Beamforming
+            || self.calibration.is_none()
+            || self.hw.is_none()
+        {
+            return;
+        }
+        match self.generate_delays() {
+            Ok((table, beamform)) => {
+                let n = table.len();
+                self.send(HwCommand::LoadDelays(table));
+                self.num_scanlines = n as u32;
+                self.send(HwCommand::SetupArray {
+                    idle_us: self.idle_time_us,
+                    num_scanlines: self.num_scanlines,
+                    restart: self.pulsing,
+                });
+                self.beamform = Some(beamform);
+                self.sync_scope();
+                self.status = format!(
+                    "generated delay table: {n} scanlines over {:.0}°",
+                    beamform.beam_width_deg
+                );
+            }
+            Err(e) => self.status = format!("generate delays: {e}"),
+        }
+    }
+
+    /// Builds a focused/steered transmit delay table from the loaded
+    /// calibration and the beam width / scanline count / focal distance
+    /// settings, per delays.py, along with the matching receive geometry.
+    fn generate_delays(&self) -> Result<(Vec<[u16; 8]>, BeamformSettings), String> {
+        let calib = self.calibration.ok_or("load a calibration csv first")?;
+        let width_deg = self.beam_width_deg;
+        let n = self.gen_scanlines.clamp(1, pulser::MAX_SCANLINES as u32);
+        let focus_m = self.focal_distance_mm * 1e-3;
+        let tau = if self.use_tau { calib.tau } else { [0.0; 8] };
+
+        // raw delays in seconds, pulser order, one row per scanline
+        // raw delays in clock cycles (f64, so the rounding matches numpy),
+        // pulser order, one row per scanline
+        let mut raw = vec![[0.0f64; 8]; n as usize];
+        for (i, row) in raw.iter_mut().enumerate() {
+            let theta = scanline_angle(width_deg, n, i) as f64;
+            for (ch, d) in row.iter_mut().enumerate() {
+                let seconds =
+                    transmit_delay(calib.x_el[ch] as f64, theta, focus_m as f64) + tau[ch] as f64;
+                *d = (seconds * PULSER_CLK_HZ as f64).round();
+            }
+        }
+        // shift so the earliest-firing channel of the frame fires at 0
+        let min = raw.iter().flatten().copied().fold(f64::MAX, f64::min);
+        let mut table = Vec::with_capacity(raw.len());
+        for row in &raw {
+            let mut out = [0u16; 8];
+            for (ch, d) in row.iter().enumerate() {
+                let cycles = d - min;
+                if cycles >= DELAY_NO_FIRE as f64 {
+                    return Err(format!(
+                        "delay {:.1} µs exceeds the table range",
+                        cycles / PULSER_CLK_HZ as f64 * 1e6
+                    ));
+                }
+                out[ch] = cycles as u16;
+            }
+            table.push(out);
+        }
+        let min = (min / PULSER_CLK_HZ as f64) as f32;
+
+        // receive geometry in ADC order
+        let mut x_el = [0.0f32; 8];
+        let mut tau_adc = [0.0f32; 8];
+        for adc in 0..8 {
+            x_el[adc] = calib.x_el[ADC_TO_PULSER[adc]];
+            tau_adc[adc] = tau[ADC_TO_PULSER[adc]];
+        }
+        // the shifted delays put the wavefront at the beam origin at
+        // t = -min (for a focused beam, at the focus at F/c - min)
+        let beamform = BeamformSettings {
+            x_el,
+            tau: tau_adc,
+            beam_width_deg: width_deg,
+            num_scanlines: n,
+            t0_s: -min,
+        };
+        Ok((table, beamform))
     }
 
     fn scope_settings(&self) -> ScopeSettings {
@@ -978,6 +1268,7 @@ impl App {
             x_scale: self.x_scale,
             array_source: self.array_source,
             channel_enabled: self.channel_enabled,
+            beamform: self.beamform,
         }
     }
 
@@ -1021,8 +1312,7 @@ impl App {
             Some(range) => column![
                 text(format!("ramp rate: {:.1} µs", self.ramp_rate_us)).size(14),
                 slider(range.clone(), self.ramp_rate_us, Message::RampRateChanged)
-                    .step(0.5)
-                    .on_release(Message::ApplyRampRate),
+                    .step(0.5),
             ]
             .spacing(5)
             .into(),
@@ -1037,8 +1327,7 @@ impl App {
                 self.ramp_delay_us,
                 Message::RampDelayChanged
             )
-            .step(1.0)
-            .on_release(Message::ApplyRampDelay),
+            .step(1.0),
         ]
         .spacing(5);
 
@@ -1046,19 +1335,73 @@ impl App {
         // the supply's range and current target
         let hv_setpoint = |range: &Option<RangeInclusive<f32>>,
                            setpoint: f32,
-                           on_change: fn(f32) -> Message,
-                           on_apply: Message| {
+                           on_change: fn(f32) -> Message| {
             match range {
                 Some(range) => column![
                     text(format!("setpoint: {setpoint:.1} V",)).size(14),
                     slider(range.clone(), setpoint, on_change)
-                        .step(1.0)
-                        .on_release(on_apply),
+                        .step(1.0),
                 ]
                 .spacing(5)
                 .into(),
                 None => Element::from(text("setpoint: waiting for hardware...").size(13)),
             }
+        };
+
+        let delay_controls: Element<'_, Message> = match self.delay_source {
+            DelaySource::Csv => column![
+                text("delay table csv").size(14),
+                text_input("path/to/delays.csv", &self.delay_csv_path)
+                    .on_input(Message::DelayCsvPathChanged)
+                    .on_submit(Message::LoadDelayCsv)
+                    .size(13),
+                button("load delays").on_press_maybe(connected.then_some(Message::LoadDelayCsv)),
+            ]
+            .spacing(5)
+            .into(),
+            DelaySource::Beamforming => column![
+                text(format!(
+                    "calibration csv ({})",
+                    if self.calibration.is_some() {
+                        "loaded"
+                    } else {
+                        "not found"
+                    }
+                ))
+                .size(14),
+                text_input("path/to/calibration.csv", &self.calib_csv_path)
+                    .on_input(Message::CalibCsvPathChanged)
+                    .on_submit(Message::LoadCalibCsv)
+                    .size(13),
+                toggler(self.use_tau)
+                    .label("apply channel τ offsets")
+                    .on_toggle(Message::UseTauToggled)
+                    .size(16),
+                text(format!(
+                    "beam width: {:.0}° (±{:.0}°)",
+                    self.beam_width_deg,
+                    self.beam_width_deg / 2.0
+                ))
+                .size(14),
+                slider(BEAM_WIDTH_RANGE, self.beam_width_deg, Message::BeamWidthChanged)
+                    .step(1.0),
+                text(format!("scanlines: {}", self.gen_scanlines)).size(14),
+                slider(
+                    NUM_SCANLINES_RANGE,
+                    self.gen_scanlines as f32,
+                    Message::GenScanlinesChanged
+                )
+                .step(1.0),
+                text(format!("focal distance: {:.0} mm", self.focal_distance_mm)).size(14),
+                slider(
+                    FOCAL_DISTANCE_RANGE,
+                    self.focal_distance_mm,
+                    Message::FocalDistanceChanged
+                )
+                .step(1.0),
+            ]
+            .spacing(5)
+            .into(),
         };
 
         let pulser_section = column![
@@ -1072,7 +1415,6 @@ impl App {
                 &self.hv_plus_range,
                 self.hv_plus_setpoint,
                 Message::HvPlusSetpointChanged,
-                Message::ApplyHvPlus,
             ),
             text(format!(
                 "HV− measured: {}",
@@ -1083,7 +1425,6 @@ impl App {
                 &self.hv_minus_range,
                 self.hv_minus_setpoint,
                 Message::HvMinusSetpointChanged,
-                Message::ApplyHvMinus,
             ),
             text(format!(
                 "pulse duration: {:.0} ns ({:.2} MHz)",
@@ -1096,22 +1437,26 @@ impl App {
                 self.pulse_duration_ns,
                 Message::PulseDurationChanged
             )
-            .step(25.0)
-            .on_release(Message::ApplyPulseDuration),
-            text("delay table csv").size(14),
-            text_input("path/to/delays.csv", &self.delay_csv_path)
-                .on_input(Message::DelayCsvPathChanged)
-                .on_submit(Message::LoadDelayCsv)
-                .size(13),
-            button("load delays").on_press_maybe(connected.then_some(Message::LoadDelayCsv)),
-            text(format!("scanlines per frame: {}", self.num_scanlines)).size(14),
-            slider(
-                NUM_SCANLINES_RANGE,
-                self.num_scanlines as f32,
-                Message::NumScanlinesChanged
-            )
-            .step(1.0)
-            .on_release(Message::ApplyArrayConfig),
+            .step(25.0),
+            text("delay source").size(14),
+            row![
+                radio(
+                    "csv",
+                    DelaySource::Csv,
+                    Some(self.delay_source),
+                    Message::DelaySourceSelected,
+                )
+                .size(16),
+                radio(
+                    "beamforming",
+                    DelaySource::Beamforming,
+                    Some(self.delay_source),
+                    Message::DelaySourceSelected,
+                )
+                .size(16),
+            ]
+            .spacing(10),
+            delay_controls,
             button(if self.pulsing {
                 "stop pulsing"
             } else {
@@ -1129,12 +1474,10 @@ impl App {
                 self.recv_time_us,
                 Message::RecvTimeChanged
             )
-            .step(10.0)
-            .on_release(Message::ApplyRecvTime),
+            .step(10.0),
             text(format!("idle time: {:.0} µs", self.idle_time_us)).size(14),
             slider(IDLE_TIME_RANGE, self.idle_time_us, Message::IdleTimeChanged)
-                .step(10.0)
-                .on_release(Message::ApplyArrayConfig),
+                .step(10.0),
         ]
         .spacing(5);
 
@@ -1514,6 +1857,64 @@ fn utc_timestamp() -> String {
     let y = yoe + era * 400 + i64::from(m <= 2);
 
     format!("{y:04}{m:02}{d:02}_{h:02}{min:02}{s:02}")
+}
+
+/// Parses calibration.csv: 8 rows (pulser channels 0-7) of
+/// `x_metres,tau_seconds`, as written by calibration.py.
+fn load_calibration_csv(path: &str) -> Result<Calibration, String> {
+    let path = path.trim();
+    if path.is_empty() {
+        return Err(String::from("no file path given"));
+    }
+    let content = std::fs::read_to_string(path).map_err(|e| format!("{path}: {e}"))?;
+
+    let mut calib = Calibration {
+        x_el: [0.0; 8],
+        tau: [0.0; 8],
+    };
+    let mut rows = 0;
+    for (lineno, line) in content.lines().enumerate() {
+        let line = line.trim();
+        if line.is_empty() {
+            continue;
+        }
+        let fields: Vec<&str> = line.split(',').map(str::trim).collect();
+        if rows == 0 && lineno == 0 && fields[0].parse::<f32>().is_err() {
+            continue; // header
+        }
+        if fields.len() < 2 {
+            return Err(format!("line {}: expected x,tau", lineno + 1));
+        }
+        if rows >= 8 {
+            return Err(String::from("more than 8 channel rows"));
+        }
+        let parse = |field: &str| {
+            field
+                .parse::<f32>()
+                .map_err(|_| format!("line {}: bad value {field:?}", lineno + 1))
+        };
+        calib.x_el[rows] = parse(fields[0])?;
+        calib.tau[rows] = parse(fields[1])?;
+        rows += 1;
+    }
+    if rows != 8 {
+        return Err(format!("expected 8 channel rows, got {rows}"));
+    }
+    Ok(calib)
+}
+
+/// Transmit delay (seconds, before any offset) for an element at `x`
+/// so the aperture's wavefront is steered by `theta` (radians) and
+/// focused at `focus_m` from the origin — or a plane wave when the
+/// focus is infinite. As beamforming_delays in delays.py.
+fn transmit_delay(x: f64, theta: f64, focus_m: f64) -> f64 {
+    let c = SPEED_OF_SOUND_M_S as f64;
+    if focus_m.is_infinite() {
+        x * theta.sin() / c
+    } else {
+        let u = x / focus_m;
+        focus_m / c * (1.0 - (1.0 + u * u - 2.0 * u * theta.sin()).sqrt())
+    }
 }
 
 /// Parses a per-channel delay table CSV: one row per scanline, 8
@@ -2329,87 +2730,107 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
 
             command = command_rx.next() => {
                 let Some(command) = command else { return Ok(()) };
+                let mut batch = vec![command];
+                while let Ok(command) = command_rx.try_recv() {
+                    batch.push(command);
+                }
+                for command in coalesce_commands(batch) {
+                    let status = match command {
+                        HwCommand::SetRampRate(time_us) => {
+                            // stay strictly inside the limits: set_ramp_rate
+                            // asserts 0 < r_pot < full scale
+                            let time_us = time_us.clamp(
+                                u.ramp.max_ramp_rate() + 0.1,
+                                u.ramp.min_ramp_rate() - 0.1,
+                            );
+                            u.ramp.set_ramp_rate(&mut u.interface, time_us).await?;
+                            format!("ramp rate set to {time_us:.1} µs")
+                        }
+                        HwCommand::SetHvPlus(v) => {
+                            let _ = output
+                                .send(HwEvent::Status(format!("ramping HV+ to {v:.1} V...")))
+                                .await;
+                            u.hvplus.set_target_voltage(&mut u.interface, v).await?;
+                            format!("HV+ target set to {v:.1} V")
+                        }
+                        HwCommand::SetHvMinus(v) => {
+                            let _ = output
+                                .send(HwEvent::Status(format!("ramping HV− to −{v:.1} V...")))
+                                .await;
+                            u.hvminus.set_target_voltage(&mut u.interface, v).await?;
+                            format!("HV− target set to {v:.1} V")
+                        }
+                        HwCommand::SetupPulser(config) => {
+                            setup_pulser(&mut u, config).await?;
+                            format!(
+                                "pulser set: {:.0} ns, ramp delay {:.0} µs, recv {:.0} µs",
+                                config.duration_ns, config.ramp_delay_us, config.recv_time_us
+                            )
+                        }
+                        HwCommand::InitHw => {
+                            let _ = output
+                                .send(HwEvent::Status(String::from("initializing hardware...")))
+                                .await;
 
-                let status = match command {
-                    HwCommand::SetRampRate(time_us) => {
-                        // stay strictly inside the limits: set_ramp_rate
-                        // asserts 0 < r_pot < full scale
-                        let time_us = time_us.clamp(
-                            u.ramp.max_ramp_rate() + 0.1,
-                            u.ramp.min_ramp_rate() - 0.1,
-                        );
-                        u.ramp.set_ramp_rate(&mut u.interface, time_us).await?;
-                        format!("ramp rate set to {time_us:.1} µs")
-                    }
-                    HwCommand::SetHvPlus(v) => {
-                        let _ = output
-                            .send(HwEvent::Status(format!("ramping HV+ to {v:.1} V...")))
-                            .await;
-                        u.hvplus.set_target_voltage(&mut u.interface, v).await?;
-                        format!("HV+ target set to {v:.1} V")
-                    }
-                    HwCommand::SetHvMinus(v) => {
-                        let _ = output
-                            .send(HwEvent::Status(format!("ramping HV− to −{v:.1} V...")))
-                            .await;
-                        u.hvminus.set_target_voltage(&mut u.interface, v).await?;
-                        format!("HV− target set to {v:.1} V")
-                    }
-                    HwCommand::SetupPulser(config) => {
-                        setup_pulser(&mut u, config).await?;
-                        format!(
-                            "pulser set: {:.0} ns, ramp delay {:.0} µs, recv {:.0} µs",
-                            config.duration_ns, config.ramp_delay_us, config.recv_time_us
-                        )
-                    }
-                    HwCommand::InitHw => {
-                        let _ = output
-                            .send(HwEvent::Status(String::from("initializing hardware...")))
-                            .await;
+                            u.init_hw().await?;
 
-                        u.init_hw().await?;
-
-                        String::from("hardware initialized (clk + ADC + PHY reset)")
-                    }
-                    HwCommand::StartPulses(config) => {
-                        setup_pulser(&mut u, config).await?;
-                        u.pulser.arm(&mut u.interface).await?;
-                        u.pulser.start(&mut u.interface).await?;
-                        // the pulser restarts itself after the idle time
-                        format!("pulsing started ({:.0} ns)", config.duration_ns)
-                    }
-                    HwCommand::StopPulses => {
-                        u.pulser.disarm(&mut u.interface).await?;
-                        String::from("pulsing stopped")
-                    }
-                    HwCommand::SetupArray {
-                        idle_us,
-                        num_scanlines,
-                        restart,
-                    } => {
-                        u.pulser.set_idle_time(&mut u.interface, idle_us).await?;
-                        u.pulser
-                            .set_num_scanlines(&mut u.interface, num_scanlines)
-                            .await?;
-                        if restart {
-                            // reset the FPGA line counter so SOF markers
-                            // keep firing after the count is lowered
-                            u.pulser.disarm(&mut u.interface).await?;
+                            String::from("hardware initialized (clk + ADC + PHY reset)")
+                        }
+                        HwCommand::StartPulses(config) => {
+                            setup_pulser(&mut u, config).await?;
                             u.pulser.arm(&mut u.interface).await?;
                             u.pulser.start(&mut u.interface).await?;
+                            // the pulser restarts itself after the idle time
+                            format!("pulsing started ({:.0} ns)", config.duration_ns)
                         }
-                        format!("array set: idle {idle_us:.0} µs, {num_scanlines} scanlines")
-                    }
-                    HwCommand::LoadDelays(table) => {
-                        u.pulser.write_delay_table(&mut u.interface, &table).await?;
-                        format!("delay table written ({} scanlines)", table.len())
-                    }
-                };
-                let _ = output.send(HwEvent::Status(status)).await;
+                        HwCommand::StopPulses => {
+                            u.pulser.disarm(&mut u.interface).await?;
+                            String::from("pulsing stopped")
+                        }
+                        HwCommand::SetupArray {
+                            idle_us,
+                            num_scanlines,
+                            restart,
+                        } => {
+                            u.pulser.set_idle_time(&mut u.interface, idle_us).await?;
+                            u.pulser
+                                .set_num_scanlines(&mut u.interface, num_scanlines)
+                                .await?;
+                            if restart {
+                                // reset the FPGA line counter so SOF markers
+                                // keep firing after the count is lowered
+                                u.pulser.disarm(&mut u.interface).await?;
+                                u.pulser.arm(&mut u.interface).await?;
+                                u.pulser.start(&mut u.interface).await?;
+                            }
+                            format!("array set: idle {idle_us:.0} µs, {num_scanlines} scanlines")
+                        }
+                        HwCommand::LoadDelays(table) => {
+                            u.pulser.write_delay_table(&mut u.interface, &table).await?;
+                            format!("delay table written ({} scanlines)", table.len())
+                        }
+                    };
+                    let _ = output.send(HwEvent::Status(status)).await;
+                }
             }
 
         }
     }
+}
+
+/// Keeps only the newest command of each kind (so a dragged slider's
+/// intermediate values are skipped), in the order the survivors were
+/// sent.
+fn coalesce_commands(batch: Vec<HwCommand>) -> Vec<HwCommand> {
+    let mut kept: Vec<HwCommand> = Vec::new();
+    for command in batch.into_iter().rev() {
+        let kind = std::mem::discriminant(&command);
+        if !kept.iter().any(|c| std::mem::discriminant(c) == kind) {
+            kept.push(command);
+        }
+    }
+    kept.reverse();
+    kept
 }
 
 fn hardware_data_session(
@@ -2650,13 +3071,20 @@ impl Default for ScopeState {
 }
 
 /// Builds the display trace for each scanline per the array source: one
-/// channel, or the average of the enabled channels.
+/// channel, the average of the enabled channels, or the beamformed
+/// envelope.
 fn derive_display_lines(settings: &ScopeSettings, frame: &[[Vec<f32>; 8]]) -> Vec<Vec<f32>> {
+    let mut planner = FftPlanner::<f32>::new();
     frame
         .iter()
-        .map(|line| match settings.array_source {
-            ArraySource::Channel(ch) => line[ch.min(7)].clone(),
-            ArraySource::Average => {
+        .enumerate()
+        .map(|(i, line)| match (settings.array_source, settings.beamform) {
+            (ArraySource::Channel(ch), _) => line[ch.min(7)].clone(),
+            (ArraySource::Beamformed, Some(bf)) => {
+                let theta = scanline_angle(bf.beam_width_deg, bf.num_scanlines, i);
+                beamform_scanline(line, &settings.channel_enabled, &bf, theta, &mut planner)
+            }
+            (ArraySource::Average | ArraySource::Beamformed, _) => {
                 let count = settings.channel_enabled.iter().filter(|&&e| e).count();
                 let mut out = vec![0.0f32; line[0].len()];
                 if count > 0 {
@@ -2676,6 +3104,91 @@ fn derive_display_lines(settings: &ScopeSettings, frame: &[[Vec<f32>; 8]]) -> Ve
             }
         })
         .collect()
+}
+
+/// Delay-and-sum beamforms one scanline's RF data along the direction
+/// `theta` (averaging the enabled channels) and returns its envelope. Output sample k is the point at
+/// range r_k = k · Δt · c / 2 along the beam (so the depth axis is the
+/// round-trip one the other sources use); the transmit wave reaches it
+/// at t0 + r/c and the echo reaches element j after a further
+/// |p - x_j| / c plus that channel's τ.
+fn beamform_scanline(
+    rf: &[Vec<f32>; 8],
+    enabled: &[bool; 8],
+    bf: &BeamformSettings,
+    theta: f32,
+    planner: &mut FftPlanner<f32>,
+) -> Vec<f32> {
+    let n = rf[0].len();
+    let mut out = vec![0.0f32; n];
+    if n < 2 {
+        return out;
+    }
+    let (sin_t, cos_t) = theta.sin_cos();
+    let fs = 1.0 / SAMPLE_PERIOD_S;
+    let dr = SAMPLE_PERIOD_S * SPEED_OF_SOUND_M_S / 2.0;
+    let mut summed = 0usize;
+    for j in 0..8 {
+        if !enabled[j] || rf[j].len() < n {
+            continue;
+        }
+        summed += 1;
+        let ch = &rf[j];
+        let fixed = (bf.t0_s + bf.tau[j]) * fs;
+        for (k, acc) in out.iter_mut().enumerate() {
+            let r = k as f32 * dr;
+            let px = r * sin_t - bf.x_el[j];
+            let pz = r * cos_t;
+            let d_rx = (px * px + pz * pz).sqrt();
+            let s = fixed + (r + d_rx) / SPEED_OF_SOUND_M_S * fs;
+            // linear interpolation, zero outside the record
+            if s < 0.0 || s >= (n - 1) as f32 {
+                continue;
+            }
+            let i = s as usize;
+            let frac = s - i as f32;
+            *acc += ch[i] + (ch[i + 1] - ch[i]) * frac;
+        }
+    }
+    // scale like the average source so the b-mode brightness is comparable
+    if summed > 1 {
+        let inv = 1.0 / summed as f32;
+        for v in &mut out {
+            *v *= inv;
+        }
+    }
+    envelope(&mut out, planner);
+    out
+}
+
+/// Replaces `x` with the magnitude of its analytic signal (Hilbert
+/// envelope), via the FFT.
+fn envelope(x: &mut [f32], planner: &mut FftPlanner<f32>) {
+    let n = x.len();
+    if n < 2 {
+        return;
+    }
+    let fft = planner.plan_fft_forward(n);
+    let ifft = planner.plan_fft_inverse(n);
+    let mut buf: Vec<Complex<f32>> = x.iter().map(|&v| Complex::new(v, 0.0)).collect();
+    fft.process(&mut buf);
+    // keep DC (and Nyquist for even n), double positive frequencies,
+    // zero negative ones
+    let half = n / 2;
+    for (k, v) in buf.iter_mut().enumerate() {
+        if k == 0 || (n % 2 == 0 && k == half) {
+            continue;
+        } else if k < half || (n % 2 == 1 && k == half) {
+            *v *= 2.0;
+        } else {
+            *v = Complex::new(0.0, 0.0);
+        }
+    }
+    ifft.process(&mut buf);
+    let scale = 1.0 / n as f32;
+    for (o, v) in x.iter_mut().zip(&buf) {
+        *o = v.norm() * scale;
+    }
 }
 
 impl ScopeState {
@@ -2978,5 +3491,44 @@ impl ScopeState {
         }
 
         true
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn delay_table_matches_delays_py() {
+        let calib = load_calibration_csv("calibration.csv").unwrap();
+        let app = App {
+            calibration: Some(calib),
+            beam_width_deg: 40.0,
+            gen_scanlines: 64,
+            focal_distance_mm: 30.0,
+            ..App::default()
+        };
+        let (table, bf) = app.generate_delays().unwrap();
+        assert_eq!(table.len(), 64);
+        // from delays.py with 64 lines, 20 → -20°, 30 mm focus, tau = 0
+        assert_eq!(table[0], [479, 479, 533, 577, 613, 639, 656, 662]);
+        assert_eq!(table[31], [479, 479, 475, 462, 440, 408, 368, 320]);
+        assert_eq!(table[63], [479, 479, 417, 347, 270, 187, 96, 0]);
+        assert!((bf.t0_s - 479.0 / PULSER_CLK_HZ).abs() < 1e-8);
+        assert!((scanline_angle(40.0, 64, 0) - 20f32.to_radians()).abs() < 1e-6);
+        assert!((scanline_angle(40.0, 64, 63) + 20f32.to_radians()).abs() < 1e-6);
+    }
+
+    #[test]
+    fn envelope_of_tone_is_flat() {
+        let mut planner = FftPlanner::<f32>::new();
+        let n = 1024;
+        let mut x: Vec<f32> = (0..n)
+            .map(|i| (2.0 * std::f32::consts::PI * 64.0 * i as f32 / n as f32).cos())
+            .collect();
+        envelope(&mut x, &mut planner);
+        for v in &x {
+            assert!((v - 1.0).abs() < 1e-3, "{v}");
+        }
     }
 }
