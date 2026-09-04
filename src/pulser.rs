@@ -40,7 +40,8 @@ impl Pulser {
         let half_per_cycles = period_s * CLK_RATE as f32 / 2.;
         let time_per = (half_per_cycles / 2.) as u32;
 
-        let recv_time_cycles = (recv_time_us as f32 * CLK_RATE as f32 / 1e6) as u16;
+        // the recv register is 32 bits (a u16 would saturate at 419 µs)
+        let recv_time_cycles = (recv_time_us as f32 * CLK_RATE as f32 / 1e6) as u32;
         let delay_ramp_cycles = (delay_ramp_us as f32 * CLK_RATE as f32 / 1e6) as u16;
 
         self.mem
@@ -139,9 +140,17 @@ impl Pulser {
         Ok(())
     }
 
+    /// Reads the state register. Observed encoding: bit 0 = armed,
+    /// bit 2 = running (set the whole time the pulser is free-running);
+    /// 0 when disarmed.
     pub async fn get_state(&self, interface: &mut xfcp::Interface) -> Result<u32, io::Error> {
         let buf = self.mem.read(interface, self.offset + REG_STATE, 4).await?;
         Ok(u32::from_le_bytes(buf.try_into().unwrap()))
+    }
+
+    /// Whether the pulser is free-running (armed and started).
+    pub async fn is_pulsing(&self, interface: &mut xfcp::Interface) -> Result<bool, io::Error> {
+        Ok(self.get_state(interface).await? & 0x4 != 0)
     }
 
     pub async fn arm(&self, interface: &mut xfcp::Interface) -> Result<(), io::Error> {

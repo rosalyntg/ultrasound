@@ -3,6 +3,8 @@ use std::fmt::Write as _;
 use std::io;
 use std::num::NonZero;
 use std::ops::RangeInclusive;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering::Relaxed};
 use std::sync::mpsc as std_mpsc;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use std::{env, fmt};
@@ -42,20 +44,18 @@ mod xspi;
 
 const PULSE_DURATION_RANGE: RangeInclusive<f32> = 100.0..=2000.0; // ns (full period)
 const RAMP_DELAY_RANGE: RangeInclusive<f32> = 0.0..=200.0; // µs
+const RECV_TIME_RANGE: RangeInclusive<f32> = 10.0..=2000.0; // µs per scanline
 const HOLDOFF_RANGE: RangeInclusive<f32> = 0.0..=131_072.0; // samples
 const TRIGGER_POSITION_RANGE: RangeInclusive<f32> = 0.0..=90.0; // % of window before the trigger
 const X_SCALE_EXP_RANGE: RangeInclusive<f32> = 8.0..=16.0; // samples across = 2^exp
 const Y_SCALE_RANGE: RangeInclusive<f32> = 16.0..=2048.0; // ± ADC codes
 const Y_OFFSET_RANGE: RangeInclusive<f32> = -2048.0..=2047.0; // ADC codes
 const CONTRAST_RANGE: RangeInclusive<f32> = 0.1..=10.0; // brightness gain
-const DEPTH_GAIN_RANGE: RangeInclusive<f32> = 0.0..=60.0; // dB at the far edge
 const NOTCH_FREQ_RANGE: RangeInclusive<f32> = 0.0..=25.0; // MHz, up to Nyquist
 const IDLE_TIME_RANGE: RangeInclusive<f32> = 0.0..=5000.0; // µs after recv before the next scanline
 const NUM_SCANLINES_RANGE: RangeInclusive<f32> = 1.0..=256.0;
 
 const NUM_SAMPLES_PER_PACKET: usize = 80;
-
-const PULSER_RECV_TIME_US: u32 = 1000;
 
 /// Safety cap on samples accumulated per scanline if start-of-line
 /// markers stop arriving.
@@ -64,6 +64,9 @@ const MAX_SCANLINE_SAMPLES: usize = 1 << 16;
 const ADC_SAMPLE_RATE_HZ: f32 = 50e6;
 const UDP_DECIMATION: f32 = 1.0;
 const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ;
+
+/// Standard assumed speed of sound in tissue, for the depth axis.
+const SPEED_OF_SOUND_M_S: f32 = 1540.0;
 
 const HV_POLL_PERIOD: Duration = Duration::from_secs(1);
 const RECONNECT_DELAY: Duration = Duration::from_secs(3);
@@ -100,8 +103,8 @@ struct App {
     hv_minus_setpoint: f32, // magnitude, displayed negative
     pulse_duration_ns: f32,
     ramp_delay_us: f32, // gain ramp delay after the pulse
+    recv_time_us: f32,  // receive window per scanline
     pulsing: bool,
-    adcs_enabled: bool,
 
     hv_plus_reading: Option<f32>,
     hv_minus_reading: Option<f32>,
@@ -148,15 +151,23 @@ struct App {
     /// Snapshot of the frame the scope thread is assembling, shown until
     /// the first frame completes.
     scanline_capture: Vec<Vec<f32>>,
+    /// Full per-channel data of the last completed frame, for CSV export.
+    scanline_channels: Vec<[Vec<f32>; 8]>,
+    /// Live pulsed-array frame rate, measured by the scope thread.
+    array_fps: Option<f32>,
+    /// Latest pipeline health counters, for the stats area.
+    stats: PipelineStatsSnapshot,
+    show_stats: bool,
+    show_scope: bool,
+    show_notch: bool,
     array_source: ArraySource,
     array_source_cb: combo_box::State<ArraySource>,
     idle_time_us: f32,  // wait after recv before the next scanline
     num_scanlines: u32, // scanlines per frame
     delay_csv_path: String,
     contrast: f32, // b-mode brightness gain
-    /// Extra b-mode gain at the far edge (dB), ramping exponentially
-    /// from 0 dB at the trigger point. Compensates depth attenuation.
-    depth_gain_db: f32,
+    /// What the b-mode depth axis labels show.
+    y_units: YUnits,
     plot_cache: canvas::Cache,
     bmode_cache: canvas::Cache,
 }
@@ -195,6 +206,15 @@ enum BModeMode {
     PulsedArray,
     /// One column per channel from the scope capture, for debugging.
     Raw,
+}
+
+/// What the b-mode depth axis labels show.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum YUnits {
+    /// Round-trip depth assuming SPEED_OF_SOUND_M_S.
+    Depth,
+    /// Time from the start of the line/trigger.
+    Time,
 }
 
 /// How an armed acquisition starts a capture.
@@ -240,8 +260,8 @@ impl Default for App {
             hv_minus_setpoint: 0.0,
             pulse_duration_ns: 500.0, // 2 MHz
             ramp_delay_us: 35.0,
+            recv_time_us: 1000.0,
             pulsing: false,
-            adcs_enabled: true,
             hv_plus_reading: None,
             hv_minus_reading: None,
             hv_plus_range: None,
@@ -257,7 +277,7 @@ impl Default for App {
             notch_high_mhz: 3.0,
             channel_enabled: [true; 8],
             acquisition: Acquisition::Armed { continuous: true },
-            trigger_mode: TriggerMode::Auto,
+            trigger_mode: TriggerMode::Line,
             trigger_channel: 0,
             trigger_channel_cb: combo_box::State::new((0..8).map(ChannelChoice).collect()),
             trigger_level: 0.0,
@@ -273,6 +293,12 @@ impl Default for App {
             bmode_mode: BModeMode::PulsedArray,
             scanlines: Vec::new(),
             scanline_capture: Vec::new(),
+            scanline_channels: Vec::new(),
+            array_fps: None,
+            stats: PipelineStatsSnapshot::default(),
+            show_stats: false,
+            show_scope: false,
+            show_notch: false,
             array_source: ArraySource::Average,
             array_source_cb: combo_box::State::new(
                 std::iter::once(ArraySource::Average)
@@ -283,7 +309,7 @@ impl Default for App {
             num_scanlines: 16,
             delay_csv_path: String::new(),
             contrast: 1.0,
-            depth_gain_db: 0.0,
+            y_units: YUnits::Depth,
             plot_cache: canvas::Cache::new(),
             bmode_cache: canvas::Cache::new(),
         }
@@ -302,7 +328,8 @@ enum Message {
     ApplyPulseDuration,
     RampDelayChanged(f32),
     ApplyRampDelay,
-    AdcsEnabledToggled(bool),
+    RecvTimeChanged(f32),
+    ApplyRecvTime,
     InitHw,
     PulsingToggled,
     RunToggled,
@@ -327,12 +354,15 @@ enum Message {
     DelayCsvPathChanged(String),
     LoadDelayCsv,
     ContrastChanged(f32),
-    DepthGainChanged(f32),
+    YUnitsSelected(YUnits),
     ChannelToggled(usize),
     NotchToggled(bool),
     NotchLowChanged(f32),
     NotchHighChanged(f32),
     SaveCsv,
+    StatsToggled,
+    ScopeSectionToggled,
+    NotchSectionToggled,
     Hardware(HwEvent),
     Scope(ScopeEvent),
 }
@@ -343,6 +373,9 @@ enum HwEvent {
     Connected(mpsc::Sender<HwCommand>),
     Disconnected(String),
     Status(String),
+    /// Whether the pulser is free-running, read once at connect so the
+    /// pulsing toggle starts out matching the hardware.
+    PulsingState(bool),
     HvPlusVoltage(f32),
     HvMinusVoltage(f32),
     /// Usable ramp times in µs (min = fastest ramp), reported once at
@@ -377,6 +410,36 @@ struct DataPacket {
     samples: Vec<f32>,
 }
 
+/// Counters the ingest thread increments; the scope thread snapshots
+/// them once a second for the GUI's stats area.
+#[derive(Default)]
+struct IngestStats {
+    /// UDP packets received.
+    packets: AtomicU64,
+    /// recv errors, i.e. io_uring buffer-ring exhaustion (data waits in
+    /// the socket buffer; only a loss if the socket buffer then fills).
+    recv_stalls: AtomicU64,
+    /// Packets dropped because the ingest→scope channel was full.
+    channel_drops: AtomicU64,
+}
+
+/// Cumulative pipeline health counters shown in the GUI stats area.
+#[derive(Debug, Clone, Copy, Default)]
+struct PipelineStatsSnapshot {
+    packets_per_sec: u64,
+    /// Kernel-side drops on the data socket (socket buffer full).
+    socket_drops: u64,
+    recv_stalls: u64,
+    ingest_drops: u64,
+    /// Scope→GUI events deferred because the channel was full.
+    gui_busy: u64,
+    /// Samples discarded because a scanline hit MAX_SCANLINE_SAMPLES.
+    line_overflow: u64,
+    /// Frames force-split at MAX_SCANLINES — a start-of-frame marker
+    /// went missing.
+    frame_overflow: u64,
+}
+
 /// The scope settings the processing thread needs, mirrored from the GUI.
 #[derive(Debug, Clone, Copy)]
 struct ScopeSettings {
@@ -395,7 +458,7 @@ impl Default for ScopeSettings {
         // must match App::default so the thread behaves before the GUI's
         // first sync
         Self {
-            trigger_mode: TriggerMode::Auto,
+            trigger_mode: TriggerMode::Line,
             trigger_channel: 0,
             trigger_level: 0.0,
             holdoff_samples: 0,
@@ -431,11 +494,20 @@ enum ScopeEvent {
         stopped: bool,
     },
     /// A pulsed-array frame: completed if `complete`, otherwise a
-    /// snapshot of the one being assembled.
+    /// snapshot of the one being assembled (which also means frames have
+    /// stalled, so `fps` is None).
     Scanlines {
+        /// Display traces, one per scanline, derived per the array source.
         lines: Vec<Vec<f32>>,
+        /// Full per-channel data, carried by complete frames (for CSV
+        /// export).
+        channels: Option<Vec<[Vec<f32>; 8]>>,
         complete: bool,
+        /// Live frame rate, from the spacing of start-of-frame markers.
+        fps: Option<f32>,
     },
+    /// Pipeline health counters, published once a second.
+    Stats(PipelineStatsSnapshot),
 }
 
 /// Pulser settings applied together via Pulser::setup.
@@ -443,6 +515,7 @@ enum ScopeEvent {
 struct PulserConfig {
     duration_ns: f32,
     ramp_delay_us: f32,
+    recv_time_us: f32,
 }
 
 /// Commands flowing from the GUI to the hardware task.
@@ -452,7 +525,6 @@ enum HwCommand {
     SetHvPlus(f32),   // V
     SetHvMinus(f32),  // V (magnitude)
     SetupPulser(PulserConfig),
-    SetAdcsEnabled(bool), // false holds the ADC in reset
     InitHw,
     /// Arm and start; the pulser auto-restarts itself after the idle
     /// time until stopped.
@@ -461,6 +533,10 @@ enum HwCommand {
     SetupArray {
         idle_us: f32,
         num_scanlines: u32,
+        /// Restart the pulser after applying: the FPGA's line counter
+        /// only fires start-of-frame on equality, so lowering the count
+        /// below the current counter would stop SOF markers entirely.
+        restart: bool,
     },
     /// Per-channel delays (clock cycles), one row per scanline.
     LoadDelays(Vec<[u16; 8]>),
@@ -489,9 +565,9 @@ impl App {
             Message::ApplyRampDelay => {
                 self.send(HwCommand::SetupPulser(self.pulser_config()));
             }
-            Message::AdcsEnabledToggled(enabled) => {
-                self.adcs_enabled = enabled;
-                self.send(HwCommand::SetAdcsEnabled(enabled));
+            Message::RecvTimeChanged(v) => self.recv_time_us = v,
+            Message::ApplyRecvTime => {
+                self.send(HwCommand::SetupPulser(self.pulser_config()));
             }
             Message::InitHw => {
                 self.send(HwCommand::InitHw);
@@ -599,6 +675,7 @@ impl App {
                 self.send(HwCommand::SetupArray {
                     idle_us: self.idle_time_us,
                     num_scanlines: self.num_scanlines,
+                    restart: self.pulsing,
                 });
             }
             Message::DelayCsvPathChanged(path) => self.delay_csv_path = path,
@@ -606,6 +683,13 @@ impl App {
                 Ok(table) => {
                     let n = table.len();
                     self.send(HwCommand::LoadDelays(table));
+                    // the table defines the frame: one scanline per row
+                    self.num_scanlines = n as u32;
+                    self.send(HwCommand::SetupArray {
+                        idle_us: self.idle_time_us,
+                        num_scanlines: self.num_scanlines,
+                        restart: self.pulsing,
+                    });
                     self.status = format!("loaded delay table: {n} scanlines");
                 }
                 Err(e) => self.status = format!("delay csv: {e}"),
@@ -614,8 +698,8 @@ impl App {
                 self.contrast = contrast;
                 self.bmode_cache.clear();
             }
-            Message::DepthGainChanged(gain_db) => {
-                self.depth_gain_db = gain_db;
+            Message::YUnitsSelected(units) => {
+                self.y_units = units;
                 self.bmode_cache.clear();
             }
             Message::ChannelToggled(ch) => {
@@ -648,11 +732,15 @@ impl App {
                     Err(e) => format!("csv save failed: {e}"),
                 };
             }
+            Message::StatsToggled => self.show_stats = !self.show_stats,
+            Message::ScopeSectionToggled => self.show_scope = !self.show_scope,
+            Message::NotchSectionToggled => self.show_notch = !self.show_notch,
             Message::Hardware(event) => match event {
                 HwEvent::Connected(commands) => {
                     self.hw = Some(commands);
                     self.status = String::from("connected");
                 }
+                HwEvent::PulsingState(pulsing) => self.pulsing = pulsing,
                 HwEvent::Disconnected(reason) => {
                     self.hw = None;
                     self.hv_plus_reading = None;
@@ -700,17 +788,25 @@ impl App {
                     self.plot_cache.clear();
                     self.bmode_cache.clear();
                 }
-                ScopeEvent::Scanlines { lines, complete } => {
+                ScopeEvent::Scanlines {
+                    lines,
+                    channels,
+                    complete,
+                    fps,
+                } => {
                     if complete {
                         self.scanlines = lines;
+                        self.scanline_channels = channels.unwrap_or_default();
                         self.scanline_capture.clear();
                     } else {
                         self.scanline_capture = lines;
                     }
+                    self.array_fps = fps;
                     if self.bmode_mode == BModeMode::PulsedArray {
                         self.bmode_cache.clear();
                     }
                 }
+                ScopeEvent::Stats(snapshot) => self.stats = snapshot,
             },
         }
     }
@@ -775,16 +871,26 @@ impl App {
         (traces, self.display_trigger_index)
     }
 
-    /// Writes the traces currently on screen (filtered, if the notch is
-    /// enabled) to a timestamped CSV in the working directory.
+    /// Writes the data currently on screen to a timestamped CSV in the
+    /// working directory: in the pulsed-array view, all channels of all
+    /// scanlines of the last completed frame; otherwise the shown traces
+    /// (filtered, if the notch is enabled).
     fn save_csv(&self) -> Result<String, io::Error> {
+        if self.view_tab == ViewTab::BMode && self.bmode_mode == BModeMode::PulsedArray {
+            return self.save_array_csv();
+        }
+
         let (shown, trigger_index) = self.shown();
         let rows = shown.iter().map(Vec::len).max().unwrap_or(0);
         if rows == 0 {
             return Err(io::Error::other("no data on screen"));
         }
 
-        let mut csv = String::from("time_us,chA,chB,chC,chD\n");
+        let mut csv = String::from("time_us");
+        for name in CHANNEL_NAMES {
+            let _ = write!(csv, ",ch{name}");
+        }
+        csv.push('\n');
         for i in 0..rows {
             // t = 0 at the trigger point
             let t = (i as f32 - trigger_index as f32) * SAMPLE_PERIOD_S * 1e6;
@@ -803,10 +909,51 @@ impl App {
         Ok(name)
     }
 
+    /// Writes every channel of every scanline of the last completed
+    /// pulsed-array frame, one column per (scanline, channel), with time
+    /// from the start of each line.
+    fn save_array_csv(&self) -> Result<String, io::Error> {
+        let lines = &self.scanline_channels;
+        let rows = lines
+            .iter()
+            .flat_map(|line| line.iter().map(Vec::len))
+            .max()
+            .unwrap_or(0);
+        if rows == 0 {
+            return Err(io::Error::other("no completed pulsed-array frame yet"));
+        }
+
+        let mut csv = String::from("time_us");
+        for i in 0..lines.len() {
+            for name in CHANNEL_NAMES {
+                let _ = write!(csv, ",sl{i}_ch{name}");
+            }
+        }
+        csv.push('\n');
+        for r in 0..rows {
+            let t = r as f32 * SAMPLE_PERIOD_S * 1e6;
+            let _ = write!(csv, "{t:.4}");
+            for line in lines {
+                for channel in line {
+                    csv.push(',');
+                    if let Some(v) = channel.get(r) {
+                        let _ = write!(csv, "{v}");
+                    }
+                }
+            }
+            csv.push('\n');
+        }
+
+        let name = format!("array_{}.csv", utc_timestamp());
+        std::fs::write(&name, csv)?;
+        Ok(name)
+    }
+
     fn pulser_config(&self) -> PulserConfig {
         PulserConfig {
             duration_ns: self.pulse_duration_ns,
             ramp_delay_us: self.ramp_delay_us,
+            recv_time_us: self.recv_time_us,
         }
     }
 
@@ -872,16 +1019,28 @@ impl App {
         // greyed out until the hardware task reports the usable range
         let ramp_control: Element<'_, Message> = match &self.ramp_rate_range {
             Some(range) => column![
-                text(format!("{:.1} µs", self.ramp_rate_us)).size(14),
+                text(format!("ramp rate: {:.1} µs", self.ramp_rate_us)).size(14),
                 slider(range.clone(), self.ramp_rate_us, Message::RampRateChanged)
                     .step(0.5)
                     .on_release(Message::ApplyRampRate),
             ]
             .spacing(5)
             .into(),
-            None => Element::from(text("waiting for hardware...").size(13)),
+            None => Element::from(text("ramp rate: waiting for hardware...").size(13)),
         };
-        let ramp_section = column![text("Ramp rate").size(16), ramp_control].spacing(5);
+        let vga_section = column![
+            text("VGA").size(16),
+            ramp_control,
+            text(format!("ramp delay: {:.0} µs", self.ramp_delay_us)).size(14),
+            slider(
+                RAMP_DELAY_RANGE,
+                self.ramp_delay_us,
+                Message::RampDelayChanged
+            )
+            .step(1.0)
+            .on_release(Message::ApplyRampDelay),
+        ]
+        .spacing(5);
 
         // setpoint controls are greyed out until the hardware task reports
         // the supply's range and current target
@@ -902,34 +1061,32 @@ impl App {
             }
         };
 
-        let hv_plus_section = column![
-            text("HV+").size(16),
-            text(format!("measured: {}", fmt_voltage(self.hv_plus_reading))).size(14),
+        let pulser_section = column![
+            text("Pulser").size(16),
+            text(format!(
+                "HV+ measured: {}",
+                fmt_voltage(self.hv_plus_reading)
+            ))
+            .size(14),
             hv_setpoint(
                 &self.hv_plus_range,
                 self.hv_plus_setpoint,
                 Message::HvPlusSetpointChanged,
                 Message::ApplyHvPlus,
             ),
-        ]
-        .spacing(5);
-
-        let hv_minus_section = column![
-            text("HV−").size(16),
-            text(format!("measured: {}", fmt_voltage(self.hv_minus_reading))).size(14),
+            text(format!(
+                "HV− measured: {}",
+                fmt_voltage(self.hv_minus_reading)
+            ))
+            .size(14),
             hv_setpoint(
                 &self.hv_minus_range,
                 self.hv_minus_setpoint,
                 Message::HvMinusSetpointChanged,
                 Message::ApplyHvMinus,
             ),
-        ]
-        .spacing(5);
-
-        let pulse_section = column![
-            text("Pulse duration").size(16),
             text(format!(
-                "{:.0} ns ({:.2} MHz)",
+                "pulse duration: {:.0} ns ({:.2} MHz)",
                 self.pulse_duration_ns,
                 1000.0 / self.pulse_duration_ns
             ))
@@ -941,14 +1098,20 @@ impl App {
             )
             .step(25.0)
             .on_release(Message::ApplyPulseDuration),
-            text(format!("ramp delay: {:.0} µs", self.ramp_delay_us)).size(14),
+            text("delay table csv").size(14),
+            text_input("path/to/delays.csv", &self.delay_csv_path)
+                .on_input(Message::DelayCsvPathChanged)
+                .on_submit(Message::LoadDelayCsv)
+                .size(13),
+            button("load delays").on_press_maybe(connected.then_some(Message::LoadDelayCsv)),
+            text(format!("scanlines per frame: {}", self.num_scanlines)).size(14),
             slider(
-                RAMP_DELAY_RANGE,
-                self.ramp_delay_us,
-                Message::RampDelayChanged
+                NUM_SCANLINES_RANGE,
+                self.num_scanlines as f32,
+                Message::NumScanlinesChanged
             )
             .step(1.0)
-            .on_release(Message::ApplyRampDelay),
+            .on_release(Message::ApplyArrayConfig),
             button(if self.pulsing {
                 "stop pulsing"
             } else {
@@ -958,9 +1121,25 @@ impl App {
         ]
         .spacing(5);
 
+        let scan_section = column![
+            text("Scan settings").size(16),
+            text(format!("recv time: {:.0} µs", self.recv_time_us)).size(14),
+            slider(
+                RECV_TIME_RANGE,
+                self.recv_time_us,
+                Message::RecvTimeChanged
+            )
+            .step(10.0)
+            .on_release(Message::ApplyRecvTime),
+            text(format!("idle time: {:.0} µs", self.idle_time_us)).size(14),
+            slider(IDLE_TIME_RANGE, self.idle_time_us, Message::IdleTimeChanged)
+                .step(10.0)
+                .on_release(Message::ApplyArrayConfig),
+        ]
+        .spacing(5);
+
         let running = !matches!(self.acquisition, Acquisition::Stopped);
-        let scope_section = column![
-            text("Scope").size(16),
+        let scope_contents = column![
             row![
                 button(if running { "stop" } else { "run" }).on_press(Message::RunToggled),
                 button("single").on_press(Message::SingleShot),
@@ -1057,23 +1236,7 @@ impl App {
                 Message::HoldoffChanged
             )
             .step(1024.0),
-        ]
-        .spacing(5);
-
-        let adc_section = column![
-            text("ADCs").size(16),
-            toggler(self.adcs_enabled)
-                .label(if self.adcs_enabled {
-                    "enabled"
-                } else {
-                    "disabled (in reset)"
-                })
-                .on_toggle(Message::AdcsEnabledToggled),
-        ]
-        .spacing(5);
-
-        let x_scale_section = column![
-            text("X scale").size(16),
+            text("X scale").size(14),
             text(format!(
                 "{} samples ({})",
                 self.x_scale,
@@ -1086,11 +1249,7 @@ impl App {
                 Message::XScaleChanged
             )
             .step(1.0),
-        ]
-        .spacing(5);
-
-        let y_axis_section = column![
-            text("Y axis").size(16),
+            text("Y axis").size(14),
             text(if self.y_auto {
                 String::from("auto")
             } else {
@@ -1105,8 +1264,25 @@ impl App {
         ]
         .spacing(5);
 
-        let notch_section = column![
-            text("Notch filter").size(16),
+        let mut scope_section = column![
+            button(
+                text(if self.show_scope {
+                    "Scope ▾"
+                } else {
+                    "Scope ▸"
+                })
+                .size(16)
+            )
+            .style(button::text)
+            .padding(0)
+            .on_press(Message::ScopeSectionToggled),
+        ]
+        .spacing(5);
+        if self.show_scope {
+            scope_section = scope_section.push(scope_contents);
+        }
+
+        let notch_contents = column![
             text("applied to displayed data only").size(12),
             toggler(self.notch_enabled)
                 .label(if self.notch_enabled {
@@ -1132,28 +1308,23 @@ impl App {
         ]
         .spacing(5);
 
-        let array_section = column![
-            text("Pulsed array").size(16),
-            text(format!("idle time: {:.0} µs", self.idle_time_us)).size(14),
-            slider(IDLE_TIME_RANGE, self.idle_time_us, Message::IdleTimeChanged)
-                .step(10.0)
-                .on_release(Message::ApplyArrayConfig),
-            text(format!("scanlines per frame: {}", self.num_scanlines)).size(14),
-            slider(
-                NUM_SCANLINES_RANGE,
-                self.num_scanlines as f32,
-                Message::NumScanlinesChanged
+        let mut notch_section = column![
+            button(
+                text(if self.show_notch {
+                    "Notch filter ▾"
+                } else {
+                    "Notch filter ▸"
+                })
+                .size(16)
             )
-            .step(1.0)
-            .on_release(Message::ApplyArrayConfig),
-            text("delay table csv").size(14),
-            text_input("path/to/delays.csv", &self.delay_csv_path)
-                .on_input(Message::DelayCsvPathChanged)
-                .on_submit(Message::LoadDelayCsv)
-                .size(13),
-            button("load delays").on_press_maybe(connected.then_some(Message::LoadDelayCsv)),
+            .style(button::text)
+            .padding(0)
+            .on_press(Message::NotchSectionToggled),
         ]
         .spacing(5);
+        if self.show_notch {
+            notch_section = notch_section.push(notch_contents);
+        }
 
         let bmode_section = column![
             text("B-mode").size(16),
@@ -1183,31 +1354,66 @@ impl App {
             ),
             text(format!("contrast: {:.1}×", self.contrast)).size(14),
             slider(CONTRAST_RANGE, self.contrast, Message::ContrastChanged).step(0.1),
-            text(format!("depth gain: {:.0} dB", self.depth_gain_db)).size(14),
-            slider(
-                DEPTH_GAIN_RANGE,
-                self.depth_gain_db,
-                Message::DepthGainChanged
-            )
-            .step(1.0),
+            text("y units").size(14),
+            row![
+                radio(
+                    "depth",
+                    YUnits::Depth,
+                    Some(self.y_units),
+                    Message::YUnitsSelected,
+                )
+                .size(16),
+                radio(
+                    "time",
+                    YUnits::Time,
+                    Some(self.y_units),
+                    Message::YUnitsSelected,
+                )
+                .size(16),
+            ]
+            .spacing(10),
         ]
         .spacing(5);
+
+        let mut stats_section = column![
+            button(
+                text(if self.show_stats {
+                    "Stats ▾"
+                } else {
+                    "Stats ▸"
+                })
+                .size(16)
+            )
+            .style(button::text)
+            .padding(0)
+            .on_press(Message::StatsToggled),
+        ]
+        .spacing(5);
+        if self.show_stats {
+            let s = &self.stats;
+            let line = |label: &str, value: u64| text(format!("{label}: {value}")).size(13);
+            stats_section = stats_section
+                .push(line("scanlines", self.shown_scanlines().len() as u64))
+                .push(line("packets/s", s.packets_per_sec))
+                .push(line("udp socket drops", s.socket_drops))
+                .push(line("recv buffer stalls", s.recv_stalls))
+                .push(line("ingest→scope drops", s.ingest_drops))
+                .push(line("scope→gui deferrals", s.gui_busy))
+                .push(line("scanline overflow (samples)", s.line_overflow))
+                .push(line("frame splits (missed sof)", s.frame_overflow));
+        }
 
         let sidebar = container(scrollable(
             column![
                 text("Ultrasound").size(24),
                 status_section,
-                ramp_section,
-                hv_plus_section,
-                hv_minus_section,
-                pulse_section,
-                array_section,
+                vga_section,
+                pulser_section,
+                scan_section,
                 scope_section,
-                adc_section,
-                x_scale_section,
-                y_axis_section,
                 notch_section,
                 bmode_section,
+                stats_section,
             ]
             .spacing(20)
             .padding(15),
@@ -1255,8 +1461,9 @@ impl App {
             ViewTab::BMode => match self.bmode_mode {
                 BModeMode::PulsedArray => canvas(ArrayPlot {
                     scanlines: self.shown_scanlines(),
+                    fps: self.array_fps,
                     contrast: self.contrast,
-                    depth_gain_db: self.depth_gain_db,
+                    y_units: self.y_units,
                     cache: &self.bmode_cache,
                 })
                 .width(Fill)
@@ -1268,7 +1475,7 @@ impl App {
                     x_scale: self.x_scale,
                     trigger_index: shown_trigger_index,
                     contrast: self.contrast,
-                    depth_gain_db: self.depth_gain_db,
+                    y_units: self.y_units,
                     cache: &self.bmode_cache,
                 })
                 .width(Fill)
@@ -1376,6 +1583,58 @@ fn fmt_samples_as_time(samples: usize) -> String {
     } else {
         format!("{:.0} ns", seconds * 1e9)
     }
+}
+
+/// B-mode depth-axis ticks: positions as a fraction of the displayed
+/// span, with labels in the selected units (round-trip depth assumes
+/// SPEED_OF_SOUND_M_S). The step is the smallest of 1/2/2.5/4/5/8×10ⁿ
+/// in the display unit that keeps the count at or under 15, which
+/// lands at 10-15 ticks for most spans.
+fn y_axis_ticks(span_samples: usize, units: YUnits) -> Vec<(f32, String)> {
+    let span_s = span_samples as f32 * SAMPLE_PERIOD_S;
+    let (total, unit) = match units {
+        YUnits::Time => {
+            if span_s >= 1e-3 {
+                (span_s * 1e3, "ms")
+            } else if span_s >= 1e-6 {
+                (span_s * 1e6, "µs")
+            } else {
+                (span_s * 1e9, "ns")
+            }
+        }
+        YUnits::Depth => {
+            let meters = span_s * SPEED_OF_SOUND_M_S / 2.0;
+            if meters >= 0.1 {
+                (meters * 1e2, "cm")
+            } else {
+                (meters * 1e3, "mm")
+            }
+        }
+    };
+    if total <= 0.0 {
+        return Vec::new();
+    }
+
+    const NICE_STEPS: [f32; 6] = [1.0, 2.0, 2.5, 4.0, 5.0, 8.0];
+    let step = (-9..9)
+        .flat_map(|exp| NICE_STEPS.iter().map(move |m| m * 10.0f32.powi(exp)))
+        .find(|s| (total / s) as usize <= 14)
+        .unwrap_or(total);
+
+    // decimals needed to print multiples of the step exactly
+    let decimals = (0..=3)
+        .find(|d| {
+            let scaled = step * 10.0f32.powi(*d);
+            (scaled - scaled.round()).abs() < 1e-3 * scaled
+        })
+        .unwrap_or(3) as usize;
+
+    (0..=(total / step) as usize)
+        .map(|i| {
+            let v = i as f32 * step;
+            (v / total, format!("{v:.decimals$} {unit}"))
+        })
+        .collect()
 }
 
 struct Plot<'a> {
@@ -1689,8 +1948,7 @@ struct BModePlot<'a> {
     x_scale: usize,
     trigger_index: usize,
     contrast: f32,
-    /// Extra gain at the bottom edge (dB), exponential ramp from the top.
-    depth_gain_db: f32,
+    y_units: YUnits,
     cache: &'a canvas::Cache,
 }
 
@@ -1778,13 +2036,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                         .iter()
                         .fold(0.0f32, |max, &v| max.max(v.abs()));
 
-                    // time-gain compensation: exponential gain ramp with
-                    // depth, 0 dB at the trigger up to depth_gain_db at
-                    // the bottom edge
-                    let depth = row as f32 / rows as f32;
-                    let depth_gain = 10.0f32.powf(self.depth_gain_db * depth / 20.0);
-
-                    let brightness = (peak / 2048.0 * self.contrast * depth_gain).clamp(0.0, 1.0);
+                    let brightness = (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
                     if brightness < 1.0 / 512.0 {
                         continue;
                     }
@@ -1816,12 +2068,16 @@ impl canvas::Program<Message> for BModePlot<'_> {
                 align_y: alignment::Vertical::Center,
                 ..canvas::Text::default()
             };
-            frame.fill_text(label(String::from("0"), area.y));
-            frame.fill_text(label(
-                fmt_samples_as_time(span / 2),
-                area.y + area.height / 2.0,
-            ));
-            frame.fill_text(label(fmt_samples_as_time(span), area.y + area.height));
+            for (frac, content) in y_axis_ticks(span, self.y_units) {
+                let y = area.y + frac * area.height;
+                frame.fill_text(label(content, y));
+                frame.stroke(
+                    &canvas::Path::line(Point::new(area.x - 4.0, y), Point::new(area.x, y)),
+                    canvas::Stroke::default()
+                        .with_color(palette.background.strong.color)
+                        .with_width(1.0),
+                );
+            }
         });
 
         vec![geometry]
@@ -1832,9 +2088,10 @@ impl canvas::Program<Message> for BModePlot<'_> {
 /// beamformed amplitude as brightness vs depth (top = start of line).
 struct ArrayPlot<'a> {
     scanlines: &'a [Vec<f32>],
+    /// Live frame rate, if frames are completing.
+    fps: Option<f32>,
     contrast: f32,
-    /// Extra gain at the bottom edge (dB), exponential ramp from the top.
-    depth_gain_db: f32,
+    y_units: YUnits,
     cache: &'a canvas::Cache,
 }
 
@@ -1906,12 +2163,7 @@ impl canvas::Program<Message> for ArrayPlot<'_> {
                             .iter()
                             .fold(0.0f32, |max, &v| max.max(v.abs()));
 
-                        // time-gain compensation, as in the raw view
-                        let depth = row as f32 / rows as f32;
-                        let depth_gain = 10.0f32.powf(self.depth_gain_db * depth / 20.0);
-
-                        let brightness =
-                            (peak / 2048.0 * self.contrast * depth_gain).clamp(0.0, 1.0);
+                        let brightness = (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
                         (brightness * 255.0).round() as u32
                     } else {
                         u32::MAX // flush the last run
@@ -1932,9 +2184,13 @@ impl canvas::Program<Message> for ArrayPlot<'_> {
                 }
             }
 
-            // scanline count, top-left
+            // live frame rate, top-left (scanline count lives in the
+            // sidebar stats area)
             frame.fill_text(canvas::Text {
-                content: format!("{} scanlines", self.scanlines.len()),
+                content: match self.fps {
+                    Some(fps) => format!("{fps:.1} fps"),
+                    None => String::new(),
+                },
                 position: Point::new(area.x + 5.0, area.y + 5.0),
                 color: palette.background.strong.color,
                 size: 12.0.into(),
@@ -1951,12 +2207,16 @@ impl canvas::Program<Message> for ArrayPlot<'_> {
                 align_y: alignment::Vertical::Center,
                 ..canvas::Text::default()
             };
-            frame.fill_text(label(String::from("0"), area.y));
-            frame.fill_text(label(
-                fmt_samples_as_time(span / 2),
-                area.y + area.height / 2.0,
-            ));
-            frame.fill_text(label(fmt_samples_as_time(span), area.y + area.height));
+            for (frac, content) in y_axis_ticks(span, self.y_units) {
+                let y = area.y + frac * area.height;
+                frame.fill_text(label(content, y));
+                frame.stroke(
+                    &canvas::Path::line(Point::new(area.x - 4.0, y), Point::new(area.x, y)),
+                    canvas::Stroke::default()
+                        .with_color(palette.background.strong.color)
+                        .with_width(1.0),
+                );
+            }
         });
 
         vec![geometry]
@@ -1969,7 +2229,7 @@ async fn setup_pulser(u: &mut Ultrasound, config: PulserConfig) -> Result<(), io
         .setup(
             &mut u.interface,
             frequency_mhz,
-            PULSER_RECV_TIME_US,
+            config.recv_time_us as u32,
             config.ramp_delay_us as u32,
         )
         .await
@@ -1991,21 +2251,24 @@ fn hardware_ctrl_worker() -> impl Stream<Item = HwEvent> {
 
 fn hardware_data_worker() -> impl Stream<Item = ScopeEvent> {
     let (mut gui_tx, gui_rx) = mpsc::channel(256);
-    // deep enough to ride out scheduling hiccups on the scope thread
-    // (~30 ms of packets at full stream rate)
-    let (packet_tx, packet_rx) = std_mpsc::sync_channel(16384);
+    // deep enough to ride out the scope thread's cold start and
+    // scheduling hiccups (~128 ms of packets at full stream rate);
+    // near-empty at steady state
+    let (packet_tx, packet_rx) = std_mpsc::sync_channel(65536);
     let (command_tx, command_rx) = std_mpsc::channel();
 
     let _ = gui_tx.try_send(ScopeEvent::Ready(command_tx));
 
+    let stats = Arc::new(IngestStats::default());
+    let ingest_stats = Arc::clone(&stats);
     let _ = std::thread::Builder::new().name(String::from("ingest")).spawn(move || {
-        if let Err(e) = hardware_data_session(packet_tx) {
+        if let Err(e) = hardware_data_session(packet_tx, ingest_stats) {
             println!("data session closed: {e}");
         }
     });
     let _ = std::thread::Builder::new()
         .name(String::from("scope"))
-        .spawn(move || scope_session(packet_rx, command_rx, gui_tx));
+        .spawn(move || scope_session(packet_rx, command_rx, gui_tx, stats));
 
     gui_rx
 }
@@ -2047,6 +2310,10 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
             max_us: u.ramp.min_ramp_rate(),
         })
         .await;
+
+    // seed the pulsing toggle with the hardware's actual state
+    let pulsing = u.pulser.is_pulsing(&mut u.interface).await?;
+    let _ = output.send(HwEvent::PulsingState(pulsing)).await;
 
     let mut poll = tokio::time::interval(HV_POLL_PERIOD);
 
@@ -2091,19 +2358,9 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
                     HwCommand::SetupPulser(config) => {
                         setup_pulser(&mut u, config).await?;
                         format!(
-                            "pulser set: {:.0} ns, ramp delay {:.0} µs",
-                            config.duration_ns, config.ramp_delay_us
+                            "pulser set: {:.0} ns, ramp delay {:.0} µs, recv {:.0} µs",
+                            config.duration_ns, config.ramp_delay_us, config.recv_time_us
                         )
-                    }
-                    HwCommand::SetAdcsEnabled(enabled) => {
-                        // if enabled {
-                        //     u.adc_reset.clear(&mut u.interface).await?;
-                        //     String::from("ADCs enabled (reset released, may need re-init)")
-                        // } else {
-                        //     u.adc_reset.set(&mut u.interface).await?;
-                        //     String::from("ADCs held in reset")
-                        // }
-                        "ADCs enabled/disabled not implemented".to_string()
                     }
                     HwCommand::InitHw => {
                         let _ = output
@@ -2125,11 +2382,22 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
                         u.pulser.disarm(&mut u.interface).await?;
                         String::from("pulsing stopped")
                     }
-                    HwCommand::SetupArray { idle_us, num_scanlines } => {
+                    HwCommand::SetupArray {
+                        idle_us,
+                        num_scanlines,
+                        restart,
+                    } => {
                         u.pulser.set_idle_time(&mut u.interface, idle_us).await?;
                         u.pulser
                             .set_num_scanlines(&mut u.interface, num_scanlines)
                             .await?;
+                        if restart {
+                            // reset the FPGA line counter so SOF markers
+                            // keep firing after the count is lowered
+                            u.pulser.disarm(&mut u.interface).await?;
+                            u.pulser.arm(&mut u.interface).await?;
+                            u.pulser.start(&mut u.interface).await?;
+                        }
                         format!("array set: idle {idle_us:.0} µs, {num_scanlines} scanlines")
                     }
                     HwCommand::LoadDelays(table) => {
@@ -2144,7 +2412,10 @@ async fn hardware_ctrl_session(output: &mut mpsc::Sender<HwEvent>) -> Result<(),
     }
 }
 
-fn hardware_data_session(output: std_mpsc::SyncSender<DataPacket>) -> Result<(), io::Error> {
+fn hardware_data_session(
+    output: std_mpsc::SyncSender<DataPacket>,
+    stats: Arc<IngestStats>,
+) -> Result<(), io::Error> {
     let mut pb = ProactorBuilder::new();
     // each packet consumes one pool buffer regardless of its size, so
     // size the buffers to the packet (~1.3 KB) and provide ~60 ms worth
@@ -2176,6 +2447,7 @@ fn hardware_data_session(output: std_mpsc::SyncSender<DataPacket>) -> Result<(),
                     Ok(result) => result,
                     Err(e) => {
                         recv_errors += 1;
+                        stats.recv_stalls.fetch_add(1, Relaxed);
                         if last_drop_report.elapsed() >= Duration::from_secs(1) {
                             println!("Error receiving data ({recv_errors}x): {e}");
                             recv_errors = 0;
@@ -2184,6 +2456,7 @@ fn hardware_data_session(output: std_mpsc::SyncSender<DataPacket>) -> Result<(),
                         continue;
                     }
                 };
+                stats.packets.fetch_add(1, Relaxed);
 
                 let (sof, sol, payload) = if result.len() > NUM_SAMPLES_PER_PACKET * 16 {
                     // 16-bit little-endian header, then the sample payload
@@ -2216,7 +2489,10 @@ fn hardware_data_session(output: std_mpsc::SyncSender<DataPacket>) -> Result<(),
                     samples,
                 }) {
                     Ok(()) => (),
-                    Err(std_mpsc::TrySendError::Full(_)) => dropped += 1,
+                    Err(std_mpsc::TrySendError::Full(_)) => {
+                        dropped += 1;
+                        stats.channel_drops.fetch_add(1, Relaxed);
+                    }
                     Err(std_mpsc::TrySendError::Disconnected(_)) => {
                         return Ok::<_, io::Error>(());
                     }
@@ -2240,21 +2516,68 @@ fn scope_session(
     packets: std_mpsc::Receiver<DataPacket>,
     commands: std_mpsc::Receiver<ScopeCommand>,
     mut output: mpsc::Sender<ScopeEvent>,
+    stats: Arc<IngestStats>,
 ) {
     let mut scope = ScopeState::default();
-    while let Ok(first) = packets.recv() {
-        for command in commands.try_iter() {
-            scope.apply(command);
-        }
-        scope.process(&first);
-        // drain whatever else is already queued before publishing
-        for packet in packets.try_iter().take(512) {
-            scope.process(&packet);
+    let mut last_stats = Instant::now();
+    let mut last_packets = 0u64;
+    loop {
+        // a timeout keeps stats and pending publishes flowing even when
+        // the stream stalls
+        match packets.recv_timeout(Duration::from_millis(250)) {
+            Ok(first) => {
+                for command in commands.try_iter() {
+                    scope.apply(command);
+                }
+                scope.process(&first);
+                // drain whatever else is already queued before publishing
+                for packet in packets.try_iter().take(512) {
+                    scope.process(&packet);
+                }
+            }
+            Err(std_mpsc::RecvTimeoutError::Timeout) => {
+                for command in commands.try_iter() {
+                    scope.apply(command);
+                }
+            }
+            Err(std_mpsc::RecvTimeoutError::Disconnected) => return,
         }
         if !scope.publish(&mut output) {
             return; // GUI is gone
         }
+
+        let elapsed = last_stats.elapsed();
+        if elapsed >= Duration::from_secs(1) {
+            let packets_total = stats.packets.load(Relaxed);
+            let snapshot = PipelineStatsSnapshot {
+                packets_per_sec: ((packets_total - last_packets) as f32
+                    / elapsed.as_secs_f32()) as u64,
+                socket_drops: read_socket_drops().unwrap_or(0),
+                recv_stalls: stats.recv_stalls.load(Relaxed),
+                ingest_drops: stats.channel_drops.load(Relaxed),
+                gui_busy: scope.gui_busy,
+                line_overflow: scope.line_overflow,
+                frame_overflow: scope.frame_overflow,
+            };
+            let _ = output.try_send(ScopeEvent::Stats(snapshot));
+            last_packets = packets_total;
+            last_stats = Instant::now();
+        }
     }
+}
+
+/// Kernel drop counter for the data socket, from /proc/net/udp (the
+/// last column of the row whose local address ends with our port).
+fn read_socket_drops() -> Option<u64> {
+    let table = std::fs::read_to_string("/proc/net/udp").ok()?;
+    let port_suffix = format!(":{:04X}", ultrasound::ULTRASOUND_DATA_PORT);
+    for line in table.lines().skip(1) {
+        let mut fields = line.split_whitespace();
+        if fields.nth(1).is_some_and(|local| local.ends_with(&port_suffix)) {
+            return fields.next_back()?.parse().ok();
+        }
+    }
+    None
 }
 
 struct ScopeState {
@@ -2278,12 +2601,22 @@ struct ScopeState {
     /// Global frame index of the last trigger, for holdoff.
     last_trigger: Option<u64>,
     /// Pulsed-array frame currently being assembled from the
-    /// start-of-frame / start-of-line packet markers.
-    scanline_capture: Vec<Vec<f32>>,
+    /// start-of-frame / start-of-line packet markers, all channels kept
+    /// per line so complete frames can be exported.
+    scanline_capture: Vec<[Vec<f32>; 8]>,
     /// Completed frame awaiting a (throttled) publish.
-    pending_frame: Option<Vec<Vec<f32>>>,
+    pending_frame: Option<Vec<[Vec<f32>; 8]>>,
     scanline_dirty: bool,
-    avg_scratch: Vec<f32>,
+    /// When the last start-of-frame marker arrived, for the FPS estimate.
+    last_sof: Option<Instant>,
+    /// Smoothed frame interval in seconds.
+    frame_interval_ema: Option<f32>,
+    /// Scope→GUI events deferred because the channel was full.
+    gui_busy: u64,
+    /// Samples discarded because a scanline hit MAX_SCANLINE_SAMPLES.
+    line_overflow: u64,
+    /// Frames force-split at MAX_SCANLINES (a missing start-of-frame).
+    frame_overflow: u64,
     last_capture_publish: Option<Instant>,
     last_frame_publish: Option<Instant>,
     last_progress_publish: Option<Instant>,
@@ -2304,12 +2637,45 @@ impl Default for ScopeState {
             scanline_capture: Vec::new(),
             pending_frame: None,
             scanline_dirty: false,
-            avg_scratch: Vec::new(),
+            last_sof: None,
+            frame_interval_ema: None,
+            gui_busy: 0,
+            line_overflow: 0,
+            frame_overflow: 0,
             last_capture_publish: None,
             last_frame_publish: None,
             last_progress_publish: None,
         }
     }
+}
+
+/// Builds the display trace for each scanline per the array source: one
+/// channel, or the average of the enabled channels.
+fn derive_display_lines(settings: &ScopeSettings, frame: &[[Vec<f32>; 8]]) -> Vec<Vec<f32>> {
+    frame
+        .iter()
+        .map(|line| match settings.array_source {
+            ArraySource::Channel(ch) => line[ch.min(7)].clone(),
+            ArraySource::Average => {
+                let count = settings.channel_enabled.iter().filter(|&&e| e).count();
+                let mut out = vec![0.0f32; line[0].len()];
+                if count > 0 {
+                    for ch in 0..8 {
+                        if settings.channel_enabled[ch] {
+                            for (acc, &s) in out.iter_mut().zip(&line[ch]) {
+                                *acc += s;
+                            }
+                        }
+                    }
+                    let inv = 1.0 / count as f32;
+                    for v in &mut out {
+                        *v *= inv;
+                    }
+                }
+                out
+            }
+        })
+        .collect()
 }
 
 impl ScopeState {
@@ -2351,39 +2717,43 @@ impl ScopeState {
 
         // pulsed-array assembly, driven by the packet markers and
         // independent of the scope's software trigger
-        if packet.start_of_frame && !self.scanline_capture.is_empty() {
-            self.pending_frame = Some(std::mem::take(&mut self.scanline_capture));
-            self.scanline_dirty = false;
+        if packet.start_of_frame {
+            let now = Instant::now();
+            if let Some(prev) = self.last_sof.replace(now) {
+                let dt = now.duration_since(prev).as_secs_f32();
+                if dt > 2.0 {
+                    // frames stalled; restart the estimate
+                    self.frame_interval_ema = None;
+                } else {
+                    self.frame_interval_ema = Some(match self.frame_interval_ema {
+                        Some(ema) => ema + (dt - ema) * 0.2,
+                        None => dt,
+                    });
+                }
+            }
+            if !self.scanline_capture.is_empty() {
+                self.pending_frame = Some(std::mem::take(&mut self.scanline_capture));
+                self.scanline_dirty = false;
+            }
         }
-        if (packet.start_of_frame || packet.start_of_line)
-            && self.scanline_capture.len() < pulser::MAX_SCANLINES
-        {
-            self.scanline_capture.push(Vec::new());
+        if packet.start_of_frame || packet.start_of_line {
+            if self.scanline_capture.len() >= pulser::MAX_SCANLINES {
+                // a start-of-frame marker must have gone missing: split
+                // here so the frame stays usable instead of the excess
+                // piling into (and overflowing) the last line
+                self.pending_frame = Some(std::mem::take(&mut self.scanline_capture));
+                self.frame_overflow += 1;
+            }
+            self.scanline_capture.push(Default::default());
         }
         // samples arriving before the first start-of-line (a mid-line
         // join) are dropped
         if let Some(line) = self.scanline_capture.last_mut() {
-            let take = n.min(MAX_SCANLINE_SAMPLES - line.len());
+            let take = n.min(MAX_SCANLINE_SAMPLES - line[0].len());
+            self.line_overflow += (n - take) as u64;
             if take > 0 {
-                match self.settings.array_source {
-                    ArraySource::Channel(ch) => line.extend_from_slice(&chan(ch)[..take]),
-                    ArraySource::Average => {
-                        let enabled = self.settings.channel_enabled;
-                        let count = enabled.iter().filter(|&&e| e).count();
-                        if count > 0 {
-                            self.avg_scratch.clear();
-                            self.avg_scratch.resize(take, 0.0);
-                            for ch in 0..8 {
-                                if enabled[ch] {
-                                    for (acc, &s) in self.avg_scratch.iter_mut().zip(chan(ch)) {
-                                        *acc += s;
-                                    }
-                                }
-                            }
-                            let inv = 1.0 / count as f32;
-                            line.extend(self.avg_scratch.iter().map(|&s| s * inv));
-                        }
-                    }
+                for ch in 0..8 {
+                    line[ch].extend_from_slice(&chan(ch)[..take]);
                 }
                 self.scanline_dirty = true;
             }
@@ -2544,6 +2914,7 @@ impl ScopeState {
                         return false;
                     }
                     // channel full: retry next round
+                    self.gui_busy += 1;
                     if let ScopeEvent::Capture {
                         traces,
                         trigger_index,
@@ -2557,18 +2928,25 @@ impl ScopeState {
         }
 
         if self.pending_frame.is_some() && due(self.last_frame_publish, FRAME_PUBLISH_PERIOD) {
-            let lines = self.pending_frame.take().unwrap();
+            let channels = self.pending_frame.take().unwrap();
             match output.try_send(ScopeEvent::Scanlines {
-                lines,
+                lines: derive_display_lines(&self.settings, &channels),
+                channels: Some(channels),
                 complete: true,
+                fps: self.frame_interval_ema.map(|interval| 1.0 / interval),
             }) {
                 Ok(()) => self.last_frame_publish = Some(Instant::now()),
                 Err(e) => {
                     if e.is_disconnected() {
                         return false;
                     }
-                    if let ScopeEvent::Scanlines { lines, .. } = e.into_inner() {
-                        self.pending_frame = Some(lines);
+                    self.gui_busy += 1;
+                    if let ScopeEvent::Scanlines {
+                        channels: Some(channels),
+                        ..
+                    } = e.into_inner()
+                    {
+                        self.pending_frame = Some(channels);
                     }
                 }
             }
@@ -2581,9 +2959,13 @@ impl ScopeState {
             && due(self.last_frame_publish, Duration::from_secs(2))
             && due(self.last_progress_publish, PROGRESS_PUBLISH_PERIOD)
         {
+            // progress snapshots only fire when no frame has completed
+            // for 2 s, so the frame rate is stale by definition
             let event = ScopeEvent::Scanlines {
-                lines: self.scanline_capture.clone(),
+                lines: derive_display_lines(&self.settings, &self.scanline_capture),
+                channels: None,
                 complete: false,
+                fps: None,
             };
             match output.try_send(event) {
                 Ok(()) => {
@@ -2591,7 +2973,7 @@ impl ScopeState {
                     self.scanline_dirty = false;
                 }
                 Err(e) if e.is_disconnected() => return false,
-                Err(_) => (),
+                Err(_) => self.gui_busy += 1,
             }
         }
 
