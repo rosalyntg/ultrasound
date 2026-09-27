@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ultrasound")(type "KiCad")(uri "${KIPRJMOD}/../library/ultrasound.kicad_sym")(options "")(descr ""))
+	(lib (name "B2B-XH-A") (type "KiCad") (uri "${KIPRJMOD}/../library/JST-B2B-XH-A/B2B-XH-A.kicad_sym") (options "") (descr ""))
+)
