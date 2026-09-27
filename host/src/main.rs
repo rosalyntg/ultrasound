@@ -67,9 +67,11 @@ const ADC_SAMPLE_RATE_HZ: f32 = 50e6;
 const UDP_DECIMATION: f32 = 1.0;
 const SAMPLE_PERIOD_S: f32 = UDP_DECIMATION / ADC_SAMPLE_RATE_HZ;
 
-/// Standard assumed speed of sound in tissue, for the depth axis and
-/// the transmit/receive beamforming geometry.
+/// Default speed of sound (soft tissue), for the depth axis and the
+/// transmit/receive beamforming geometry. Adjustable in the GUI: the
+/// water-tank tests want ~1482 m/s.
 const SPEED_OF_SOUND_M_S: f32 = 1540.0;
+const SPEED_OF_SOUND_RANGE: RangeInclusive<f32> = 1400.0..=1650.0; // m/s
 
 /// Pulser delay-table clock.
 const PULSER_CLK_HZ: f32 = 156.25e6;
@@ -194,6 +196,7 @@ struct App {
     /// Add the calibrated per-channel time offsets (τ) to the transmit
     /// delays and receive beamformer.
     use_tau: bool,
+    speed_of_sound: f32,   // m/s, transmit + receive beamforming and depth axis
     beam_width_deg: f32,   // total steering span of a generated table
     gen_scanlines: u32,    // scanlines in a generated table
     focal_distance_mm: f32,
@@ -203,6 +206,9 @@ struct App {
     contrast: f32, // b-mode brightness gain
     /// What the b-mode depth axis labels show.
     y_units: YUnits,
+    /// Scan-convert the pulsed-array image into a sector spanning the
+    /// beam width (the traditional fan), instead of one column per line.
+    sector_scan: bool,
     plot_cache: canvas::Cache,
     bmode_cache: canvas::Cache,
 }
@@ -250,13 +256,23 @@ enum DelaySource {
     Beamforming,
 }
 
-/// Per-element geometry from calibration.csv: one row per pulser
-/// channel, `x_m,tau_s` — element x position (relative to pulser
-/// channel 0, all elements at y = 0) and per-channel time offset.
+/// Per-element calibration from calibration.csv (written by
+/// calibration.py): one row per pulser channel, `x_m,z_m,tau_s,sign`.
+/// Element position in the imaging plane relative to pulser channel 0
+/// (x along the array, z towards the target), the element's extra
+/// delay (applied on both transmit and receive) and its receive
+/// polarity. A `# t0_s=...` header line gives the time from the
+/// start-of-line marker to the firing of a channel with delay-table
+/// value 0 (including the echo-shape fiducial the τ's were measured
+/// against). Legacy two-column `x_m,tau_s` files load with z = 0,
+/// sign = +1, t0 = 0.
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Calibration {
     x_el: [f32; 8], // metres, pulser order
+    z_el: [f32; 8], // metres, pulser order
     tau: [f32; 8],  // seconds, pulser order
+    sign: [f32; 8], // ±1, pulser order
+    t0: f32,        // seconds
 }
 
 /// What the receive beamformer needs to know about the transmitted
@@ -265,7 +281,15 @@ struct Calibration {
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct BeamformSettings {
     x_el: [f32; 8], // metres, ADC order
+    z_el: [f32; 8], // metres, ADC order
     tau: [f32; 8],  // seconds, ADC order (zero when τ is disabled)
+    sign: [f32; 8], // receive polarity, ADC order
+    /// Speed of sound the table was generated for.
+    c: f32,
+    /// Aperture (element x range, metres): scanline origins are spread
+    /// across it, see scanline_origin.
+    x_min: f32,
+    x_max: f32,
     /// Total steering span; scanline i is steered to
     /// `scanline_angle(width, n, i)`.
     beam_width_deg: f32,
@@ -287,6 +311,42 @@ fn scanline_angle(width_deg: f32, n: u32, i: usize) -> f32 {
     half - i * (2.0 * half) / (n - 1) as f32
 }
 
+/// x (metres) of the boundary between scanlines `j - 1` and `j` of `n`
+/// when the beam origins are spread across the aperture `x_min..x_max`:
+/// boundary 0 sits half a step beyond `x_max` (the +θ end, drawn at the
+/// left) and boundary n half a step beyond `x_min`. A single line's
+/// boundaries are the aperture ends.
+fn sector_boundary_x(x_min: f32, x_max: f32, n: u32, j: usize) -> f32 {
+    let width = x_max - x_min;
+    if n <= 1 {
+        x_max - j as f32 * width
+    } else {
+        let step = width / (n - 1) as f32;
+        x_max + step / 2.0 - j as f32 * step
+    }
+}
+
+/// Steering angle (radians) of the boundary between scanlines `j - 1`
+/// and `j`; the counterpart of sector_boundary_x.
+fn sector_boundary_angle(width_deg: f32, n: u32, j: usize) -> f32 {
+    let half = width_deg.to_radians() / 2.0;
+    if n <= 1 {
+        half - j as f32 * 2.0 * half
+    } else {
+        let pitch = 2.0 * half / (n - 1) as f32;
+        half + pitch / 2.0 - j as f32 * pitch
+    }
+}
+
+/// Beam origin (x, metres, at z = 0) of scanline `i` of `n`: the lines
+/// start spread evenly across the aperture, from `x_max` for line 0 to
+/// `x_min` for the last, so the image is a trapezoid rather than a fan
+/// from a point. The midpoint of the line's two boundaries.
+fn scanline_origin(x_min: f32, x_max: f32, n: u32, i: usize) -> f32 {
+    let i = (i as u32).min(n.max(1) - 1) as usize;
+    (sector_boundary_x(x_min, x_max, n, i) + sector_boundary_x(x_min, x_max, n, i + 1)) / 2.0
+}
+
 /// How the b-mode tab renders.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum BModeMode {
@@ -300,7 +360,7 @@ enum BModeMode {
 /// What the b-mode depth axis labels show.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum YUnits {
-    /// Round-trip depth assuming SPEED_OF_SOUND_M_S.
+    /// Round-trip depth at the selected speed of sound.
     Depth,
     /// Time from the start of the line/trigger.
     Time,
@@ -403,13 +463,15 @@ impl Default for App {
             calib_csv_path: String::from("calibration.csv"),
             // best effort: picked up if the default file is there
             calibration: load_calibration_csv("calibration.csv").ok(),
-            use_tau: false,
+            use_tau: true,
+            speed_of_sound: SPEED_OF_SOUND_M_S,
             beam_width_deg: 40.0,
             gen_scanlines: 64,
             focal_distance_mm: 30.0,
             beamform: None,
             contrast: 1.0,
             y_units: YUnits::Depth,
+            sector_scan: true,
             plot_cache: canvas::Cache::new(),
             bmode_cache: canvas::Cache::new(),
         }
@@ -457,11 +519,13 @@ enum Message {
     CalibCsvPathChanged(String),
     LoadCalibCsv,
     UseTauToggled(bool),
+    SpeedOfSoundChanged(f32),
     BeamWidthChanged(f32),
     GenScanlinesChanged(f32),
     FocalDistanceChanged(f32),
     ContrastChanged(f32),
     YUnitsSelected(YUnits),
+    SectorScanToggled(bool),
     ChannelToggled(usize),
     NotchToggled(bool),
     NotchLowChanged(f32),
@@ -843,6 +907,10 @@ impl App {
                 self.use_tau = on;
                 self.regenerate_delays();
             }
+            Message::SpeedOfSoundChanged(c) => {
+                self.speed_of_sound = c;
+                self.regenerate_delays();
+            }
             Message::BeamWidthChanged(v) => {
                 self.beam_width_deg = v;
                 self.regenerate_delays();
@@ -861,6 +929,10 @@ impl App {
             }
             Message::YUnitsSelected(units) => {
                 self.y_units = units;
+                self.bmode_cache.clear();
+            }
+            Message::SectorScanToggled(on) => {
+                self.sector_scan = on;
                 self.bmode_cache.clear();
             }
             Message::ChannelToggled(ch) => {
@@ -1026,6 +1098,34 @@ impl App {
         }
     }
 
+    /// Geometry of the frame on screen: the generated table's, or — for
+    /// a csv table, whose geometry is unknown — the width setting with
+    /// the calibrated aperture (a point if no calibration is loaded).
+    fn sector_geometry(&self) -> SectorGeometry {
+        match self.beamform {
+            Some(bf) => SectorGeometry {
+                width_deg: bf.beam_width_deg,
+                x_min: bf.x_min,
+                x_max: bf.x_max,
+                num_scanlines: bf.num_scanlines,
+            },
+            None => {
+                let (x_min, x_max) = self.calibration.map_or((0.0, 0.0), |c| {
+                    (
+                        c.x_el.iter().copied().fold(f32::MAX, f32::min),
+                        c.x_el.iter().copied().fold(f32::MIN, f32::max),
+                    )
+                });
+                SectorGeometry {
+                    width_deg: self.beam_width_deg,
+                    x_min,
+                    x_max,
+                    num_scanlines: self.num_scanlines,
+                }
+            }
+        }
+    }
+
     /// The traces currently on screen and their trigger index.
     fn shown(&self) -> (&[Vec<f32>; 8], usize) {
         let traces = if self.notch_enabled {
@@ -1160,7 +1260,12 @@ impl App {
         self.calibration = Some(calib);
         let span = calib.x_el.iter().copied().fold(f32::MIN, f32::max)
             - calib.x_el.iter().copied().fold(f32::MAX, f32::min);
-        self.status = format!("loaded calibration: aperture {:.2} mm", span * 1e3);
+        self.status = format!(
+            "loaded calibration: aperture {:.1} mm, t0 {:.2} µs, {} inverted rx channel(s)",
+            span * 1e3,
+            calib.t0 * 1e6,
+            calib.sign.iter().filter(|&&s| s < 0.0).count()
+        );
         if changed {
             self.regenerate_delays();
         }
@@ -1206,17 +1311,26 @@ impl App {
         let width_deg = self.beam_width_deg;
         let n = self.gen_scanlines.clamp(1, pulser::MAX_SCANLINES as u32);
         let focus_m = self.focal_distance_mm * 1e-3;
+        let c = self.speed_of_sound;
         let tau = if self.use_tau { calib.tau } else { [0.0; 8] };
 
-        // raw delays in seconds, pulser order, one row per scanline
         // raw delays in clock cycles (f64, so the rounding matches numpy),
-        // pulser order, one row per scanline
+        // pulser order, one row per scanline. An element with extra
+        // latency τ fires τ earlier so its wave leaves on time.
+        let x_min = calib.x_el.iter().copied().fold(f32::MAX, f32::min);
+        let x_max = calib.x_el.iter().copied().fold(f32::MIN, f32::max);
         let mut raw = vec![[0.0f64; 8]; n as usize];
         for (i, row) in raw.iter_mut().enumerate() {
             let theta = scanline_angle(width_deg, n, i) as f64;
+            let origin = scanline_origin(x_min, x_max, n, i) as f64;
             for (ch, d) in row.iter_mut().enumerate() {
-                let seconds =
-                    transmit_delay(calib.x_el[ch] as f64, theta, focus_m as f64) + tau[ch] as f64;
+                let seconds = transmit_delay(
+                    calib.x_el[ch] as f64 - origin,
+                    calib.z_el[ch] as f64,
+                    theta,
+                    focus_m as f64,
+                    c as f64,
+                ) - tau[ch] as f64;
                 *d = (seconds * PULSER_CLK_HZ as f64).round();
             }
         }
@@ -1241,19 +1355,30 @@ impl App {
 
         // receive geometry in ADC order
         let mut x_el = [0.0f32; 8];
+        let mut z_el = [0.0f32; 8];
         let mut tau_adc = [0.0f32; 8];
+        let mut sign = [1.0f32; 8];
         for adc in 0..8 {
             x_el[adc] = calib.x_el[ADC_TO_PULSER[adc]];
+            z_el[adc] = calib.z_el[ADC_TO_PULSER[adc]];
             tau_adc[adc] = tau[ADC_TO_PULSER[adc]];
+            sign[adc] = calib.sign[ADC_TO_PULSER[adc]];
         }
-        // the shifted delays put the wavefront at the beam origin at
-        // t = -min (for a focused beam, at the focus at F/c - min)
+        // a channel with table delay 0 fires at t0 after the line marker;
+        // the shift moved the frame's earliest channel to 0, so the
+        // wavefront passes the beam origin at t0 - min (for a focused
+        // beam, reaches the focus at t0 - min + F/c)
         let beamform = BeamformSettings {
             x_el,
+            z_el,
             tau: tau_adc,
+            sign,
+            c,
+            x_min,
+            x_max,
             beam_width_deg: width_deg,
             num_scanlines: n,
-            t0_s: -min,
+            t0_s: calib.t0 - min,
         };
         Ok((table, beamform))
     }
@@ -1697,6 +1822,17 @@ impl App {
             ),
             text(format!("contrast: {:.1}×", self.contrast)).size(14),
             slider(CONTRAST_RANGE, self.contrast, Message::ContrastChanged).step(0.1),
+            text(format!("speed of sound: {:.0} m/s", self.speed_of_sound)).size(14),
+            slider(
+                SPEED_OF_SOUND_RANGE,
+                self.speed_of_sound,
+                Message::SpeedOfSoundChanged
+            )
+            .step(1.0),
+            toggler(self.sector_scan)
+                .label("sector scan (warp by beam width)")
+                .on_toggle(Message::SectorScanToggled)
+                .size(16),
             text("y units").size(14),
             row![
                 radio(
@@ -1804,9 +1940,11 @@ impl App {
             ViewTab::BMode => match self.bmode_mode {
                 BModeMode::PulsedArray => canvas(ArrayPlot {
                     scanlines: self.shown_scanlines(),
+                    sector: self.sector_scan.then(|| self.sector_geometry()),
                     fps: self.array_fps,
                     contrast: self.contrast,
                     y_units: self.y_units,
+                    speed_of_sound: self.speed_of_sound,
                     cache: &self.bmode_cache,
                 })
                 .width(Fill)
@@ -1819,6 +1957,7 @@ impl App {
                     trigger_index: shown_trigger_index,
                     contrast: self.contrast,
                     y_units: self.y_units,
+                    speed_of_sound: self.speed_of_sound,
                     cache: &self.bmode_cache,
                 })
                 .width(Fill)
@@ -1870,7 +2009,10 @@ fn load_calibration_csv(path: &str) -> Result<Calibration, String> {
 
     let mut calib = Calibration {
         x_el: [0.0; 8],
+        z_el: [0.0; 8],
         tau: [0.0; 8],
+        sign: [1.0; 8],
+        t0: 0.0,
     };
     let mut rows = 0;
     for (lineno, line) in content.lines().enumerate() {
@@ -1878,23 +2020,50 @@ fn load_calibration_csv(path: &str) -> Result<Calibration, String> {
         if line.is_empty() {
             continue;
         }
-        let fields: Vec<&str> = line.split(',').map(str::trim).collect();
-        if rows == 0 && lineno == 0 && fields[0].parse::<f32>().is_err() {
-            continue; // header
+        let parse = |field: &str| {
+            field
+                .trim()
+                .parse::<f32>()
+                .map_err(|_| format!("line {}: bad value {field:?}", lineno + 1))
+        };
+        if let Some(comment) = line.strip_prefix('#') {
+            // `# key=value` metadata; anything else is a comment
+            if let Some((key, value)) = comment.split_once('=') {
+                if key.trim() == "t0_s" {
+                    calib.t0 = parse(value)?;
+                }
+            }
+            continue;
         }
-        if fields.len() < 2 {
-            return Err(format!("line {}: expected x,tau", lineno + 1));
+        let fields: Vec<&str> = line.split(',').map(str::trim).collect();
+        if rows == 0 && fields[0].parse::<f32>().is_err() {
+            continue; // header
         }
         if rows >= 8 {
             return Err(String::from("more than 8 channel rows"));
         }
-        let parse = |field: &str| {
-            field
-                .parse::<f32>()
-                .map_err(|_| format!("line {}: bad value {field:?}", lineno + 1))
-        };
-        calib.x_el[rows] = parse(fields[0])?;
-        calib.tau[rows] = parse(fields[1])?;
+        match fields.len() {
+            2 => {
+                calib.x_el[rows] = parse(fields[0])?;
+                calib.tau[rows] = parse(fields[1])?;
+            }
+            4 => {
+                calib.x_el[rows] = parse(fields[0])?;
+                calib.z_el[rows] = parse(fields[1])?;
+                calib.tau[rows] = parse(fields[2])?;
+                let sign = parse(fields[3])?;
+                if sign != 1.0 && sign != -1.0 {
+                    return Err(format!("line {}: sign must be 1 or -1", lineno + 1));
+                }
+                calib.sign[rows] = sign;
+            }
+            n => {
+                return Err(format!(
+                    "line {}: expected x,z,tau,sign (or x,tau), got {n} fields",
+                    lineno + 1
+                ));
+            }
+        }
         rows += 1;
     }
     if rows != 8 {
@@ -1903,17 +2072,21 @@ fn load_calibration_csv(path: &str) -> Result<Calibration, String> {
     Ok(calib)
 }
 
-/// Transmit delay (seconds, before any offset) for an element at `x`
-/// so the aperture's wavefront is steered by `theta` (radians) and
-/// focused at `focus_m` from the origin — or a plane wave when the
-/// focus is infinite. As beamforming_delays in delays.py.
-fn transmit_delay(x: f64, theta: f64, focus_m: f64) -> f64 {
-    let c = SPEED_OF_SOUND_M_S as f64;
+/// Transmit delay (seconds, before any per-channel offset) for an
+/// element at (`x`, `z`) relative to the scanline's beam origin, so the
+/// aperture's wavefront is steered by `theta` (radians, about that
+/// origin) and focused at `focus_m` from it — or a plane wave when the
+/// focus is infinite. As beamforming_delays in delays.py: the element
+/// fires (F - |focus - element|) / c after a hypothetical element at the
+/// origin.
+fn transmit_delay(x: f64, z: f64, theta: f64, focus_m: f64, c: f64) -> f64 {
+    let (sin_t, cos_t) = theta.sin_cos();
     if focus_m.is_infinite() {
-        x * theta.sin() / c
+        (x * sin_t + z * cos_t) / c
     } else {
-        let u = x / focus_m;
-        focus_m / c * (1.0 - (1.0 + u * u - 2.0 * u * theta.sin()).sqrt())
+        let dx = focus_m * sin_t - x;
+        let dz = focus_m * cos_t - z;
+        (focus_m - (dx * dx + dz * dz).sqrt()) / c
     }
 }
 
@@ -1987,11 +2160,11 @@ fn fmt_samples_as_time(samples: usize) -> String {
 }
 
 /// B-mode depth-axis ticks: positions as a fraction of the displayed
-/// span, with labels in the selected units (round-trip depth assumes
-/// SPEED_OF_SOUND_M_S). The step is the smallest of 1/2/2.5/4/5/8×10ⁿ
+/// span, with labels in the selected units (round-trip depth at the
+/// speed of sound `c`). The step is the smallest of 1/2/2.5/4/5/8×10ⁿ
 /// in the display unit that keeps the count at or under 15, which
 /// lands at 10-15 ticks for most spans.
-fn y_axis_ticks(span_samples: usize, units: YUnits) -> Vec<(f32, String)> {
+fn y_axis_ticks(span_samples: usize, units: YUnits, c: f32) -> Vec<(f32, String)> {
     let span_s = span_samples as f32 * SAMPLE_PERIOD_S;
     let (total, unit) = match units {
         YUnits::Time => {
@@ -2004,7 +2177,7 @@ fn y_axis_ticks(span_samples: usize, units: YUnits) -> Vec<(f32, String)> {
             }
         }
         YUnits::Depth => {
-            let meters = span_s * SPEED_OF_SOUND_M_S / 2.0;
+            let meters = span_s * c / 2.0;
             if meters >= 0.1 {
                 (meters * 1e2, "cm")
             } else {
@@ -2350,6 +2523,7 @@ struct BModePlot<'a> {
     trigger_index: usize,
     contrast: f32,
     y_units: YUnits,
+    speed_of_sound: f32,
     cache: &'a canvas::Cache,
 }
 
@@ -2469,7 +2643,7 @@ impl canvas::Program<Message> for BModePlot<'_> {
                 align_y: alignment::Vertical::Center,
                 ..canvas::Text::default()
             };
-            for (frac, content) in y_axis_ticks(span, self.y_units) {
+            for (frac, content) in y_axis_ticks(span, self.y_units, self.speed_of_sound) {
                 let y = area.y + frac * area.height;
                 frame.fill_text(label(content, y));
                 frame.stroke(
@@ -2487,12 +2661,26 @@ impl canvas::Program<Message> for BModePlot<'_> {
 
 /// Traditional pulsed-array ultrasound view: one column per scanline,
 /// beamformed amplitude as brightness vs depth (top = start of line).
+/// Scan geometry for the sector display: the steering span, the
+/// aperture the beam origins are spread across and the line count the
+/// frame is meant to have (so a short frame does not stretch).
+#[derive(Debug, Clone, Copy)]
+struct SectorGeometry {
+    width_deg: f32,
+    x_min: f32,
+    x_max: f32,
+    num_scanlines: u32,
+}
+
 struct ArrayPlot<'a> {
     scanlines: &'a [Vec<f32>],
+    /// Scan-convert into a sector; None draws one column per scanline.
+    sector: Option<SectorGeometry>,
     /// Live frame rate, if frames are completing.
     fps: Option<f32>,
     contrast: f32,
     y_units: YUnits,
+    speed_of_sound: f32,
     cache: &'a canvas::Cache,
 }
 
@@ -2541,46 +2729,115 @@ impl canvas::Program<Message> for ArrayPlot<'_> {
                 return;
             }
 
-            let column_width = area.width / self.scanlines.len() as f32;
             let rows = area.height as usize;
-
-            for (i, line) in self.scanlines.iter().enumerate() {
-                let column_x = area.x + i as f32 * column_width;
-
-                // merge consecutive rows of equal brightness into one
-                // rectangle to keep the geometry count down
-                let mut run_start = 0usize;
-                let mut run_level = 0u32; // quantized brightness, 0 = skip
-                for row in 0..=rows {
-                    let level = if row < rows {
-                        // samples covered by this pixel row (peak-detect)
+            // pixel row -> peak-detected brightness of a scanline
+            let brightness_rows = |line: &[f32], rows: usize| -> Vec<f32> {
+                (0..rows)
+                    .map(|row| {
                         let s0 = (row as f32 / rows as f32 * span as f32) as usize;
-                        let s1 = ((row + 1) as f32 / rows as f32 * span as f32).max(s0 as f32 + 1.0)
-                            as usize;
-
+                        let s1 = ((row + 1) as f32 / rows as f32 * span as f32)
+                            .max(s0 as f32 + 1.0) as usize;
                         let peak = line
                             .get(s0..s1.min(line.len()))
                             .unwrap_or(&[])
                             .iter()
                             .fold(0.0f32, |max, &v| max.max(v.abs()));
+                        (peak / 2048.0 * self.contrast).clamp(0.0, 1.0)
+                    })
+                    .collect()
+            };
 
-                        let brightness = (peak / 2048.0 * self.contrast).clamp(0.0, 1.0);
-                        (brightness * 255.0).round() as u32
-                    } else {
-                        u32::MAX // flush the last run
-                    };
+            // depth-axis length in pixels: the full area height, or less
+            // when the sector's arc would not fit the width
+            let mut radius = area.height;
+            // depth axis: along the sector's left boundary (start, end
+            // points) or None for the plot's left edge
+            let mut axis_line: Option<(Point, Point)> = None;
 
-                    if level != run_level {
-                        if run_level > 0 && row > run_start {
-                            let b = run_level as f32 / 255.0;
-                            frame.fill_rectangle(
-                                Point::new(column_x, area.y + run_start as f32),
-                                Size::new(column_width, (row - run_start) as f32),
-                                Color::from_rgb(b, b, b),
-                            );
+            if let Some(sec) = self.sector {
+                // lines are placed by the frame's intended count so a
+                // short frame does not stretch to fill the sector
+                let n = (sec.num_scanlines as usize).max(self.scanlines.len()).max(1) as u32;
+                let half = sec.width_deg.to_radians() / 2.0;
+                let aperture = (sec.x_max - sec.x_min).max(0.0);
+                let depth_m = span as f32 * SAMPLE_PERIOD_S * self.speed_of_sound / 2.0;
+                // fit the sector's widest extent (aperture half-width plus
+                // the swept arc) into the area
+                let lateral = half.sin() + if depth_m > 0.0 { aperture / (2.0 * depth_m) } else { 0.0 };
+                if lateral > 0.0 {
+                    radius = radius.min(area.width / 2.0 / lateral);
+                }
+                let px_per_m = if depth_m > 0.0 { radius / depth_m } else { 0.0 };
+                let centre_m = (sec.x_min + sec.x_max) / 2.0;
+                let cx = area.center_x();
+                // screen point at range r (pixels) along boundary j
+                let boundary_point = |j: usize, r: f32| {
+                    let ang = sector_boundary_angle(sec.width_deg, n, j);
+                    let ox = cx - (sector_boundary_x(sec.x_min, sec.x_max, n, j) - centre_m) * px_per_m;
+                    Point::new(ox - r * ang.sin(), area.y + r * ang.cos())
+                };
+                let grid_rows = radius.ceil().max(1.0) as usize;
+                let row_px = radius / grid_rows as f32;
+                axis_line = Some((boundary_point(0, 0.0), boundary_point(0, radius)));
+
+                for (i, line) in self.scanlines.iter().enumerate().take(n as usize) {
+                    let levels = brightness_rows(line, grid_rows);
+                    // one wedge per run of equal brightness along the line
+                    let mut run_start = 0usize;
+                    let mut run_level = 0u32;
+                    for row in 0..=grid_rows {
+                        let level = if row < grid_rows {
+                            (levels[row] * 255.0).round() as u32
+                        } else {
+                            u32::MAX
+                        };
+                        if level != run_level {
+                            if run_level > 0 && row > run_start {
+                                let (r0, r1) = (run_start as f32 * row_px, row as f32 * row_px);
+                                let b = run_level as f32 / 255.0;
+                                let wedge = canvas::Path::new(|p| {
+                                    p.move_to(boundary_point(i, r0));
+                                    p.line_to(boundary_point(i, r1));
+                                    p.line_to(boundary_point(i + 1, r1));
+                                    p.line_to(boundary_point(i + 1, r0));
+                                    p.close();
+                                });
+                                frame.fill(&wedge, Color::from_rgb(b, b, b));
+                            }
+                            run_start = row;
+                            run_level = level;
                         }
-                        run_start = row;
-                        run_level = level;
+                    }
+                }
+            } else {
+                let column_width = area.width / self.scanlines.len() as f32;
+                for (i, line) in self.scanlines.iter().enumerate() {
+                    let column_x = area.x + i as f32 * column_width;
+                    let levels = brightness_rows(line, rows);
+
+                    // merge consecutive rows of equal brightness into one
+                    // rectangle to keep the geometry count down
+                    let mut run_start = 0usize;
+                    let mut run_level = 0u32; // quantized brightness, 0 = skip
+                    for row in 0..=rows {
+                        let level = if row < rows {
+                            (levels[row] * 255.0).round() as u32
+                        } else {
+                            u32::MAX // flush the last run
+                        };
+
+                        if level != run_level {
+                            if run_level > 0 && row > run_start {
+                                let b = run_level as f32 / 255.0;
+                                frame.fill_rectangle(
+                                    Point::new(column_x, area.y + run_start as f32),
+                                    Size::new(column_width, (row - run_start) as f32),
+                                    Color::from_rgb(b, b, b),
+                                );
+                            }
+                            run_start = row;
+                            run_level = level;
+                        }
                     }
                 }
             }
@@ -2598,24 +2855,43 @@ impl canvas::Program<Message> for ArrayPlot<'_> {
                 ..canvas::Text::default()
             });
 
-            // depth (time-from-line-start) labels
-            let label = |content: String, y: f32| canvas::Text {
+            // depth (time-from-line-start) labels, along the axis line:
+            // ticks and labels stick out on its outward (left) side
+            let (start, end) = axis_line.unwrap_or((
+                Point::new(area.x, area.y),
+                Point::new(area.x, area.y + radius),
+            ));
+            let (dx, dy) = (end.x - start.x, end.y - start.y);
+            let len = (dx * dx + dy * dy).sqrt().max(1e-6);
+            let outward = (-dy / len, dx / len); // left-hand normal of the downward axis
+            // the sector axis lies on the black image, so it uses light
+            // colours regardless of theme; the edge axis sits in the margin
+            let (text_color, line_color) = if axis_line.is_some() {
+                (Color::from_rgb(0.9, 0.9, 0.9), Color::from_rgb(0.6, 0.6, 0.6))
+            } else {
+                (palette.background.base.text, palette.background.strong.color)
+            };
+            let label = |content: String, p: Point| canvas::Text {
                 content,
-                position: Point::new(area.x - 5.0, y),
-                color: palette.background.base.text,
+                position: Point::new(p.x + 6.0 * outward.0, p.y + 6.0 * outward.1),
+                color: text_color,
                 size: 12.0.into(),
                 align_x: text::Alignment::Right,
                 align_y: alignment::Vertical::Center,
                 ..canvas::Text::default()
             };
-            for (frac, content) in y_axis_ticks(span, self.y_units) {
-                let y = area.y + frac * area.height;
-                frame.fill_text(label(content, y));
+            let stroke = canvas::Stroke::default()
+                .with_color(line_color)
+                .with_width(1.0);
+            if axis_line.is_some() {
+                frame.stroke(&canvas::Path::line(start, end), stroke);
+            }
+            for (frac, content) in y_axis_ticks(span, self.y_units, self.speed_of_sound) {
+                let p = Point::new(start.x + frac * dx, start.y + frac * dy);
+                frame.fill_text(label(content, p));
                 frame.stroke(
-                    &canvas::Path::line(Point::new(area.x - 4.0, y), Point::new(area.x, y)),
-                    canvas::Stroke::default()
-                        .with_color(palette.background.strong.color)
-                        .with_width(1.0),
+                    &canvas::Path::line(p, Point::new(p.x + 4.0 * outward.0, p.y + 4.0 * outward.1)),
+                    stroke,
                 );
             }
         });
@@ -3082,7 +3358,8 @@ fn derive_display_lines(settings: &ScopeSettings, frame: &[[Vec<f32>; 8]]) -> Ve
             (ArraySource::Channel(ch), _) => line[ch.min(7)].clone(),
             (ArraySource::Beamformed, Some(bf)) => {
                 let theta = scanline_angle(bf.beam_width_deg, bf.num_scanlines, i);
-                beamform_scanline(line, &settings.channel_enabled, &bf, theta, &mut planner)
+                let origin = scanline_origin(bf.x_min, bf.x_max, bf.num_scanlines, i);
+                beamform_scanline(line, &settings.channel_enabled, &bf, theta, origin, &mut planner)
             }
             (ArraySource::Average | ArraySource::Beamformed, _) => {
                 let count = settings.channel_enabled.iter().filter(|&&e| e).count();
@@ -3107,16 +3384,18 @@ fn derive_display_lines(settings: &ScopeSettings, frame: &[[Vec<f32>; 8]]) -> Ve
 }
 
 /// Delay-and-sum beamforms one scanline's RF data along the direction
-/// `theta` (averaging the enabled channels) and returns its envelope. Output sample k is the point at
-/// range r_k = k · Δt · c / 2 along the beam (so the depth axis is the
-/// round-trip one the other sources use); the transmit wave reaches it
-/// at t0 + r/c and the echo reaches element j after a further
-/// |p - x_j| / c plus that channel's τ.
+/// `theta` from the beam origin (`origin_x`, 0) (averaging the enabled
+/// channels, each with its calibrated receive polarity) and returns its
+/// envelope. Output sample k is the point at range r_k = k · Δt · c / 2
+/// along the beam (so the depth axis is the round-trip one the other
+/// sources use); the transmit wave reaches it at t0 + r/c and the echo
+/// reaches element j after a further |p - e_j| / c plus that channel's τ.
 fn beamform_scanline(
     rf: &[Vec<f32>; 8],
     enabled: &[bool; 8],
     bf: &BeamformSettings,
     theta: f32,
+    origin_x: f32,
     planner: &mut FftPlanner<f32>,
 ) -> Vec<f32> {
     let n = rf[0].len();
@@ -3126,7 +3405,8 @@ fn beamform_scanline(
     }
     let (sin_t, cos_t) = theta.sin_cos();
     let fs = 1.0 / SAMPLE_PERIOD_S;
-    let dr = SAMPLE_PERIOD_S * SPEED_OF_SOUND_M_S / 2.0;
+    let c = bf.c;
+    let dr = SAMPLE_PERIOD_S * c / 2.0;
     let mut summed = 0usize;
     for j in 0..8 {
         if !enabled[j] || rf[j].len() < n {
@@ -3134,20 +3414,21 @@ fn beamform_scanline(
         }
         summed += 1;
         let ch = &rf[j];
+        let sign = bf.sign[j];
         let fixed = (bf.t0_s + bf.tau[j]) * fs;
         for (k, acc) in out.iter_mut().enumerate() {
             let r = k as f32 * dr;
-            let px = r * sin_t - bf.x_el[j];
-            let pz = r * cos_t;
+            let px = origin_x + r * sin_t - bf.x_el[j];
+            let pz = r * cos_t - bf.z_el[j];
             let d_rx = (px * px + pz * pz).sqrt();
-            let s = fixed + (r + d_rx) / SPEED_OF_SOUND_M_S * fs;
+            let s = fixed + (r + d_rx) / c * fs;
             // linear interpolation, zero outside the record
             if s < 0.0 || s >= (n - 1) as f32 {
                 continue;
             }
             let i = s as usize;
             let frac = s - i as f32;
-            *acc += ch[i] + (ch[i + 1] - ch[i]) * frac;
+            *acc += sign * (ch[i] + (ch[i + 1] - ch[i]) * frac);
         }
     }
     // scale like the average source so the b-mode brightness is comparable
@@ -3500,23 +3781,155 @@ mod tests {
 
     #[test]
     fn delay_table_matches_delays_py() {
-        let calib = load_calibration_csv("calibration.csv").unwrap();
+        // a plain 500 µm pitch line array, no offsets
+        let mut calib = Calibration {
+            x_el: [0.0; 8],
+            z_el: [0.0; 8],
+            tau: [0.0; 8],
+            sign: [1.0; 8],
+            t0: 0.0,
+        };
+        for (i, x) in calib.x_el.iter_mut().enumerate() {
+            *x = i as f32 * 500e-6;
+        }
         let app = App {
             calibration: Some(calib),
             beam_width_deg: 40.0,
             gen_scanlines: 64,
             focal_distance_mm: 30.0,
+            speed_of_sound: 1540.0,
             ..App::default()
         };
         let (table, bf) = app.generate_delays().unwrap();
         assert_eq!(table.len(), 64);
-        // from delays.py with 64 lines, 20 → -20°, 30 mm focus, tau = 0
-        assert_eq!(table[0], [479, 479, 533, 577, 613, 639, 656, 662]);
-        assert_eq!(table[31], [479, 479, 475, 462, 440, 408, 368, 320]);
-        assert_eq!(table[63], [479, 479, 417, 347, 270, 187, 96, 0]);
-        assert!((bf.t0_s - 479.0 / PULSER_CLK_HZ).abs() < 1e-8);
+        // from delays.py with 64 lines, 20 → -20°, 30 mm focus, c = 1540,
+        // beam origins spread from 3.5 mm (line 0) to 0 (line 63)
+        assert_eq!(table[0], [0, 22, 43, 64, 84, 103, 121, 139]);
+        assert_eq!(table[31], [133, 136, 138, 139, 139, 139, 137, 135]);
+        assert_eq!(table[63], [139, 121, 103, 84, 64, 43, 22, 0]);
+        assert!((bf.t0_s - 139.0 / PULSER_CLK_HZ).abs() < 1e-8);
         assert!((scanline_angle(40.0, 64, 0) - 20f32.to_radians()).abs() < 1e-6);
         assert!((scanline_angle(40.0, 64, 63) + 20f32.to_radians()).abs() < 1e-6);
+    }
+
+    #[test]
+    fn tau_fires_early_and_t0_includes_hardware_latency() {
+        let mut calib = Calibration {
+            x_el: [0.0; 8],
+            z_el: [0.0; 8],
+            tau: [0.0; 8],
+            sign: [1.0; 8],
+            t0: 1.5e-6,
+        };
+        // channel 3 is 320 ns (50 cycles) late: it must fire 50 cycles
+        // before the others
+        calib.tau[3] = 50.0 / PULSER_CLK_HZ;
+        let app = App {
+            calibration: Some(calib),
+            beam_width_deg: 0.0,
+            gen_scanlines: 1,
+            focal_distance_mm: 30.0,
+            use_tau: true,
+            ..App::default()
+        };
+        let (table, bf) = app.generate_delays().unwrap();
+        assert_eq!(table[0], [50, 50, 50, 0, 50, 50, 50, 50]);
+        // the frame shifted by -50 cycles, so the on-time channels fire
+        // at t0 + 50 cycles after the marker
+        assert!((bf.t0_s - (1.5e-6 + 50.0 / PULSER_CLK_HZ)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn calibration_csv_round_trip() {
+        let dir = std::env::temp_dir().join(format!("ultrasound-calib-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("c.csv");
+        let mut csv = String::from("# element calibration\n# t0_s=1.250000e-06\n# c_m_s=1482.0\n# x_m,z_m,tau_s,sign\n");
+        for i in 0..8 {
+            csv.push_str(&format!("{:e},{:e},{:e},{}\n", i as f32 * 1e-3, i as f32 * 1e-4, i as f32 * 1e-8, if i % 2 == 1 { -1 } else { 1 }));
+        }
+        std::fs::write(&path, csv).unwrap();
+        let calib = load_calibration_csv(path.to_str().unwrap()).unwrap();
+        assert!((calib.t0 - 1.25e-6).abs() < 1e-12);
+        assert!((calib.x_el[7] - 7e-3).abs() < 1e-9);
+        assert!((calib.z_el[7] - 7e-4).abs() < 1e-9);
+        assert!((calib.tau[7] - 7e-8).abs() < 1e-14);
+        assert_eq!(calib.sign, [1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0]);
+        std::fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn beamformer_aligns_point_echo() {
+        // two elements 4 mm apart, one inverted and 200 ns late; a point
+        // echo on the beam axis at 30 mm must sum coherently after
+        // polarity/τ correction, and land at the 30 mm depth sample
+        let c = 1482.0f32;
+        let fs = 1.0 / SAMPLE_PERIOD_S;
+        let bf = BeamformSettings {
+            x_el: [0.0, 4e-3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            z_el: [0.0; 8],
+            tau: [0.0, 200e-9, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            sign: [1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            c,
+            x_min: 0.0,
+            x_max: 0.0,
+            beam_width_deg: 0.0,
+            num_scanlines: 1,
+            t0_s: 2e-6,
+        };
+        let r = 30e-3f32;
+        let n = 4096;
+        let pulse = |t: f32| {
+            let w = (t / 0.4e-6).powi(2);
+            (-w).exp() * (2.0 * std::f32::consts::PI * 2e6 * t).cos()
+        };
+        let mut rf: [Vec<f32>; 8] = Default::default();
+        for j in 0..2 {
+            let d_rx = ((r - 0.0) * (r - 0.0) + bf.x_el[j] * bf.x_el[j]).sqrt();
+            let arrival = bf.t0_s + bf.tau[j] + (r + d_rx) / c;
+            rf[j] = (0..n)
+                .map(|k| bf.sign[j] * pulse(k as f32 / fs - arrival))
+                .collect();
+        }
+        for j in 2..8 {
+            rf[j] = vec![0.0; n];
+        }
+        let enabled = [true, true, false, false, false, false, false, false];
+        let mut planner = FftPlanner::<f32>::new();
+        let out = beamform_scanline(&rf, &enabled, &bf, 0.0, 0.0, &mut planner);
+        let peak = out
+            .iter()
+            .enumerate()
+            .max_by(|a, b| a.1.total_cmp(b.1))
+            .map(|(k, _)| k)
+            .unwrap();
+        let expected = (r / (SAMPLE_PERIOD_S * c / 2.0)).round() as usize;
+        assert!((peak as i64 - expected as i64).abs() <= 2, "peak {peak} expected {expected}");
+        // coherent: the two unit-amplitude echoes average to ~1
+        assert!(out[peak] > 0.9, "peak amplitude {}", out[peak]);
+    }
+
+    #[test]
+    fn sector_geometry_spreads_origins_across_aperture() {
+        // 5 lines over an aperture 0..4 mm: origins at 4, 3, 2, 1, 0 mm
+        // (line 0 is the +θ end), boundaries half a step beyond
+        for i in 0..5 {
+            let o = scanline_origin(0.0, 4e-3, 5, i);
+            assert!((o - (4.0 - i as f32) * 1e-3).abs() < 1e-9, "{i}: {o}");
+        }
+        assert!((sector_boundary_x(0.0, 4e-3, 5, 0) - 4.5e-3).abs() < 1e-9);
+        assert!((sector_boundary_x(0.0, 4e-3, 5, 5) + 0.5e-3).abs() < 1e-9);
+        // boundary angles straddle the line angles
+        for i in 0..5 {
+            let mid = (sector_boundary_angle(40.0, 5, i) + sector_boundary_angle(40.0, 5, i + 1)) / 2.0;
+            assert!((mid - scanline_angle(40.0, 5, i)).abs() < 1e-6);
+        }
+        // a single line starts at the aperture centre, bounded by its ends
+        assert!((scanline_origin(0.0, 4e-3, 1, 0) - 2e-3).abs() < 1e-9);
+        assert!((sector_boundary_x(0.0, 4e-3, 1, 0) - 4e-3).abs() < 1e-9);
+        assert!((sector_boundary_x(0.0, 4e-3, 1, 1) - 0.0).abs() < 1e-9);
+        assert!((sector_boundary_angle(40.0, 1, 0) - 20f32.to_radians()).abs() < 1e-6);
+        assert!((sector_boundary_angle(40.0, 1, 1) + 20f32.to_radians()).abs() < 1e-6);
     }
 
     #[test]
