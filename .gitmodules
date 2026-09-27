@@ -1,3 +1,6 @@
 [submodule "fpga/verilog-ethernet"]
 	path = fpga/verilog-ethernet
 	url = https://github.com/alexforencich/verilog-ethernet
+[submodule "fpga/taxi"]
+	path = fpga/taxi
+	url = https://github.com/fpganinja/taxi
