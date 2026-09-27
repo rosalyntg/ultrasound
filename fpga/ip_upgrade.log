@@ -1,0 +1,812 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 21:48:35 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgraded port 'char_is_k28' width 8 differs from original width 2
+
+-Upgraded port 'char_is_unexpected' width 8 differs from original width 2
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 21:48:09 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgraded port 'char_cgs' width 8 differs from original width 2
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 21:47:54 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgrade has added port 'char_cgs'
+
+-Upgrade has added port 'char_is_k28'
+
+-Upgrade has added port 'char_is_unexpected'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 21:47:27 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 21:46:56 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 20:53:10 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 20:43:48 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 20:02:55 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Jul 12 20:02:55 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:36:44 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:36:44 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgraded port 'cgs_detected' width 2 differs from original width 4
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:34:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_1_0'. These changes may impact your design.
+
+
+-Upgrade has added port 'cgs_detected'
+
+-Upgrade has added port 'lmfc_clk'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:34:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgrade has added port 'cgs_detected'
+
+-Upgrade has added port 'lmfc_clk'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:12:06 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:12:06 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:06:37 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_1_0'. These changes may impact your design.
+
+
+-Upgrade has added port 'state'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:06:37 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgrade has added port 'state'
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:06:04 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:06:04 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:04:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:04:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:03:35 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_1_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_1_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 19:03:35 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 18:51:16 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 18:50:06 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 12:57:31 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgraded port 'gt0_rxdata' width 64 differs from original width 32
+
+-Upgraded port 'gt2_rxdata' width 64 differs from original width 32
+
+-Upgraded port 'gt3_rxdata' width 64 differs from original width 32
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 12:56:35 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+CAUTION (success, with warnings) in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+After upgrade, an IP may have parameter and port differences compared to the original customization. Please review the parameters within the IP customization GUI to ensure proper functionality. Also, please review the updated IP instantiation template to ensure proper connectivity, and update your design if required.
+
+2. Connection Warnings
+----------------------
+
+Detected external port differences while upgrading 'bd_jesd204b_rx_0_0'. These changes may impact your design.
+
+
+-Upgraded port 'gt1_rxdata' width 64 differs from original width 32
+
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 12:49:11 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 12:48:45 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Thu Jul  9 12:04:55 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204b_rx_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the update of bd_jesd204b_rx_0_0 (xilinx.com:user:jesd204b_rx:1.0 (Rev. 2)) to current project options.
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Apr 19 17:56:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_xxv_ethernet_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of bd_xxv_ethernet_0_0 (xilinx.com:ip:xxv_ethernet:5.0) from (Rev. 2) to (Rev. 3)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Apr 19 17:56:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204_phy_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of bd_jesd204_phy_0_1 (xilinx.com:ip:jesd204_phy:4.1) from (Rev. 3) to (Rev. 4)
+
+
+
+
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2.1 (lin64) Build 6403652 Thu Mar 19 13:47:00 MDT 2026
+| Date         : Sun Apr 19 17:56:39 2026
+| Host         : russell-shotover-arch running 64-bit Ubuntu 22.04.5 LTS
+| Command      : upgrade_ip
+| Device       : xcau15p-ffvb676-2-i
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'bd_jesd204_phy_0_0'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of bd_jesd204_phy_0_0 (xilinx.com:ip:jesd204_phy:4.1) from (Rev. 3) to (Rev. 4)
+

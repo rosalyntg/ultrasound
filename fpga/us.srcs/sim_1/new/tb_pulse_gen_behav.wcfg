@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_pulse_gen_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_axi_vip_0_pkg_sv_3308434457 " />
+            <top_module name="axi_vip_0_pkg" />
+            <top_module name="axi_vip_pkg" />
+            <top_module name="glbl" />
+            <top_module name="std" />
+            <top_module name="tb_pulse_gen" />
+            <top_module name="xil_common_vip_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.006000 us"></ZoomStartTime>
+      <ZoomEndTime time="13.216001 us"></ZoomEndTime>
+      <Cursor1Time time="7.206000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="436"></NameColumnWidth>
+      <ValueColumnWidth column_width="233"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="32" />
+   <wvobject type="logic" fp_name="/tb_pulse_gen/aclk">
+      <obj_property name="ElementShortName">aclk</obj_property>
+      <obj_property name="ObjectShortName">aclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/aresetn">
+      <obj_property name="ElementShortName">aresetn</obj_property>
+      <obj_property name="ObjectShortName">aresetn</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/pulser_neg">
+      <obj_property name="ElementShortName">pulser_neg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pulser_neg[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/pulser_pos">
+      <obj_property name="ElementShortName">pulser_pos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pulser_pos[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/pulser_oen">
+      <obj_property name="ElementShortName">pulser_oen</obj_property>
+      <obj_property name="ObjectShortName">pulser_oen</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/dut/ramp_rst">
+      <obj_property name="ElementShortName">ramp_rst</obj_property>
+      <obj_property name="ObjectShortName">ramp_rst</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group236">
+      <obj_property name="label">AXIL</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_pulse_gen/awaddr">
+         <obj_property name="ElementShortName">awaddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">awaddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/awprot">
+         <obj_property name="ElementShortName">awprot[2:0]</obj_property>
+         <obj_property name="ObjectShortName">awprot[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/awvalid">
+         <obj_property name="ElementShortName">awvalid</obj_property>
+         <obj_property name="ObjectShortName">awvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/awready">
+         <obj_property name="ElementShortName">awready</obj_property>
+         <obj_property name="ObjectShortName">awready</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/wdata">
+         <obj_property name="ElementShortName">wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/wstrb">
+         <obj_property name="ElementShortName">wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/wvalid">
+         <obj_property name="ElementShortName">wvalid</obj_property>
+         <obj_property name="ObjectShortName">wvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/wready">
+         <obj_property name="ElementShortName">wready</obj_property>
+         <obj_property name="ObjectShortName">wready</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/bresp">
+         <obj_property name="ElementShortName">bresp[1:0]</obj_property>
+         <obj_property name="ObjectShortName">bresp[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/bvalid">
+         <obj_property name="ElementShortName">bvalid</obj_property>
+         <obj_property name="ObjectShortName">bvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/bready">
+         <obj_property name="ElementShortName">bready</obj_property>
+         <obj_property name="ObjectShortName">bready</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/araddr">
+         <obj_property name="ElementShortName">araddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">araddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/arprot">
+         <obj_property name="ElementShortName">arprot[2:0]</obj_property>
+         <obj_property name="ObjectShortName">arprot[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/arvalid">
+         <obj_property name="ElementShortName">arvalid</obj_property>
+         <obj_property name="ObjectShortName">arvalid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/arready">
+         <obj_property name="ElementShortName">arready</obj_property>
+         <obj_property name="ObjectShortName">arready</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/rdata">
+         <obj_property name="ElementShortName">rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/rresp">
+         <obj_property name="ElementShortName">rresp[1:0]</obj_property>
+         <obj_property name="ObjectShortName">rresp[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/rready">
+         <obj_property name="ElementShortName">rready</obj_property>
+         <obj_property name="ObjectShortName">rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_pulse_gen/rvalid">
+         <obj_property name="ElementShortName">rvalid</obj_property>
+         <obj_property name="ObjectShortName">rvalid</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group199">
+      <obj_property name="label">DUT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/effective_addr">
+         <obj_property name="ElementShortName">effective_addr[12:0]</obj_property>
+         <obj_property name="ObjectShortName">effective_addr[12:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/ch_state">
+         <obj_property name="ElementShortName">ch_state[7:0][2:0]</obj_property>
+         <obj_property name="ObjectShortName">ch_state[7:0][2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/state">
+         <obj_property name="ElementShortName">state[2:0]</obj_property>
+         <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_pos">
+         <obj_property name="ElementShortName">pulse_width_pos[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_pos[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_rtz">
+         <obj_property name="ElementShortName">pulse_width_rtz[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_rtz[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_neg">
+         <obj_property name="ElementShortName">pulse_width_neg[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_neg[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_delayramp">
+         <obj_property name="ElementShortName">pulse_width_delayramp[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_delayramp[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_recv">
+         <obj_property name="ElementShortName">pulse_width_recv[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_recv[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_width_idle">
+         <obj_property name="ElementShortName">pulse_width_idle[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_width_idle[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/num_scanlines">
+         <obj_property name="ElementShortName">num_scanlines[15:0]</obj_property>
+         <obj_property name="ObjectShortName">num_scanlines[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/errors">
+         <obj_property name="ElementShortName">errors[31:0]</obj_property>
+         <obj_property name="ObjectShortName">errors[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/ch_counter">
+         <obj_property name="ElementShortName">ch_counter[7:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">ch_counter[7:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/scanline_idx">
+         <obj_property name="ElementShortName">scanline_idx[15:0]</obj_property>
+         <obj_property name="ObjectShortName">scanline_idx[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_pulse_gen/dut/pulse_delay_data">
+         <obj_property name="ElementShortName">pulse_delay_data[7:0][255:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">pulse_delay_data[7:0][255:0][15:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/arm_sent">
+      <obj_property name="ElementShortName">arm_sent</obj_property>
+      <obj_property name="ObjectShortName">arm_sent</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/dut/sol_pulse">
+      <obj_property name="ElementShortName">sol_pulse</obj_property>
+      <obj_property name="ObjectShortName">sol_pulse</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/dut/eol_pulse">
+      <obj_property name="ElementShortName">eol_pulse</obj_property>
+      <obj_property name="ObjectShortName">eol_pulse</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pulse_gen/dut/sof_pulse">
+      <obj_property name="ElementShortName">sof_pulse</obj_property>
+      <obj_property name="ObjectShortName">sof_pulse</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/resp">
+      <obj_property name="ElementShortName">resp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">resp[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/read_data">
+      <obj_property name="ElementShortName">read_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">read_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/t_pos_rise">
+      <obj_property name="ElementShortName">t_pos_rise</obj_property>
+      <obj_property name="ObjectShortName">t_pos_rise</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/t_pos_fall">
+      <obj_property name="ElementShortName">t_pos_fall</obj_property>
+      <obj_property name="ObjectShortName">t_pos_fall</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/t_neg_rise">
+      <obj_property name="ElementShortName">t_neg_rise</obj_property>
+      <obj_property name="ObjectShortName">t_neg_rise</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/t_neg_fall">
+      <obj_property name="ElementShortName">t_neg_fall</obj_property>
+      <obj_property name="ObjectShortName">t_neg_fall</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/t_oen_fall">
+      <obj_property name="ElementShortName">t_oen_fall</obj_property>
+      <obj_property name="ObjectShortName">t_oen_fall</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pulse_gen/CLK_PERIOD">
+      <obj_property name="ElementShortName">CLK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">CLK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/ADDR_STATE">
+      <obj_property name="ElementShortName">ADDR_STATE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR_STATE[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/ADDR_PW_POS">
+      <obj_property name="ElementShortName">ADDR_PW_POS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR_PW_POS[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/ADDR_PW_RTZ">
+      <obj_property name="ElementShortName">ADDR_PW_RTZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR_PW_RTZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/ADDR_PW_NEG">
+      <obj_property name="ElementShortName">ADDR_PW_NEG[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR_PW_NEG[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/CMD_DISARM">
+      <obj_property name="ElementShortName">CMD_DISARM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CMD_DISARM[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/CMD_ARM">
+      <obj_property name="ElementShortName">CMD_ARM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CMD_ARM[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/CMD_START">
+      <obj_property name="ElementShortName">CMD_START[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CMD_START[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/STATE_IDLE">
+      <obj_property name="ElementShortName">STATE_IDLE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">STATE_IDLE[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/STATE_ARMED">
+      <obj_property name="ElementShortName">STATE_ARMED[31:0]</obj_property>
+      <obj_property name="ObjectShortName">STATE_ARMED[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/PW_POS">
+      <obj_property name="ElementShortName">PW_POS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PW_POS[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/PW_RTZ">
+      <obj_property name="ElementShortName">PW_RTZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PW_RTZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pulse_gen/PW_NEG">
+      <obj_property name="ElementShortName">PW_NEG[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PW_NEG[31:0]</obj_property>
+   </wvobject>
+</wave_config>
