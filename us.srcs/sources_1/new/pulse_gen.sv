@@ -351,8 +351,12 @@ typedef enum logic [2:0] {
             end
             TRIGGER: begin
                 for (ch = 0; ch < CHANNELS; ch = ch + 1) begin
-                    ch_counter[ch] <= pulse_delay_data[ch][scanline_idx];
-                    ch_state[ch] <= CH_DELAY;
+                    if (pulse_delay_data[ch][scanline_idx] == '1) begin  // if all 1's, skip pulse on this channel entirely
+                      ch_state[ch] <= CH_RECV;
+                    end else begin
+                      ch_counter[ch] <= pulse_delay_data[ch][scanline_idx];
+                      ch_state[ch] <= CH_DELAY;
+                    end
                 end
                 state <= PULSING;
                 if (scanline_idx == 0)
@@ -386,7 +390,7 @@ typedef enum logic [2:0] {
                     state_counter <= pulse_width_idle;
                     eol_pulse <= 1;
 
-                    if (scanline_idx == num_scanlines - 1)
+                    if (scanline_idx >= num_scanlines - 1)
                         scanline_idx <= 0;
                     else
                         scanline_idx <= scanline_idx + 1;

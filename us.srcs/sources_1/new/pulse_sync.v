@@ -27,12 +27,17 @@ module pulse_sync (
     input out_clk,
     output reg out_pulse
 );
-    
+
 reg level = 0;
 wire level_outclk;
 reg last_level_outclk = 0;
     
-xpm_cdc_single sync_req (
+xpm_cdc_single #(
+    .DEST_SYNC_FF(4),
+    .INIT_SYNC_FF(1),
+    .SRC_INPUT_REG(0),
+    .SIM_ASSERT_CHK(1)     // optional: warns on CDC violations in sim   
+) sync_req (
     .src_clk(in_clk),
     .dest_clk(out_clk),
     .src_in(level),

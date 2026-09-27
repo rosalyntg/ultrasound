@@ -59,7 +59,7 @@
     <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
-    <Option Name="WTXSimLaunchSim" Val="44"/>
+    <Option Name="WTXSimLaunchSim" Val="46"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -978,6 +978,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/adc_data_framing.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../verilog-ethernet/lib/axis/rtl/arbiter.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -1422,6 +1430,9 @@
         <CompFileExtendedInfo CompFileName="bd.bd" FileRelPathName="ip/bd_ila_0_1/bd_ila_0_1.xci">
           <Proxy FileSetName="bd_ila_0_1"/>
         </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="bd.bd" FileRelPathName="ip/bd_ila_0_2/bd_ila_0_2.xci">
+          <Proxy FileSetName="bd_ila_0_2"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="bd.bd" FileRelPathName="ip/bd_ila_2_0/bd_ila_2_0.xci">
           <Proxy FileSetName="bd_ila_2_0"/>
         </CompFileExtendedInfo>
@@ -1798,25 +1809,8 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
-    <FileSet Name="bd_pulse_sync_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_0" RelGenDir="$PGENDIR/bd_pulse_sync_0_0">
-      <Config>
-        <Option Name="TopModule" Val="bd_pulse_sync_0_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="bd_pulse_sync_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_1" RelGenDir="$PGENDIR/bd_pulse_sync_0_1">
-      <Config>
-        <Option Name="TopModule" Val="bd_pulse_sync_0_1"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="bd_pulse_sync_0_2" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_2" RelGenDir="$PGENDIR/bd_pulse_sync_0_2">
-      <Config>
-        <Option Name="TopModule" Val="bd_pulse_sync_0_2"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
     <FileSet Name="sim_jesd_to_axis" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_jesd_to_axis" RelGenDir="$PGENDIR/sim_jesd_to_axis">
+      <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_jesd_to_axis/new/tb_jesd_to_axi4s_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -1861,6 +1855,30 @@
     <FileSet Name="bd_jesd_to_axi4s_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_jesd_to_axi4s_0_0" RelGenDir="$PGENDIR/bd_jesd_to_axi4s_0_0">
       <Config>
         <Option Name="TopModule" Val="bd_jesd_to_axi4s_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="bd_pulse_sync_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_0" RelGenDir="$PGENDIR/bd_pulse_sync_0_0">
+      <Config>
+        <Option Name="TopModule" Val="bd_pulse_sync_0_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="bd_pulse_sync_0_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_1" RelGenDir="$PGENDIR/bd_pulse_sync_0_1">
+      <Config>
+        <Option Name="TopModule" Val="bd_pulse_sync_0_1"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="bd_pulse_sync_0_2" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_pulse_sync_0_2" RelGenDir="$PGENDIR/bd_pulse_sync_0_2">
+      <Config>
+        <Option Name="TopModule" Val="bd_pulse_sync_0_2"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="bd_ila_0_2" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_ila_0_2" RelGenDir="$PGENDIR/bd_ila_0_2">
+      <Config>
+        <Option Name="TopModule" Val="bd_ila_0_2"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -2169,9 +2187,7 @@
     </Run>
     <Run Id="bd_pulse_gen_wrapper_1_0_synth_1" Type="Ft3:Synth" SrcSet="bd_pulse_gen_wrapper_1_0" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_gen_wrapper_1_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_pulse_gen_wrapper_1_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_gen_wrapper_1_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_gen_wrapper_1_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -2181,9 +2197,17 @@
     </Run>
     <Run Id="bd_ila_0_1_synth_1" Type="Ft3:Synth" SrcSet="bd_ila_0_1" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_ila_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_ila_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_ila_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_ila_0_1_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="bd_jesd_to_axi4s_0_0_synth_1" Type="Ft3:Synth" SrcSet="bd_jesd_to_axi4s_0_0" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_jesd_to_axi4s_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_jesd_to_axi4s_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_synth_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -2193,9 +2217,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_0_synth_1" Type="Ft3:Synth" SrcSet="bd_pulse_sync_0_0" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_pulse_sync_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -2205,9 +2227,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_1_synth_1" Type="Ft3:Synth" SrcSet="bd_pulse_sync_0_1" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_pulse_sync_0_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_1_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -2217,9 +2237,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_2_synth_1" Type="Ft3:Synth" SrcSet="bd_pulse_sync_0_2" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_pulse_sync_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_2_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -2227,7 +2245,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="bd_jesd_to_axi4s_0_0_synth_1" Type="Ft3:Synth" SrcSet="bd_jesd_to_axi4s_0_0" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_jesd_to_axi4s_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_jesd_to_axi4s_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_synth_1" ParallelReportGen="true">
+    <Run Id="bd_ila_0_2_synth_1" Type="Ft3:Synth" SrcSet="bd_ila_0_2" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_ila_0_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/bd_ila_0_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_ila_0_2_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_ila_0_2_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -2720,9 +2738,7 @@
     </Run>
     <Run Id="bd_pulse_gen_wrapper_1_0_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_gen_wrapper_1_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_pulse_gen_wrapper_1_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_gen_wrapper_1_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_gen_wrapper_1_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -2739,9 +2755,24 @@
     </Run>
     <Run Id="bd_ila_0_1_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_ila_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_ila_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_ila_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_ila_0_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2025"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="bd_jesd_to_axi4s_0_0_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_jesd_to_axi4s_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_jesd_to_axi4s_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_impl_1" ParallelReportGen="true">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -2758,9 +2789,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_0_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_pulse_sync_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -2777,9 +2806,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_1_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_pulse_sync_0_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_1_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -2796,9 +2823,7 @@
     </Run>
     <Run Id="bd_pulse_sync_0_2_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_pulse_sync_0_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_pulse_sync_0_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_pulse_sync_0_2_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -2813,7 +2838,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="bd_jesd_to_axi4s_0_0_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_jesd_to_axi4s_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_jesd_to_axi4s_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_jesd_to_axi4s_0_0_impl_1" ParallelReportGen="true">
+    <Run Id="bd_ila_0_2_impl_1" Type="Ft2:EntireDesign" Part="xcau15p-ffvb676-2-i" ConstrsSet="bd_ila_0_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="bd_ila_0_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/bd_ila_0_2_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/bd_ila_0_2_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
           <Desc>Default settings for Implementation.</Desc>
@@ -2834,10 +2859,10 @@
     </Run>
   </Runs>
   <MsgRule>
-    <MsgAttr Name="RuleType" Val="1"/>
+    <MsgAttr Name="RuleType" Val="0"/>
     <MsgAttr Name="Limit" Val="-1"/>
-    <MsgAttr Name="NewSeverity" Val="ERROR"/>
-    <MsgAttr Name="Id" Val="Synth 8-689"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1306]"/>
     <MsgAttr Name="Severity" Val="ANY"/>
     <MsgAttr Name="ShowRule" Val="1"/>
     <MsgAttr Name="RuleSource" Val="2"/>
@@ -2848,15 +2873,71 @@
     <MsgAttr Name="CreatedTimestamp" Val=""/>
   </MsgRule>
   <MsgRule>
-    <MsgAttr Name="RuleType" Val="1"/>
+    <MsgAttr Name="RuleType" Val="0"/>
     <MsgAttr Name="Limit" Val="-1"/>
-    <MsgAttr Name="NewSeverity" Val="ERROR"/>
-    <MsgAttr Name="Id" Val="Synth 8-6104"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1306]"/>
+    <MsgAttr Name="Severity" Val="ANY"/>
+    <MsgAttr Name="ShowRule" Val="1"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
+    <MsgAttr Name="StringIsRegExp" Val="0"/>
+    <MsgAttr Name="RuleId" Val="11"/>
+    <MsgAttr Name="Note" Val=""/>
+    <MsgAttr Name="Author" Val=""/>
+    <MsgAttr Name="CreatedTimestamp" Val=""/>
+  </MsgRule>
+  <MsgRule>
+    <MsgAttr Name="RuleType" Val="0"/>
+    <MsgAttr Name="Limit" Val="-1"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1271]"/>
     <MsgAttr Name="Severity" Val="ANY"/>
     <MsgAttr Name="ShowRule" Val="1"/>
     <MsgAttr Name="RuleSource" Val="2"/>
     <MsgAttr Name="StringIsRegExp" Val="0"/>
     <MsgAttr Name="RuleId" Val="12"/>
+    <MsgAttr Name="Note" Val=""/>
+    <MsgAttr Name="Author" Val=""/>
+    <MsgAttr Name="CreatedTimestamp" Val=""/>
+  </MsgRule>
+  <MsgRule>
+    <MsgAttr Name="RuleType" Val="0"/>
+    <MsgAttr Name="Limit" Val="-1"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1306]"/>
+    <MsgAttr Name="Severity" Val="ANY"/>
+    <MsgAttr Name="ShowRule" Val="1"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
+    <MsgAttr Name="StringIsRegExp" Val="0"/>
+    <MsgAttr Name="RuleId" Val="15"/>
+    <MsgAttr Name="Note" Val=""/>
+    <MsgAttr Name="Author" Val=""/>
+    <MsgAttr Name="CreatedTimestamp" Val=""/>
+  </MsgRule>
+  <MsgRule>
+    <MsgAttr Name="RuleType" Val="0"/>
+    <MsgAttr Name="Limit" Val="-1"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1271]"/>
+    <MsgAttr Name="Severity" Val="ANY"/>
+    <MsgAttr Name="ShowRule" Val="1"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
+    <MsgAttr Name="StringIsRegExp" Val="0"/>
+    <MsgAttr Name="RuleId" Val="16"/>
+    <MsgAttr Name="Note" Val=""/>
+    <MsgAttr Name="Author" Val=""/>
+    <MsgAttr Name="CreatedTimestamp" Val=""/>
+  </MsgRule>
+  <MsgRule>
+    <MsgAttr Name="RuleType" Val="0"/>
+    <MsgAttr Name="Limit" Val="-1"/>
+    <MsgAttr Name="NewSeverity" Val="ANY"/>
+    <MsgAttr Name="Id" Val="[BD 41-1271]"/>
+    <MsgAttr Name="Severity" Val="ANY"/>
+    <MsgAttr Name="ShowRule" Val="1"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
+    <MsgAttr Name="StringIsRegExp" Val="0"/>
+    <MsgAttr Name="RuleId" Val="2"/>
     <MsgAttr Name="Note" Val=""/>
     <MsgAttr Name="Author" Val=""/>
     <MsgAttr Name="CreatedTimestamp" Val=""/>

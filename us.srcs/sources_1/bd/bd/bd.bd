@@ -51,7 +51,8 @@
       "pulse_sync_sol": "",
       "pulse_sync_sof": "",
       "pulse_sync_eol": "",
-      "ila_framing": ""
+      "ila_framing": "",
+      "ila_pulser": ""
     },
     "interface_ports": {
       "eth_refclk": {
@@ -3946,6 +3947,34 @@
             "value": "128"
           }
         }
+      },
+      "ila_pulser": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "ip_revision": "19",
+        "xci_name": "bd_ila_0_2",
+        "xci_path": "ip/bd_ila_0_2/bd_ila_0_2.xci",
+        "inst_hier_path": "ila_pulser",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "C_ADV_TRIGGER": {
+            "value": "true"
+          },
+          "C_EN_STRG_QUAL": {
+            "value": "1"
+          },
+          "C_MONITOR_TYPE": {
+            "value": "Native"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "7"
+          },
+          "C_PROBE0_WIDTH": {
+            "value": "8"
+          },
+          "C_PROBE1_WIDTH": {
+            "value": "8"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -4150,7 +4179,8 @@
         "ports": [
           "pulse_gen_wrapper_0/ramp_rst",
           "ramp_rst",
-          "vio_tx/probe_in0"
+          "vio_tx/probe_in0",
+          "ila_pulser/probe6"
         ]
       },
       "axi_gpio_rst_gpio_io_o": {
@@ -4654,37 +4684,43 @@
       "pulse_gen_wrapper_0_eol_pulse": {
         "ports": [
           "pulse_gen_wrapper_0/eol_pulse",
-          "pulse_sync_eol/in_pulse"
+          "pulse_sync_eol/in_pulse",
+          "ila_pulser/probe4"
         ]
       },
       "pulse_gen_wrapper_0_sof_pulse": {
         "ports": [
           "pulse_gen_wrapper_0/sof_pulse",
-          "pulse_sync_sof/in_pulse"
+          "pulse_sync_sof/in_pulse",
+          "ila_pulser/probe5"
         ]
       },
       "pulse_gen_wrapper_0_start_pulse": {
         "ports": [
           "pulse_gen_wrapper_0/sol_pulse",
-          "pulse_sync_sol/in_pulse"
+          "pulse_sync_sol/in_pulse",
+          "ila_pulser/probe3"
         ]
       },
       "pulse_gen_wrapper_1_pulser_neg": {
         "ports": [
           "pulse_gen_wrapper_0/pulser_neg",
-          "pulser_neg_0"
+          "pulser_neg_0",
+          "ila_pulser/probe0"
         ]
       },
       "pulse_gen_wrapper_1_pulser_oen": {
         "ports": [
           "pulse_gen_wrapper_0/pulser_oen",
-          "pulser_oen_0"
+          "pulser_oen_0",
+          "ila_pulser/probe2"
         ]
       },
       "pulse_gen_wrapper_1_pulser_pos": {
         "ports": [
           "pulse_gen_wrapper_0/pulser_pos",
-          "pulser_pos_0"
+          "pulser_pos_0",
+          "ila_pulser/probe1"
         ]
       },
       "pulse_sync_eol_out_pulse": {
@@ -4906,10 +4942,10 @@
           "jesd204b_rx_0/clk",
           "axis_data_fifo_0/s_axis_aclk",
           "ila_framing/clk",
+          "jesd_to_axi4s_0/aclk",
           "pulse_sync_sol/out_clk",
           "pulse_sync_sof/out_clk",
-          "pulse_sync_eol/out_clk",
-          "jesd_to_axi4s_0/aclk"
+          "pulse_sync_eol/out_clk"
         ]
       },
       "util_ds_buf_1_BUFG_GT_O": {
@@ -4978,7 +5014,8 @@
           "pulse_gen_wrapper_0/aclk",
           "pulse_sync_sol/in_clk",
           "pulse_sync_sof/in_clk",
-          "pulse_sync_eol/in_clk"
+          "pulse_sync_eol/in_clk",
+          "ila_pulser/clk"
         ]
       },
       "xxv_ethernet_0_rx_clk_out_1": {
