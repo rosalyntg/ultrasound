@@ -1,0 +1,55 @@
+* =====================================================================
+*  SPICE model for Lite-On LTST-C171KRKT
+*  AlInGaP Red SMD LED (0805 / 2.0 x 1.25 mm), water-clear lens
+*  Datasheet: LITE-ON DS22-2000-109, Rev. I (11/09/2023)
+* ---------------------------------------------------------------------
+*  Key datasheet ratings (Ta = 25 C):
+*    Vf            : 1.5 (min) .. 2.4 (max) V  @ If = 20 mA
+*    If (DC)       : 25 mA max
+*    If (peak)     : 60 mA  (1/10 duty, 0.1 ms pulse)
+*    Vr            : 5 V max
+*    Ir            : 10 uA max @ Vr = 5 V
+*    Pd            : 62.5 mW
+*    Peak wavelen. : 639 nm  -> Eg ~= 1.94 eV
+*    Dominant wl.  : 624 .. 638 nm
+*    Viewing angle : 130 deg
+* ---------------------------------------------------------------------
+*  Model derivation (Shockley diode + series resistance):
+*    Fit to Fig.2 (If vs Vf) at two operating points:
+*       ~1.0 mA @ 1.82 V   and   20 mA @ 2.00 V
+*    chosen RS = 3.5 ohm to match the ~5 ohm dynamic slope (20->30 mA),
+*    giving N = 1.5 and IS = 3.57e-24 A.
+*    Spot checks:  20 mA -> 2.00 V,  25 mA -> 2.03 V,  1 mA -> 1.85 V.
+*    BV/IBV encode the 10 uA @ 5 V reverse-leakage spec.
+*    EG/XTI set for AlInGaP for realistic temperature dependence.
+* =====================================================================
+
+.MODEL LTST-C171KRKT D
++ ( IS=3.57e-24   ; saturation current  [A]
++   N=1.5         ; emission coefficient (ideality factor)
++   RS=3.5        ; series resistance    [ohm]
++   CJO=30p       ; zero-bias junction capacitance [F]
++   VJ=0.75       ; junction potential   [V]
++   M=0.33        ; grading coefficient
++   BV=5          ; reverse "breakdown"/rating voltage [V]
++   IBV=10u       ; current at BV (encodes 10 uA @ 5 V spec) [A]
++   EG=1.94       ; bandgap energy (AlInGaP red) [eV]
++   XTI=3 )       ; IS temperature exponent
+
+* ---------------------------------------------------------------------
+*  Usage example (LTspice):
+*    Place a "diode" symbol, set Value = LTST-C171KRKT,
+*    and add this file via a .include / .lib directive, e.g.:
+*       .lib LTST-C171KRKT.lib
+*
+*    D1  anode  cathode  LTST-C171KRKT
+*
+*  Drive at the rated 20 mA from a 5 V rail:
+*    Rseries = (5 V - 2.0 V) / 20 mA = 150 ohm
+* ---------------------------------------------------------------------
+*  Notes:
+*   - Forward characteristics are the focus; reverse leakage in real
+*     parts is dominated by surface effects, so this model is typically
+*     "better than" the 10 uA worst-case spec below 5 V.
+*   - This is an ELECTRICAL model only (no optical/luminous output).
+* =====================================================================
