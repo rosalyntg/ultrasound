@@ -52,7 +52,7 @@
         "OUTPUTDIR": [ { "value": "../../../../../../us.gen/sources_1/bd/bd/ip/bd_util_ds_buf_0_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2025.2" } ],
+        "SWVERSION": [ { "value": "2025.2.1" } ],
         "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
       }
     },
@@ -117,5 +117,5 @@
       }
     }
   },
-  "checksum": "227f7baf"
+  "checksum": "59abe349"
 }

@@ -1,0 +1,16 @@
+.SI5338Q-B-GM :1 ;Clock Generators & Support Products I2C control, 4-output, any frequency (< 200 MHz), any output, clock generator (2 diff, 2 SE)
+SI5338QBGM
+*STM IC
+*NGS
+*PLB 1="IN1" 2="IN2" 3="IN3" 4="IN4" 5="IN5" 6="IN6" 7="VDD_1" 8="INTR" 9="CLK3B" 10="CLK3A" 11="VDDO3" 12="SCL" 13="CLK2B" 14="CLK2A" 15="VDDO2" 16="VDDO1" 17="CLK1B" 18="CLK1A" 19="SDA" 20="VDDO0" 21="CLK0B" 22="CLK0A" 23="RSVD_GND" 24="VDD_2" 25="GND"
+*MXP 25
+*DFN SI5338Q-B-GM
+~!Mouser Part Number (634-SI5338Q-B-GM)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Skyworks-Solutions-Inc/SI5338Q-B-GM?qs=gjQ0PIzz%2F1MzmGBnBCHNRg%3D%3D)
+~!Manufacturer_Name (Skyworks)
+~!Manufacturer_Part_Number (SI5338Q-B-GM)
+~!Link Datasheet (https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/Si5338.pdf)
+~!Height (0.9mm)
+~!3D_Model (SI5338Q-B-GM)
+SI5338Q-B-GM
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 15.1!U 16.1!U 17.1!U 18.1!U 19.1!U 20.1!U 21.1!U 22.1!U 23.1!U 24.1!U 25.1!U 

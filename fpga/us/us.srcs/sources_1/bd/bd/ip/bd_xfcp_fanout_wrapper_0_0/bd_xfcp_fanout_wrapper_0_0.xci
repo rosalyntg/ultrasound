@@ -313,12 +313,12 @@
       },
       "address_spaces": {
         "m_axi": {
-          "range": "0x100000000",
+          "range": "4294967296",
           "display_name": "m_axi",
           "width": "32"
         }
       }
     }
   },
-  "checksum": "a38f36f8"
+  "checksum": "617ef29b"
 }

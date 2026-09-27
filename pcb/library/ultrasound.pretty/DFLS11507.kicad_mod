@@ -1,0 +1,213 @@
+(footprint "DFLS11507"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "DFLS1150-7")
+	(tags "Schottky Diode")
+	(property "Reference" "D**"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(uuid "1a82ccb7-165e-473e-b169-c204dce84786")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Value" "DFLS11507"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "7614d63b-432e-40b5-8bf9-7486cddf8206")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "73229a60-7910-482a-b56b-bb8c7f8049d9")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "68fa5354-51d9-4f93-8956-3324244140c1")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start 2.5 0)
+		(end 2.5 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d8565c60-7fee-4d04-a4a4-d2f78c08188a")
+	)
+	(fp_line
+		(start 2.6 0)
+		(end 2.6 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "85ec06ab-a75f-4c4b-9540-d4f0eba98cea")
+	)
+	(fp_arc
+		(start 2.5 0)
+		(mid 2.55 -0.05)
+		(end 2.6 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "642ab709-dfdc-4dcf-9a02-465832cc8657")
+	)
+	(fp_arc
+		(start 2.6 0)
+		(mid 2.55 0.05)
+		(end 2.5 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "61cf4f7e-e71a-4929-927f-f85876cc1f94")
+	)
+	(fp_line
+		(start -3.05 -1.89)
+		(end 3.05 -1.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b5f30ad7-a438-4573-b33b-fec319610986")
+	)
+	(fp_line
+		(start -3.05 1.89)
+		(end -3.05 -1.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "ff23ba2a-cbf5-4068-89e2-18f84a442d5e")
+	)
+	(fp_line
+		(start 3.05 -1.89)
+		(end 3.05 1.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "552b782d-8d26-4a50-8e36-d0108365004f")
+	)
+	(fp_line
+		(start 3.05 1.89)
+		(end -3.05 1.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "52cb2155-7e23-4b7a-851a-a3452b052abc")
+	)
+	(fp_line
+		(start -1.4 -0.89)
+		(end 1.4 -0.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2afb7508-c7f0-490c-a906-019ff60a6265")
+	)
+	(fp_line
+		(start -1.4 0.89)
+		(end -1.4 -0.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1c01b55c-3d44-4b74-a255-a9126557a917")
+	)
+	(fp_line
+		(start 1.4 -0.89)
+		(end 1.4 0.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "324e272d-8552-4df4-9be6-8ee25d683d7a")
+	)
+	(fp_line
+		(start 1.4 0.89)
+		(end -1.4 0.89)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "00e61f8c-b596-402c-9a77-454c312b034e")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "b7386d1b-91f3-4c98-9e9c-52da165ca431")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at 0.85 0 90)
+		(size 1.5 2.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "ee2d9f68-488f-422a-ae24-52c23689a523")
+	)
+	(pad "2" smd rect
+		(at -1.525 0)
+		(size 1.05 1.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "99ed884c-a53e-4ee1-afec-1c1f13d18479")
+	)
+	(embedded_fonts no)
+	(model "/home/russell/ultrasound/library/Diodes Inc DFLS1150/DFLS1150-7.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 -180)
+		)
+	)
+)

@@ -42,7 +42,6 @@
       "c_counter_binary_1": "",
       "slice_adcrst": "",
       "slice_jesdrst": "",
-      "spi_ila_wrapper_0": "",
       "axis_data_fifo_0": "",
       "jesd_to_axi4s_0": "",
       "ila_udp": "",
@@ -3390,101 +3389,6 @@
           }
         }
       },
-      "spi_ila_wrapper_0": {
-        "vlnv": "xilinx.com:module_ref:spi_ila_wrapper:1.0",
-        "ip_revision": "1",
-        "xci_name": "bd_spi_ila_wrapper_0_0",
-        "xci_path": "ip/bd_spi_ila_wrapper_0_0/bd_spi_ila_wrapper_0_0.xci",
-        "inst_hier_path": "spi_ila_wrapper_0",
-        "has_run_ip_tcl": "true",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "spi_ila_wrapper",
-          "boundary_crc": "0x0"
-        },
-        "interface_ports": {
-          "spi": {
-            "mode": "Monitor",
-            "monitor_type": "SlaveType",
-            "vlnv_bus_definition": "xilinx.com:interface:spi:1.0",
-            "vlnv": "xilinx.com:interface:spi_rtl:1.0",
-            "port_maps": {
-              "SS_I": {
-                "physical_name": "spi_ss_i",
-                "direction": "I",
-                "left": "0",
-                "right": "0"
-              },
-              "SS_O": {
-                "physical_name": "spi_ss_o",
-                "direction": "I",
-                "left": "0",
-                "right": "0"
-              },
-              "SS_T": {
-                "physical_name": "spi_ss_t",
-                "direction": "I"
-              },
-              "SCK_I": {
-                "physical_name": "spi_sck_i",
-                "direction": "I"
-              },
-              "SCK_O": {
-                "physical_name": "spi_sck_o",
-                "direction": "I"
-              },
-              "SCK_T": {
-                "physical_name": "spi_sck_t",
-                "direction": "I"
-              },
-              "IO0_I": {
-                "physical_name": "spi_io0_i",
-                "direction": "I"
-              },
-              "IO0_O": {
-                "physical_name": "spi_io0_o",
-                "direction": "I"
-              },
-              "IO0_T": {
-                "physical_name": "spi_io0_t",
-                "direction": "I"
-              },
-              "IO1_I": {
-                "physical_name": "spi_io1_i",
-                "direction": "I"
-              },
-              "IO1_O": {
-                "physical_name": "spi_io1_o",
-                "direction": "I"
-              },
-              "IO1_T": {
-                "physical_name": "spi_io1_t",
-                "direction": "I"
-              }
-            }
-          }
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "FREQ_HZ": {
-                "value": "156250000",
-                "value_src": "user_prop"
-              },
-              "PHASE": {
-                "value": "0",
-                "value_src": "user_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "bd_xxv_ethernet_0_0_rx_clk_out_0",
-                "value_src": "default_prop"
-              }
-            }
-          }
-        }
-      },
       "axis_data_fifo_0": {
         "vlnv": "xilinx.com:ip:axis_data_fifo:2.0",
         "ip_revision": "17",
@@ -3999,8 +3903,7 @@
       "axi_quad_spi_0_SPI_0": {
         "interface_ports": [
           "spi_adc0",
-          "axi_quad_spi_0/SPI_0",
-          "spi_ila_wrapper_0/spi"
+          "axi_quad_spi_0/SPI_0"
         ]
       },
       "axi_quad_spi_1_SPI_0": {
@@ -5004,7 +4907,6 @@
           "axi_quad_spi_0/s_axi_aclk",
           "axi_quad_spi_1/s_axi_aclk",
           "axi_gpio_pinswap/s_axi_aclk",
-          "spi_ila_wrapper_0/clk",
           "axis_data_fifo_0/m_axis_aclk",
           "jesd204_phy_0/s_axi_aclk",
           "ila_udp/clk",

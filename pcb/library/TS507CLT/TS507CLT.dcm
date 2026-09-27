@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TS507CLT
+D High precision rail-to-rail operational amplifier
+K
+F https://www.st.com/resource/en/datasheet/ts507.pdf
+$ENDCMP
+#
+#End Doc Library

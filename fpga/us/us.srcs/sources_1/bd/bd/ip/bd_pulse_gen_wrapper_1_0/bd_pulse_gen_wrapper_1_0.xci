@@ -181,7 +181,7 @@
           "address_blocks": {
             "reg0": {
               "base_address": "0x0",
-              "range": "0x4000",
+              "range": "16384",
               "display_name": "reg0",
               "usage": "register"
             }
@@ -190,5 +190,5 @@
       }
     }
   },
-  "checksum": "8a4edc2e"
+  "checksum": "b16a26b9"
 }

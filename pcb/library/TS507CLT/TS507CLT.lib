@@ -1,0 +1,28 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model TS507CLT
+#/560476/213869/2.50/5/2/Integrated Circuit
+DEF TS507CLT IC 0 30 Y Y 1 F N
+F0 "IC" 2250 300 50 H V L CNN
+F1 "TS507CLT" 2250 200 50 H V L CNN
+F2 "SOT95P280X145-5N" 2250 100 50 H I L CNN
+F3 "https://www.st.com/resource/en/datasheet/ts507.pdf" 2250 0 50 H I L CNN
+F4 "High precision rail-to-rail operational amplifier" 2250 -100 50 H I L CNN "Description"
+F5 "1.45" 2250 -200 50 H I L CNN "Height"
+F6 "STMicroelectronics" 2250 -300 50 H I L CNN "Manufacturer_Name"
+F7 "TS507CLT" 2250 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "511-TS507CLT" 2250 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.com/Search/Refine.aspx?Keyword=511-TS507CLT" 2250 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "TS507CLT" 2250 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/ts507clt/stmicroelectronics" 2250 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X OUTPUT 1 0 0 200 R 50 50 0 0 P
+X VDD 2 0 -100 200 R 50 50 0 0 P
+X NON_INVERTING_INPUT 3 0 -200 200 R 50 50 0 0 P
+X INVERTING_INPUT 4 2400 0 200 L 50 50 0 0 P
+X VCC 5 2400 -100 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 2200 100 2200 -300 200 -300 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SI5338Q-B-GM
+D Clock Generators & Support Products I2C control, 4-output, any frequency (< 200 MHz), any output, clock generator (2 diff, 2 SE)
+K
+F https://www.skyworksinc.com/-/media/SkyWorks/SL/documents/public/data-sheets/Si5338.pdf
+$ENDCMP
+#
+#End Doc Library

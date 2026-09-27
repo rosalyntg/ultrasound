@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "SI5338Q-B-GM"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2025-10-31-11:24:50)
+    (mountForm default
+        (footprintRef "SI5338QBGM")
+        (spec "System")
+    )
+)

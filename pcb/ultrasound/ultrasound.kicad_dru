@@ -1,0 +1,16 @@
+(version 1)
+(rule "holeclearance"
+(condition "A.Via_Type == 'Through' && B.Pad_Type == 'SMD'")
+(constraint physical_hole_clearance (min 0.05mm)))
+(rule HV_Clearance
+	(constraint clearance (min 0.5mm))
+	(condition "A.hasNetclass('HV') && !A.intersectsArea('HVClearanceAllow')")
+)
+(rule Skew
+	(constraint skew (max 0.1mm) (within_diff_pairs))
+	(condition "A.hasNetclass('SYNC') || A.hasNetclass('CLK') || A.hasNetclass('ETH') || A.hasNetclass('JESD204B') || A.hasNetclass('RF')")
+)
+(rule SYNC
+	(constraint skew (max 5ps))
+	(condition "A.hasNetclass('SYNC')")
+)

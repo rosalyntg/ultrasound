@@ -1,0 +1,106 @@
+(footprint "WURTH_WE-LHMI-9.2mm"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at -0.3 -2.8 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "fc73d6be-0b70-498b-bc38-a580a7aae66a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "WURTH_WE-LHMI-9.2mm"
+		(at 0 1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "4a84ff51-3322-484b-bf07-2ca8265bc78c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fc8d48b9-9219-4c5c-9cd4-7ff7b1602275")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "faf6e5bc-93d5-4c70-ab75-1dd74501b1f4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_rect
+		(start -4.85 -4.6)
+		(end 4.85 4.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "dc280872-b951-49c6-962b-993671b20a9e")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "2d5fce77-5d3b-420d-8da4-d2c0c07c46fa")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -4 0)
+		(size 2.92 5.33)
+		(layers "F.Cu" "F.Mask")
+		(thermal_bridge_angle 45)
+		(uuid "d9c9e938-c954-47ce-b28d-4f4549bf81b2")
+	)
+	(pad "2" smd rect
+		(at 4 0)
+		(size 2.92 5.33)
+		(layers "F.Cu" "F.Mask")
+		(thermal_bridge_angle 45)
+		(uuid "538692ef-6635-4d7a-aec7-d402d939e0cd")
+	)
+	(embedded_fonts no)
+	(model "/home/russell/ultrasound/library/Wurth 74437324100/74437324100.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

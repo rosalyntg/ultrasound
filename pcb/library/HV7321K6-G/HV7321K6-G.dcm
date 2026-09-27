@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HV7321K6-G
+D Pulse Generator PMIC 64-QFN (9x9)
+K
+F http://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en588795
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "SI5338QBGM"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "SI5338QBGM")
+        (spec "default")
+    )
+)
